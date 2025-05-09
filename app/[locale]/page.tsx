@@ -29,6 +29,11 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useTheme } from "next-themes"
 import { LanguageSwitcher } from "@/components/language-switcher"
 
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
 export default function LandingPage() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -164,7 +169,7 @@ export default function LandingPage() {
           <div className="hidden md:flex gap-4 items-center">
             <LanguageSwitcher />
             <Button variant="ghost" size="icon" onClick={toggleTheme} className="rounded-full">
-              {mounted && theme === "dark" ? <Sun className="size-[18px]" /> : <Moon className="size-[18px]" />}
+              {mounted ? (theme === "dark" ? <Sun className="size-[18px]" /> : <Moon className="size-[18px]" />) : <Moon className="size-[18px]" />}
               <span className="sr-only">{accessibilityT("toggleTheme")}</span>
             </Button>
             <Link
@@ -181,7 +186,7 @@ export default function LandingPage() {
           <div className="flex items-center gap-4 md:hidden">
             <LanguageSwitcher />
             <Button variant="ghost" size="icon" onClick={toggleTheme} className="rounded-full">
-              {mounted && theme === "dark" ? <Sun className="size-[18px]" /> : <Moon className="size-[18px]" />}
+              {mounted ? (theme === "dark" ? <Sun className="size-[18px]" /> : <Moon className="size-[18px]" />) : <Moon className="size-[18px]" />}
             </Button>
             <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
               {mobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
@@ -238,7 +243,7 @@ export default function LandingPage() {
               <Badge className="mb-4 rounded-full px-4 py-1.5 text-sm font-medium" variant="secondary">
                 {heroT("badge")}
               </Badge>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl lg:leading-tight font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">
                 {heroT("title")}
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">{heroT("description")}</p>
@@ -487,7 +492,7 @@ export default function LandingPage() {
 
             <div className="mx-auto max-w-3xl">
               <Accordion type="single" collapsible className="w-full">
-                {faqT.raw("questions").map((faq, i) => (
+                {faqT.raw("questions").map((faq: FaqItem, i: number) => (
                   <motion.div
                     key={i}
                     initial={{ opacity: 0, y: 10 }}
@@ -496,9 +501,7 @@ export default function LandingPage() {
                     transition={{ duration: 0.3, delay: i * 0.05 }}
                   >
                     <AccordionItem value={`item-${i}`} className="border-b border-border/40 py-2">
-                      <AccordionTrigger className="text-left font-medium hover:no-underline">
-                        {faq.question}
-                      </AccordionTrigger>
+                      <AccordionTrigger className="text-left font-medium hover:no-underline">{faq.question}</AccordionTrigger>
                       <AccordionContent className="text-muted-foreground">{faq.answer}</AccordionContent>
                     </AccordionItem>
                   </motion.div>
@@ -550,7 +553,7 @@ export default function LandingPage() {
                 <div className="size-8 rounded-lg bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center text-primary-foreground">
                   S
                 </div>
-                <span>SaaSify</span>
+                <span>SuperVitre</span>
               </div>
               <p className="text-sm text-muted-foreground">{footerT("about")}</p>
               {/* Social links */}

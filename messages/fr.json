@@ -1,25 +1,25 @@
 {
   "meta": {
-    "title": "SaaSify - Optimisez Votre Flux de Travail",
-    "description": "Augmentez la productivité, réduisez les coûts et développez votre entreprise avec notre plateforme SaaS tout-en-un."
+    "title": "Lavage de vitre résidentiel à Saint-Lambert",
+    "description": "Lavage de vitre professionnel pour un intérieur lumineux."
   },
   "navigation": {
-    "features": "Fonctionnalités",
-    "testimonials": "Témoignages",
+    "features": "Réservation",
+    "testimonials": "Contact",
     "pricing": "Tarifs",
     "faq": "FAQ",
-    "login": "Connexion"
+    "login": "Connexion Employés"
   },
   "cta": {
-    "getStarted": "Commencer",
-    "startFreeTrial": "Essai Gratuit",
+    "getStarted": "Reserver",
+    "startFreeTrial": "Pas Sur?",
     "bookDemo": "Réserver une Démo",
     "scheduleDemo": "Planifier une Démo",
     "contactSales": "Contacter les Ventes"
   },
   "hero": {
     "badge": "Bientôt Disponible",
-    "title": "Optimisez Votre Flux de Travail avec SaaSify",
+    "title": "Lavage de vitre résidentiel à Saint-Lambert",
     "description": "La plateforme tout-en-un qui aide les équipes à collaborer, automatiser et livrer des résultats exceptionnels. Rationalisez vos processus et concentrez-vous sur l'essentiel.",
     "benefits": {
       "noCreditCard": "Sans carte de crédit",
@@ -162,7 +162,7 @@
     ]
   },
   "finalCta": {
-    "title": "Prêt à Transformer Votre Flux de Travail?",
+    "title": "Prêt à Transformer Vos Fenetres?",
     "description": "Rejoignez des milliers de clients satisfaits qui ont rationalisé leurs processus et augmenté leur productivité avec notre plateforme.",
     "footnote": "Aucune carte de crédit requise. Essai gratuit de 14 jours. Annulez à tout moment."
   },
@@ -186,7 +186,7 @@
       "integrations": "Intégrations",
       "api": "API"
     },
-    "copyright": "© {year} SaaSify. Tous droits réservés."
+    "copyright": "© {year} SuperVitre. Tous droits réservés."
   },
   "accessibility": {
     "scrollToTop": "Retour en haut",
