@@ -1,0 +1,197 @@
+{
+  "meta": {
+    "title": "SaaSify - Streamline Your Workflow",
+    "description": "Boost productivity, reduce costs, and scale your business with our all-in-one SaaS platform."
+  },
+  "navigation": {
+    "features": "Features",
+    "testimonials": "Testimonials",
+    "pricing": "Pricing",
+    "faq": "FAQ",
+    "login": "Log in"
+  },
+  "cta": {
+    "getStarted": "Get Started",
+    "startFreeTrial": "Start Free Trial",
+    "bookDemo": "Book a Demo",
+    "scheduleDemo": "Schedule a Demo",
+    "contactSales": "Contact Sales"
+  },
+  "hero": {
+    "badge": "Launching Soon",
+    "title": "Elevate Your Workflow with SaaSify",
+    "description": "The all-in-one platform that helps teams collaborate, automate, and deliver exceptional results. Streamline your processes and focus on what matters most.",
+    "benefits": {
+      "noCreditCard": "No credit card",
+      "trial": "14-day trial",
+      "cancelAnytime": "Cancel anytime"
+    }
+  },
+  "logos": {
+    "title": "Trusted by innovative companies worldwide"
+  },
+  "features": {
+    "badge": "Features",
+    "title": "Everything You Need to Succeed",
+    "description": "Our comprehensive platform provides all the tools you need to streamline your workflow, boost productivity, and achieve your goals.",
+    "items": {
+      "automation": {
+        "title": "Smart Automation",
+        "description": "Automate repetitive tasks and workflows to save time and reduce errors."
+      },
+      "analytics": {
+        "title": "Advanced Analytics",
+        "description": "Gain valuable insights with real-time data visualization and reporting."
+      },
+      "collaboration": {
+        "title": "Team Collaboration",
+        "description": "Work together seamlessly with integrated communication tools."
+      },
+      "security": {
+        "title": "Enterprise Security",
+        "description": "Keep your data safe with end-to-end encryption and compliance features."
+      },
+      "integration": {
+        "title": "Seamless Integration",
+        "description": "Connect with your favorite tools through our extensive API ecosystem."
+      },
+      "support": {
+        "title": "24/7 Support",
+        "description": "Get help whenever you need it with our dedicated support team."
+      }
+    }
+  },
+  "howItWorks": {
+    "badge": "How It Works",
+    "title": "Simple Process, Powerful Results",
+    "description": "Get started in minutes and see the difference our platform can make for your business.",
+    "steps": {
+      "step1": {
+        "title": "Create Account",
+        "description": "Sign up in seconds with just your email. No credit card required to get started."
+      },
+      "step2": {
+        "title": "Configure Workspace",
+        "description": "Customize your workspace to match your team's unique workflow and requirements."
+      },
+      "step3": {
+        "title": "Boost Productivity",
+        "description": "Start using our powerful features to streamline processes and achieve your goals."
+      }
+    }
+  },
+  "testimonials": {
+    "badge": "Testimonials",
+    "title": "Loved by Teams Worldwide",
+    "description": "Don't just take our word for it. See what our customers have to say about their experience."
+  },
+  "pricing": {
+    "badge": "Pricing",
+    "title": "Simple, Transparent Pricing",
+    "description": "Choose the plan that's right for your business. All plans include a 14-day free trial.",
+    "monthly": "Monthly",
+    "annually": "Annually (Save 20%)",
+    "plans": {
+      "starter": {
+        "name": "Starter",
+        "price": "$29",
+        "annualPrice": "$23",
+        "description": "Perfect for small teams and startups.",
+        "features": ["Up to 5 team members", "Basic analytics", "5GB storage", "Email support"]
+      },
+      "professional": {
+        "name": "Professional",
+        "price": "$79",
+        "annualPrice": "$63",
+        "description": "Ideal for growing businesses.",
+        "features": [
+          "Up to 20 team members",
+          "Advanced analytics",
+          "25GB storage",
+          "Priority email support",
+          "API access"
+        ],
+        "popular": "Most Popular"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "price": "$199",
+        "annualPrice": "$159",
+        "description": "For large organizations with complex needs.",
+        "features": [
+          "Unlimited team members",
+          "Custom analytics",
+          "Unlimited storage",
+          "24/7 phone & email support",
+          "Advanced API access",
+          "Custom integrations"
+        ]
+      }
+    },
+    "perMonth": "/month"
+  },
+  "faq": {
+    "badge": "FAQ",
+    "title": "Frequently Asked Questions",
+    "description": "Find answers to common questions about our platform.",
+    "questions": [
+      {
+        "question": "How does the 14-day free trial work?",
+        "answer": "Our 14-day free trial gives you full access to all features of your selected plan. No credit card is required to sign up, and you can cancel at any time during the trial period with no obligation."
+      },
+      {
+        "question": "Can I change plans later?",
+        "answer": "Yes, you can upgrade or downgrade your plan at any time. If you upgrade, the new pricing will be prorated for the remainder of your billing cycle. If you downgrade, the new pricing will take effect at the start of your next billing cycle."
+      },
+      {
+        "question": "Is there a limit to how many users I can add?",
+        "answer": "The number of users depends on your plan. The Starter plan allows up to 5 team members, the Professional plan allows up to 20, and the Enterprise plan has no limit on team members."
+      },
+      {
+        "question": "Do you offer discounts for nonprofits or educational institutions?",
+        "answer": "Yes, we offer special pricing for nonprofits, educational institutions, and open-source projects. Please contact our sales team for more information."
+      },
+      {
+        "question": "How secure is my data?",
+        "answer": "We take security very seriously. All data is encrypted both in transit and at rest. We use industry-standard security practices and regularly undergo security audits. Our platform is compliant with GDPR, CCPA, and other relevant regulations."
+      },
+      {
+        "question": "What kind of support do you offer?",
+        "answer": "Support varies by plan. All plans include email support, with the Professional plan offering priority email support. The Enterprise plan includes 24/7 phone and email support. We also have an extensive knowledge base and community forum available to all users."
+      }
+    ]
+  },
+  "finalCta": {
+    "title": "Ready to Transform Your Workflow?",
+    "description": "Join thousands of satisfied customers who have streamlined their processes and boosted productivity with our platform.",
+    "footnote": "No credit card required. 14-day free trial. Cancel anytime."
+  },
+  "footer": {
+    "about": "Streamline your workflow with our all-in-one SaaS platform. Boost productivity and scale your business.",
+    "categories": {
+      "product": "Product",
+      "resources": "Resources",
+      "company": "Company"
+    },
+    "links": {
+      "documentation": "Documentation",
+      "guides": "Guides",
+      "blog": "Blog",
+      "support": "Support",
+      "about": "About",
+      "careers": "Careers",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "cookies": "Cookie Policy",
+      "integrations": "Integrations",
+      "api": "API"
+    },
+    "copyright": "© {year} SaaSify. All rights reserved."
+  },
+  "accessibility": {
+    "scrollToTop": "Scroll to top",
+    "toggleTheme": "Toggle theme",
+    "toggleMenu": "Toggle menu",
+    "changeLanguage": "Change language"
+  }
+}

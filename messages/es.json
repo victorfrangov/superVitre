@@ -1,0 +1,202 @@
+{
+  "meta": {
+    "title": "SaaSify - Optimiza tu Flujo de Trabajo",
+    "description": "Aumenta la productividad, reduce costos y escala tu negocio con nuestra plataforma SaaS todo en uno."
+  },
+  "navigation": {
+    "features": "Características",
+    "testimonials": "Testimonios",
+    "pricing": "Precios",
+    "faq": "Preguntas Frecuentes",
+    "login": "Iniciar sesión"
+  },
+  "cta": {
+    "getStarted": "Comenzar",
+    "startFreeTrial": "Iniciar Prueba Gratuita",
+    "bookDemo": "Reservar Demo",
+    "scheduleDemo": "Programar Demo",
+    "contactSales": "Contactar Ventas"
+  },
+  "hero": {
+    "badge": "Próximamente",
+    "title": "Eleva tu Flujo de Trabajo con SaaSify",
+    "description": "La plataforma todo en uno que ayuda a los equipos a colaborar, automatizar y entregar resultados excepcionales. Optimiza tus procesos y concéntrate en lo que más importa.",
+    "benefits": {
+      "noCreditCard": "Sin tarjeta de crédito",
+      "trial": "Prueba de 14 días",
+      "cancelAnytime": "Cancela cuando quieras"
+    }
+  },
+  "logos": {
+    "title": "Confiado por empresas innovadoras en todo el mundo"
+  },
+  "features": {
+    "badge": "Características",
+    "title": "Todo lo que Necesitas para Tener Éxito",
+    "description": "Nuestra plataforma integral proporciona todas las herramientas que necesitas para optimizar tu flujo de trabajo, aumentar la productividad y alcanzar tus objetivos.",
+    "items": {
+      "automation": {
+        "title": "Automatización Inteligente",
+        "description": "Automatiza tareas repetitivas y flujos de trabajo para ahorrar tiempo y reducir errores."
+      },
+      "analytics": {
+        "title": "Análisis Avanzado",
+        "description": "Obtén información valiosa con visualización de datos en tiempo real e informes."
+      },
+      "collaboration": {
+        "title": "Colaboración en Equipo",
+        "description": "Trabaja en conjunto sin problemas con herramientas de comunicación integradas."
+      },
+      "security": {
+        "title": "Seguridad Empresarial",
+        "description": "Mantén tus datos seguros con cifrado de extremo a extremo y funciones de cumplimiento."
+      },
+      "integration": {
+        "title": "Integración Perfecta",
+        "description": "Conéctate con tus herramientas favoritas a través de nuestro extenso ecosistema de API."
+      },
+      "support": {
+        "title": "Soporte 24/7",
+        "description": "Obtén ayuda cuando la necesites con nuestro dedicado equipo de soporte."
+      }
+    }
+  },
+  "howItWorks": {
+    "badge": "Cómo Funciona",
+    "title": "Proceso Simple, Resultados Potentes",
+    "description": "Comienza en minutos y observa la diferencia que nuestra plataforma puede hacer para tu negocio.",
+    "steps": {
+      "step1": {
+        "title": "Crear Cuenta",
+        "description": "Regístrate en segundos solo con tu correo electrónico. No se requiere tarjeta de crédito para comenzar."
+      },
+      "step2": {
+        "title": "Configurar Espacio de Trabajo",
+        "description": "Personaliza tu espacio de trabajo para que coincida con el flujo de trabajo y los requisitos únicos de tu equipo."
+      },
+      "step3": {
+        "title": "Aumentar Productividad",
+        "description": "Comienza a usar nuestras potentes funciones para optimizar procesos y alcanzar tus objetivos."
+      }
+    }
+  },
+  "testimonials": {
+    "badge": "Testimonios",
+    "title": "Amado por Equipos en Todo el Mundo",
+    "description": "No solo tomes nuestra palabra. Mira lo que nuestros clientes tienen que decir sobre su experiencia."
+  },
+  "pricing": {
+    "badge": "Precios",
+    "title": "Precios Simples y Transparentes",
+    "description": "Elige el plan adecuado para tu negocio. Todos los planes incluyen una prueba gratuita de 14 días.",
+    "monthly": "Mensual",
+    "annually": "Anual (Ahorra 20%)",
+    "plans": {
+      "starter": {
+        "name": "Inicial",
+        "price": "29€",
+        "annualPrice": "23€",
+        "description": "Perfecto para equipos pequeños y startups.",
+        "features": [
+          "Hasta 5 miembros del equipo",
+          "Análisis básico",
+          "5GB de almacenamiento",
+          "Soporte por correo electrónico"
+        ]
+      },
+      "professional": {
+        "name": "Profesional",
+        "price": "79€",
+        "annualPrice": "63€",
+        "description": "Ideal para negocios en crecimiento.",
+        "features": [
+          "Hasta 20 miembros del equipo",
+          "Análisis avanzado",
+          "25GB de almacenamiento",
+          "Soporte prioritario por correo",
+          "Acceso a API"
+        ],
+        "popular": "Más Popular"
+      },
+      "enterprise": {
+        "name": "Empresarial",
+        "price": "199€",
+        "annualPrice": "159€",
+        "description": "Para organizaciones grandes con necesidades complejas.",
+        "features": [
+          "Miembros de equipo ilimitados",
+          "Análisis personalizado",
+          "Almacenamiento ilimitado",
+          "Soporte 24/7 por teléfono y correo",
+          "Acceso avanzado a API",
+          "Integraciones personalizadas"
+        ]
+      }
+    },
+    "perMonth": "/mes"
+  },
+  "faq": {
+    "badge": "Preguntas Frecuentes",
+    "title": "Preguntas Frecuentes",
+    "description": "Encuentra respuestas a preguntas comunes sobre nuestra plataforma.",
+    "questions": [
+      {
+        "question": "¿Cómo funciona la prueba gratuita de 14 días?",
+        "answer": "Nuestra prueba gratuita de 14 días te da acceso completo a todas las funciones de tu plan seleccionado. No se requiere tarjeta de crédito para registrarse, y puedes cancelar en cualquier momento durante el período de prueba sin obligación."
+      },
+      {
+        "question": "¿Puedo cambiar de plan más tarde?",
+        "answer": "Sí, puedes actualizar o degradar tu plan en cualquier momento. Si actualizas, el nuevo precio se prorrateará por el resto de tu ciclo de facturación. Si degradas, el nuevo precio entrará en vigor al comienzo de tu próximo ciclo de facturación."
+      },
+      {
+        "question": "¿Hay un límite de usuarios que puedo añadir?",
+        "answer": "El número de usuarios depende de tu plan. El plan Inicial permite hasta 5 miembros del equipo, el plan Profesional permite hasta 20, y el plan Empresarial no tiene límite de miembros del equipo."
+      },
+      {
+        "question": "¿Ofrecen descuentos para organizaciones sin fines de lucro o instituciones educativas?",
+        "answer": "Sí, ofrecemos precios especiales para organizaciones sin fines de lucro, instituciones educativas y proyectos de código abierto. Por favor, contacta con nuestro equipo de ventas para más información."
+      },
+      {
+        "question": "¿Qué tan segura está mi información?",
+        "answer": "Nos tomamos la seguridad muy en serio. Todos los datos están cifrados tanto en tránsito como en reposo. Utilizamos prácticas de seguridad estándar de la industria y regularmente nos sometemos a auditorías de seguridad. Nuestra plataforma cumple con GDPR, CCPA y otras regulaciones relevantes."
+      },
+      {
+        "question": "¿Qué tipo de soporte ofrecen?",
+        "answer": "El soporte varía según el plan. Todos los planes incluyen soporte por correo electrónico, con el plan Profesional ofreciendo soporte prioritario por correo. El plan Empresarial incluye soporte 24/7 por teléfono y correo. También tenemos una extensa base de conocimientos y un foro comunitario disponible para todos los usuarios."
+      }
+    ]
+  },
+  "finalCta": {
+    "title": "¿Listo para Transformar tu Flujo de Trabajo?",
+    "description": "Únete a miles de clientes satisfechos que han optimizado sus procesos y aumentado la productividad con nuestra plataforma.",
+    "footnote": "No se requiere tarjeta de crédito. Prueba gratuita de 14 días. Cancela cuando quieras."
+  },
+  "footer": {
+    "about": "Optimiza tu flujo de trabajo con nuestra plataforma SaaS todo en uno. Aumenta la productividad y escala tu negocio.",
+    "categories": {
+      "product": "Producto",
+      "resources": "Recursos",
+      "company": "Empresa"
+    },
+    "links": {
+      "documentation": "Documentación",
+      "guides": "Guías",
+      "blog": "Blog",
+      "support": "Soporte",
+      "about": "Acerca de",
+      "careers": "Carreras",
+      "privacy": "Política de Privacidad",
+      "terms": "Términos de Servicio",
+      "cookies": "Política de Cookies",
+      "integrations": "Integraciones",
+      "api": "API"
+    },
+    "copyright": "© {year} SaaSify. Todos los derechos reservados."
+  },
+  "accessibility": {
+    "scrollToTop": "Volver arriba",
+    "toggleTheme": "Cambiar tema",
+    "toggleMenu": "Abrir menú",
+    "changeLanguage": "Cambiar idioma"
+  }
+}

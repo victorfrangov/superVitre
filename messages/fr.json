@@ -1,0 +1,197 @@
+{
+  "meta": {
+    "title": "SaaSify - Optimisez Votre Flux de Travail",
+    "description": "Augmentez la productivité, réduisez les coûts et développez votre entreprise avec notre plateforme SaaS tout-en-un."
+  },
+  "navigation": {
+    "features": "Fonctionnalités",
+    "testimonials": "Témoignages",
+    "pricing": "Tarifs",
+    "faq": "FAQ",
+    "login": "Connexion"
+  },
+  "cta": {
+    "getStarted": "Commencer",
+    "startFreeTrial": "Essai Gratuit",
+    "bookDemo": "Réserver une Démo",
+    "scheduleDemo": "Planifier une Démo",
+    "contactSales": "Contacter les Ventes"
+  },
+  "hero": {
+    "badge": "Bientôt Disponible",
+    "title": "Optimisez Votre Flux de Travail avec SaaSify",
+    "description": "La plateforme tout-en-un qui aide les équipes à collaborer, automatiser et livrer des résultats exceptionnels. Rationalisez vos processus et concentrez-vous sur l'essentiel.",
+    "benefits": {
+      "noCreditCard": "Sans carte de crédit",
+      "trial": "Essai de 14 jours",
+      "cancelAnytime": "Annulez à tout moment"
+    }
+  },
+  "logos": {
+    "title": "Approuvé par des entreprises innovantes du monde entier"
+  },
+  "features": {
+    "badge": "Fonctionnalités",
+    "title": "Tout ce Dont Vous Avez Besoin pour Réussir",
+    "description": "Notre plateforme complète fournit tous les outils nécessaires pour rationaliser votre flux de travail, augmenter la productivité et atteindre vos objectifs.",
+    "items": {
+      "automation": {
+        "title": "Automatisation Intelligente",
+        "description": "Automatisez les tâches répétitives et les flux de travail pour gagner du temps et réduire les erreurs."
+      },
+      "analytics": {
+        "title": "Analyses Avancées",
+        "description": "Obtenez des informations précieuses grâce à la visualisation des données en temps réel et aux rapports."
+      },
+      "collaboration": {
+        "title": "Collaboration d'Équipe",
+        "description": "Travaillez ensemble de manière transparente avec des outils de communication intégrés."
+      },
+      "security": {
+        "title": "Sécurité d'Entreprise",
+        "description": "Gardez vos données en sécurité avec un chiffrement de bout en bout et des fonctionnalités de conformité."
+      },
+      "integration": {
+        "title": "Intégration Transparente",
+        "description": "Connectez-vous à vos outils préférés grâce à notre vaste écosystème d'API."
+      },
+      "support": {
+        "title": "Support 24/7",
+        "description": "Obtenez de l'aide quand vous en avez besoin avec notre équipe de support dédiée."
+      }
+    }
+  },
+  "howItWorks": {
+    "badge": "Comment Ça Marche",
+    "title": "Processus Simple, Résultats Puissants",
+    "description": "Commencez en quelques minutes et constatez la différence que notre plateforme peut faire pour votre entreprise.",
+    "steps": {
+      "step1": {
+        "title": "Créer un Compte",
+        "description": "Inscrivez-vous en quelques secondes avec juste votre email. Aucune carte de crédit n'est requise pour commencer."
+      },
+      "step2": {
+        "title": "Configurer l'Espace de Travail",
+        "description": "Personnalisez votre espace de travail pour correspondre au flux de travail et aux exigences uniques de votre équipe."
+      },
+      "step3": {
+        "title": "Augmenter la Productivité",
+        "description": "Commencez à utiliser nos puissantes fonctionnalités pour rationaliser les processus et atteindre vos objectifs."
+      }
+    }
+  },
+  "testimonials": {
+    "badge": "Témoignages",
+    "title": "Aimé par des Équipes du Monde Entier",
+    "description": "Ne vous fiez pas seulement à notre parole. Voyez ce que nos clients ont à dire sur leur expérience."
+  },
+  "pricing": {
+    "badge": "Tarifs",
+    "title": "Tarification Simple et Transparente",
+    "description": "Choisissez le forfait qui convient à votre entreprise. Tous les forfaits incluent un essai gratuit de 14 jours.",
+    "monthly": "Mensuel",
+    "annually": "Annuel (Économisez 20%)",
+    "plans": {
+      "starter": {
+        "name": "Débutant",
+        "price": "29€",
+        "annualPrice": "23€",
+        "description": "Parfait pour les petites équipes et les startups.",
+        "features": ["Jusqu'à 5 membres d'équipe", "Analyses de base", "5 Go de stockage", "Support par email"]
+      },
+      "professional": {
+        "name": "Professionnel",
+        "price": "79€",
+        "annualPrice": "63€",
+        "description": "Idéal pour les entreprises en croissance.",
+        "features": [
+          "Jusqu'à 20 membres d'équipe",
+          "Analyses avancées",
+          "25 Go de stockage",
+          "Support prioritaire par email",
+          "Accès API"
+        ],
+        "popular": "Le Plus Populaire"
+      },
+      "enterprise": {
+        "name": "Entreprise",
+        "price": "199€",
+        "annualPrice": "159€",
+        "description": "Pour les grandes organisations avec des besoins complexes.",
+        "features": [
+          "Membres d'équipe illimités",
+          "Analyses personnalisées",
+          "Stockage illimité",
+          "Support 24/7 par téléphone et email",
+          "Accès API avancé",
+          "Intégrations personnalisées"
+        ]
+      }
+    },
+    "perMonth": "/mois"
+  },
+  "faq": {
+    "badge": "FAQ",
+    "title": "Questions Fréquemment Posées",
+    "description": "Trouvez des réponses aux questions courantes sur notre plateforme.",
+    "questions": [
+      {
+        "question": "Comment fonctionne l'essai gratuit de 14 jours?",
+        "answer": "Notre essai gratuit de 14 jours vous donne un accès complet à toutes les fonctionnalités de votre forfait sélectionné. Aucune carte de crédit n'est requise pour s'inscrire, et vous pouvez annuler à tout moment pendant la période d'essai sans obligation."
+      },
+      {
+        "question": "Puis-je changer de forfait plus tard?",
+        "answer": "Oui, vous pouvez mettre à niveau ou rétrograder votre forfait à tout moment. Si vous effectuez une mise à niveau, le nouveau prix sera calculé au prorata pour le reste de votre cycle de facturation. Si vous rétrogradez, le nouveau prix prendra effet au début de votre prochain cycle de facturation."
+      },
+      {
+        "question": "Y a-t-il une limite au nombre d'utilisateurs que je peux ajouter?",
+        "answer": "Le nombre d'utilisateurs dépend de votre forfait. Le forfait Débutant permet jusqu'à 5 membres d'équipe, le forfait Professionnel permet jusqu'à 20, et le forfait Entreprise n'a pas de limite de membres d'équipe."
+      },
+      {
+        "question": "Offrez-vous des réductions pour les organisations à but non lucratif ou les établissements d'enseignement?",
+        "answer": "Oui, nous offrons des tarifs spéciaux pour les organisations à but non lucratif, les établissements d'enseignement et les projets open source. Veuillez contacter notre équipe commerciale pour plus d'informations."
+      },
+      {
+        "question": "Comment mes données sont-elles sécurisées?",
+        "answer": "Nous prenons la sécurité très au sérieux. Toutes les données sont cryptées à la fois en transit et au repos. Nous utilisons des pratiques de sécurité standard de l'industrie et subissons régulièrement des audits de sécurité. Notre plateforme est conforme au RGPD, au CCPA et à d'autres réglementations pertinentes."
+      },
+      {
+        "question": "Quel type de support proposez-vous?",
+        "answer": "Le support varie selon le forfait. Tous les forfaits incluent le support par email, le forfait Professionnel offrant un support prioritaire par email. Le forfait Entreprise comprend un support 24/7 par téléphone et email. Nous disposons également d'une vaste base de connaissances et d'un forum communautaire disponibles pour tous les utilisateurs."
+      }
+    ]
+  },
+  "finalCta": {
+    "title": "Prêt à Transformer Votre Flux de Travail?",
+    "description": "Rejoignez des milliers de clients satisfaits qui ont rationalisé leurs processus et augmenté leur productivité avec notre plateforme.",
+    "footnote": "Aucune carte de crédit requise. Essai gratuit de 14 jours. Annulez à tout moment."
+  },
+  "footer": {
+    "about": "Rationalisez votre flux de travail avec notre plateforme SaaS tout-en-un. Augmentez la productivité et développez votre entreprise.",
+    "categories": {
+      "product": "Produit",
+      "resources": "Ressources",
+      "company": "Entreprise"
+    },
+    "links": {
+      "documentation": "Documentation",
+      "guides": "Guides",
+      "blog": "Blog",
+      "support": "Support",
+      "about": "À Propos",
+      "careers": "Carrières",
+      "privacy": "Politique de Confidentialité",
+      "terms": "Conditions d'Utilisation",
+      "cookies": "Politique de Cookies",
+      "integrations": "Intégrations",
+      "api": "API"
+    },
+    "copyright": "© {year} SaaSify. Tous droits réservés."
+  },
+  "accessibility": {
+    "scrollToTop": "Retour en haut",
+    "toggleTheme": "Changer de thème",
+    "toggleMenu": "Ouvrir le menu",
+    "changeLanguage": "Changer de langue"
+  }
+}
