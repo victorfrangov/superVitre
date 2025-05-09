@@ -1,6 +1,6 @@
 {
   "name": "SuperVitre",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
@@ -47,7 +47,7 @@
     "framer-motion": "latest",
     "input-otp": "1.4.1",
     "lucide-react": "^0.454.0",
-    "next": "15.2.4",
+    "next": "^15.2.4",
     "next-intl": "^4.1.0",
     "next-themes": "latest",
     "react": "^19",

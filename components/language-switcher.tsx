@@ -6,7 +6,7 @@ import { Globe } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { locales } from "@/config/locales"
 import { useLocale, useTranslations } from "next-intl"
-import { Link, usePathname } from "@/config/navigation"
+import { Link, usePathname } from "@/i18n/navigation"
 
 export function LanguageSwitcher() {
   const [open, setOpen] = useState(false)
