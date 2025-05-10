@@ -4,8 +4,8 @@
     "description": "Lavage de vitre professionnel pour un intérieur lumineux."
   },
   "navigation": {
-    "features": "Réservation",
-    "testimonials": "Contact",
+    "reservations": "Réservation",
+    "contact": "Contact",
     "pricing": "Tarifs",
     "faq": "FAQ",
     "login": "Connexion Employés"
@@ -203,7 +203,7 @@
     ]
   },
   "finalCta": {
-    "title": "Prêt à Transformer Vos Fenetres?",
+    "title": "Prêt à Transformer Vos Fenêtres?",
     "description": "Rejoignez des milliers de clients satisfaits qui ont rationalisé leurs processus et augmenté leur productivité avec notre plateforme.",
     "footnote": "Aucune carte de crédit requise. Essai gratuit de 14 jours. Annulez à tout moment."
   },
@@ -223,8 +223,7 @@
       "careers": "Carrières",
       "privacy": "Politique de Confidentialité",
       "terms": "Conditions d'Utilisation",
-      "cookies": "Politique de Cookies",
-      "integrations": "Intégrations"
+      "cookies": "Politique de Cookies"
     },
     "copyright": "© {year} SuperVitre. Tous droits réservés."
   },
@@ -235,66 +234,66 @@
     "changeLanguage": "Changer de langue"
   },
   "reservations": {
-    "title": "Book Your Window Cleaning Service",
-    "subtitle": "Select a date and time that works for you",
-    "instructions": "Choose an available time slot and fill in your details to book your window cleaning service.",
-    "contactInfo": "Contact Information",
-    "serviceDetails": "Service Details",
+    "title": "Réservez Votre Service de Lavage de Vitres",
+    "subtitle": "Sélectionnez une date et une heure qui vous conviennent",
+    "instructions": "Choisissez un créneau horaire disponible et remplissez vos informations pour réserver votre service de lavage de vitres.",
+    "contactInfo": "Informations de Contact",
+    "serviceDetails": "Détails du Service",
     "form": {
-      "firstName": "First Name",
-      "lastName": "Last Name",
-      "email": "Email Address",
-      "phone": "Phone Number",
-      "address": "Property Address",
-      "city": "City",
-      "zipCode": "ZIP Code",
-      "propertyType": "Property Type",
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "email": "Adresse Email",
+      "phone": "Numéro de Téléphone",
+      "address": "Adresse de la Propriété",
+      "city": "Ville",
+      "zipCode": "Code Postal",
+      "propertyType": "Type de Propriété",
       "propertyTypes": {
-        "residential": "Residential",
+        "residential": "Résidentiel",
         "commercial": "Commercial"
       },
-      "serviceType": "Service Type",
+      "serviceType": "Type de Service",
       "serviceTypes": {
-        "basic": "Basic - Exterior Only",
-        "standard": "Standard - Interior & Exterior",
-        "premium": "Premium - Complete Package"
+        "basic": "Basique - Extérieur Seulement",
+        "standard": "Standard - Intérieur & Extérieur",
+        "premium": "Premium - Forfait Complet"
       },
-      "windows": "Number of Windows",
-      "stories": "Number of Stories",
-      "specialInstructions": "Special Instructions",
-      "preferredContact": "Preferred Contact Method",
+      "windows": "Nombre de Fenêtres",
+      "stories": "Nombre d'Étages",
+      "specialInstructions": "Instructions Spéciales",
+      "preferredContact": "Méthode de Contact Préférée",
       "contactMethods": {
         "email": "Email",
-        "phone": "Phone",
-        "text": "Text Message"
+        "phone": "Téléphone",
+        "text": "Message Texte"
       }
     },
     "calendar": {
-      "selectDate": "Select a Date",
-      "selectTime": "Select a Time",
-      "morning": "Morning",
-      "afternoon": "Afternoon",
-      "available": "Available",
-      "unavailable": "Unavailable",
-      "booked": "Booked",
-      "noTimesAvailable": "No times available on this date. Please select another date."
+      "selectDate": "Sélectionnez une Date",
+      "selectTime": "Sélectionnez une Heure",
+      "morning": "Matin",
+      "afternoon": "Après-midi",
+      "available": "Disponible",
+      "unavailable": "Indisponible",
+      "booked": "Réservé",
+      "noTimesAvailable": "Aucun créneau disponible à cette date. Veuillez sélectionner une autre date."
     },
     "buttons": {
-      "checkAvailability": "Check Availability",
-      "bookNow": "Book Now",
-      "previous": "Previous",
-      "next": "Next",
-      "submit": "Confirm Booking"
+      "checkAvailability": "Vérifier la Disponibilité",
+      "bookNow": "Réserver Maintenant",
+      "previous": "Précédent",
+      "next": "Suivant",
+      "submit": "Confirmer la Réservation"
     },
     "confirmation": {
-      "title": "Booking Confirmation",
-      "message": "Thank you for booking with CrystalClear Window Cleaning. We've sent a confirmation to your email.",
-      "reference": "Your booking reference is:",
-      "details": "Booking Details",
-      "date": "Date:",
-      "time": "Time:",
-      "service": "Service:",
-      "contact": "We'll contact you shortly to confirm your appointment."
+      "title": "Confirmation de Réservation",
+      "message": "Merci d'avoir réservé avec CrystalClear Window Cleaning. Nous avons envoyé une confirmation à votre email.",
+      "reference": "Votre référence de réservation est :",
+      "details": "Détails de la Réservation",
+      "date": "Date :",
+      "time": "Heure :",
+      "service": "Service :",
+      "contact": "Nous vous contacterons sous peu pour confirmer votre rendez-vous."
     }
   }
 }

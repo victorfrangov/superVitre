@@ -28,6 +28,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useTheme } from "next-themes"
 import { LanguageSwitcher } from "@/components/language-switcher"
+import NavigationBar  from "@/components/navigation";
 
 interface FaqItem {
   question: string;
@@ -69,9 +70,9 @@ export default function LandingPage() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark")
-  }
+  // const toggleTheme = () => {
+  //   setTheme(theme === "dark" ? "light" : "dark")
+  // }
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -130,104 +131,7 @@ export default function LandingPage() {
 
   return (
     <div className="flex min-h-[100dvh] flex-col">
-      <header
-        className={`sticky top-0 z-50 w-full backdrop-blur-lg transition-all duration-300 ${isScrolled ? "bg-background/80 shadow-sm" : "bg-transparent"}`}
-      >
-        <div className="container flex h-16 items-center justify-between">
-          <div className="flex items-center gap-2 font-bold">
-            <div className="size-8 rounded-lg bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center text-primary-foreground">
-              S
-            </div>
-            <span>SuperVitre</span>
-          </div>
-          <nav className="hidden md:flex gap-8">
-            <Link
-              href="#features"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {navT("features")}
-            </Link>
-            <Link
-              href="#testimonials"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {navT("testimonials")}
-            </Link>
-            <Link
-              href="#pricing"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {navT("pricing")}
-            </Link>
-            <Link
-              href="#faq"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {navT("faq")}
-            </Link>
-          </nav>
-          <div className="hidden md:flex gap-4 items-center">
-            <LanguageSwitcher />
-            {/* <Button variant="ghost" size="icon" onClick={toggleTheme} className="rounded-full">
-              {mounted ? (theme === "dark" ? <Sun className="size-[18px]" /> : <Moon className="size-[18px]" />) : <Moon className="size-[18px]" />}
-              <span className="sr-only">{accessibilityT("toggleTheme")}</span>
-            </Button> */}
-            <Link
-              href="#"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {navT("login")}
-            </Link>
-            <Button className="rounded-full">
-              {ctaT("getStarted")}
-              <ChevronRight className="ml-1 size-4" />
-            </Button>
-          </div>
-          <div className="flex items-center gap-4 md:hidden">
-            <LanguageSwitcher />
-            {/* <Button variant="ghost" size="icon" onClick={toggleTheme} className="rounded-full">
-              {mounted ? (theme === "dark" ? <Sun className="size-[18px]" /> : <Moon className="size-[18px]" />) : <Moon className="size-[18px]" />}
-            </Button> */}
-            <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-              {mobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
-              <span className="sr-only">{accessibilityT("toggleMenu")}</span>
-            </Button>
-          </div>
-        </div>
-        {/* Mobile menu */}
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="md:hidden absolute top-16 inset-x-0 bg-background/95 backdrop-blur-lg border-b"
-          >
-            <div className="container py-4 flex flex-col gap-4">
-              <Link href="#features" className="py-2 text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>
-                {navT("features")}
-              </Link>
-              <Link href="#testimonials" className="py-2 text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>
-                {navT("testimonials")}
-              </Link>
-              <Link href="#pricing" className="py-2 text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>
-                {navT("pricing")}
-              </Link>
-              <Link href="#faq" className="py-2 text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>
-                {navT("faq")}
-              </Link>
-              <div className="flex flex-col gap-2 pt-2 border-t">
-                <Link href="#" className="py-2 text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>
-                  {navT("login")}
-                </Link>
-                <Button className="rounded-full">
-                  {ctaT("getStarted")}
-                  <ChevronRight className="ml-1 size-4" />
-                </Button>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </header>
+      <NavigationBar />
       <main className="flex-1">
         {/* Hero Section */}
         <section className="w-full py-20 md:py-32 lg:py-40 overflow-hidden">
@@ -635,18 +539,18 @@ export default function LandingPage() {
               <h4 className="text-sm font-bold">{footerT("categories.product")}</h4>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <Link href="#features" className="text-muted-foreground hover:text-foreground transition-colors">
-                    {navT("features")}
+                  <Link href="/reservations" className="text-muted-foreground hover:text-foreground transition-colors">
+                    {navT("reservations")}
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">
+                    {navT("contact")}
                   </Link>
                 </li>
                 <li>
                   <Link href="#pricing" className="text-muted-foreground hover:text-foreground transition-colors">
                     {navT("pricing")}
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-                    {footerT("links.integrations")}
                   </Link>
                 </li>
               </ul>
@@ -672,7 +576,7 @@ export default function LandingPage() {
         </div>
       </footer>
 
-      {/* Scroll to top button */}
+      {/* Scroll to top button logic */}
       {isScrolled && (
         <motion.button
           initial={{ opacity: 0, scale: 0.8 }}

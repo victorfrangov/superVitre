@@ -7,17 +7,7 @@ import { useTranslations } from "next-intl"
 import { Link } from "@/i18n/navigation"
 import { motion } from "framer-motion"
 import { format, addDays, startOfWeek, addWeeks, isSameDay, isBefore } from "date-fns"
-import {
-  Calendar,
-  Clock,
-  ArrowLeft,
-  ArrowRight,
-  Home,
-  Building2,
-  CheckCircle2,
-  ChevronRight,
-  ChevronLeft,
-} from "lucide-react"
+import { Calendar, Clock, ArrowLeft, Home, Building2, CheckCircle2, ChevronRight, ChevronLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -25,7 +15,7 @@ import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import { Badge } from "@/components/ui/badge"
+import NavigationBar from "@/components/navigation";
 
 // Mock data for available time slots
 const generateMockTimeSlots = (date: Date) => {
@@ -35,9 +25,25 @@ const generateMockTimeSlots = (date: Date) => {
   // No slots on Sundays
   if (day === 0) return []
 
+  // Create time slots from 9:00 AM to 4:00 PM in 30-minute increments
+  const timeSlots = [
+    "9:00 AM",
+    "9:30 AM",
+    "10:00 AM",
+    "10:30 AM",
+    "11:00 AM",
+    "11:30 AM",
+    "1:00 PM",
+    "1:30 PM",
+    "2:00 PM",
+    "2:30 PM",
+    "3:00 PM",
+    "3:30 PM",
+    "4:00 PM",
+  ]
+
   // Fewer slots on Saturday
-  const slots =
-    day === 6 ? ["09:00", "10:00", "11:00"] : ["09:00", "10:00", "11:00", "13:00", "14:00", "15:00", "16:00"]
+  const slots = day === 6 ? timeSlots.slice(0, 6) : timeSlots
 
   // Randomly mark some slots as unavailable
   return slots.map((time) => ({
@@ -127,6 +133,7 @@ export default function ReservationsPage() {
 
   return (
     <div className="flex min-h-screen flex-col">
+        <NavigationBar />
       <main className="flex-1 py-12 md:py-24">
         <div className="container px-4 md:px-6">
           <div className="mx-auto max-w-4xl space-y-8">
@@ -171,135 +178,145 @@ export default function ReservationsPage() {
             {/* Step 1: Date and Time Selection */}
             {step === 1 && (
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
-                <Card>
-                  <CardHeader>
-                    <CardTitle>{t("calendar.selectDate")}</CardTitle>
-                    <CardDescription>{t("instructions")}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-6">
-                      {/* Calendar navigation */}
-                      <div className="flex items-center justify-between mb-4">
-                        <Button
-                          variant="outline"
-                          size="icon"
-                          onClick={handlePrevMonth}
-                          disabled={isBefore(startDate, today)}
-                        >
-                          <ChevronLeft className="size-4" />
-                          <span className="sr-only">Previous month</span>
-                        </Button>
-                        <h3 className="text-lg font-medium">{format(startDate, "MMMM yyyy")}</h3>
-                        <Button variant="outline" size="icon" onClick={handleNextMonth}>
-                          <ChevronRight className="size-4" />
-                          <span className="sr-only">Next month</span>
-                        </Button>
-                      </div>
+                <div className="mb-8">
+                  <h1 className="text-3xl font-bold tracking-tight text-center mb-2">{t("title")}</h1>
+                  <p className="text-center text-muted-foreground">{t("subtitle")}</p>
+                </div>
 
-                      {/* Calendar grid */}
-                      <div className="grid grid-cols-7 gap-1 text-center">
-                        {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day) => (
-                          <div key={day} className="py-2 text-sm font-medium text-muted-foreground">
-                            {day}
-                          </div>
-                        ))}
+                {/* Progress steps */}
+                <div className="flex mb-8">
+                  <div className="flex-1 bg-background border rounded-l-lg p-4 flex items-center justify-center gap-2 font-medium bg-primary/5">
+                    <Calendar className="size-5" />
+                    <span>Select Date & Time</span>
+                  </div>
+                  <div className="flex-1 bg-background border-t border-b border-r p-4 flex items-center justify-center gap-2 text-muted-foreground">
+                    <span>2</span>
+                    <span>Your Details</span>
+                  </div>
+                </div>
 
-                        {calendarDays.map((day, i) => (
-                          <div key={i} className="p-1">
-                            <button
-                              className={`w-full aspect-square rounded-md flex items-center justify-center text-sm
-                                ${day.isPast ? "text-muted-foreground opacity-50 cursor-not-allowed" : ""}
-                                ${isSameDay(day.date, selectedDate as Date) ? "bg-primary text-primary-foreground" : "hover:bg-muted"}
-                                ${day.isToday ? "border border-primary" : ""}
-                                ${day.timeSlots.length === 0 ? "text-muted-foreground" : ""}
-                              `}
-                              onClick={() => !day.isPast && day.timeSlots.length > 0 && handleDateSelect(day.date)}
-                              disabled={day.isPast || day.timeSlots.length === 0}
-                            >
-                              {format(day.date, "d")}
-                            </button>
-                          </div>
-                        ))}
-                      </div>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {/* Date selection */}
+                  <div className="bg-background border rounded-lg p-6">
+                    <h2 className="text-xl font-semibold mb-1">Select a Date</h2>
+                    <p className="text-muted-foreground text-sm mb-4">Choose your preferred appointment date</p>
 
-                      {/* Time slots */}
-                      {selectedDate && (
-                        <div className="mt-6">
-                          <h4 className="text-sm font-medium mb-3">{t("calendar.selectTime")}</h4>
-                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                            <div className="col-span-2 sm:col-span-4">
-                              <Badge variant="outline" className="mb-2">
-                                {format(selectedDate, "EEEE, MMMM d, yyyy")}
-                              </Badge>
-                            </div>
-
-                            <div className="col-span-2">
-                              <h5 className="text-xs font-medium mb-2 text-muted-foreground">
-                                {t("calendar.morning")}
-                              </h5>
-                              <div className="grid grid-cols-2 gap-2">
-                                {calendarDays
-                                  .find((day) => isSameDay(day.date, selectedDate))
-                                  ?.timeSlots.filter((slot) => Number.parseInt(slot.time.split(":")[0]) < 12)
-                                  .map((slot, i) => (
-                                    <Button
-                                      key={i}
-                                      variant={selectedTime === slot.time ? "default" : "outline"}
-                                      className="text-sm"
-                                      onClick={() => slot.available && handleTimeSelect(slot.time)}
-                                      disabled={!slot.available}
-                                    >
-                                      {slot.time}
-                                    </Button>
-                                  ))}
-                              </div>
-                            </div>
-
-                            <div className="col-span-2">
-                              <h5 className="text-xs font-medium mb-2 text-muted-foreground">
-                                {t("calendar.afternoon")}
-                              </h5>
-                              <div className="grid grid-cols-2 gap-2">
-                                {calendarDays
-                                  .find((day) => isSameDay(day.date, selectedDate))
-                                  ?.timeSlots.filter((slot) => Number.parseInt(slot.time.split(":")[0]) >= 12)
-                                  .map((slot, i) => (
-                                    <Button
-                                      key={i}
-                                      variant={selectedTime === slot.time ? "default" : "outline"}
-                                      className="text-sm"
-                                      onClick={() => slot.available && handleTimeSelect(slot.time)}
-                                      disabled={!slot.available}
-                                    >
-                                      {slot.time}
-                                    </Button>
-                                  ))}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      )}
+                    <div className="mb-4 flex items-center justify-between">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={handlePrevMonth}
+                        disabled={isBefore(startDate, today)}
+                      >
+                        <ChevronLeft className="size-4" />
+                      </Button>
+                      <h3 className="text-base font-medium">{format(currentMonth, "MMMM yyyy")}</h3>
+                      <Button variant="ghost" size="icon" onClick={handleNextMonth}>
+                        <ChevronRight className="size-4" />
+                      </Button>
                     </div>
-                  </CardContent>
-                  <CardFooter className="flex justify-between">
-                    <Button variant="outline" asChild>
-                      <Link href="/">
-                        <ArrowLeft className="mr-2 size-4" />
-                        Back to Home
-                      </Link>
-                    </Button>
-                    <Button onClick={() => goToStep(2)} disabled={!selectedDate || !selectedTime}>
-                      {t("buttons.next")}
-                      <ArrowRight className="ml-2 size-4" />
-                    </Button>
-                  </CardFooter>
-                </Card>
+
+                    <div className="grid grid-cols-7 gap-1 text-center">
+                      {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => (
+                        <div key={day} className="py-1 text-xs font-medium text-muted-foreground">
+                          {day}
+                        </div>
+                      ))}
+
+                      {calendarDays.slice(0, 35).map((day, i) => (
+                        <div key={i} className="p-0">
+                          <button
+                            className={`w-full aspect-square rounded-md flex items-center justify-center text-sm
+                  ${day.isPast ? "text-muted-foreground/50 cursor-not-allowed" : ""}
+                  ${
+                    isSameDay(day.date, selectedDate as Date)
+                      ? "bg-primary text-primary-foreground"
+                      : day.timeSlots.length > 0
+                        ? "hover:bg-muted"
+                        : "text-muted-foreground/50"
+                  }
+                  ${day.isToday ? "border border-primary" : ""}
+                `}
+                            onClick={() => !day.isPast && day.timeSlots.length > 0 && handleDateSelect(day.date)}
+                            disabled={day.isPast || day.timeSlots.length === 0}
+                          >
+                            {format(day.date, "d")}
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Time selection */}
+                  <div className="bg-background border rounded-lg p-6">
+                    <h2 className="text-xl font-semibold mb-1">Select a Time</h2>
+                    {selectedDate ? (
+                      <>
+                        <p className="text-muted-foreground text-sm mb-4">
+                          Available time slots for {format(selectedDate, "MMMM d, yyyy")}
+                        </p>
+
+                        <div className="grid grid-cols-2 gap-3">
+                          {calendarDays
+                            .find((day) => isSameDay(day.date, selectedDate))
+                            ?.timeSlots.map((slot, i) => (
+                              <Button
+                                key={i}
+                                variant={selectedTime === slot.time ? "default" : "outline"}
+                                className={`justify-start h-12 ${!slot.available ? "opacity-50" : ""}`}
+                                onClick={() => slot.available && handleTimeSelect(slot.time)}
+                                disabled={!slot.available}
+                              >
+                                <Clock className="mr-2 size-4" />
+                                {slot.time}
+                              </Button>
+                            ))}
+                        </div>
+
+                        <Button className="w-full mt-6" onClick={() => goToStep(2)} disabled={!selectedTime}>
+                          Continue to Details
+                        </Button>
+                      </>
+                    ) : (
+                      <div className="flex flex-col items-center justify-center h-64 text-muted-foreground">
+                        <Calendar className="size-10 mb-2 opacity-20" />
+                        <p>Please select a date first</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="mt-6 flex justify-start">
+                  <Button variant="outline" asChild size="sm">
+                    <Link href="/">
+                      <ArrowLeft className="mr-2 size-4" />
+                      Back to Home
+                    </Link>
+                  </Button>
+                </div>
               </motion.div>
             )}
 
             {/* Step 2: Contact Information */}
             {step === 2 && (
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+                <div className="mb-8">
+                  <h1 className="text-3xl font-bold tracking-tight text-center mb-2">{t("title")}</h1>
+                  <p className="text-center text-muted-foreground">{t("subtitle")}</p>
+                </div>
+
+                {/* Progress steps */}
+                <div className="flex mb-8">
+                  <div className="flex-1 bg-background border rounded-l-lg p-4 flex items-center justify-center gap-2 text-muted-foreground">
+                    <span>1</span>
+                    <span>Select Date & Time</span>
+                  </div>
+                  <div className="flex-1 bg-background border p-4 flex items-center justify-center gap-2 font-medium bg-primary/5">
+                    <Clock className="size-5" />
+                    <span>Your Details</span>
+                  </div>
+                </div>
+
                 <Card>
                   <CardHeader>
                     <CardTitle>{t("contactInfo")}</CardTitle>
@@ -521,6 +538,23 @@ export default function ReservationsPage() {
             {/* Step 3: Confirmation */}
             {step === 3 && (
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+                <div className="mb-8">
+                  <h1 className="text-3xl font-bold tracking-tight text-center mb-2">{t("confirmation.title")}</h1>
+                  <p className="text-center text-muted-foreground">{t("subtitle")}</p>
+                </div>
+
+                {/* Progress steps */}
+                <div className="flex mb-8">
+                  <div className="flex-1 bg-background border rounded-l-lg p-4 flex items-center justify-center gap-2 text-muted-foreground">
+                    <span>1</span>
+                    <span>Select Date & Time</span>
+                  </div>
+                  <div className="flex-1 bg-background border p-4 flex items-center justify-center gap-2 text-muted-foreground">
+                    <span>2</span>
+                    <span>Your Details</span>
+                  </div>
+                </div>
+
                 <Card className="text-center">
                   <CardHeader>
                     <div className="mx-auto size-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
