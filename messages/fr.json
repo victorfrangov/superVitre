@@ -86,23 +86,26 @@
     "description": "Ne vous fiez pas seulement à notre parole. Voyez ce que nos clients ont à dire sur leur expérience."
   },
   "pricing": {
-    "badge": "Tarifs",
     "title": "Tarification Simple et Transparente",
     "description": "Choisissez le forfait qui convient à votre entreprise. Tous les forfaits incluent un essai gratuit de 14 jours.",
     "monthly": "Mensuel",
     "annually": "Annuel (Économisez 20%)",
     "plans": {
-      "starter": {
-        "name": "Débutant",
+      "basic": {
+        "title": "Débutant",
         "price": "29€",
-        "annualPrice": "23€",
-        "description": "Parfait pour les petites équipes et les startups.",
-        "features": ["Jusqu'à 5 membres d'équipe", "Analyses de base", "5 Go de stockage", "Support par email"]
+        "description": "Perfect for small homes with standard windows.",
+        "features": [
+          "Up to 10 windows",
+          "Exterior cleaning",
+          "Screen wiping",
+          "3-month rain guarantee"
+        ],
+          "cta": "Choisir ce plan"
       },
-      "professional": {
-        "name": "Professionnel",
+      "pro": {
+        "title": "Professionnel",
         "price": "79€",
-        "annualPrice": "63€",
         "description": "Idéal pour les entreprises en croissance.",
         "features": [
           "Jusqu'à 20 membres d'équipe",
@@ -111,12 +114,12 @@
           "Support prioritaire par email",
           "Accès API"
         ],
-        "popular": "Le Plus Populaire"
+        "popular": "Le Plus Populaire",
+        "cta": "Choisir Pro"
       },
       "enterprise": {
-        "name": "Entreprise",
+        "title": "Entreprise",
         "price": "199€",
-        "annualPrice": "159€",
         "description": "Pour les grandes organisations avec des besoins complexes.",
         "features": [
           "Membres d'équipe illimités",
@@ -125,10 +128,10 @@
           "Support 24/7 par téléphone et email",
           "Accès API avancé",
           "Intégrations personnalisées"
-        ]
+        ],
+        "cta": "Nous Contacter"
       }
-    },
-    "perMonth": "/mois"
+    }
   },
   "faq": {
     "badge": "FAQ",
@@ -183,8 +186,7 @@
       "privacy": "Politique de Confidentialité",
       "terms": "Conditions d'Utilisation",
       "cookies": "Politique de Cookies",
-      "integrations": "Intégrations",
-      "api": "API"
+      "integrations": "Intégrations"
     },
     "copyright": "© {year} SuperVitre. Tous droits réservés."
   },
@@ -193,5 +195,68 @@
     "toggleTheme": "Changer de thème",
     "toggleMenu": "Ouvrir le menu",
     "changeLanguage": "Changer de langue"
+  },
+  "reservations": {
+    "title": "Book Your Window Cleaning Service",
+    "subtitle": "Select a date and time that works for you",
+    "instructions": "Choose an available time slot and fill in your details to book your window cleaning service.",
+    "contactInfo": "Contact Information",
+    "serviceDetails": "Service Details",
+    "form": {
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "address": "Property Address",
+      "city": "City",
+      "zipCode": "ZIP Code",
+      "propertyType": "Property Type",
+      "propertyTypes": {
+        "residential": "Residential",
+        "commercial": "Commercial"
+      },
+      "serviceType": "Service Type",
+      "serviceTypes": {
+        "basic": "Basic - Exterior Only",
+        "standard": "Standard - Interior & Exterior",
+        "premium": "Premium - Complete Package"
+      },
+      "windows": "Number of Windows",
+      "stories": "Number of Stories",
+      "specialInstructions": "Special Instructions",
+      "preferredContact": "Preferred Contact Method",
+      "contactMethods": {
+        "email": "Email",
+        "phone": "Phone",
+        "text": "Text Message"
+      }
+    },
+    "calendar": {
+      "selectDate": "Select a Date",
+      "selectTime": "Select a Time",
+      "morning": "Morning",
+      "afternoon": "Afternoon",
+      "available": "Available",
+      "unavailable": "Unavailable",
+      "booked": "Booked",
+      "noTimesAvailable": "No times available on this date. Please select another date."
+    },
+    "buttons": {
+      "checkAvailability": "Check Availability",
+      "bookNow": "Book Now",
+      "previous": "Previous",
+      "next": "Next",
+      "submit": "Confirm Booking"
+    },
+    "confirmation": {
+      "title": "Booking Confirmation",
+      "message": "Thank you for booking with CrystalClear Window Cleaning. We've sent a confirmation to your email.",
+      "reference": "Your booking reference is:",
+      "details": "Booking Details",
+      "date": "Date:",
+      "time": "Time:",
+      "service": "Service:",
+      "contact": "We'll contact you shortly to confirm your appointment."
+    }
   }
 }

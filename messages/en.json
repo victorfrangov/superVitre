@@ -97,7 +97,8 @@
         "price": "$29",
         "annualPrice": "$23",
         "description": "Perfect for small teams and startups.",
-        "features": ["Up to 5 team members", "Basic analytics", "5GB storage", "Email support"]
+        "features": ["Up to 5 team members", "Basic analytics", "5GB storage", "Email support"],
+        "cta": "Choose Plan"
       },
       "professional": {
         "name": "Professional",
@@ -111,7 +112,8 @@
           "Priority email support",
           "API access"
         ],
-        "popular": "Most Popular"
+        "popular": "Most Popular",
+        "cta": "Choose Pro"
       },
       "enterprise": {
         "name": "Enterprise",
@@ -125,7 +127,8 @@
           "24/7 phone & email support",
           "Advanced API access",
           "Custom integrations"
-        ]
+        ],
+        "cta": "Contact Sales"
       }
     },
     "perMonth": "/month"

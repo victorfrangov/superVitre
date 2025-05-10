@@ -1,14 +1,10 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
 import "@/styles/globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
 import { notFound } from "next/navigation"
 import { routing } from "@/i18n/routing"
 import { NextIntlClientProvider, hasLocale } from "next-intl"
 import { getTranslations, setRequestLocale } from "next-intl/server"
-
-const inter = Inter({ subsets: ["latin"] })
 
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
   const { locale } = await params
@@ -34,7 +30,7 @@ export default async function LocaleLayout({
   }
  
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning className="light" style={{colorScheme: "light"}}>
       <body>
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
       </body>

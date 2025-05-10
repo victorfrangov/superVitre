@@ -10,8 +10,8 @@ import {
   ChevronRight,
   Menu,
   X,
-  Moon,
-  Sun,
+  // Moon,
+  // Sun,
   ArrowRight,
   Star,
   Zap,
@@ -24,7 +24,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useTheme } from "next-themes"
 import { LanguageSwitcher } from "@/components/language-switcher"
@@ -138,7 +138,7 @@ export default function LandingPage() {
             <div className="size-8 rounded-lg bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center text-primary-foreground">
               S
             </div>
-            <span>SaaSify</span>
+            <span>SuperVitre</span>
           </div>
           <nav className="hidden md:flex gap-8">
             <Link
@@ -168,10 +168,10 @@ export default function LandingPage() {
           </nav>
           <div className="hidden md:flex gap-4 items-center">
             <LanguageSwitcher />
-            <Button variant="ghost" size="icon" onClick={toggleTheme} className="rounded-full">
+            {/* <Button variant="ghost" size="icon" onClick={toggleTheme} className="rounded-full">
               {mounted ? (theme === "dark" ? <Sun className="size-[18px]" /> : <Moon className="size-[18px]" />) : <Moon className="size-[18px]" />}
               <span className="sr-only">{accessibilityT("toggleTheme")}</span>
-            </Button>
+            </Button> */}
             <Link
               href="#"
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
@@ -185,9 +185,9 @@ export default function LandingPage() {
           </div>
           <div className="flex items-center gap-4 md:hidden">
             <LanguageSwitcher />
-            <Button variant="ghost" size="icon" onClick={toggleTheme} className="rounded-full">
+            {/* <Button variant="ghost" size="icon" onClick={toggleTheme} className="rounded-full">
               {mounted ? (theme === "dark" ? <Sun className="size-[18px]" /> : <Moon className="size-[18px]" />) : <Moon className="size-[18px]" />}
-            </Button>
+            </Button> */}
             <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
               {mobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
               <span className="sr-only">{accessibilityT("toggleMenu")}</span>
@@ -240,9 +240,9 @@ export default function LandingPage() {
               transition={{ duration: 0.5 }}
               className="text-center max-w-3xl mx-auto mb-12"
             >
-              <Badge className="mb-4 rounded-full px-4 py-1.5 text-sm font-medium" variant="secondary">
+              {/* <Badge className="mb-4 rounded-full px-4 py-1.5 text-sm font-medium" variant="secondary">
                 {heroT("badge")}
-              </Badge>
+              </Badge> */}
               <h1 className="text-4xl md:text-5xl lg:text-6xl lg:leading-tight font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">
                 {heroT("title")}
               </h1>
@@ -280,10 +280,10 @@ export default function LandingPage() {
             >
               <div className="rounded-xl overflow-hidden shadow-2xl border border-border/40 bg-gradient-to-b from-background to-muted/20">
                 <Image
-                  src="https://cdn.dribbble.com/userupload/12302729/file/original-fa372845e394ee85bebe0389b9d86871.png?resize=1504x1128&vertical=center"
+                  src="https://www.laveurdecarreaux.com/new/wp-content/uploads/2019/06/laveur-vitre-carreau-nettoyeur-1.jpg"
                   width={1280}
                   height={720}
-                  alt="SaaSify dashboard"
+                  alt="SuperVitre dashboard"
                   className="w-full h-auto"
                   priority
                 />
@@ -416,7 +416,7 @@ export default function LandingPage() {
         </section>
 
         {/* Testimonials Section */}
-        <section id="testimonials" className="w-full py-20 md:py-32">
+        <section id="testimonials" className="w-full py-200 md:py-32">
           <div className="container px-4 md:px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -431,8 +431,82 @@ export default function LandingPage() {
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight">{testimonialsT("title")}</h2>
               <p className="max-w-[800px] text-muted-foreground md:text-lg">{testimonialsT("description")}</p>
             </motion.div>
-
-            {/* Testimonials content would go here - using the same pattern for translations */}
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {[
+                {
+                  quote:
+                    "SaaSify has transformed how we manage our projects. The automation features have saved us countless hours of manual work.",
+                  author: "Sarah Johnson",
+                  role: "Project Manager, TechCorp",
+                  rating: 5,
+                },
+                {
+                  quote:
+                    "The analytics dashboard provides insights we never had access to before. It's helped us make data-driven decisions that have improved our ROI.",
+                  author: "Michael Chen",
+                  role: "Marketing Director, GrowthLabs",
+                  rating: 5,
+                },
+                {
+                  quote:
+                    "Customer support is exceptional. Any time we've had an issue, the team has been quick to respond and resolve it. Couldn't ask for better service.",
+                  author: "Emily Rodriguez",
+                  role: "Operations Lead, StartupX",
+                  rating: 5,
+                },
+                {
+                  quote:
+                    "We've tried several similar solutions, but none compare to the ease of use and comprehensive features of SaaSify. It's been a game-changer.",
+                  author: "David Kim",
+                  role: "CEO, InnovateNow",
+                  rating: 5,
+                },
+                {
+                  quote:
+                    "The collaboration tools have made remote work so much easier for our team. We're more productive than ever despite being spread across different time zones.",
+                  author: "Lisa Patel",
+                  role: "HR Director, RemoteFirst",
+                  rating: 5,
+                },
+                {
+                  quote:
+                    "Implementation was seamless, and the ROI was almost immediate. We've reduced our operational costs by 30% since switching to SaaSify.",
+                  author: "James Wilson",
+                  role: "COO, ScaleUp Inc",
+                  rating: 5,
+                },
+              ].map((testimonial, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.05 }}
+                >
+                  <Card className="h-full overflow-hidden border-border/40 bg-gradient-to-b from-background to-muted/10 backdrop-blur transition-all hover:shadow-md">
+                    <CardContent className="p-6 flex flex-col h-full">
+                      <div className="flex mb-4">
+                        {Array(testimonial.rating)
+                          .fill(0)
+                          .map((_, j) => (
+                            <Star key={j} className="size-4 text-yellow-500 fill-yellow-500" />
+                          ))}
+                      </div>
+                      <p className="text-lg mb-6 flex-grow">{testimonial.quote}</p>
+                      <div className="flex items-center gap-4 mt-auto pt-4 border-t border-border/40">
+                        <div className="size-10 rounded-full bg-muted flex items-center justify-center text-foreground font-medium">
+                          {testimonial.author.charAt(0)}
+                        </div>
+                        <div>
+                          <p className="font-medium">{testimonial.author}</p>
+                          <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -448,26 +522,70 @@ export default function LandingPage() {
               transition={{ duration: 0.5 }}
               className="flex flex-col items-center justify-center space-y-4 text-center mb-12"
             >
-              <Badge className="rounded-full px-4 py-1.5 text-sm font-medium" variant="secondary">
-                {pricingT("badge")}
-              </Badge>
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight">{pricingT("title")}</h2>
               <p className="max-w-[800px] text-muted-foreground md:text-lg">{pricingT("description")}</p>
             </motion.div>
 
             <div className="mx-auto max-w-5xl">
               <Tabs defaultValue="monthly" className="w-full">
-                <div className="flex justify-center mb-8">
-                  <TabsList className="rounded-full p-1">
-                    <TabsTrigger value="monthly" className="rounded-full px-6">
-                      {pricingT("monthly")}
-                    </TabsTrigger>
-                    <TabsTrigger value="annually" className="rounded-full px-6">
-                      {pricingT("annually")}
-                    </TabsTrigger>
-                  </TabsList>
+                <div className="grid md:grid-cols-3 gap-8">
+                  {[
+                    {
+                      title: pricingT("plans.basic.title"),
+                      price: pricingT("plans.basic.price"),
+                      description: pricingT("plans.basic.description"),
+                      features: pricingT.raw("plans.basic.features"),
+                      cta: pricingT("plans.basic.cta"),
+                    },
+                    {
+                      title: pricingT("plans.pro.title"),
+                      price: pricingT("plans.pro.price"),
+                      description: pricingT("plans.pro.description"),
+                      features: pricingT.raw("plans.pro.features"),
+                      cta: pricingT("plans.pro.cta"),
+                      popular: true,
+                    },
+                    {
+                      title: pricingT("plans.enterprise.title"),
+                      price: pricingT("plans.enterprise.price"),
+                      description: pricingT("plans.enterprise.description"),
+                      features: pricingT.raw("plans.enterprise.features"),
+                      cta: pricingT("plans.enterprise.cta"),
+                    },
+                  ].map((plan, i) => (
+                    <Card key={i} className={`flex flex-col relative ${ plan.popular ? "border-primary ring-2 ring-primary shadow-lg" : "border-border/40" } ${i === 1 ? "mt-4 md:mt-0" : ""}`}>
+                      {plan.popular && (
+                        <Badge className="absolute top-[-2.5rem] left-1/2 transform -translate-x-1/2 rounded-full px-3 py-1 text-sm font-medium">
+                          {pricingT("plans.pro.popular")}
+                        </Badge>
+                      )}
+                      <CardHeader className="pt-8">
+                        <CardTitle className="text-2xl font-bold">{plan.title}</CardTitle>
+                        <CardDescription>{plan.description}</CardDescription>
+                      </CardHeader>
+                      <CardContent className="flex-grow">
+                        <Tabs defaultValue="monthly" className="w-full">
+                          <div className="text-4xl font-bold mb-2">
+                            <span>{plan.price}</span>
+                          </div>
+                        </Tabs>
+                        <ul className="space-y-2 text-sm text-muted-foreground">
+                          {plan.features.map((feature: string, idx: number) => (
+                            <li key={idx} className="flex items-center gap-2">
+                              <Check className="size-4 text-primary" />
+                              <span>{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </CardContent>
+                      <CardFooter>
+                        <Button className="w-full rounded-full" variant={plan.popular ? "default" : "outline"}>
+                          {plan.cta}
+                        </Button>
+                      </CardFooter>
+                    </Card>
+                  ))}
                 </div>
-                {/* Pricing content would go here - using the same pattern for translations */}
               </Tabs>
             </div>
           </div>
@@ -574,11 +692,6 @@ export default function LandingPage() {
                 <li>
                   <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
                     {footerT("links.integrations")}
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-                    {footerT("links.api")}
                   </Link>
                 </li>
               </ul>
