@@ -287,7 +287,7 @@
     },
     "confirmation": {
       "title": "Confirmation de Réservation",
-      "message": "Merci d'avoir réservé avec CrystalClear Window Cleaning. Nous avons envoyé une confirmation à votre email.",
+      "message": "Merci d'avoir réservé avec SuperVitre. Nous avons envoyé une confirmation à votre email.",
       "reference": "Votre référence de réservation est :",
       "details": "Détails de la Réservation",
       "date": "Date :",
@@ -297,53 +297,173 @@
     }
   },
   "contact": {
-  "title": "Contactez-Nous",
-  "subtitle": "Vous avez des questions ou besoin d'un devis ? Contactez notre équipe et nous vous répondrons dès que possible.",
-  "contactInfo": {
-    "title": "Informations de Contact",
-    "subtitle": "Contactez notre équipe",
-    "phone": "Téléphone",
-    "email": "Email",
-    "address": "Adresse"
-  },
-  "hours": {
-    "title": "Horaires d'Ouverture",
-    "monday": "Lundi",
-    "tuesday": "Mardi",
-    "wednesday": "Mercredi",
-    "thursday": "Jeudi",
-    "friday": "Vendredi",
-    "saturday": "Samedi",
-    "sunday": "Dimanche",
-    "closed": "Fermé"
-  },
-  "form": {
-    "title": "Envoyez-Nous un Message",
-    "subtitle": "Remplissez le formulaire ci-dessous et nous vous répondrons dès que possible.",
-    "firstName": "Prénom",
-    "lastName": "Nom",
-    "email": "Adresse Email",
-    "phone": "Numéro de Téléphone (facultatif)",
-    "serviceType": "Type de Service",
-    "serviceTypes": {
-      "residential": "Résidentiel",
-      "commercial": "Commercial",
-      "other": "Autre"
+    "title": "Contactez-Nous",
+    "subtitle": "Vous avez des questions ou besoin d'un devis ? Contactez notre équipe et nous vous répondrons dès que possible.",
+    "contactInfo": {
+      "title": "Informations de Contact",
+      "subtitle": "Contactez notre équipe",
+      "phone": "Téléphone",
+      "email": "Email",
+      "address": "Adresse"
     },
-    "message": "Votre Message",
-    "send": "Envoyer le Message",
-    "sending": "Envoi en cours...",
-    "backHome": "Retour à l'Accueil",
-    "successTitle": "Message Envoyé",
-    "successMessage": "Merci pour votre message. Nous vous répondrons sous peu.",
-    "errorTitle": "Erreur",
-    "errorMessage": "Un problème est survenu lors de l'envoi de votre message. Veuillez réessayer.",
-    "thankYou": "Merci !",
-    "responseMessage": "Nous avons bien reçu votre message et nous vous répondrons dès que possible."
+    "hours": {
+      "title": "Horaires d'Ouverture",
+      "monday": "Lundi",
+      "tuesday": "Mardi",
+      "wednesday": "Mercredi",
+      "thursday": "Jeudi",
+      "friday": "Vendredi",
+      "saturday": "Samedi",
+      "sunday": "Dimanche",
+      "closed": "Fermé"
+    },
+    "form": {
+      "title": "Envoyez-Nous un Message",
+      "subtitle": "Remplissez le formulaire ci-dessous et nous vous répondrons dès que possible.",
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "email": "Adresse Email",
+      "phone": "Numéro de Téléphone (facultatif)",
+      "serviceType": "Type de Service",
+      "serviceTypes": {
+        "residential": "Résidentiel",
+        "commercial": "Commercial",
+        "other": "Autre"
+      },
+      "message": "Votre Message",
+      "send": "Envoyer le Message",
+      "sending": "Envoi en cours...",
+      "backHome": "Retour à l'Accueil",
+      "successTitle": "Message Envoyé",
+      "successMessage": "Merci pour votre message. Nous vous répondrons sous peu.",
+      "errorTitle": "Erreur",
+      "errorMessage": "Un problème est survenu lors de l'envoi de votre message. Veuillez réessayer.",
+      "thankYou": "Merci !",
+      "responseMessage": "Nous avons bien reçu votre message et nous vous répondrons dès que possible."
+    },
+    "map": {
+      "title": "Trouvez-Nous",
+      "placeholder": "La carte sera affichée ici"
+    }
   },
-  "map": {
-    "title": "Trouvez-Nous",
-    "placeholder": "La carte sera affichée ici"
+  "admin": {
+    "title": "Admin Dashboard",
+    "viewSite": "View Site",
+    "logout": "Log Out",
+    "navigation": {
+      "dashboard": "Dashboard",
+      "appointments": "Appointments",
+      "contacts": "Contacts",
+      "customers": "Customers",
+      "services": "Services",
+      "reports": "Reports",
+      "settings": "Settings"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "newAppointment": "New Appointment",
+      "fromLastPeriod": "from last period",
+      "stats": {
+        "appointments": "Appointments",
+        "revenue": "Revenue",
+        "customers": "Customers",
+        "inquiries": "Inquiries"
+      },
+      "tabs": {
+        "appointments": "Appointments",
+        "contacts": "Contacts"
+      },
+      "recentAppointments": "Recent Appointments",
+      "recentAppointmentsDescription": "View your upcoming appointments for the next few days",
+      "recentContacts": "Recent Contacts",
+      "recentContactsDescription": "View your most recent contact form submissions",
+      "viewAllAppointments": "View All Appointments",
+      "viewAllContacts": "View All Contacts",
+      "status": {
+        "confirmed": "Confirmed",
+        "pending": "Pending",
+        "cancelled": "Cancelled",
+        "new": "New",
+        "responded": "Responded"
+      }
+    },
+    "appointments": {
+      "title": "Appointments",
+      "export": "Export",
+      "newAppointment": "New Appointment",
+      "allAppointments": "All Appointments",
+      "allAppointmentsDescription": "View and manage all your scheduled appointments",
+      "searchPlaceholder": "Search appointments...",
+      "filterByStatus": "Filter by status",
+      "filterByDate": "Filter by date",
+      "allStatuses": "All statuses",
+      "allDates": "All dates",
+      "today": "Today",
+      "tomorrow": "Tomorrow",
+      "thisWeek": "This week",
+      "noAppointmentsFound": "No appointments found",
+      "viewDetails": "View details",
+      "table": {
+        "id": "ID",
+        "customer": "Customer",
+        "service": "Service",
+        "date": "Date",
+        "time": "Time",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "status": {
+        "confirmed": "Confirmed",
+        "pending": "Pending",
+        "cancelled": "Cancelled"
+      }
+    },
+    "contacts": {
+      "title": "Contact Submissions",
+      "export": "Export",
+      "allContacts": "All Contact Submissions",
+      "allContactsDescription": "View and manage all contact form submissions",
+      "searchPlaceholder": "Search contacts...",
+      "filterByStatus": "Filter by status",
+      "filterByDate": "Filter by date",
+      "allStatuses": "All statuses",
+      "allDates": "All dates",
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "thisWeek": "This week",
+      "noContactsFound": "No contacts found",
+      "viewDetails": "View details",
+      "table": {
+        "id": "ID",
+        "name": "Name",
+        "email": "Email",
+        "date": "Date",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "status": {
+        "new": "New",
+        "responded": "Responded"
+      }
+    },
+    "login": {
+      "title": "Admin Login",
+      "subtitle": "Sign in to your admin account",
+      "email": "Email",
+      "emailPlaceholder": "admin@example.com",
+      "password": "Password",
+      "passwordPlaceholder": "••••••••",
+      "forgotPassword": "Forgot password?",
+      "login": "Sign In",
+      "loggingIn": "Signing in...",
+      "backToWebsite": "Back to Website",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "demoCredentials": "For demo purposes, use:",
+      "successTitle": "Login Successful",
+      "successMessage": "You have been successfully logged in.",
+      "errorTitle": "Login Failed",
+      "errorMessage": "Invalid email or password. Please try again."
+    }
   }
-}
 }
