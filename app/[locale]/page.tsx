@@ -28,7 +28,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useTheme } from "next-themes"
 import { LanguageSwitcher } from "@/components/language-switcher"
-import NavigationBar  from "@/components/navigation";
+import NavigationBar  from "@/components/navigation-bar";
 
 interface FaqItem {
   question: string;

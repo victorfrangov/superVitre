@@ -15,7 +15,7 @@ import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import NavigationBar from "@/components/navigation";
+import NavigationBar from "@/components/navigation-bar";
 
 // Mock data for available time slots
 const generateMockTimeSlots = (date: Date) => {
@@ -145,7 +145,6 @@ export default function ReservationsPage() {
             {/* Progress indicator */}
             <div className="relative mb-12">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-border"></div>
               </div>
               <div className="relative flex justify-between">
                 <div className="flex items-center">
