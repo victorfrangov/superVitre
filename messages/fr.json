@@ -13,7 +13,7 @@
   "cta": {
     "getStarted": "Reserver",
     "startFreeTrial": "Reserver",
-    "bookDemo": "Pas Sur?",
+    "bookDemo": "Vous avez une question?",
     "scheduleDemo": "Planifier une Démo",
     "contactSales": "Contacter les Ventes"
   },
@@ -295,5 +295,55 @@
       "service": "Service :",
       "contact": "Nous vous contacterons sous peu pour confirmer votre rendez-vous."
     }
+  },
+  "contact": {
+  "title": "Contactez-Nous",
+  "subtitle": "Vous avez des questions ou besoin d'un devis ? Contactez notre équipe et nous vous répondrons dès que possible.",
+  "contactInfo": {
+    "title": "Informations de Contact",
+    "subtitle": "Contactez notre équipe",
+    "phone": "Téléphone",
+    "email": "Email",
+    "address": "Adresse"
+  },
+  "hours": {
+    "title": "Horaires d'Ouverture",
+    "monday": "Lundi",
+    "tuesday": "Mardi",
+    "wednesday": "Mercredi",
+    "thursday": "Jeudi",
+    "friday": "Vendredi",
+    "saturday": "Samedi",
+    "sunday": "Dimanche",
+    "closed": "Fermé"
+  },
+  "form": {
+    "title": "Envoyez-Nous un Message",
+    "subtitle": "Remplissez le formulaire ci-dessous et nous vous répondrons dès que possible.",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "email": "Adresse Email",
+    "phone": "Numéro de Téléphone (facultatif)",
+    "serviceType": "Type de Service",
+    "serviceTypes": {
+      "residential": "Résidentiel",
+      "commercial": "Commercial",
+      "other": "Autre"
+    },
+    "message": "Votre Message",
+    "send": "Envoyer le Message",
+    "sending": "Envoi en cours...",
+    "backHome": "Retour à l'Accueil",
+    "successTitle": "Message Envoyé",
+    "successMessage": "Merci pour votre message. Nous vous répondrons sous peu.",
+    "errorTitle": "Erreur",
+    "errorMessage": "Un problème est survenu lors de l'envoi de votre message. Veuillez réessayer.",
+    "thankYou": "Merci !",
+    "responseMessage": "Nous avons bien reçu votre message et nous vous répondrons dès que possible."
+  },
+  "map": {
+    "title": "Trouvez-Nous",
+    "placeholder": "La carte sera affichée ici"
   }
+}
 }
