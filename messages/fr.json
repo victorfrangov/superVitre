@@ -12,15 +12,15 @@
   },
   "cta": {
     "getStarted": "Reserver",
-    "startFreeTrial": "Pas Sur?",
-    "bookDemo": "Réserver une Démo",
+    "startFreeTrial": "Reserver",
+    "bookDemo": "Pas Sur?",
     "scheduleDemo": "Planifier une Démo",
     "contactSales": "Contacter les Ventes"
   },
   "hero": {
     "badge": "Bientôt Disponible",
     "title": "Lavage de vitre résidentiel à Saint-Lambert",
-    "description": "La plateforme tout-en-un qui aide les équipes à collaborer, automatiser et livrer des résultats exceptionnels. Rationalisez vos processus et concentrez-vous sur l'essentiel.",
+    "description": "Professional window cleaning services for homes and businesses. Book your appointment today for crystal clear results.",
     "benefits": {
       "noCreditCard": "Sans carte de crédit",
       "trial": "Essai de 14 jours",
@@ -83,7 +83,45 @@
   "testimonials": {
     "badge": "Témoignages",
     "title": "Aimé par des Équipes du Monde Entier",
-    "description": "Ne vous fiez pas seulement à notre parole. Voyez ce que nos clients ont à dire sur leur expérience."
+    "description": "Ne vous fiez pas seulement à notre parole. Voyez ce que nos clients ont à dire sur leur expérience.",
+    "items": [
+    {
+      "quote": "SaaSify has transformed how we manage our projects. The automation features have saved us countless hours of manual work.",
+      "author": "Sarah Johnson",
+      "role": "Project Manager, TechCorp",
+      "rating": 5
+    },
+    {
+      "quote": "The analytics dashboard provides insights we never had access to before. It's helped us make data-driven decisions that have improved our ROI.",
+      "author": "Michael Chen",
+      "role": "Marketing Director, GrowthLabs",
+      "rating": 5
+    },
+    {
+      "quote": "Customer support is exceptional. Any time we've had an issue, the team has been quick to respond and resolve it. Couldn't ask for better service.",
+      "author": "Emily Rodriguez",
+      "role": "Operations Lead, StartupX",
+      "rating": 5
+    },
+    {
+      "quote": "We've tried several similar solutions, but none compare to the ease of use and comprehensive features of SaaSify. It's been a game-changer.",
+      "author": "David Kim",
+      "role": "CEO, InnovateNow",
+      "rating": 5
+    },
+    {
+      "quote": "The collaboration tools have made remote work so much easier for our team. We're more productive than ever despite being spread across different time zones.",
+      "author": "Lisa Patel",
+      "role": "HR Director, RemoteFirst",
+      "rating": 5
+    },
+    {
+      "quote": "Implementation was seamless, and the ROI was almost immediate. We've reduced our operational costs by 30% since switching to SaaSify.",
+      "author": "James Wilson",
+      "role": "COO, ScaleUp Inc",
+      "rating": 5
+    }
+  ]
   },
   "pricing": {
     "title": "Tarification Simple et Transparente",
@@ -93,7 +131,7 @@
     "plans": {
       "basic": {
         "title": "Débutant",
-        "price": "29€",
+        "price": "99$",
         "description": "Perfect for small homes with standard windows.",
         "features": [
           "Up to 10 windows",
@@ -105,7 +143,7 @@
       },
       "pro": {
         "title": "Professionnel",
-        "price": "79€",
+        "price": "199$",
         "description": "Idéal pour les entreprises en croissance.",
         "features": [
           "Jusqu'à 20 membres d'équipe",
@@ -119,7 +157,7 @@
       },
       "enterprise": {
         "title": "Entreprise",
-        "price": "199€",
+        "price": "299$",
         "description": "Pour les grandes organisations avec des besoins complexes.",
         "features": [
           "Membres d'équipe illimités",

@@ -377,8 +377,6 @@ export default function LandingPage() {
             </motion.div>
 
             <div className="grid md:grid-cols-3 gap-8 md:gap-12 relative">
-              <div className="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-border to-transparent -translate-y-1/2 z-0"></div>
-
               {[
                 {
                   step: "01",
@@ -425,57 +423,14 @@ export default function LandingPage() {
               transition={{ duration: 0.5 }}
               className="flex flex-col items-center justify-center space-y-4 text-center mb-12"
             >
-              <Badge className="rounded-full px-4 py-1.5 text-sm font-medium" variant="secondary">
+              {/* <Badge className="rounded-full px-4 py-1.5 text-sm font-medium" variant="secondary">
                 {testimonialsT("badge")}
-              </Badge>
+              </Badge> */}
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight">{testimonialsT("title")}</h2>
               <p className="max-w-[800px] text-muted-foreground md:text-lg">{testimonialsT("description")}</p>
             </motion.div>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {[
-                {
-                  quote:
-                    "SaaSify has transformed how we manage our projects. The automation features have saved us countless hours of manual work.",
-                  author: "Sarah Johnson",
-                  role: "Project Manager, TechCorp",
-                  rating: 5,
-                },
-                {
-                  quote:
-                    "The analytics dashboard provides insights we never had access to before. It's helped us make data-driven decisions that have improved our ROI.",
-                  author: "Michael Chen",
-                  role: "Marketing Director, GrowthLabs",
-                  rating: 5,
-                },
-                {
-                  quote:
-                    "Customer support is exceptional. Any time we've had an issue, the team has been quick to respond and resolve it. Couldn't ask for better service.",
-                  author: "Emily Rodriguez",
-                  role: "Operations Lead, StartupX",
-                  rating: 5,
-                },
-                {
-                  quote:
-                    "We've tried several similar solutions, but none compare to the ease of use and comprehensive features of SaaSify. It's been a game-changer.",
-                  author: "David Kim",
-                  role: "CEO, InnovateNow",
-                  rating: 5,
-                },
-                {
-                  quote:
-                    "The collaboration tools have made remote work so much easier for our team. We're more productive than ever despite being spread across different time zones.",
-                  author: "Lisa Patel",
-                  role: "HR Director, RemoteFirst",
-                  rating: 5,
-                },
-                {
-                  quote:
-                    "Implementation was seamless, and the ROI was almost immediate. We've reduced our operational costs by 30% since switching to SaaSify.",
-                  author: "James Wilson",
-                  role: "COO, ScaleUp Inc",
-                  rating: 5,
-                },
-              ].map((testimonial, i) => (
+              {testimonialsT.raw("items").map((testimonial: any, i: number) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, y: 20 }}
