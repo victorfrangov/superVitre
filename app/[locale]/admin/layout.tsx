@@ -4,7 +4,7 @@ import type React from "react"
 
 import { useState, useEffect } from "react"
 import { useTranslations } from "next-intl"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "@/i18n/navigation" // Import useRouter
 import { Link } from "@/i18n/navigation"
 import {
   BarChart3,
@@ -23,21 +23,21 @@ import {
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Toaster } from "@/components/ui/toaster"
+import { auth } from "@/app/firebase/config"; // Import auth
+import { signOut } from "firebase/auth"; // Import signOut
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const t = useTranslations("admin")
   const pathname = usePathname()
+  const router = useRouter()
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024)
-      if (window.innerWidth < 1024) {
-        setSidebarOpen(false)
-      } else {
-        setSidebarOpen(true)
-      }
+      const mobile = window.innerWidth < 1024;
+      setIsMobile(mobile)
+      setSidebarOpen(!mobile); // Keep sidebar open on desktop, closed on mobile initially
     }
 
     checkMobile()
@@ -53,6 +53,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { name: t("navigation.feedback"), href: "/admin/feedback", icon: BarChart3 },
     { name: t("navigation.settings"), href: "/admin/settings", icon: Cog },
   ]
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      router.push('/login');
+    } catch (e) {
+      console.error("Error signing out from layout: ", e);
+    }
+  };
 
   return (
     <div className="flex h-screen bg-muted/30">
@@ -78,7 +87,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <nav className="flex-1 overflow-y-auto py-4">
           <div className="px-4 space-y-1">
             {navigation.map((item) => {
-              const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`)
+              const isActive = pathname === item.href || (item.href !== "/admin" && pathname.startsWith(`${item.href}/`)) || (item.href === "/admin" && pathname === "/admin");
               return (
                 <Link
                   key={item.name}
@@ -99,19 +108,20 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="border-t p-4">
           <div className="flex items-center gap-3 rounded-md px-3 py-2">
             <Avatar className="size-8">
+              {/* Replace with actual user avatar if available */}
               <AvatarImage src="/placeholder.svg?height=32&width=32" alt="Admin" />
               <AvatarFallback>AD</AvatarFallback>
             </Avatar>
             <div className="flex flex-col">
+              {/* Replace with actual user name/email if available */}
               <span className="text-sm font-medium">Admin User</span>
               <span className="text-xs text-muted-foreground">admin@supervitre.com</span>
             </div>
           </div>
-          <Button variant="ghost" className="w-full justify-start mt-2 text-muted-foreground" asChild>
-            <Link href="/">
-              <LogOut className="mr-2 size-4" />
-              {t("logout")}
-            </Link>
+          {/* Updated Logout Button */}
+          <Button variant="ghost" className="w-full justify-start mt-2 text-muted-foreground" onClick={handleSignOut}>
+            <LogOut className="mr-2 size-4" />
+            {t("logout")}
           </Button>
         </div>
       </div>
@@ -142,7 +152,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       {/* Overlay for mobile */}
       {isMobile && sidebarOpen && (
-        <div className="fixed inset-0 z-40 bg-black/50" onClick={() => setSidebarOpen(false)} aria-hidden="true" />
+        <div className="fixed inset-0 z-40 bg-black/50 lg:hidden" onClick={() => setSidebarOpen(false)} aria-hidden="true" />
       )}
       <Toaster />
     </div>

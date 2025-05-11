@@ -9,7 +9,7 @@
     "pricing": "Tarifs",
     "feedback": "Feedback",
     "faq": "FAQ",
-    "login": "Connexion Employés"
+    "adminLogin": "Connexion Employés"
   },
   "cta": {
     "getStarted": "Reserver",
@@ -540,11 +540,11 @@
       "backToWebsite": "Back to Website",
       "showPassword": "Show password",
       "hidePassword": "Hide password",
-      "demoCredentials": "For demo purposes, use:",
       "successTitle": "Login Successful",
       "successMessage": "You have been successfully logged in.",
       "errorTitle": "Login Failed",
-      "errorMessage": "Invalid email or password. Please try again."
+      "errorMessage": "Invalid email or password. Please try again.",
+      "invalidCredentials": "Invalid email or password. Please try again."
     }
   },
   "feedback": {

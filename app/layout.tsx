@@ -8,9 +8,8 @@ import { LanguageProvider } from "@/contexts/language-context"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "SaaSify - Streamline Your Workflow",
-  description: "Boost productivity, reduce costs, and scale your business with our all-in-one SaaS platform.",
-    generator: 'v0.dev'
+  title: "SuperVitre",
+  description: "Lavage de vitre résidentiel à Saint-Lambert."
 }
 
 export default function RootLayout({
@@ -28,3 +27,5 @@ export default function RootLayout({
     </html>
   )
 }
+
+//FIX HYDRATION ERROR

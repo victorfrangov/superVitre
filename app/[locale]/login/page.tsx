@@ -14,6 +14,9 @@ import { Label } from "@/components/ui/label"
 import { toast } from "@/components/ui/use-toast"
 import { Toaster } from "@/components/ui/toaster"
 
+import { auth } from '@/app/firebase/config'
+import { signInWithEmailAndPassword } from "firebase/auth";
+
 export default function AdminLoginPage() {
   const t = useTranslations("admin.login")
   const router = useRouter()
@@ -34,26 +37,13 @@ export default function AdminLoginPage() {
     setIsLoading(true)
 
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500))
+      // Use Firebase to sign in
+      const userCredential = await signInWithEmailAndPassword(auth, formData.email, formData.password)
+      router.push("/admin")
 
-      // For demo purposes, hardcode a successful login with specific credentials
-      if (formData.email === "admin@crystalclear.com" && formData.password === "password") {
-        toast({
-          title: t("successTitle"),
-          description: t("successMessage"),
-        })
+    } catch (error: any) {
+      console.error("Firebase Auth Error:", error.code, error.message) // Optional: for debugging
 
-        // Redirect to admin dashboard
-        router.push("/admin")
-      } else {
-        toast({
-          title: t("errorTitle"),
-          description: t("errorMessage"),
-          variant: "destructive",
-        })
-      }
-    } catch (error) {
       toast({
         title: t("errorTitle"),
         description: t("errorMessage"),
@@ -74,12 +64,12 @@ export default function AdminLoginPage() {
       >
         <Card className="border-border/40 shadow-lg">
           <CardHeader className="space-y-1 text-center">
-            <div className="flex justify-center mb-4">
+            <div className="flex justify-center mb-3">
               <div className="flex items-center gap-2 font-bold">
                 <div className="size-10 rounded-lg bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center text-primary-foreground">
-                  C
+                  S
                 </div>
-                <span className="text-xl">CrystalClear</span>
+                <span className="text-xl">SuperVitre</span>
               </div>
             </div>
             <CardTitle className="text-2xl">{t("title")}</CardTitle>
@@ -106,9 +96,6 @@ export default function AdminLoginPage() {
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <Label htmlFor="password">{t("password")}</Label>
-                  <Button variant="link" className="p-0 h-auto text-xs" type="button">
-                    {t("forgotPassword")}
-                  </Button>
                 </div>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
@@ -152,10 +139,6 @@ export default function AdminLoginPage() {
                 )}
               </Button>
             </form>
-            <div className="text-center text-sm text-muted-foreground">
-              <p>{t("demoCredentials")}</p>
-              <p className="font-mono mt-1">admin@crystalclear.com / password</p>
-            </div>
           </CardContent>
           <CardFooter className="border-t p-4">
             <Button variant="outline" className="w-full" asChild>

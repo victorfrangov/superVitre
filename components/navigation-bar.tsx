@@ -1,71 +1,18 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ChevronRight, Menu, X, UserRoundCog, LogOut } from "lucide-react";
+import { ChevronRight, Menu, X, UserRoundCog } from "lucide-react";
 import { motion } from "framer-motion";
-import { useNavigationTranslations } from "@/utils/navigation";
 import { LanguageSwitcher } from "@/components/language-switcher";
-
-// Firebase and FirebaseUI imports (using compat for FirebaseUI)
-import firebase from 'firebase/compat/app'; // Import the compat app
-import 'firebase/compat/auth';          // Import the compat auth module
-import * as firebaseui from 'firebaseui';
-import 'firebaseui/dist/firebaseui.css';  // Import FirebaseUI CSS
-
-// Import your Firebase configuration
-import { firebaseConfig } from '@/lib/firebase'; // Ensure this path is correct
-
-// Initialize Firebase compat app if it hasn't been already
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
+import { useTranslations } from "next-intl";
 
 export default function NavigationBar() {
-  const { navT, ctaT, accessibilityT } = useNavigationTranslations();
+  const navT = useTranslations("navigation");
+  const ctaT = useTranslations("cta");
+  const accessibilityT = useTranslations("accessibility");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const firebaseuiContainerId = "firebaseui-auth-container";
-
-  const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
-  const [isAuthLoading, setIsAuthLoading] = useState(true);
-
-  // Listener for Firebase auth state changes
-  useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
-      setCurrentUser(user);
-      setIsAuthLoading(false);
-    });
-    return () => unsubscribe(); // Cleanup subscription on unmount
-  }, []);
-
-  // Effect to initialize FirebaseUI when the user is logged out and auth state is resolved
-  useEffect(() => {
-    if (!currentUser && !isAuthLoading) {
-      const container = document.getElementById(firebaseuiContainerId);
-      if (container) { // Ensure the container element is in the DOM
-        const ui = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(firebase.auth());
-        // Check if the container is empty to prevent re-initializing over existing UI
-        if (container.innerHTML.trim() === '') {
-          ui.start(`#${firebaseuiContainerId}`, {
-            signInSuccessUrl: '/admin', // Redirect to /admin on successful sign-in
-            signInOptions: [
-              firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            ],
-            credentialHelper: firebaseui.auth.CredentialHelper.NONE, // Recommended for SPAs
-          });
-        }
-      }
-    }
-  }, [currentUser, isAuthLoading]); // Rerun when auth state changes
-
-  const handleSignOut = async () => {
-    try {
-      await firebase.auth().signOut();
-    } catch (error) {
-      console.error("Error signing out: ", error);
-    }
-  };
 
   const links = [
     { href: "/reservations", label: navT("reservations") },
@@ -102,30 +49,14 @@ export default function NavigationBar() {
         {/* Auth Area & Call-to-Action Button */}
         <div className="hidden md:flex gap-2 items-center">
           <LanguageSwitcher />
-          {isAuthLoading ? (
-            <div className="h-9 w-32 animate-pulse rounded-md bg-muted"></div>
-          ) : currentUser ? (
-            <>
-              <Link
-                href="/admin"
-                className="p-2 text-muted-foreground hover:text-foreground transition-colors"
-                aria-label={navT("adminPanel") || "Admin Panel"}
-              >
-                <UserRoundCog className="size-5" />
-              </Link>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={handleSignOut}
-                className="text-muted-foreground hover:text-foreground"
-                aria-label={navT("signOut") || "Sign Out"}
-              >
-                <LogOut className="size-5" />
-              </Button>
-            </>
-          ) : (
-            <div id={firebaseuiContainerId} className="flex items-center"></div>
-          )}
+          {/* Replaced old auth UI with a link to the admin login page */}
+          <Link
+            href="/login"
+            className="p-2 text-muted-foreground hover:text-foreground transition-colors"
+            aria-label={navT("adminLogin") || "Admin Login"}
+          >
+            <UserRoundCog className="size-5" />
+          </Link>
           <Button className="rounded-full">
             {ctaT("getStarted")}
             <ChevronRight className="size-4 -ml-1" />
@@ -166,26 +97,15 @@ export default function NavigationBar() {
               </Link>
             ))}
             <div className="flex flex-col gap-2 pt-2 border-t">
-              {isAuthLoading ? (
-                <div className="py-2 text-sm font-medium text-muted-foreground">Loading...</div>
-              ) : currentUser ? (
-                <>
-                  <Link href="/admin" className="py-2 text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>
-                    {navT("adminPanel") || "Admin Panel"}
-                  </Link>
-                  <Button variant="ghost" onClick={() => { handleSignOut(); setMobileMenuOpen(false); }} className="justify-start py-2 text-sm font-medium">
-                    {navT("signOut") || "Sign Out"}
-                  </Button>
-                </>
-              ) : (
-                <Link href="#" className="py-2 text-sm font-medium" onClick={(e) => {
-                  e.preventDefault();
-                  setMobileMenuOpen(false);
-                  alert("Please login on desktop or implement mobile login UI.");
-                }}>
-                  {navT("login")}
-                </Link>
-              )}
+              {/* Replaced old auth UI with a link to the admin login page for mobile */}
+              <Link
+                href="/admin/login"
+                className="py-2 text-sm font-medium flex items-center gap-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <UserRoundCog className="size-4 mr-2" />
+                {navT("adminLogin") || "Admin Login"}
+              </Link>
               <Button className="rounded-full">
                 {ctaT("getStarted")}
                 <ChevronRight className="ml-1 size-4" />
