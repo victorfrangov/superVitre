@@ -1,28 +1,28 @@
 {
   "meta": {
     "title": "Residential Window Cleaning in Saint-Lambert",
-    "description": "Boost productivity, reduce costs, and scale your business with our all-in-one SaaS platform."
+    "description": "Professional window cleaning for a brighter home."
   },
   "navigation": {
-    "features": "Features",
-    "testimonials": "Testimonials",
+    "reservations": "Reservations",
+    "contact": "Contact",
     "pricing": "Pricing",
+    "feedback": "Feedback",
     "faq": "FAQ",
-    "login": "Log in"
+    "adminLogin": "Employee Login"
   },
   "cta": {
-    "getStarted": "Get Started",
-    "startFreeTrial": "Start Free Trial",
-    "bookDemo": "Book a Demo",
-    "scheduleDemo": "Schedule a Demo",
+    "getStarted": "Book Now",
+    "reserve": "Book Now",
+    "haveAQuestion": "Have a question?",
     "contactSales": "Contact Sales"
   },
   "hero": {
-    "badge": "Launching Soon",
-    "title": "Elevate Your Workflow with SaaSify",
-    "description": "The all-in-one platform that helps teams collaborate, automate, and deliver exceptional results. Streamline your processes and focus on what matters most.",
+    "badge": "Coming Soon",
+    "title": "Residential Window Cleaning in Saint-Lambert",
+    "description": "Professional window cleaning services for homes and businesses. Book your appointment today for crystal clear results.",
     "benefits": {
-      "noCreditCard": "No credit card",
+      "noCreditCard": "No credit card required",
       "trial": "14-day trial",
       "cancelAnytime": "Cancel anytime"
     }
@@ -33,7 +33,7 @@
   "features": {
     "badge": "Features",
     "title": "Everything You Need to Succeed",
-    "description": "Our comprehensive platform provides all the tools you need to streamline your workflow, boost productivity, and achieve your goals.",
+    "description": "Our comprehensive platform provides all the tools necessary to streamline your workflow, increase productivity, and achieve your goals.",
     "items": {
       "automation": {
         "title": "Smart Automation",
@@ -83,27 +83,72 @@
   "testimonials": {
     "badge": "Testimonials",
     "title": "Loved by Teams Worldwide",
-    "description": "Don't just take our word for it. See what our customers have to say about their experience."
+    "description": "Don't just take our word for it. See what our customers have to say about their experience.",
+    "residential": "Residential",
+    "commercial": "Commercial",
+    "customer": "Customer",
+    "leaveReview": "Had a great experience with our service?",
+    "shareFeedback": "Share your feedback",
+    "items": [
+      {
+        "quote": "SaaSify has transformed how we manage our projects. The automation features have saved us countless hours of manual work.",
+        "author": "Sarah Johnson",
+        "role": "Project Manager, TechCorp",
+        "rating": 5
+      },
+      {
+        "quote": "The analytics dashboard provides insights we never had access to before. It's helped us make data-driven decisions that have improved our ROI.",
+        "author": "Michael Chen",
+        "role": "Marketing Director, GrowthLabs",
+        "rating": 5
+      },
+      {
+        "quote": "Customer support is exceptional. Any time we've had an issue, the team has been quick to respond and resolve it. Couldn't ask for better service.",
+        "author": "Emily Rodriguez",
+        "role": "Operations Lead, StartupX",
+        "rating": 5
+      },
+      {
+        "quote": "We've tried several similar solutions, but none compare to the ease of use and comprehensive features of SaaSify. It's been a game-changer.",
+        "author": "David Kim",
+        "role": "CEO, InnovateNow",
+        "rating": 5
+      },
+      {
+        "quote": "The collaboration tools have made remote work so much easier for our team. We're more productive than ever despite being spread across different time zones.",
+        "author": "Lisa Patel",
+        "role": "HR Director, RemoteFirst",
+        "rating": 5
+      },
+      {
+        "quote": "Implementation was seamless, and the ROI was almost immediate. We've reduced our operational costs by 30% since switching to SaaSify.",
+        "author": "James Wilson",
+        "role": "COO, ScaleUp Inc",
+        "rating": 5
+      }
+    ]
   },
   "pricing": {
-    "badge": "Pricing",
     "title": "Simple, Transparent Pricing",
     "description": "Choose the plan that's right for your business. All plans include a 14-day free trial.",
     "monthly": "Monthly",
     "annually": "Annually (Save 20%)",
     "plans": {
-      "starter": {
-        "name": "Starter",
-        "price": "$29",
-        "annualPrice": "$23",
-        "description": "Perfect for small teams and startups.",
-        "features": ["Up to 5 team members", "Basic analytics", "5GB storage", "Email support"],
+      "basic": {
+        "title": "Starter",
+        "price": "$99",
+        "description": "Perfect for small homes with standard windows.",
+        "features": [
+          "Up to 10 windows",
+          "Exterior cleaning",
+          "Screen wiping",
+          "3-month rain guarantee"
+        ],
         "cta": "Choose Plan"
       },
-      "professional": {
-        "name": "Professional",
-        "price": "$79",
-        "annualPrice": "$63",
+      "pro": {
+        "title": "Professional",
+        "price": "$199",
         "description": "Ideal for growing businesses.",
         "features": [
           "Up to 20 team members",
@@ -116,9 +161,8 @@
         "cta": "Choose Pro"
       },
       "enterprise": {
-        "name": "Enterprise",
-        "price": "$199",
-        "annualPrice": "$159",
+        "title": "Enterprise",
+        "price": "$299",
         "description": "For large organizations with complex needs.",
         "features": [
           "Unlimited team members",
@@ -128,10 +172,9 @@
           "Advanced API access",
           "Custom integrations"
         ],
-        "cta": "Contact Sales"
+        "cta": "Contact Us"
       }
-    },
-    "perMonth": "/month"
+    }
   },
   "faq": {
     "badge": "FAQ",
@@ -165,12 +208,12 @@
     ]
   },
   "finalCta": {
-    "title": "Ready to Transform Your Workflow?",
-    "description": "Join thousands of satisfied customers who have streamlined their processes and boosted productivity with our platform.",
+    "title": "Ready to Transform Your Windows?",
+    "description": "Join thousands of satisfied customers who have streamlined their processes and increased their productivity with our platform.",
     "footnote": "No credit card required. 14-day free trial. Cancel anytime."
   },
   "footer": {
-    "about": "Streamline your workflow with our all-in-one SaaS platform. Boost productivity and scale your business.",
+    "about": "Streamline your workflow with our all-in-one SaaS platform. Boost productivity and grow your business.",
     "categories": {
       "product": "Product",
       "resources": "Resources",
@@ -181,20 +224,344 @@
       "guides": "Guides",
       "blog": "Blog",
       "support": "Support",
-      "about": "About",
+      "about": "About Us",
       "careers": "Careers",
       "privacy": "Privacy Policy",
       "terms": "Terms of Service",
-      "cookies": "Cookie Policy",
-      "integrations": "Integrations",
-      "api": "API"
+      "cookies": "Cookie Policy"
     },
-    "copyright": "© {year} SaaSify. All rights reserved."
+    "copyright": "© {year} SuperVitre. All rights reserved."
   },
   "accessibility": {
     "scrollToTop": "Scroll to top",
     "toggleTheme": "Toggle theme",
     "toggleMenu": "Toggle menu",
     "changeLanguage": "Change language"
+  },
+  "reservations": {
+    "title": "Book Your Window Cleaning Service",
+    "subtitle": "Select a date and time that works for you",
+    "instructions": "Choose an available time slot and fill in your information to book your window cleaning service.",
+    "contactInfo": "Contact Information",
+    "serviceDetails": "Service Details",
+    "form": {
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "address": "Property Address",
+      "city": "City",
+      "zipCode": "Zip Code",
+      "propertyType": "Property Type",
+      "propertyTypes": {
+        "residential": "Residential",
+        "commercial": "Commercial"
+      },
+      "serviceType": "Service Type",
+      "serviceTypes": {
+        "basic": "Basic - Exterior Only",
+        "standard": "Standard - Interior & Exterior",
+        "premium": "Premium - Full Package"
+      },
+      "windows": "Number of Windows",
+      "stories": "Number of Stories",
+      "specialInstructions": "Special Instructions",
+      "preferredContact": "Preferred Contact Method",
+      "contactMethods": {
+        "email": "Email",
+        "phone": "Phone",
+        "text": "Text Message"
+      }
+    },
+    "calendar": {
+      "selectDate": "Select a Date",
+      "selectTime": "Select a Time",
+      "morning": "Morning",
+      "afternoon": "Afternoon",
+      "available": "Available",
+      "unavailable": "Unavailable",
+      "booked": "Booked",
+      "noTimesAvailable": "No time slots available on this date. Please select another date."
+    },
+    "buttons": {
+      "checkAvailability": "Check Availability",
+      "bookNow": "Book Now",
+      "previous": "Previous",
+      "next": "Next",
+      "submit": "Confirm Booking"
+    },
+    "confirmation": {
+      "title": "Booking Confirmation",
+      "message": "Thank you for booking with SuperVitre. We have sent a confirmation to your email.",
+      "reference": "Your booking reference is:",
+      "details": "Booking Details",
+      "date": "Date:",
+      "time": "Time:",
+      "service": "Service:",
+      "contact": "We will contact you shortly to confirm your appointment."
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Have questions or need a quote? Contact our team and we'll get back to you as soon as possible.",
+    "contactInfo": {
+      "title": "Contact Information",
+      "subtitle": "Contact our team",
+      "phone": "Phone",
+      "email": "Email",
+      "address": "Address"
+    },
+    "hours": {
+      "title": "Opening Hours",
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday",
+      "closed": "Closed"
+    },
+    "form": {
+      "title": "Send Us a Message",
+      "subtitle": "Fill out the form below and we'll get back to you as soon as possible.",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email Address",
+      "phone": "Phone Number (optional)",
+      "serviceType": "Type of Service",
+      "serviceTypes": {
+        "residential": "Residential",
+        "commercial": "Commercial",
+        "other": "Other"
+      },
+      "message": "Your Message",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "backHome": "Back to Home",
+      "successTitle": "Message Sent",
+      "successMessage": "Thank you for your message. We will get back to you shortly.",
+      "errorTitle": "Error",
+      "errorMessage": "There was a problem sending your message. Please try again.",
+      "thankYou": "Thank You!",
+      "responseMessage": "We have received your message and will get back to you as soon as possible."
+    },
+    "map": {
+      "title": "Find Us",
+      "placeholder": "Map will be displayed here"
+    }
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "viewSite": "View Site",
+    "logout": "Log Out",
+    "navigation": {
+      "dashboard": "Dashboard",
+      "appointments": "Appointments",
+      "contacts": "Contacts",
+      "customers": "Customers",
+      "services": "Services",
+      "feedback": "Feedback",
+      "settings": "Settings"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "newAppointment": "New Appointment",
+      "fromLastPeriod": "from last period",
+      "stats": {
+        "appointments": "Appointments",
+        "revenue": "Revenue",
+        "customers": "Customers",
+        "inquiries": "Inquiries"
+      },
+      "tabs": {
+        "appointments": "Appointments",
+        "contacts": "Contacts"
+      },
+      "recentAppointments": "Recent Appointments",
+      "recentAppointmentsDescription": "View your upcoming appointments for the next few days",
+      "recentContacts": "Recent Contacts",
+      "recentContactsDescription": "View your most recent contact form submissions",
+      "viewAllAppointments": "View All Appointments",
+      "viewAllContacts": "View All Contacts",
+      "status": {
+        "confirmed": "Confirmed",
+        "pending": "Pending",
+        "cancelled": "Cancelled",
+        "new": "New",
+        "responded": "Responded"
+      }
+    },
+    "appointments": {
+      "title": "Appointments",
+      "export": "Export",
+      "newAppointment": "New Appointment",
+      "allAppointments": "All Appointments",
+      "allAppointmentsDescription": "View and manage all your scheduled appointments",
+      "searchPlaceholder": "Search appointments...",
+      "filterByStatus": "Filter by status",
+      "filterByDate": "Filter by date",
+      "allStatuses": "All statuses",
+      "allDates": "All dates",
+      "today": "Today",
+      "tomorrow": "Tomorrow",
+      "thisWeek": "This week",
+      "noAppointmentsFound": "No appointments found",
+      "viewDetails": "View details",
+      "table": {
+        "id": "ID",
+        "customer": "Customer",
+        "service": "Service",
+        "date": "Date",
+        "time": "Time",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "status": {
+        "confirmed": "Confirmed",
+        "pending": "Pending",
+        "cancelled": "Cancelled"
+      }
+    },
+    "contacts": {
+      "title": "Contact Submissions",
+      "export": "Export",
+      "allContacts": "All Contact Submissions",
+      "allContactsDescription": "View and manage all contact form submissions",
+      "searchPlaceholder": "Search contacts...",
+      "filterByStatus": "Filter by status",
+      "filterByDate": "Filter by date",
+      "allStatuses": "All statuses",
+      "allDates": "All dates",
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "thisWeek": "This week",
+      "noContactsFound": "No contacts found",
+      "viewDetails": "View details",
+      "table": {
+        "id": "ID",
+        "name": "Name",
+        "email": "Email",
+        "date": "Date",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "status": {
+        "new": "New",
+        "responded": "Responded"
+      }
+    },
+    "customers": {
+      "allTypes": "All",
+      "title": "Customers",
+      "export": "Export",
+      "newCustomer": "New Customer",
+      "allCustomers": "All Customers",
+      "allCustomersDescription": "View and manage all customers",
+      "searchPlaceholder": "Search customers...",
+      "filterByStatus": "Filter by status",
+      "filterByDate": "Filter by join date",
+      "allStatuses": "All",
+      "allDates": "All dates",
+      "today": "Today",
+      "thisWeek": "This week",
+      "noCustomersFound": "No customers found",
+      "viewDetails": "View details",
+      "table": {
+        "id": "Customer ID",
+        "name": "Name",
+        "email": "Email",
+        "phone": "Phone",
+        "address": "Address",
+        "joinedDate": "Joined Date",
+        "totalAppointments": "Appointments (Total)",
+        "status": "Status",
+        "actions": "Actions",
+        "type": "Type",
+        "lastService": "Last Service",
+        "totalSpent": "Total Spent"
+      },
+      "type": {
+        "residential": "Residential",
+        "commercial": "Commercial"
+      },
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive",
+        "lead": "Lead"
+      }
+    },
+    "feedback": {
+      "yes": "Yes",
+      "no": "No",
+      "allStatuses": "All",
+      "title": "Customer Feedback",
+      "export": "Export",
+      "allFeedback": "All Feedback",
+      "allFeedbackDescription": "View and manage all customer feedback",
+      "searchPlaceholder": "Search feedback...",
+      "filterByRating": "Filter by rating",
+      "filterByDate": "Filter by date",
+      "allRatings": "All ratings",
+      "allDates": "All dates",
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "thisWeek": "This week",
+      "noFeedbackFound": "No feedback found",
+      "viewDetails": "View details",
+      "table": {
+        "allowPublic": "Consent",
+        "id": "Feedback ID",
+        "customer": "Customer",
+        "service": "Related Service",
+        "rating": "Rating (out of 5)",
+        "comment": "Comment",
+        "date": "Feedback Date",
+        "actions": "Actions",
+        "status": "Status"
+      },
+      "status": {
+        "pending": "Pending",
+        "approved": "Approved",
+        "rejected": "Rejected"
+      }
+    },
+    "login": {
+      "title": "Admin Login",
+      "subtitle": "Sign in to your admin account",
+      "email": "Email",
+      "emailPlaceholder": "admin@example.com",
+      "password": "Password",
+      "passwordPlaceholder": "••••••••",
+      "forgotPassword": "Forgot password?",
+      "login": "Sign In",
+      "loggingIn": "Signing in...",
+      "backToWebsite": "Back to Website",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "successTitle": "Login Successful",
+      "successMessage": "You have been successfully logged in.",
+      "errorTitle": "Login Failed",
+      "errorMessage": "Invalid email or password. Please try again.",
+      "invalidCredentials": "Invalid email or password. Please try again."
+    }
+  },
+  "feedback": {
+    "title": "Leave Us a Review",
+    "subtitle": "We appreciate your feedback! Share your experience with our services.",
+    "rating": "Your Rating (out of 5)",
+    "name": "Name",
+    "email": "Email",
+    "backToHome": "Back to Home",
+    "shareYourExperience": "Tell us what you think!",
+    "feedback": "Describe your experience...",
+    "allowPublicDisplay": "I agree that my review (rating and message) can be displayed publicly on the website. My name and email will not be displayed.",
+    "submitFeedback": "Submit My Review",
+    "submittingButton": "Submitting...",
+    "successTitle": "Review Sent!",
+    "successMessage": "Thank you for your feedback. We will review it soon.",
+    "errorTitle": "Submission Error",
+    "errorMessage": "There was a problem submitting your review. Please try again.",
+    "starRatingContext": "star out of 5"
   }
 }

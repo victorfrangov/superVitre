@@ -13,9 +13,8 @@
   },
   "cta": {
     "getStarted": "Reserver",
-    "startFreeTrial": "Reserver",
-    "bookDemo": "Vous avez une question?",
-    "scheduleDemo": "Planifier une Démo",
+    "reserve": "Reserver",
+    "haveAQuestion": "Vous avez une question?",
     "contactSales": "Contacter les Ventes"
   },
   "hero": {

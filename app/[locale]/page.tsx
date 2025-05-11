@@ -143,12 +143,12 @@ export default function LandingPage() {
               <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">{heroT("description")}</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" className="rounded-full h-12 px-8 text-base">
-                  {ctaT("startFreeTrial")}
+                  {ctaT("reserve")}
                   <ArrowRight className="ml-2 size-4" />
                 </Button>
                 <Link href="#faq">
                   <Button size="lg" variant="outline" className="rounded-full h-12 px-8 text-base">
-                    {ctaT("bookDemo")}
+                    {ctaT("haveAQuestion")}
                   </Button>
                 </Link>
               </div>
@@ -497,7 +497,7 @@ export default function LandingPage() {
               <p className="mx-auto max-w-[700px] text-primary-foreground/80 md:text-xl">{finalCtaT("description")}</p>
               <div className="flex flex-col sm:flex-row gap-4 mt-4">
                 <Button size="lg" variant="secondary" className="rounded-full h-12 px-8 text-base">
-                  {ctaT("startFreeTrial")}
+                  {ctaT("reserve")}
                   <ArrowRight className="ml-2 size-4" />
                 </Button>
                 <Button
@@ -505,7 +505,7 @@ export default function LandingPage() {
                   variant="outline"
                   className="rounded-full h-12 px-8 text-base bg-transparent border-white text-white hover:bg-white/10"
                 >
-                  {ctaT("scheduleDemo")}
+                  {ctaT("haveAQuestion")}
                 </Button>
               </div>
               <p className="text-sm text-primary-foreground/80 mt-4">{finalCtaT("footnote")}</p>
