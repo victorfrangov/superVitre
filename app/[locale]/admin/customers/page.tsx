@@ -173,7 +173,7 @@ export default function CustomersPage() {
               <Select value={typeFilter} onValueChange={setTypeFilter}>
                 <SelectTrigger className="w-[180px]">
                   <Filter className="mr-2 size-4" />
-                  <SelectValue placeholder={t("filterByType")} />
+                  <SelectValue placeholder={t("allTypes")} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">{t("allTypes")}</SelectItem>

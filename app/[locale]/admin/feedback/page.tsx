@@ -156,7 +156,6 @@ export default function FeedbackPage() {
         "2025-05-10",
       ].includes(feedback.date)
     }
-
     return matchesSearch && matchesStatus && matchesDate
   })
 
@@ -172,7 +171,6 @@ export default function FeedbackPage() {
     } else if (status === "rejected") {
       variant = "destructive"
     }
-
     return <Badge variant={variant}>{label}</Badge>
   }
 

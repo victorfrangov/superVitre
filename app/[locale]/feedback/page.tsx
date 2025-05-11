@@ -15,6 +15,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
 import { toast } from "@/components/ui/use-toast"
 import { Toaster } from "@/components/ui/toaster"
+import NavigationBar from "@/components/navigation-bar"
 
 export default function FeedbackPage() {
   const t = useTranslations("feedback")
@@ -81,6 +82,7 @@ export default function FeedbackPage() {
 
   return (
     <div className="flex min-h-screen flex-col">
+        <NavigationBar />
       <main className="flex-1 py-12 md:py-24">
         <div className="container px-4 md:px-6">
           <div className="mx-auto max-w-2xl space-y-8">
@@ -93,7 +95,6 @@ export default function FeedbackPage() {
               <Card>
                 <CardHeader>
                   <CardTitle>{t("shareYourExperience")}</CardTitle>
-                  <CardDescription>{t("helpUsImprove")}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <form onSubmit={handleSubmit} className="space-y-6">

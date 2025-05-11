@@ -7,6 +7,7 @@
     "reservations": "Réservation",
     "contact": "Contact",
     "pricing": "Tarifs",
+    "feedback": "Feedback",
     "faq": "FAQ",
     "login": "Connexion Employés"
   },
@@ -545,5 +546,23 @@
       "errorTitle": "Login Failed",
       "errorMessage": "Invalid email or password. Please try again."
     }
+  },
+  "feedback": {
+    "title": "Laissez-nous un Avis",
+    "subtitle": "Nous apprécions vos retours ! Partagez votre expérience avec nos services.",
+    "rating": "Votre Note (sur 5)",
+    "name": "Nom/Prénom",
+    "email": "Email",
+    "backToHome": "Retour",
+    "shareYourExperience": "Dites nous ce que vous pensez!",
+    "feedback": "Décrivez votre expérience...",
+    "allowPublicDisplay": "J'accepte que mon avis (note et message) soit affiché publiquement sur le site. Mon nom et mon email ne seront pas affichés.",
+    "submitFeedback": "Envoyer mon Avis",
+    "submittingButton": "Envoi en cours...",
+    "successTitle": "Avis Envoyé !",
+    "successMessage": "Merci pour votre retour. Nous l'examinerons bientôt.",
+    "errorTitle": "Erreur d'Envoi",
+    "errorMessage": "Un problème est survenu lors de l'envoi de votre avis. Veuillez réessayer.",
+    "starRatingContext": "étoile sur 5"
   }
 }

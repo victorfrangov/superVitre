@@ -16,6 +16,7 @@ export default function NavigationBar() {
     { href: "/reservations", label: navT("reservations") },
     { href: "/contact", label: navT("contact") },
     { href: "/#pricing", label: navT("pricing") },
+    { href: "/feedback", label: navT("feedback") },
     { href: "/#faq", label: navT("faq") },
   ];
 
