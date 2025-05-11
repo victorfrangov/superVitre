@@ -1,18 +1,25 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ChevronRight, Menu, X, UserRoundCog } from "lucide-react";
+import { ChevronRight, Menu, X, UserRoundCog, Sun, Moon } from "lucide-react";
 import { motion } from "framer-motion";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { useTranslations } from "next-intl";
+import { useTheme } from "next-themes";
 
 export default function NavigationBar() {
   const navT = useTranslations("navigation");
   const ctaT = useTranslations("cta");
   const accessibilityT = useTranslations("accessibility");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { theme, setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const links = [
     { href: "/reservations", label: navT("reservations") },
@@ -21,6 +28,14 @@ export default function NavigationBar() {
     { href: "/feedback", label: navT("feedback") },
     { href: "/#faq", label: navT("faq") },
   ];
+
+  const toggleTheme = () => {
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
+  };
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-lg shadow-sm">
@@ -49,7 +64,17 @@ export default function NavigationBar() {
         {/* Auth Area & Call-to-Action Button */}
         <div className="hidden md:flex gap-2 items-center">
           <LanguageSwitcher />
-          {/* Replaced old auth UI with a link to the admin login page */}
+          {mounted && (
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-full"
+              onClick={toggleTheme}
+              aria-label={accessibilityT("toggleTheme") || "Toggle theme"}
+            >
+              {resolvedTheme === "dark" ? <Sun className="size-5" /> : <Moon className="size-5" />}
+            </Button>
+          )}
           <Link
             href="/login"
             className="p-2 text-muted-foreground hover:text-foreground transition-colors"
@@ -64,8 +89,19 @@ export default function NavigationBar() {
         </div>
 
         {/* Mobile Menu Button */}
-        <div className="flex items-center gap-4 md:hidden">
+        <div className="flex items-center gap-2 md:hidden">
           <LanguageSwitcher />
+          {mounted && (
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-full"
+              onClick={toggleTheme}
+              aria-label={accessibilityT("toggleTheme") || "Toggle theme"}
+            >
+              {resolvedTheme === "dark" ? <Sun className="size-5" /> : <Moon className="size-5" />}
+            </Button>
+          )}
           <Button
             variant="ghost"
             size="icon"
@@ -97,9 +133,8 @@ export default function NavigationBar() {
               </Link>
             ))}
             <div className="flex flex-col gap-2 pt-2 border-t">
-              {/* Replaced old auth UI with a link to the admin login page for mobile */}
               <Link
-                href="/admin/login"
+                href="/login"
                 className="py-2 text-sm font-medium flex items-center gap-2"
                 onClick={() => setMobileMenuOpen(false)}
               >

@@ -4,27 +4,14 @@ import type React from "react"
 
 import { useState, useEffect } from "react"
 import { useTranslations } from "next-intl"
-import { usePathname, useRouter } from "@/i18n/navigation" // Import useRouter
+import { usePathname, useRouter } from "@/i18n/navigation"
 import { Link } from "@/i18n/navigation"
-import {
-  BarChart3,
-  Calendar,
-  ClipboardList,
-  Cog,
-  Home,
-  LayoutDashboard,
-  LogOut,
-  Mail,
-  Menu,
-  MessageSquare,
-  Users,
-  X,
-} from "lucide-react"
+import { BarChart3, Calendar, ClipboardList, Cog, Home, LayoutDashboard, LogOut, Mail, Menu, MessageSquare, Users, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Toaster } from "@/components/ui/toaster"
-import { auth } from "@/app/firebase/config"; // Import auth
-import { signOut } from "firebase/auth"; // Import signOut
+import { auth } from "@/app/firebase/config";
+import { signOut } from "firebase/auth";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const t = useTranslations("admin")

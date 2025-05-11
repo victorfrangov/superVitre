@@ -10,8 +10,6 @@ import {
   ChevronRight,
   Menu,
   X,
-  // Moon,
-  // Sun,
   ArrowRight,
   Star,
   Zap,
@@ -69,10 +67,6 @@ export default function LandingPage() {
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
-
-  // const toggleTheme = () => {
-  //   setTheme(theme === "dark" ? "light" : "dark")
-  // }
 
   const scrollToTop = () => {
     window.scrollTo({

@@ -13,7 +13,6 @@ export function LanguageSwitcher() {
   const pathname = usePathname()
   const locale = useLocale()
   const t = useTranslations("accessibility")
-
   // Find the current locale object
   const currentLocale = locales.find((l) => l.code === locale) || locales[0]
 
@@ -26,7 +25,7 @@ export function LanguageSwitcher() {
           <span className="sr-only">{t("changeLanguage")}</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-40">
+      <DropdownMenuContent align="end" className="w-50">
         {locales.map((lang) => (
           <DropdownMenuItem key={lang.code} asChild>
             <Link
