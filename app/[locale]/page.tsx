@@ -234,7 +234,6 @@ export default function LandingPage() {
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight">{featuresT("title")}</h2>
               <p className="max-w-[800px] text-muted-foreground md:text-lg">{featuresT("description")}</p>
             </motion.div>
-
             <motion.div
               variants={container}
               initial="hidden"

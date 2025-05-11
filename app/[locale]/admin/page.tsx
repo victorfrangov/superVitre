@@ -126,21 +126,10 @@ export default function AdminDashboard() {
       status: "new",
     },
   ]
-
+  // Mock data ends
+  
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-2xl font-bold tracking-tight">{t("title")}</h1>
-        <div className="mt-2 sm:mt-0 flex items-center gap-2">
-          <Button asChild>
-            <Link href="/admin/appointments/new">
-              {t("newAppointment")}
-              <Calendar className="ml-2 size-4" />
-            </Link>
-          </Button>
-        </div>
-      </div>
-
       {/* Stats Cards */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat, i) => (

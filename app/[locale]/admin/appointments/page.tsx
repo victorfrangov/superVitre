@@ -138,7 +138,6 @@ export default function AppointmentsPage() {
     } else if (dateFilter === "thisWeek") {
       matchesDate = ["2025-05-12", "2025-05-13", "2025-05-14", "2025-05-15"].includes(appointment.date)
     }
-
     return matchesSearch && matchesStatus && matchesDate
   })
 
@@ -160,22 +159,6 @@ export default function AppointmentsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-2xl font-bold tracking-tight">{t("title")}</h1>
-        <div className="mt-2 sm:mt-0 flex items-center gap-2">
-          <Button variant="outline" size="sm">
-            <Download className="mr-2 size-4" />
-            {t("export")}
-          </Button>
-          <Button asChild>
-            <Link href="/admin/appointments/new">
-              <Plus className="mr-2 size-4" />
-              {t("newAppointment")}
-            </Link>
-          </Button>
-        </div>
-      </div>
-
       <Card>
         <CardHeader>
           <CardTitle>{t("allAppointments")}</CardTitle>

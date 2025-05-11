@@ -84,6 +84,11 @@
     "badge": "Témoignages",
     "title": "Aimé par des Équipes du Monde Entier",
     "description": "Ne vous fiez pas seulement à notre parole. Voyez ce que nos clients ont à dire sur leur expérience.",
+    "residential": "Residential",
+    "commercial": "Commercial",
+    "customer": "Customer",
+    "leaveReview": "Had a great experience with our service?",
+    "shareFeedback": "Share your feedback",
     "items": [
     {
       "quote": "SaaSify has transformed how we manage our projects. The automation features have saved us countless hours of manual work.",
@@ -356,7 +361,7 @@
       "contacts": "Contacts",
       "customers": "Customers",
       "services": "Services",
-      "reports": "Reports",
+      "feedback": "Feedback",
       "settings": "Settings"
     },
     "dashboard": {
@@ -444,6 +449,81 @@
       "status": {
         "new": "New",
         "responded": "Responded"
+      }
+    },
+    "customers": {
+      "allTypes": "Tout",
+      "title": "Clients",
+      "export": "Exporter",
+      "newCustomer": "Nouveau Client",
+      "allCustomers": "Tous les Clients",
+      "allCustomersDescription": "Voir et gérer tous les clients",
+      "searchPlaceholder": "Rechercher des clients...",
+      "filterByStatus": "Filtrer par statut",
+      "filterByDate": "Filtrer par date d'inscription",
+      "allStatuses": "Tout",
+      "allDates": "Toutes les dates",
+      "today": "Aujourd'hui",
+      "thisWeek": "Cette semaine",
+      "noCustomersFound": "Aucun client trouvé",
+      "viewDetails": "Voir les détails",
+      "table": {
+        "id": "ID Client",
+        "name": "Nom",
+        "email": "Email",
+        "phone": "Téléphone",
+        "address": "Adresse",
+        "joinedDate": "Date d'inscription",
+        "totalAppointments": "Rendez-vous (Total)",
+        "status": "Statut",
+        "actions": "Actions",
+        "type": "Type",
+        "lastService": "Last Service",
+        "totalSpent": "Total Spent"
+      },
+      "type": {
+        "residential": "Résidentiel",
+        "commercial": "Commercial"
+      },
+      "status": {
+        "active": "Actif",
+        "inactive": "Inactif",
+        "lead": "Prospect"
+      }
+    },
+    "feedback": {
+      "yes": "Oui",
+      "no": "Non",
+      "allStatuses": "Tout",
+      "title": "Retours Clients",
+      "export": "Exporter",
+      "allFeedback": "Tous les Retours",
+      "allFeedbackDescription": "Voir et gérer tous les retours clients",
+      "searchPlaceholder": "Rechercher des retours...",
+      "filterByRating": "Filtrer par note",
+      "filterByDate": "Filtrer par date",
+      "allRatings": "Toutes les notes",
+      "allDates": "Toutes les dates",
+      "today": "Aujourd'hui",
+      "yesterday": "Hier",
+      "thisWeek": "Cette semaine",
+      "noFeedbackFound": "Aucun retour trouvé",
+      "viewDetails": "Voir les détails",
+      "table": {
+        "allowPublic": "Consentement",
+        "id": "ID Retour",
+        "customer": "Client",
+        "service": "Service Concerné",
+        "rating": "Note (sur 5)",
+        "comment": "Commentaire",
+        "date": "Date du retour",
+        "actions": "Actions",
+        "status": "Status"
+      },
+      "status": {
+        "pending": "En attente",
+        "approved": "Approuvé",
+        "rejected": "Rejeté"
       }
     },
     "login": {

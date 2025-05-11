@@ -16,6 +16,7 @@ import {
   LogOut,
   Mail,
   Menu,
+  MessageSquare,
   Users,
   X,
 } from "lucide-react"
@@ -49,8 +50,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { name: t("navigation.appointments"), href: "/admin/appointments", icon: Calendar },
     { name: t("navigation.contacts"), href: "/admin/contacts", icon: Mail },
     { name: t("navigation.customers"), href: "/admin/customers", icon: Users },
-    { name: t("navigation.services"), href: "/admin/services", icon: ClipboardList },
-    { name: t("navigation.reports"), href: "/admin/reports", icon: BarChart3 },
+    { name: t("navigation.feedback"), href: "/admin/feedback", icon: BarChart3 },
     { name: t("navigation.settings"), href: "/admin/settings", icon: Cog },
   ]
 
@@ -104,7 +104,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </Avatar>
             <div className="flex flex-col">
               <span className="text-sm font-medium">Admin User</span>
-              <span className="text-xs text-muted-foreground">admin@crystalclear.com</span>
+              <span className="text-xs text-muted-foreground">admin@supervitre.com</span>
             </div>
           </div>
           <Button variant="ghost" className="w-full justify-start mt-2 text-muted-foreground" asChild>
@@ -144,7 +144,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       {isMobile && sidebarOpen && (
         <div className="fixed inset-0 z-40 bg-black/50" onClick={() => setSidebarOpen(false)} aria-hidden="true" />
       )}
-
       <Toaster />
     </div>
   )
