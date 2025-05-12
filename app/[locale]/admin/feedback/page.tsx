@@ -348,7 +348,7 @@ export default function FeedbackPage() {
                 <RatingStars rating={selectedFeedback.rating} />
               </div>
               <div>
-                <span className="font-medium">{t("message")}:</span>
+                <span className="font-medium">{t("info.message")}:</span>
                 <p className="mt-1 text-sm border rounded-md p-3 bg-muted/30">{selectedFeedback.message}</p>
               </div>
               <div className="flex items-center">
@@ -365,24 +365,24 @@ export default function FeedbackPage() {
                 <>
                   <Button variant="destructive" onClick={() => handleRejectFeedback(selectedFeedback.id)}>
                     <X className="mr-2 size-4" />
-                    {t("reject")}
+                    {t("info.reject")}
                   </Button>
                   <Button onClick={() => handleApproveFeedback(selectedFeedback.id)}>
                     <Check className="mr-2 size-4" />
-                    {t("approve")}
+                    {t("info.approve")}
                   </Button>
                 </>
               )}
               {selectedFeedback.status === "approved" && (
                 <Button variant="destructive" onClick={() => handleRejectFeedback(selectedFeedback.id)}>
                   <X className="mr-2 size-4" />
-                  {t("removeApproval")} // Change this
+                  {t("info.removeApproval")}
                 </Button>
               )}
               {selectedFeedback.status === "rejected" && (
                 <Button onClick={() => handleApproveFeedback(selectedFeedback.id)}>
                   <Check className="mr-2 size-4" />
-                  {t("approve")}
+                  {t("info.approve")}
                 </Button>
               )}
             </DialogFooter>

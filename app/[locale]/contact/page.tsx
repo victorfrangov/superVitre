@@ -101,18 +101,7 @@ export default function ContactPage() {
                       <Mail className="size-5 text-primary mt-0.5" />
                       <div>
                         <h3 className="font-medium">{t("contactInfo.email")}</h3>
-                        <p className="text-sm text-muted-foreground">info@crystalclear.com</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start space-x-3">
-                      <MapPin className="size-5 text-primary mt-0.5" />
-                      <div>
-                        <h3 className="font-medium">{t("contactInfo.address")}</h3>
-                        <p className="text-sm text-muted-foreground">
-                          123 Clean Street
-                          <br />
-                          Window City, WC 12345
-                        </p>
+                        <p className="text-sm text-muted-foreground">contact@supervitre.com</p>
                       </div>
                     </div>
                   </CardContent>

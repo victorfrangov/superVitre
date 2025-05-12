@@ -20,7 +20,7 @@
   "hero": {
     "badge": "Bientôt Disponible",
     "title": "Lavage de vitre résidentiel à Saint-Lambert",
-    "description": "Professional window cleaning services for homes and businesses. Book your appointment today for crystal clear results.",
+    "description": "Nous offrons un service de lavage de vitre professionnel pour un intérieur lumineux et propre. Réservez dès maintenant!",
     "benefits": {
       "noCreditCard": "Sans carte de crédit",
       "trial": "Essai de 14 jours",
@@ -513,9 +513,12 @@
       "viewDetails": "Voir les détails",
       "feedbackDetails": "Feedback",
       "from": "Retour de: ",
-      "message": "Message",
-      "approve": "Approuver",
-      "reject": "Rejeter",
+      "info": {
+        "message": "Message",
+        "approve": "Approuver",
+        "reject": "Rejeter",
+        "removeApproval": "Retirer l'approbation"
+      },
       "table": {
         "allowPublic": "Consentement",
         "id": "ID Retour",
@@ -555,20 +558,23 @@
   },
   "feedback": {
     "title": "Laissez-nous un Avis",
-    "subtitle": "Nous apprécions vos retours ! Partagez votre expérience avec nos services.",
+    "subtitle": "Partagez votre expérience avec nos services.",
     "rating": "Votre Note (sur 5)",
     "name": "Nom/Prénom",
     "email": "Email",
-    "backToHome": "Retour",
+    "returnToHome": "Retour",
     "shareYourExperience": "Dites nous ce que vous pensez!",
     "feedback": "Décrivez votre expérience...",
     "allowPublicDisplay": "J'accepte que mon avis (note et message) soit affiché publiquement sur le site. Mon nom et mon email ne seront pas affichés.",
     "submitFeedback": "Envoyer mon Avis",
     "submittingButton": "Envoi en cours...",
     "successTitle": "Avis Envoyé !",
-    "successMessage": "Merci pour votre retour. Nous l'examinerons bientôt.",
     "errorTitle": "Erreur d'Envoi",
     "errorMessage": "Un problème est survenu lors de l'envoi de votre avis. Veuillez réessayer.",
-    "starRatingContext": "étoile sur 5"
+    "starRatingContext": "étoile sur 5",
+    "submitting": "Envoi en cours...",
+    "thankYou": "Merci !",
+    "feedbackReceived": "Bien reçu. Nous l'examinerons bientôt.",
+    "appreciateYourFeedback": "Nous apprécions vos retours !"
   }
 }
