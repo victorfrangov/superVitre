@@ -344,7 +344,7 @@ export default function FeedbackPage() {
             </DialogHeader>
             <div className="space-y-4 py-4">
               <div className="flex items-center">
-                <span className="font-medium mr-2">{t("rating")}:</span>
+                <span className="font-medium mr-2">{t("table.rating")}:</span>
                 <RatingStars rating={selectedFeedback.rating} />
               </div>
               <div>
@@ -352,11 +352,11 @@ export default function FeedbackPage() {
                 <p className="mt-1 text-sm border rounded-md p-3 bg-muted/30">{selectedFeedback.message}</p>
               </div>
               <div className="flex items-center">
-                <span className="font-medium mr-2">{t("allowPublic")}:</span>
+                <span className="font-medium mr-2">{t("table.allowPublic")}:</span>
                 <span>{selectedFeedback.allowPublic ? t("yes") : t("no")}</span>
               </div>
               <div className="flex items-center">
-                <span className="font-medium mr-2">{t("status")}:</span>
+                <span className="font-medium mr-2">{t("table.status")}:</span>
                 <StatusBadge status={selectedFeedback.status} />
               </div>
             </div>
@@ -376,7 +376,7 @@ export default function FeedbackPage() {
               {selectedFeedback.status === "approved" && (
                 <Button variant="destructive" onClick={() => handleRejectFeedback(selectedFeedback.id)}>
                   <X className="mr-2 size-4" />
-                  {t("removeApproval")}
+                  {t("removeApproval")} // Change this
                 </Button>
               )}
               {selectedFeedback.status === "rejected" && (
