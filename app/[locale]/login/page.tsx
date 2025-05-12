@@ -40,17 +40,10 @@ export default function AdminLoginPage() {
       // Use Firebase to sign in
       const userCredential = await signInWithEmailAndPassword(auth, formData.email, formData.password)
       router.push("/admin")
-
     } catch (error: any) {
-      console.error("Firebase Auth Error:", error.code, error.message) // Optional: for debugging
-
-      toast({
-        title: t("errorTitle"),
-        description: t("errorMessage"),
-        variant: "destructive",
-      })
+        console.error("Firebase Auth Error:", error.code, error.message) // Optional: for debugging
     } finally {
-      setIsLoading(false)
+        setIsLoading(false)
     }
   }
 

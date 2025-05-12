@@ -130,7 +130,6 @@ export default function LandingPage() {
         {/* Hero Section */}
         <section className="w-full py-20 md:py-32 lg:py-40 overflow-hidden">
           <div className="container px-4 md:px-6 relative">
-            <div className="absolute inset-0 -z-10 h-full w-full bg-white dark:bg-black [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

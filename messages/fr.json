@@ -244,6 +244,7 @@
     "instructions": "Choisissez un créneau horaire disponible et remplissez vos informations pour réserver votre service de lavage de vitres.",
     "contactInfo": "Informations de Contact",
     "serviceDetails": "Détails du Service",
+    "serviceSubtitle": "Dites ce dont vous avez de besoin!",
     "form": {
       "firstName": "Prénom",
       "lastName": "Nom",

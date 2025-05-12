@@ -17,6 +17,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea"
 import NavigationBar from "@/components/navigation-bar";
 
+import { collection, addDoc } from "firebase/firestore";
+import { db } from '@/app/firebase/config';
+
 // Mock data for available time slots
 const generateMockTimeSlots = (date: Date) => {
   // Generate random availability for demonstration
@@ -68,11 +71,13 @@ export default function ReservationsPage() {
     zipCode: "",
     propertyType: "residential",
     serviceType: "standard",
-    windows: "",
+    windows: "1",
     stories: "1",
     specialInstructions: "",
     preferredContact: "email",
   })
+  const [isSubmitting, setIsSubmitting] = useState(false); // Add a state for submission status
+  const [submissionError, setSubmissionError] = useState<string | null>(null); // Add a state for submission error
 
   // Generate a 4-week calendar starting from the current week
   const today = new Date()
@@ -114,12 +119,62 @@ export default function ReservationsPage() {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // In the future, this would connect to Firebase
-    // For now, just move to confirmation step
-    setStep(3)
-  }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmissionError(null);
+
+    // Manual validation for required fields
+    const requiredFields: Array<keyof typeof formData> = [
+      "firstName",
+      "lastName",
+      "email",
+      "phone",
+      "address",
+      "city",
+      "zipCode",
+      // "propertyType", // Add back if you uncomment this field in the form
+      "serviceType",
+      "windows",
+      "stories",
+      "preferredContact",
+    ];
+
+    for (const field of requiredFields) {
+      if (!formData[field] || formData[field].trim() === "") {
+        setSubmissionError(`Please fill in the ${field.replace(/([A-Z])/g, ' $1').toLowerCase()} field.`);
+        setIsSubmitting(false);
+        return;
+      }
+    }
+
+    if (!selectedDate || !selectedTime) {
+      setSubmissionError("Please select a date and time.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      const reservationData = {
+        ...formData,
+        selectedDate: selectedDate.toISOString(), // Store date as ISO string
+        selectedTime,
+        bookingReference,
+        status: "pending", // Default status
+        createdAt: new Date().toISOString(),
+      };
+
+      await addDoc(collection(db, "reservations"), reservationData);
+
+      // For now, just move to confirmation step
+      setStep(3);
+    } catch (error) {
+        console.error("Error adding document: ", error);
+        setSubmissionError("Failed to submit reservation. Please try again.");
+    } finally {
+        setIsSubmitting(false);
+    }
+  };
 
   const goToStep = (newStep: number) => {
     if (newStep === 2 && !selectedDate && !selectedTime) return
@@ -332,7 +387,7 @@ export default function ReservationsPage() {
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="space-y-2">
-                          <Label htmlFor="firstName">{t("form.firstName")}</Label>
+                          <Label htmlFor="firstName">{t("form.firstName")} <span className="text-destructive">*</span></Label>
                           <Input
                             id="firstName"
                             name="firstName"
@@ -342,7 +397,7 @@ export default function ReservationsPage() {
                           />
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="lastName">{t("form.lastName")}</Label>
+                          <Label htmlFor="lastName">{t("form.lastName")} <span className="text-destructive">*</span></Label>
                           <Input
                             id="lastName"
                             name="lastName"
@@ -355,7 +410,7 @@ export default function ReservationsPage() {
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="space-y-2">
-                          <Label htmlFor="email">{t("form.email")}</Label>
+                          <Label htmlFor="email">{t("form.email")} <span className="text-destructive">*</span></Label>
                           <Input
                             id="email"
                             name="email"
@@ -366,7 +421,7 @@ export default function ReservationsPage() {
                           />
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="phone">{t("form.phone")}</Label>
+                          <Label htmlFor="phone">{t("form.phone")} <span className="text-destructive">*</span></Label>
                           <Input
                             id="phone"
                             name="phone"
@@ -379,7 +434,7 @@ export default function ReservationsPage() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="address">{t("form.address")}</Label>
+                        <Label htmlFor="address">{t("form.address")} <span className="text-destructive">*</span></Label>
                         <Input
                           id="address"
                           name="address"
@@ -391,11 +446,11 @@ export default function ReservationsPage() {
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="space-y-2">
-                          <Label htmlFor="city">{t("form.city")}</Label>
+                          <Label htmlFor="city">{t("form.city")} <span className="text-destructive">*</span></Label>
                           <Input id="city" name="city" value={formData.city} onChange={handleInputChange} required />
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="zipCode">{t("form.zipCode")}</Label>
+                          <Label htmlFor="zipCode">{t("form.zipCode")} <span className="text-destructive">*</span></Label>
                           <Input
                             id="zipCode"
                             name="zipCode"
@@ -407,14 +462,19 @@ export default function ReservationsPage() {
                       </div>
 
                       <div className="space-y-4">
-                        <h3 className="text-lg font-medium">{t("serviceDetails")}</h3>
+                        <div className="mb-4">
+                          <h3 className="text-xl font-bold tracking-tight">{t("serviceDetails")}</h3>
+                          <p className="text-base text-muted-foreground">{t("serviceSubtitle")}</p>
+                        </div>
 
-                        <div className="space-y-2">
-                          <Label>{t("form.propertyType")}</Label>
+                        {/* Type de service (residentiel ou commercial) */}
+                        {/* <div className="space-y-2">
+                          <Label>{t("form.propertyType")} <span className="text-destructive">*</span></Label>
                           <RadioGroup
                             defaultValue={formData.propertyType}
                             onValueChange={(value) => handleRadioChange("propertyType", value)}
                             className="flex space-x-4"
+                            required
                           >
                             <div className="flex items-center space-x-2">
                               <RadioGroupItem value="residential" id="residential" />
@@ -431,14 +491,15 @@ export default function ReservationsPage() {
                               </Label>
                             </div>
                           </RadioGroup>
-                        </div>
+                        </div> */}
 
                         <div className="space-y-2">
-                          <Label>{t("form.serviceType")}</Label>
+                          <Label>{t("form.serviceType")} <span className="text-destructive">*</span></Label>
                           <RadioGroup
                             defaultValue={formData.serviceType}
                             onValueChange={(value) => handleRadioChange("serviceType", value)}
                             className="grid grid-cols-1 sm:grid-cols-3 gap-2"
+                            required
                           >
                             <div className="flex items-center space-x-2">
                               <RadioGroupItem value="basic" id="basic" />
@@ -457,7 +518,7 @@ export default function ReservationsPage() {
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div className="space-y-2">
-                            <Label htmlFor="windows">{t("form.windows")}</Label>
+                            <Label htmlFor="windows">{t("form.windows")} <span className="text-destructive">*</span></Label>
                             <Input
                               id="windows"
                               name="windows"
@@ -469,11 +530,12 @@ export default function ReservationsPage() {
                             />
                           </div>
                           <div className="space-y-2">
-                            <Label htmlFor="stories">{t("form.stories")}</Label>
+                            <Label htmlFor="stories">{t("form.stories")} <span className="text-destructive">*</span></Label>
                             <Select
                               name="stories"
                               value={formData.stories}
                               onValueChange={(value) => handleRadioChange("stories", value)}
+                              required
                             >
                               <SelectTrigger>
                                 <SelectValue placeholder="Select number of stories" />
@@ -500,11 +562,12 @@ export default function ReservationsPage() {
                         </div>
 
                         <div className="space-y-2">
-                          <Label>{t("form.preferredContact")}</Label>
+                          <Label>{t("form.preferredContact")} <span className="text-destructive">*</span></Label>
                           <RadioGroup
                             defaultValue={formData.preferredContact}
                             onValueChange={(value) => handleRadioChange("preferredContact", value)}
                             className="flex space-x-4"
+                            required
                           >
                             <div className="flex items-center space-x-2">
                               <RadioGroupItem value="email" id="contact-email" />
@@ -528,8 +591,11 @@ export default function ReservationsPage() {
                       <ArrowLeft className="mr-2 size-4" />
                       {t("buttons.previous")}
                     </Button>
-                    <Button onClick={handleSubmit}>{t("buttons.submit")}</Button>
+                    <Button onClick={handleSubmit} disabled={isSubmitting}>
+                      {isSubmitting ? "Submitting..." : t("buttons.submit")}
+                    </Button>
                   </CardFooter>
+                  {submissionError && <p className="text-red-500 text-sm mt-2 text-center">{submissionError}</p>}
                 </Card>
               </motion.div>
             )}
