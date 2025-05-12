@@ -7,9 +7,6 @@ import Image from "next/image"
 import { motion } from "framer-motion"
 import {
   Check,
-  ChevronRight,
-  Menu,
-  X,
   ArrowRight,
   Star,
   Zap,
@@ -23,9 +20,7 @@ import { Button } from "@/components/ui/button"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { useTheme } from "next-themes"
-import { LanguageSwitcher } from "@/components/language-switcher"
+import { Tabs } from "@/components/ui/tabs"
 import NavigationBar  from "@/components/navigation-bar";
 
 interface FaqItem {
@@ -35,8 +30,6 @@ interface FaqItem {
 
 export default function LandingPage() {
   const [isScrolled, setIsScrolled] = useState(false)
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
   // Get translations

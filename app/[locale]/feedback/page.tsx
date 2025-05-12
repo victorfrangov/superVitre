@@ -168,7 +168,7 @@ export default function FeedbackPage() {
                   <Button variant="outline" asChild>
                     <Link href="/">
                       <ArrowLeft className="mr-2 size-4" />
-                      {t("backToHome")}
+                      {t("returnToHome")}
                     </Link>
                   </Button>
                   <Button type="submit" onClick={handleSubmit} disabled={isSubmitting}>
