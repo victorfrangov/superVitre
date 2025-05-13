@@ -13,9 +13,10 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Textarea } from "@/components/ui/textarea"
-import { toast } from "@/components/ui/use-toast"
-import { Toaster } from "@/components/ui/toaster"
 import NavigationBar from "@/components/navigation-bar"
+
+import { collection, addDoc } from "firebase/firestore"
+import { db } from '@/app/firebase/config'
 
 export default function ContactPage() {
   const t = useTranslations("contact")
@@ -29,50 +30,55 @@ export default function ContactPage() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [formError, setFormError] = useState<string | null>(null)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
+    if (formError) setFormError(null)
   }
 
   const handleRadioChange = (value: string) => {
     setFormData((prev) => ({ ...prev, serviceType: value }))
+    if (formError) setFormError(null)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setFormError(null)
+
+    if (!formData.firstName.trim() || !formData.lastName.trim() || !formData.email.trim() || !formData.message.trim()) {
+      setFormError(t("form.validationError.fieldsRequired"))
+      return
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(formData.email)) {
+      setFormError(t("form.validationError.invalidEmail"))
+      return
+    }
+
     setIsSubmitting(true)
 
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500))
+      const contactData = {
+        ...formData,
+        submittedAt: new Date().toISOString(),
+      }
 
-      // This is where you would connect to your backend
-      // const response = await fetch('/api/contact', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(formData)
-      // });
-
+      await addDoc(collection(db, "contacts"), contactData)
       setIsSubmitted(true)
-      toast({
-        title: t("form.successTitle"),
-        description: t("form.successMessage"),
-      })
     } catch (error) {
-      toast({
-        title: t("form.errorTitle"),
-        description: t("form.errorMessage"),
-        variant: "destructive",
-      })
+        console.error("Error adding document: ", error)
+        setFormError(t("form.errorMessage"))
     } finally {
-      setIsSubmitting(false)
+        setIsSubmitting(false)
     }
   }
 
   return (
     <div className="flex min-h-screen flex-col">
-    <NavigationBar />
+      <NavigationBar />
       <main className="flex-1 py-12 md:py-24">
         <div className="container px-4 md:px-6">
           <div className="mx-auto max-w-5xl space-y-8">
@@ -156,37 +162,34 @@ export default function ContactPage() {
                       <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div className="space-y-2">
-                            <Label htmlFor="firstName">{t("form.firstName")}</Label>
+                            <Label htmlFor="firstName">{t("form.firstName")} <span className="text-destructive">*</span></Label>
                             <Input
                               id="firstName"
                               name="firstName"
                               value={formData.firstName}
                               onChange={handleInputChange}
-                              required
                             />
                           </div>
                           <div className="space-y-2">
-                            <Label htmlFor="lastName">{t("form.lastName")}</Label>
+                            <Label htmlFor="lastName">{t("form.lastName")} <span className="text-destructive">*</span></Label>
                             <Input
                               id="lastName"
                               name="lastName"
                               value={formData.lastName}
                               onChange={handleInputChange}
-                              required
                             />
                           </div>
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div className="space-y-2">
-                            <Label htmlFor="email">{t("form.email")}</Label>
+                            <Label htmlFor="email">{t("form.email")} <span className="text-destructive">*</span></Label>
                             <Input
                               id="email"
                               name="email"
                               type="email"
                               value={formData.email}
                               onChange={handleInputChange}
-                              required
                             />
                           </div>
                           <div className="space-y-2">
@@ -202,7 +205,7 @@ export default function ContactPage() {
                         </div>
 
                         <div className="space-y-2">
-                          <Label>{t("form.serviceType")}</Label>
+                          <Label>{t("form.serviceType")} <span className="text-destructive">*</span></Label>
                           <RadioGroup
                             defaultValue={formData.serviceType}
                             onValueChange={handleRadioChange}
@@ -224,16 +227,18 @@ export default function ContactPage() {
                         </div>
 
                         <div className="space-y-2">
-                          <Label htmlFor="message">{t("form.message")}</Label>
+                          <Label htmlFor="message">{t("form.message")} <span className="text-destructive">*</span></Label>
                           <Textarea
                             id="message"
                             name="message"
                             value={formData.message}
                             onChange={handleInputChange}
                             rows={5}
-                            required
                           />
                         </div>
+                        {formError && (
+                          <p className="text-sm font-medium text-destructive text-center">{formError}</p>
+                        )}
                       </form>
                     ) : (
                       <motion.div
@@ -269,7 +274,6 @@ export default function ContactPage() {
           </div>
         </div>
       </main>
-      <Toaster />
     </div>
   )
 }

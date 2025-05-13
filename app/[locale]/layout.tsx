@@ -4,7 +4,7 @@ import "@/styles/globals.css"
 import { notFound } from "next/navigation"
 import { routing } from "@/i18n/routing"
 import { NextIntlClientProvider, hasLocale } from "next-intl"
-import { getTranslations, setRequestLocale } from "next-intl/server"
+import { getTranslations } from "next-intl/server"
 
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
   const { locale } = await params

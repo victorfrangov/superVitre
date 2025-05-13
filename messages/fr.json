@@ -336,6 +336,10 @@
         "commercial": "Commercial",
         "other": "Autre"
       },
+      "validationError":{
+        "fieldsRequired": "Veuillez remplir tous les champs obligatoires (*).",
+        "invalidEmail": "Veuillez entrer une adresse email valide."
+      },
       "message": "Votre Message",
       "send": "Envoyer le Message",
       "sending": "Envoi en cours...",
@@ -575,6 +579,14 @@
     "submitting": "Envoi en cours...",
     "thankYou": "Merci !",
     "feedbackReceived": "Bien reçu. Nous l'examinerons bientôt.",
-    "appreciateYourFeedback": "Nous apprécions vos retours !"
+    "appreciateYourFeedback": "Votre avis nous aide à améliorer nos services et à guider nos futurs clients.",
+    "form": {
+      "validationError":{
+        "ratingRequired": "Veuillez attribuer une note pour continuer.",
+        "fieldsRequired": "Veuillez remplir tous les champs obligatoires (*).",
+        "invalidEmail": "Veuillez entrer une adresse email valide."
+      },
+      "errorMessage": "Un problème est survenu lors de l'envoi de votre avis. Veuillez réessayer."
+    }
   }
 }
