@@ -161,7 +161,7 @@ export default function ReservationsPage() {
         selectedTime,
         bookingReference,
         status: "pending", // Default status
-        createdAt: new Date().toISOString(),
+        submittedAt: new Date().toISOString(),
       };
 
       await addDoc(collection(db, "reservations"), reservationData);

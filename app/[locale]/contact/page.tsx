@@ -63,6 +63,7 @@ export default function ContactPage() {
     try {
       const contactData = {
         ...formData,
+        status: "new",
         submittedAt: new Date().toISOString(),
       }
 

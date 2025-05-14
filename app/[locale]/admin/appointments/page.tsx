@@ -72,7 +72,7 @@ export default function AppointmentsPage() {
       setIsLoading(true)
       setError(null)
       try {
-        const q = query(collection(db, "reservations"), orderBy("createdAt", "desc"))
+        const q = query(collection(db, "reservations"), orderBy("submittedAt", "desc"))
         const querySnapshot = await getDocs(q)
         const appointmentsData = querySnapshot.docs.map(doc => ({
           id: doc.id,
