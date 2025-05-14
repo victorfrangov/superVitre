@@ -75,6 +75,7 @@ export default function FeedbackPage() {
       const feedbackData = {
         ...formData,
         rating,
+        status: "pending",
         submittedAt: new Date().toISOString(),
       }
 

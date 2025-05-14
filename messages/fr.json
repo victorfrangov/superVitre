@@ -536,6 +536,7 @@
       "viewDetails": "Voir les détails",
       "feedbackDetails": "Feedback",
       "from": "Retour de: ",
+      "loading": "Loading...",
       "info": {
         "message": "Message",
         "approve": "Approuver",

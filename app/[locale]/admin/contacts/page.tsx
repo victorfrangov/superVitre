@@ -3,24 +3,15 @@
 import { useState, useEffect } from "react"
 import { useTranslations } from "next-intl"
 import { Link } from "@/i18n/navigation"
-import { Calendar, Download, Filter, MoreHorizontal, Search } from "lucide-react"
+import { Calendar, Download, Filter, MoreHorizontal, Search, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination"
-import { Badge } from "@/components/ui/badge"
 import { collection, query, getDocs, orderBy } from "firebase/firestore"
 import { db } from "@/app/firebase/config"
+import { Badge } from "@/components/ui/badge"
 
 export default function ContactsPage() {
   const t = useTranslations("admin.contacts")
@@ -94,6 +85,26 @@ export default function ContactsPage() {
     return <Badge variant={variant}>{label}</Badge>
   }
 
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <Loader2 className="size-8 animate-spin text-primary" />
+        <p className="ml-2">{t("loading")}</p>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col justify-center items-center h-64 text-destructive">
+        <p>{error}</p>
+        <Button onClick={() => window.location.reload()} className="mt-4">
+          {t("error.retry")}
+        </Button>
+      </div>
+    )
+  }
+
   return (
     <div className="space-y-6">
       <Card>
@@ -102,94 +113,86 @@ export default function ContactsPage() {
           <CardDescription>{t("allContactsDescription")}</CardDescription>
         </CardHeader>
         <CardContent>
-          {isLoading ? (
-            <p>{t("loading")}</p>
-          ) : error ? (
-            <p className="text-red-500">{error}</p>
-          ) : (
-            <>
-              <div className="flex flex-col sm:flex-row gap-4 mb-6">
-                <div className="relative flex-1">
-                  <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-                  <Input
-                    placeholder={t("searchPlaceholder")}
-                    className="pl-10"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                  />
-                </div>
-                <div className="flex gap-2">
-                  <Select value={statusFilter} onValueChange={setStatusFilter}>
-                    <SelectTrigger className="w-[180px]">
-                      <Filter className="mr-2 size-4" />
-                      <SelectValue placeholder={t("filterByStatus")} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">{t("allStatuses")}</SelectItem>
-                      <SelectItem value="new">{t("status.new")}</SelectItem>
-                      <SelectItem value="responded">{t("status.responded")}</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <Select value={dateFilter} onValueChange={setDateFilter}>
-                    <SelectTrigger className="w-[180px]">
-                      <Calendar className="mr-2 size-4" />
-                      <SelectValue placeholder={t("filterByDate")} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">{t("allDates")}</SelectItem>
-                      <SelectItem value="today">{t("today")}</SelectItem>
-                      <SelectItem value="yesterday">{t("yesterday")}</SelectItem>
-                      <SelectItem value="thisWeek">{t("thisWeek")}</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
+          <div className="flex flex-col sm:flex-row gap-4 mb-6">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                placeholder={t("searchPlaceholder")}
+                className="pl-10"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+            <div className="flex gap-2">
+              <Select value={statusFilter} onValueChange={setStatusFilter}>
+                <SelectTrigger className="w-[180px]">
+                  <Filter className="mr-2 size-4" />
+                  <SelectValue placeholder={t("filterByStatus")} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">{t("allStatuses")}</SelectItem>
+                  <SelectItem value="new">{t("status.new")}</SelectItem>
+                  <SelectItem value="responded">{t("status.responded")}</SelectItem>
+                </SelectContent>
+              </Select>
+              <Select value={dateFilter} onValueChange={setDateFilter}>
+                <SelectTrigger className="w-[180px]">
+                  <Calendar className="mr-2 size-4" />
+                  <SelectValue placeholder={t("filterByDate")} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">{t("allDates")}</SelectItem>
+                  <SelectItem value="today">{t("today")}</SelectItem>
+                  <SelectItem value="yesterday">{t("yesterday")}</SelectItem>
+                  <SelectItem value="thisWeek">{t("thisWeek")}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
 
-              <div className="rounded-md border">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>{t("table.id")}</TableHead>
-                      <TableHead>{t("table.name")}</TableHead>
-                      <TableHead>{t("table.email")}</TableHead>
-                      <TableHead>{t("table.date")}</TableHead>
-                      <TableHead>{t("table.status")}</TableHead>
-                      <TableHead className="text-right">{t("table.actions")}</TableHead>
+          <div className="rounded-md border">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>{t("table.id")}</TableHead>
+                  <TableHead>{t("table.name")}</TableHead>
+                  <TableHead>{t("table.email")}</TableHead>
+                  <TableHead>{t("table.date")}</TableHead>
+                  <TableHead>{t("table.status")}</TableHead>
+                  <TableHead className="text-right">{t("table.actions")}</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {filteredContacts.length === 0 ? (
+                  <TableRow>
+                    <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
+                      {t("noContactsFound")}
+                    </TableCell>
+                  </TableRow>
+                ) : (
+                  filteredContacts.map((contact) => (
+                    <TableRow key={contact.id}>
+                      <TableCell>{contact.id}</TableCell>
+                      <TableCell>{contact.name}</TableCell>
+                      <TableCell>{contact.email}</TableCell>
+                      <TableCell>{contact.submittedAt}</TableCell>
+                      <TableCell>
+                        <StatusBadge status={contact.status} />
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <Button variant="ghost" size="icon" asChild>
+                          <Link href={`/admin/contacts/${contact.id}`}>
+                            <MoreHorizontal className="size-4" />
+                            <span className="sr-only">{t("viewDetails")}</span>
+                          </Link>
+                        </Button>
+                      </TableCell>
                     </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {filteredContacts.length === 0 ? (
-                      <TableRow>
-                        <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
-                          {t("noContactsFound")}
-                        </TableCell>
-                      </TableRow>
-                    ) : (
-                      filteredContacts.map((contact) => (
-                        <TableRow key={contact.id}>
-                          <TableCell>{contact.id}</TableCell>
-                          <TableCell>{contact.name}</TableCell>
-                          <TableCell>{contact.email}</TableCell>
-                          <TableCell>{contact.submittedAt}</TableCell>
-                          <TableCell>
-                            <StatusBadge status={contact.status} />
-                          </TableCell>
-                          <TableCell className="text-right">
-                            <Button variant="ghost" size="icon" asChild>
-                              <Link href={`/admin/contacts/${contact.id}`}>
-                                <MoreHorizontal className="size-4" />
-                                <span className="sr-only">{t("viewDetails")}</span>
-                              </Link>
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      ))
-                    )}
-                  </TableBody>
-                </Table>
-              </div>
-            </>
-          )}
+                  ))
+                )}
+              </TableBody>
+            </Table>
+          </div>
         </CardContent>
       </Card>
     </div>

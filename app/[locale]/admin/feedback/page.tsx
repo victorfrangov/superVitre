@@ -1,214 +1,120 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useTranslations } from "next-intl"
-import { Calendar, Check, Download, Filter, MessageSquare, Search, Star, X } from "lucide-react"
+import { Calendar, Check, Filter, MessageSquare, Search, Star, X, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination"
 import { Badge } from "@/components/ui/badge"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { toast } from "@/components/ui/use-toast"
+import { collection, query, getDocs, orderBy, doc, updateDoc } from "firebase/firestore"
+import { db } from "@/app/firebase/config"
 
 export default function FeedbackPage() {
   const t = useTranslations("admin.feedback")
+  const [feedbackList, setFeedbackList] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState("")
   const [statusFilter, setStatusFilter] = useState("all")
   const [dateFilter, setDateFilter] = useState("all")
-  const [currentPage, setCurrentPage] = useState(1)
   const [selectedFeedback, setSelectedFeedback] = useState<any>(null)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
 
-  // Mock data for feedback
-  const feedbackList = [
-    {
-      id: "FDB-1001",
-      customer: "John Smith",
-      email: "john@example.com",
-      rating: 5,
-      message:
-        "Absolutely fantastic service! The team was professional, thorough, and left my windows spotless. Will definitely use again.",
-      date: "2025-05-10",
-      status: "pending",
-      allowPublic: true,
-    },
-    {
-      id: "FDB-1002",
-      customer: "Sarah Johnson",
-      email: "sarah@example.com",
-      rating: 4,
-      message:
-        "Great job overall. The windows look amazing and the team was very polite. Only reason for 4 stars is they were about 30 minutes late.",
-      date: "2025-05-09",
-      status: "approved",
-      allowPublic: true,
-    },
-    {
-      id: "FDB-1003",
-      customer: "Acme Corporation",
-      email: "info@acmecorp.com",
-      rating: 5,
-      message:
-        "We've been using CrystalClear for our office building for over a year now. Consistently excellent results and reliable service.",
-      date: "2025-05-08",
-      status: "approved",
-      allowPublic: true,
-    },
-    {
-      id: "FDB-1004",
-      customer: "Emily Davis",
-      email: "emily@example.com",
-      rating: 3,
-      message:
-        "The windows look clean, but there were a few spots missed on the second floor. The technician was friendly though.",
-      date: "2025-05-07",
-      status: "rejected",
-      allowPublic: false,
-    },
-    {
-      id: "FDB-1005",
-      customer: "Tech Innovations Inc",
-      email: "contact@techinnovations.com",
-      rating: 5,
-      message:
-        "Excellent service for our commercial property. The team was efficient and professional. Our storefront windows have never looked better!",
-      date: "2025-05-06",
-      status: "pending",
-      allowPublic: true,
-    },
-    {
-      id: "FDB-1006",
-      customer: "Robert Wilson",
-      email: "robert@example.com",
-      rating: 5,
-      message:
-        "I've tried several window cleaning services in the area, and CrystalClear is by far the best. Attention to detail is impressive.",
-      date: "2025-05-05",
-      status: "approved",
-      allowPublic: true,
-    },
-    {
-      id: "FDB-1007",
-      customer: "Sunshine Cafe",
-      email: "manager@sunshinecafe.com",
-      rating: 4,
-      message:
-        "Our cafe windows look amazing! Customers have been commenting on how clear they are. Will be scheduling regular service.",
-      date: "2025-05-04",
-      status: "pending",
-      allowPublic: true,
-    },
-    {
-      id: "FDB-1008",
-      customer: "Jennifer Lee",
-      email: "jennifer@example.com",
-      rating: 2,
-      message:
-        "Service was okay but they left water spots on my hardwood floors. Had to clean up after them which was disappointing.",
-      date: "2025-05-03",
-      status: "rejected",
-      allowPublic: false,
-    },
-  ]
+  useEffect(() => {
+    const fetchFeedbacks = async () => {
+      setIsLoading(true)
+      setError(null)
+      try {
+        const q = query(collection(db, "feedbacks"), orderBy("submittedAt", "desc"))
+        const querySnapshot = await getDocs(q)
+        const feedbackData = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }))
+        setFeedbackList(feedbackData)
+      } catch (err) {
+        console.error("Error fetching feedback:", err)
+        setError(t("error.errorFetching"))
+      } finally {
+        setIsLoading(false)
+      }
+    }
 
-  // Filter feedback based on search query and filters
+    fetchFeedbacks()
+  }, [t])
+
+  const handleApproveFeedback = async (id: string) => {
+    try {
+      const feedbackRef = doc(db, "feedbacks", id)
+      await updateDoc(feedbackRef, { status: "approved" })
+      setFeedbackList((prev) =>
+        prev.map((feedback) => (feedback.id === id ? { ...feedback, status: "approved" } : feedback))
+      )
+      setIsDialogOpen(false)
+    } catch (err) {
+      console.error("Error approving feedback:", err)
+    }
+  }
+
+  const handleRejectFeedback = async (id: string) => {
+    try {
+      const feedbackRef = doc(db, "feedbacks", id)
+      await updateDoc(feedbackRef, { status: "rejected" })
+      setFeedbackList((prev) =>
+        prev.map((feedback) => (feedback.id === id ? { ...feedback, status: "rejected" } : feedback))
+      )
+      setIsDialogOpen(false)
+    } catch (err) {
+      console.error("Error rejecting feedback:", err)
+    }
+  }
+
   const filteredFeedback = feedbackList.filter((feedback) => {
     const matchesSearch =
       searchQuery === "" ||
-      feedback.customer.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      feedback.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      feedback.message.toLowerCase().includes(searchQuery.toLowerCase())
+      feedback.customer?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      feedback.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      feedback.message?.toLowerCase().includes(searchQuery.toLowerCase())
 
     const matchesStatus = statusFilter === "all" || feedback.status === statusFilter
 
-    // Simple date filter for demo purposes
     let matchesDate = true
     if (dateFilter === "today") {
-      matchesDate = feedback.date === "2025-05-10"
+      matchesDate = feedback.submittedAt?.startsWith("2025-05-10")
     } else if (dateFilter === "yesterday") {
-      matchesDate = feedback.date === "2025-05-09"
+      matchesDate = feedback.submittedAt?.startsWith("2025-05-09")
     } else if (dateFilter === "thisWeek") {
-      matchesDate = [
-        "2025-05-04",
-        "2025-05-05",
-        "2025-05-06",
-        "2025-05-07",
-        "2025-05-08",
-        "2025-05-09",
-        "2025-05-10",
-      ].includes(feedback.date)
+      matchesDate = ["2025-05-04", "2025-05-05", "2025-05-06", "2025-05-07", "2025-05-08", "2025-05-09", "2025-05-10"].some(
+        (date) => feedback.submittedAt?.startsWith(date)
+      )
     }
+
     return matchesSearch && matchesStatus && matchesDate
   })
 
-  // Status badge component
-  const StatusBadge = ({ status }: { status: string }) => {
-    let variant: "default" | "secondary" | "destructive" | "outline" = "default"
-    const label = t(`status.${status}`)
-
-    if (status === "approved") {
-      variant = "default"
-    } else if (status === "pending") {
-      variant = "secondary"
-    } else if (status === "rejected") {
-      variant = "destructive"
-    }
-    return <Badge variant={variant}>{label}</Badge>
-  }
-
-  // Rating component
-  const RatingStars = ({ rating }: { rating: number }) => {
+  if (isLoading) {
     return (
-      <div className="flex items-center">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <Star
-            key={i}
-            className={`size-4 ${i < rating ? "text-amber-500 fill-amber-500" : "text-muted-foreground"}`}
-          />
-        ))}
+      <div className="flex justify-center items-center h-64">
+        <Loader2 className="size-8 animate-spin text-primary" />
+        <p className="ml-2">{t("loading")}</p>
       </div>
     )
   }
 
-  const handleViewFeedback = (feedback: any) => {
-    setSelectedFeedback(feedback)
-    setIsDialogOpen(true)
-  }
-
-  const handleApproveFeedback = (id: string) => {
-    // In a real app, this would be an API call
-    toast({
-      title: t("feedbackApproved"),
-      description: t("feedbackApprovedDescription"),
-    })
-    setIsDialogOpen(false)
-  }
-
-  const handleRejectFeedback = (id: string) => {
-    // In a real app, this would be an API call
-    toast({
-      title: t("feedbackRejected"),
-      description: t("feedbackRejectedDescription"),
-    })
-    setIsDialogOpen(false)
+  if (error) {
+    return (
+      <div className="flex flex-col justify-center items-center h-64 text-destructive">
+        <p>{error}</p>
+        <Button onClick={() => window.location.reload()} className="mt-4">
+          {t("error.retry")}
+        </Button>
+      </div>
+    )
   }
 
   return (
@@ -283,17 +189,43 @@ export default function FeedbackPage() {
                   filteredFeedback.map((feedback) => (
                     <TableRow key={feedback.id}>
                       <TableCell className="font-medium">{feedback.id}</TableCell>
-                      <TableCell>{feedback.customer}</TableCell>
+                      <TableCell>{feedback.name}</TableCell>
                       <TableCell>
-                        <RatingStars rating={feedback.rating} />
+                        <div className="flex items-center">
+                          {Array.from({ length: 5 }).map((_, i) => (
+                            <Star
+                              key={i}
+                              className={`size-4 ${
+                                i < feedback.rating ? "text-amber-500 fill-amber-500" : "text-muted-foreground"
+                              }`}
+                            />
+                          ))}
+                        </div>
                       </TableCell>
-                      <TableCell>{feedback.date}</TableCell>
+                      <TableCell>{feedback.submittedAt}</TableCell>
                       <TableCell>
-                        <StatusBadge status={feedback.status} />
+                        <Badge
+                          variant={
+                            feedback.status === "approved"
+                              ? "default"
+                              : feedback.status === "pending"
+                              ? "secondary"
+                              : "destructive"
+                          }
+                        >
+                          {t(`status.${feedback.status}`)}
+                        </Badge>
                       </TableCell>
                       <TableCell>{feedback.allowPublic ? t("yes") : t("no")}</TableCell>
                       <TableCell className="text-right">
-                        <Button variant="ghost" size="icon" onClick={() => handleViewFeedback(feedback)}>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => {
+                            setSelectedFeedback(feedback)
+                            setIsDialogOpen(true)
+                          }}
+                        >
                           <MessageSquare className="size-4" />
                           <span className="sr-only">{t("viewFeedback")}</span>
                         </Button>
@@ -303,31 +235,6 @@ export default function FeedbackPage() {
                 )}
               </TableBody>
             </Table>
-          </div>
-
-          {/* Pagination */}
-          <div className="mt-4">
-            <Pagination>
-              <PaginationContent>
-                <PaginationItem>
-                  <PaginationPrevious href="#" />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink href="#" isActive>
-                    1
-                  </PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink href="#">2</PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationEllipsis />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationNext href="#" />
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
           </div>
         </CardContent>
       </Card>
@@ -339,13 +246,22 @@ export default function FeedbackPage() {
             <DialogHeader>
               <DialogTitle>{t("feedbackDetails")}</DialogTitle>
               <DialogDescription>
-                {t("from")} {selectedFeedback.customer} ({selectedFeedback.date})
+                {t("from")} {selectedFeedback.customer} ({selectedFeedback.submittedAt})
               </DialogDescription>
             </DialogHeader>
             <div className="space-y-4 py-4">
               <div className="flex items-center">
                 <span className="font-medium mr-2">{t("table.rating")}:</span>
-                <RatingStars rating={selectedFeedback.rating} />
+                <div className="flex items-center">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star
+                      key={i}
+                      className={`size-4 ${
+                        i < selectedFeedback.rating ? "text-amber-500 fill-amber-500" : "text-muted-foreground"
+                      }`}
+                    />
+                  ))}
+                </div>
               </div>
               <div>
                 <span className="font-medium">{t("info.message")}:</span>
@@ -357,7 +273,17 @@ export default function FeedbackPage() {
               </div>
               <div className="flex items-center">
                 <span className="font-medium mr-2">{t("table.status")}:</span>
-                <StatusBadge status={selectedFeedback.status} />
+                <Badge
+                  variant={
+                    selectedFeedback.status === "approved"
+                      ? "default"
+                      : selectedFeedback.status === "pending"
+                      ? "secondary"
+                      : "destructive"
+                  }
+                >
+                  {t(`status.${selectedFeedback.status}`)}
+                </Badge>
               </div>
             </div>
             <DialogFooter className="flex sm:justify-between">

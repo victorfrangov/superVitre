@@ -17,7 +17,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea"
 import NavigationBar from "@/components/navigation-bar";
 
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from '@/app/firebase/config';
 
 // Mock data for available time slots
@@ -133,7 +133,6 @@ export default function ReservationsPage() {
       "address",
       "city",
       "zipCode",
-      // "propertyType", // Add back if you uncomment this field in the form
       "serviceType",
       "windows",
       "stories",
@@ -155,6 +154,15 @@ export default function ReservationsPage() {
     }
 
     try {
+      // Temporary prices for services
+      const servicePrices: Record<string, number> = {
+        basic: 50,
+        standard: 100,
+        premium: 150,
+      };
+
+      const price = servicePrices[formData.serviceType] || 0;
+
       const reservationData = {
         ...formData,
         selectedDate: selectedDate.toISOString(), // Store date as ISO string
@@ -162,17 +170,46 @@ export default function ReservationsPage() {
         bookingReference,
         status: "pending", // Default status
         submittedAt: new Date().toISOString(),
+        price, // Add price to reservation data
       };
 
+      // Add reservation to the "reservations" collection
       await addDoc(collection(db, "reservations"), reservationData);
 
-      // For now, just move to confirmation step
+      // Add or update customer in the "customers" collection
+      const customerRef = doc(db, "customers", formData.email); // Use email as the document ID
+      const customerSnapshot = await getDoc(customerRef);
+
+      if (customerSnapshot.exists()) {
+        // Update existing customer
+        const customerData = customerSnapshot.data();
+        await updateDoc(customerRef, {
+          totalSpent: (customerData.totalSpent || 0) + price,
+          lastService: selectedDate.toISOString(),
+        });
+      } else {
+        // Create new customer
+        const newCustomerData = {
+          name: `${formData.firstName} ${formData.lastName}`,
+          email: formData.email,
+          phone: formData.phone,
+          address: formData.address,
+          city: formData.city,
+          zipCode: formData.zipCode,
+          totalSpent: price,
+          lastService: selectedDate.toISOString(),
+          createdAt: new Date().toISOString()
+        };
+        await setDoc(customerRef, newCustomerData);
+      }
+
+      // Move to confirmation step
       setStep(3);
     } catch (error) {
-        console.error("Error adding document: ", error);
-        setSubmissionError("Failed to submit reservation. Please try again.");
+      console.error("Error adding document: ", error);
+      setSubmissionError("Failed to submit reservation. Please try again.");
     } finally {
-        setIsSubmitting(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -466,33 +503,6 @@ export default function ReservationsPage() {
                           <h3 className="text-xl font-bold tracking-tight">{t("serviceDetails")}</h3>
                           <p className="text-base text-muted-foreground">{t("serviceSubtitle")}</p>
                         </div>
-
-                        {/* Type de service (residentiel ou commercial) */}
-                        {/* <div className="space-y-2">
-                          <Label>{t("form.propertyType")} <span className="text-destructive">*</span></Label>
-                          <RadioGroup
-                            defaultValue={formData.propertyType}
-                            onValueChange={(value) => handleRadioChange("propertyType", value)}
-                            className="flex space-x-4"
-                            required
-                          >
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="residential" id="residential" />
-                              <Label htmlFor="residential" className="flex items-center">
-                                <Home className="mr-2 size-4" />
-                                {t("form.propertyTypes.residential")}
-                              </Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="commercial" id="commercial" />
-                              <Label htmlFor="commercial" className="flex items-center">
-                                <Building2 className="mr-2 size-4" />
-                                {t("form.propertyTypes.commercial")}
-                              </Label>
-                            </div>
-                          </RadioGroup>
-                        </div> */}
-
                         <div className="space-y-2">
                           <Label>{t("form.serviceType")} <span className="text-destructive">*</span></Label>
                           <RadioGroup
@@ -502,16 +512,16 @@ export default function ReservationsPage() {
                             required
                           >
                             <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="basic" id="basic" />
-                              <Label htmlFor="basic">{t("form.serviceTypes.basic")}</Label>
+                              <RadioGroupItem value="Basic" id="Basic" />
+                              <Label htmlFor="Basic">{t("form.serviceTypes.basic")}</Label>
                             </div>
                             <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="standard" id="standard" />
-                              <Label htmlFor="standard">{t("form.serviceTypes.standard")}</Label>
+                              <RadioGroupItem value="Standard" id="Standard" />
+                              <Label htmlFor="Standard">{t("form.serviceTypes.standard")}</Label>
                             </div>
                             <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="premium" id="premium" />
-                              <Label htmlFor="premium">{t("form.serviceTypes.premium")}</Label>
+                              <RadioGroupItem value="Premium" id="Premium" />
+                              <Label htmlFor="Premium">{t("form.serviceTypes.premium")}</Label>
                             </div>
                           </RadioGroup>
                         </div>
