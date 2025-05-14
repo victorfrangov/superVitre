@@ -411,8 +411,10 @@
       "today": "Today",
       "tomorrow": "Tomorrow",
       "thisWeek": "This week",
+      "loadingAppointments": "Chargement des réservations...",
       "noAppointmentsFound": "No appointments found",
       "viewDetails": "View details",
+      "authenticating": "Authentification...",
       "table": {
         "id": "ID",
         "customer": "Customer",
@@ -426,6 +428,11 @@
         "confirmed": "Confirmed",
         "pending": "Pending",
         "cancelled": "Cancelled"
+      },
+      "error": {
+        "errorFetching": "Erreur en essayant d'accéder la base de données",
+        "retry": "Réessayer",
+        "permissionDeniedError": "Vous n'avez pas les permissions pour accéder la base de données"
       }
     },
     "contacts": {

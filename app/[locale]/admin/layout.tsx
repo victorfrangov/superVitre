@@ -1,17 +1,22 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useEffect } from "react"
 import { useTranslations } from "next-intl"
 import { usePathname, useRouter } from "@/i18n/navigation"
 import { Link } from "@/i18n/navigation"
-import { BarChart3, Calendar, ClipboardList, Cog, Home, LayoutDashboard, LogOut, Mail, Menu, MessageSquare, Users, X } from "lucide-react"
+import { BarChart3, Calendar, ClipboardList, Cog, Home, LayoutDashboard, LogOut, Mail, Menu, MessageSquare, Users, X, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Toaster } from "@/components/ui/toaster"
 import { auth } from "@/app/firebase/config";
-import { signOut } from "firebase/auth";
+import { signOut, onAuthStateChanged, type User } from "firebase/auth";
+
+const AdminAuthLoadingSpinner = () => (
+  <div className="flex items-center justify-center min-h-screen bg-muted/30">
+    <Loader2 className="size-12 animate-spin text-primary" />
+  </div>
+);
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const t = useTranslations("admin")
@@ -19,6 +24,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const router = useRouter()
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [isMobile, setIsMobile] = useState(false)
+
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [isLoadingAuth, setIsLoadingAuth] = useState(true);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -31,6 +39,19 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     window.addEventListener("resize", checkMobile)
     return () => window.removeEventListener("resize", checkMobile)
   }, [])
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setCurrentUser(user);
+      } else {
+        setCurrentUser(null);
+        router.push("/login");
+      }
+      setIsLoadingAuth(false);
+    });
+    return () => unsubscribe();
+  }, [router]);
 
   const navigation = [
     { name: t("navigation.dashboard"), href: "/admin", icon: LayoutDashboard },
@@ -49,6 +70,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       console.error("Error signing out from layout: ", e);
     }
   };
+
+  if (isLoadingAuth) {
+    return <AdminAuthLoadingSpinner />;
+  }
+
+  if (!currentUser) {
+    return <AdminAuthLoadingSpinner />;
+  }
 
   return (
     <div className="flex h-screen bg-muted/30">
@@ -95,9 +124,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="border-t p-4">
           <div className="flex items-center gap-3 rounded-md px-3 py-2">
             <Avatar className="size-8">
-              {/* Replace with actual user avatar if available */}
-              <AvatarImage src="/placeholder.svg?height=32&width=32" alt="Admin" />
-              <AvatarFallback>AD</AvatarFallback>
+              <AvatarImage src={currentUser.photoURL || "/placeholder.svg?height=32&width=32"} alt={currentUser.displayName || "Admin"} />
+              <AvatarFallback>{currentUser.email ? currentUser.email[0].toUpperCase() : "A"}</AvatarFallback>
             </Avatar>
             <div className="flex flex-col">
               {/* Replace with actual user name/email if available */}
@@ -105,7 +133,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <span className="text-xs text-muted-foreground">admin@supervitre.com</span>
             </div>
           </div>
-          {/* Updated Logout Button */}
           <Button variant="ghost" className="w-full justify-start mt-2 text-muted-foreground" onClick={handleSignOut}>
             <LogOut className="mr-2 size-4" />
             {t("logout")}

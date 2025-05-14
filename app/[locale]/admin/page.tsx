@@ -1,9 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { useRouter } from "@/i18n/navigation";
-import { auth } from "@/app/firebase/config";
-import { onAuthStateChanged, User } from "firebase/auth";
+import React, { useState } from "react";
 import { useTranslations } from "next-intl";
 
 // Components for your admin dashboard
@@ -14,39 +11,9 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "@/i18n/navigation";
 
-// A simple loading component
-const LoadingSpinner = () => (
-  <div className="flex items-center justify-center min-h-screen">
-    <div className="size-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-  </div>
-);
-
 export default function AdminDashboardPage() {
-  const router = useRouter();
   const t = useTranslations("admin.dashboard");
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [isLoadingAuth, setIsLoadingAuth] = useState(true);
   const [period, setPeriod] = useState("week");
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setCurrentUser(user);
-      } else {
-        router.push("/login");
-      }
-      setIsLoadingAuth(false);
-    });
-    return () => unsubscribe();
-  }, [router]);
-
-  if (isLoadingAuth) {
-    return <LoadingSpinner />;
-  }
-
-  if (!currentUser) {
-    return <LoadingSpinner />;
-  }
 
   const stats = [
     {
@@ -111,24 +78,6 @@ export default function AdminDashboardPage() {
       status: "pending",
       address: "789 Pine St, Window City",
     },
-    {
-      id: "APT-1237",
-      customer: "Emily Davis",
-      service: "Standard Window Cleaning",
-      date: "2025-05-13",
-      time: "1:00 PM",
-      status: "confirmed",
-      address: "101 Elm St, Window City",
-    },
-    {
-      id: "APT-1238",
-      customer: "Robert Wilson",
-      service: "Premium Window Cleaning",
-      date: "2025-05-14",
-      time: "11:00 AM",
-      status: "pending",
-      address: "202 Maple Dr, Window City",
-    },
   ];
 
   const recentContacts = [
@@ -149,15 +98,6 @@ export default function AdminDashboardPage() {
       message: "Do you offer gutter cleaning services as well?",
       date: "2025-05-09",
       status: "responded",
-    },
-    {
-      id: "CNT-1236",
-      name: "Lisa Garcia",
-      email: "lisa@example.com",
-      phone: "(555) 345-6789",
-      message: "I'd like to schedule regular window cleaning for my business...",
-      date: "2025-05-09",
-      status: "new",
     },
   ];
 
@@ -181,9 +121,9 @@ export default function AdminDashboardPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">{stat.value}</div>
-                <p className={`text-xs ${stat.trend === "up" ? "text-green-500" : "text-red-500"} flex items-center`}>
+                  <p className={`text-xs ${stat.trend === "up" ? "text-green-500" : "text-red-500"} flex items-center`}>
                     {stat.change}
-                  <ArrowUpRight className={`ml-1 size-3 ${stat.trend === "down" ? "rotate-180" : ""}`} />
+                    <ArrowUpRight className={`ml-1 size-3 ${stat.trend === "down" ? "rotate-180" : ""}`} />
                     <span className="text-muted-foreground ml-1">{t("fromLastPeriod")}</span>
                   </p>
                 </CardContent>
@@ -192,14 +132,14 @@ export default function AdminDashboardPage() {
           ))}
         </div>
 
-      {/* Tabs for Appointments and Contacts */}
+        {/* Tabs for Appointments and Contacts */}
         <Tabs defaultValue="appointments" className="w-full">
           <TabsList className="grid w-full max-w-md grid-cols-2">
             <TabsTrigger value="appointments">{t("tabs.appointments")}</TabsTrigger>
             <TabsTrigger value="contacts">{t("tabs.contacts")}</TabsTrigger>
           </TabsList>
 
-        {/* Appointments Tab */}
+          {/* Appointments Tab */}
           <TabsContent value="appointments" className="mt-4">
             <Card>
               <CardHeader>
@@ -208,8 +148,8 @@ export default function AdminDashboardPage() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {recentAppointments.map((appointment, i) => (
-                  <div key={i} className="flex items-center justify-between border-b pb-4 last:border-0 last:pb-0">
+                  {recentAppointments.slice(0, 3).map((appointment, i) => (
+                    <div key={i} className="flex items-center justify-between border-b pb-4 last:border-0 last:pb-0">
                       <div className="flex items-start gap-4">
                         <div className="rounded-full bg-primary/10 p-2">
                           <Calendar className="size-4 text-primary" />
@@ -229,13 +169,15 @@ export default function AdminDashboardPage() {
                                   : "bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-300"
                               }`}
                             >
-                            {appointment.status === "confirmed" ? t("status.confirmed") : t("status.pending")}
+                              {appointment.status === "confirmed" ? t("status.confirmed") : t("status.pending")}
                             </span>
                           </div>
                         </div>
                       </div>
-                      <Button variant="ghost" size="icon">
-                        <MoreHorizontal className="size-4" />
+                      <Button variant="ghost" size="icon" asChild>
+                        <Link href={`/admin/appointments/${appointment.id}`}>
+                          <MoreHorizontal className="size-4" />
+                        </Link>
                       </Button>
                     </div>
                   ))}
@@ -252,7 +194,7 @@ export default function AdminDashboardPage() {
             </Card>
           </TabsContent>
 
-        {/* Contacts Tab */}
+          {/* Contacts Tab */}
           <TabsContent value="contacts" className="mt-4">
             <Card>
               <CardHeader>
@@ -261,8 +203,8 @@ export default function AdminDashboardPage() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {recentContacts.map((contact, i) => (
-                  <div key={i} className="flex items-center justify-between border-b pb-4 last:border-0 last:pb-0">
+                  {recentContacts.slice(0, 3).map((contact, i) => (
+                    <div key={i} className="flex items-center justify-between border-b pb-4 last:border-0 last:pb-0">
                       <div className="flex items-start gap-4">
                         <div className="rounded-full bg-primary/10 p-2">
                           <Mail className="size-4 text-primary" />
@@ -277,7 +219,7 @@ export default function AdminDashboardPage() {
                             <Phone className="size-3" />
                             <span>{contact.phone}</span>
                           </div>
-                        <p className="mt-1 text-xs text-muted-foreground line-clamp-1">{contact.message}</p>
+                          <p className="mt-1 text-xs text-muted-foreground line-clamp-1">{contact.message}</p>
                           <div className="mt-1 flex items-center text-xs text-muted-foreground">
                             <span>{contact.date}</span>
                             <span className="mx-2">•</span>
@@ -293,8 +235,10 @@ export default function AdminDashboardPage() {
                           </div>
                         </div>
                       </div>
-                      <Button variant="ghost" size="icon">
-                        <MoreHorizontal className="size-4" />
+                      <Button variant="ghost" size="icon" asChild>
+                        <Link href={`/admin/contacts/${contact.id}`}>
+                          <MoreHorizontal className="size-4" />
+                        </Link>
                       </Button>
                     </div>
                   ))}
