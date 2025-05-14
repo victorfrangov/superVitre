@@ -227,7 +227,6 @@ export default function FeedbackPage() {
                           }}
                         >
                           <MessageSquare className="size-4" />
-                          <span className="sr-only">{t("viewFeedback")}</span>
                         </Button>
                       </TableCell>
                     </TableRow>
