@@ -76,7 +76,7 @@ export default function FeedbackPage() {
         ...formData,
         rating,
         status: "pending",
-        submittedAt: new Date().toISOString(),
+        submittedAt: new Date().toISOString().split("T")[0],
       }
 
       await addDoc(collection(db, "feedbacks"), feedbackData)

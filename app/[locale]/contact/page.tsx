@@ -64,7 +64,7 @@ export default function ContactPage() {
       const contactData = {
         ...formData,
         status: "new",
-        submittedAt: new Date().toISOString(),
+        submittedAt: new Date().toISOString().split("T")[0],
       }
 
       await addDoc(collection(db, "contacts"), contactData)

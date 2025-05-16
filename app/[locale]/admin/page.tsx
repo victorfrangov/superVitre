@@ -1,7 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
+import { collection, query, getDocs, orderBy, limit } from "firebase/firestore";
+import { db } from "@/app/firebase/config";
 
 // Components for your admin dashboard
 import { Button } from "@/components/ui/button";
@@ -13,93 +15,101 @@ import { Link } from "@/i18n/navigation";
 
 export default function AdminDashboardPage() {
   const t = useTranslations("admin.dashboard");
-  const [period, setPeriod] = useState("week");
+  const [stats, setStats] = useState([]);
+  const [recentAppointments, setRecentAppointments] = useState([]); // Define recentAppointments
+  const [recentContacts, setRecentContacts] = useState([]); // Define recentContacts
+  const [isLoading, setIsLoading] = useState(true);
 
-  const stats = [
-    {
-      title: t("stats.appointments"),
-      value: "24",
-      change: "+8%",
-      trend: "up",
-      icon: Calendar,
-      color: "bg-blue-500",
-    },
-    {
-      title: t("stats.revenue"),
-      value: "$4,320",
-      change: "+12%",
-      trend: "up",
-      icon: DollarSign,
-      color: "bg-green-500",
-    },
-    {
-      title: t("stats.customers"),
-      value: "156",
-      change: "+3%",
-      trend: "up",
-      icon: Users,
-      color: "bg-purple-500",
-    },
-    {
-      title: t("stats.inquiries"),
-      value: "18",
-      change: "-5%",
-      trend: "down",
-      icon: Mail,
-      color: "bg-amber-500",
-    },
-  ];
+  useEffect(() => {
+    const fetchDashboardData = async () => {
+      setIsLoading(true);
 
-  const recentAppointments = [
-    {
-      id: "APT-1234",
-      customer: "John Smith",
-      service: "Standard Window Cleaning",
-      date: "2025-05-12",
-      time: "10:00 AM",
-      status: "confirmed",
-      address: "123 Main St, Window City",
-    },
-    {
-      id: "APT-1235",
-      customer: "Sarah Johnson",
-      service: "Premium Window Cleaning",
-      date: "2025-05-12",
-      time: "2:00 PM",
-      status: "confirmed",
-      address: "456 Oak Ave, Window City",
-    },
-    {
-      id: "APT-1236",
-      customer: "Michael Brown",
-      service: "Basic Window Cleaning",
-      date: "2025-05-13",
-      time: "9:30 AM",
-      status: "pending",
-      address: "789 Pine St, Window City",
-    },
-  ];
+      try {
+        // Fetch recent appointments
+        const appointmentsQuery = query(
+          collection(db, "reservations"),
+          orderBy("submittedAt", "desc"),
+          limit(5)
+        );
+        const appointmentsSnapshot = await getDocs(appointmentsQuery);
+        const appointmentsData = appointmentsSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
 
-  const recentContacts = [
-    {
-      id: "CNT-1234",
-      name: "Jennifer Lee",
-      email: "jennifer@example.com",
-      phone: "(555) 123-4567",
-      message: "I need a quote for cleaning windows in my new home...",
-      date: "2025-05-10",
-      status: "new",
-    },
-    {
-      id: "CNT-1235",
-      name: "David Miller",
-      email: "david@example.com",
-      phone: "(555) 234-5678",
-      message: "Do you offer gutter cleaning services as well?",
-      date: "2025-05-09",
-      status: "responded",
-    },
-  ];
+        // Fetch recent contacts
+        const contactsQuery = query(
+          collection(db, "contacts"),
+          orderBy("submittedAt", "desc"),
+          limit(5)
+        );
+        const contactsSnapshot = await getDocs(contactsQuery);
+        const contactsData = contactsSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        // Fetch customers
+        const customersSnapshot = await getDocs(collection(db, "customers"));
+        const totalCustomers = customersSnapshot.size; // Total number of customers
+
+        // Calculate stats
+        const totalAppointments = appointmentsData.length;
+        const totalRevenue = appointmentsData.reduce((sum, appt) => sum + (appt.price || 0), 0);
+        const totalInquiries = contactsData.length;
+
+        setStats([
+          {
+            title: t("stats.appointments"),
+            value: totalAppointments,
+            trend: "up",
+            icon: Calendar,
+            color: "bg-blue-500",
+          },
+          {
+            title: t("stats.revenue"),
+            value: `$${totalRevenue.toFixed(2)}`,
+            trend: "up",
+            icon: DollarSign,
+            color: "bg-green-500",
+          },
+          {
+            title: t("stats.customers"),
+            value: totalCustomers,
+            trend: "up",
+            icon: Users,
+            color: "bg-purple-500",
+          },
+          {
+            title: t("stats.inquiries"),
+            value: totalInquiries,
+            trend: "down",
+            icon: Mail,
+            color: "bg-amber-500",
+          },
+        ]);
+
+        setRecentAppointments(appointmentsData); // Set recent appointments
+        setRecentContacts(contactsData); // Set recent contacts
+      } catch (error) {
+        console.error("Error fetching dashboard data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchDashboardData();
+  }, [t]);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="flex items-center gap-2">
+          <span className="text-primary">{t("loading")}</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto p-4">
@@ -121,11 +131,6 @@ export default function AdminDashboardPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">{stat.value}</div>
-                  <p className={`text-xs ${stat.trend === "up" ? "text-green-500" : "text-red-500"} flex items-center`}>
-                    {stat.change}
-                    <ArrowUpRight className={`ml-1 size-3 ${stat.trend === "down" ? "rotate-180" : ""}`} />
-                    <span className="text-muted-foreground ml-1">{t("fromLastPeriod")}</span>
-                  </p>
                 </CardContent>
               </Card>
             </motion.div>
@@ -148,18 +153,18 @@ export default function AdminDashboardPage() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {recentAppointments.slice(0, 3).map((appointment, i) => (
+                  {recentAppointments.map((appointment, i) => (
                     <div key={i} className="flex items-center justify-between border-b pb-4 last:border-0 last:pb-0">
                       <div className="flex items-start gap-4">
                         <div className="rounded-full bg-primary/10 p-2">
                           <Calendar className="size-4 text-primary" />
                         </div>
                         <div>
-                          <h3 className="font-medium">{appointment.customer}</h3>
-                          <p className="text-sm text-muted-foreground">{appointment.service}</p>
+                          <h3 className="font-medium">{appointment.firstName} {appointment.lastName}</h3>
+                          <p className="text-sm text-muted-foreground">{appointment.address}</p>
                           <div className="mt-1 flex items-center text-xs text-muted-foreground">
                             <span>
-                              {appointment.date} • {appointment.time}
+                              {appointment.selectedDate} • {appointment.selectedTime}
                             </span>
                             <span className="mx-2">•</span>
                             <span
@@ -203,14 +208,14 @@ export default function AdminDashboardPage() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {recentContacts.slice(0, 3).map((contact, i) => (
+                  {recentContacts.map((contact, i) => (
                     <div key={i} className="flex items-center justify-between border-b pb-4 last:border-0 last:pb-0">
                       <div className="flex items-start gap-4">
                         <div className="rounded-full bg-primary/10 p-2">
                           <Mail className="size-4 text-primary" />
                         </div>
                         <div>
-                          <h3 className="font-medium">{contact.name}</h3>
+                          <h3 className="font-medium">{contact.firstName} {contact.lastName}</h3>
                           <div className="flex items-center gap-2 text-sm text-muted-foreground">
                             <Mail className="size-3" />
                             <span>{contact.email}</span>
@@ -221,7 +226,7 @@ export default function AdminDashboardPage() {
                           </div>
                           <p className="mt-1 text-xs text-muted-foreground line-clamp-1">{contact.message}</p>
                           <div className="mt-1 flex items-center text-xs text-muted-foreground">
-                            <span>{contact.date}</span>
+                            <span>{contact.submittedAt}</span>
                             <span className="mx-2">•</span>
                             <span
                               className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${

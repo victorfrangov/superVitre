@@ -260,9 +260,9 @@
       },
       "serviceType": "Type de Service",
       "serviceTypes": {
-        "basic": "Basique - Extérieur Seulement",
-        "standard": "Standard - Intérieur & Extérieur",
-        "premium": "Premium - Forfait Complet"
+        "Basic": "Basique - Extérieur Seulement",
+        "Standard": "Standard - Intérieur & Extérieur",
+        "Premium": "Premium - Forfait Complet"
       },
       "windows": "Nombre de Fenêtres",
       "stories": "Nombre d'Étages",
@@ -373,6 +373,7 @@
       "title": "Dashboard",
       "newAppointment": "New Appointment",
       "fromLastPeriod": "from last period",
+      "loading": "Loading...",
       "stats": {
         "appointments": "Appointments",
         "revenue": "Revenue",
@@ -589,7 +590,7 @@
     "returnToHome": "Retour",
     "shareYourExperience": "Dites nous ce que vous pensez!",
     "feedback": "Décrivez votre expérience...",
-    "allowPublicDisplay": "J'accepte que mon avis (note et message) soit affiché publiquement sur le site. Mon nom et mon email ne seront pas affichés.",
+    "allowPublicDisplay": "J'accepte que mon avis (note et message) soit affiché publiquement sur le site. Mon nom et mon email ne seront pas affichés. Un nom fictif sera utilisé à la place.",
     "submitFeedback": "Envoyer mon Avis",
     "submittingButton": "Envoi en cours...",
     "successTitle": "Avis Envoyé !",

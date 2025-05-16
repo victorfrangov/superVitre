@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { useTranslations } from "next-intl"
 import { Link } from "@/i18n/navigation"
-import { Calendar, Download, Filter, MoreHorizontal, Search, Loader2 } from "lucide-react"
+import { Calendar, Filter, MoreHorizontal, Search, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"

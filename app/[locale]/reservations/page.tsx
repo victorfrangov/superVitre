@@ -70,7 +70,7 @@ export default function ReservationsPage() {
     city: "",
     zipCode: "",
     propertyType: "residential",
-    serviceType: "standard",
+    serviceType: "Standard",
     windows: "1",
     stories: "1",
     specialInstructions: "",
@@ -156,9 +156,9 @@ export default function ReservationsPage() {
     try {
       // Temporary prices for services
       const servicePrices: Record<string, number> = {
-        basic: 50,
-        standard: 100,
-        premium: 150,
+        Basic: 50,
+        Standard: 100,
+        Premium: 150,
       };
 
       const price = servicePrices[formData.serviceType] || 0;
@@ -169,7 +169,7 @@ export default function ReservationsPage() {
         selectedTime,
         bookingReference,
         status: "pending", // Default status
-        submittedAt: new Date().toISOString(),
+        submittedAt: new Date().toISOString().split("T")[0],
         price, // Add price to reservation data
       };
 
@@ -513,15 +513,15 @@ export default function ReservationsPage() {
                           >
                             <div className="flex items-center space-x-2">
                               <RadioGroupItem value="Basic" id="Basic" />
-                              <Label htmlFor="Basic">{t("form.serviceTypes.basic")}</Label>
+                              <Label htmlFor="Basic">{t("form.serviceTypes.Basic")}</Label>
                             </div>
                             <div className="flex items-center space-x-2">
                               <RadioGroupItem value="Standard" id="Standard" />
-                              <Label htmlFor="Standard">{t("form.serviceTypes.standard")}</Label>
+                              <Label htmlFor="Standard">{t("form.serviceTypes.Standard")}</Label>
                             </div>
                             <div className="flex items-center space-x-2">
                               <RadioGroupItem value="Premium" id="Premium" />
-                              <Label htmlFor="Premium">{t("form.serviceTypes.premium")}</Label>
+                              <Label htmlFor="Premium">{t("form.serviceTypes.Premium")}</Label>
                             </div>
                           </RadioGroup>
                         </div>
