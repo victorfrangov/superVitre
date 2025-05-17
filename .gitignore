@@ -6,7 +6,6 @@
 # next.js
 /.next/
 /out/
-lib/supervitre-*.json
 
 # production
 /build

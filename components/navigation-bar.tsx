@@ -82,9 +82,11 @@ export default function NavigationBar() {
           >
             <UserRoundCog className="size-5" />
           </Link>
-          <Button className="rounded-full">
-            {ctaT("getStarted")}
-            <ChevronRight className="size-4 -ml-1" />
+          <Button asChild className="rounded-full">
+            <Link href="/reservations">
+              {ctaT("getStarted")}
+              <ChevronRight className="size-4 -ml-1" />
+            </Link>
           </Button>
         </div>
 
@@ -141,9 +143,11 @@ export default function NavigationBar() {
                 <UserRoundCog className="size-4 mr-2" />
                 {navT("adminLogin") || "Admin Login"}
               </Link>
-              <Button className="rounded-full">
-                {ctaT("getStarted")}
-                <ChevronRight className="ml-1 size-4" />
+              <Button asChild className="rounded-full w-full">
+                <Link href="/reservations" onClick={() => setMobileMenuOpen(false)}>
+                  {ctaT("getStarted")}
+                  <ChevronRight className="-ml-1 size-4" />
+                </Link>
               </Button>
             </div>
           </div>
