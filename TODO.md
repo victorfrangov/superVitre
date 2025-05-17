@@ -9,3 +9,4 @@
 - In admin/appointments/contacts and customers the actions button will open a panel like the other pages to show info about the reservation/customer/contact
 - Feedback admin panel: Actions button, approving will automatically add the feedback with a custom fake name to the main page
 - Setup App Hosting
+-Envoyer des emails de confirmations

@@ -472,7 +472,23 @@
       },
       "status": {
         "new": "New",
-        "responded": "Responded"
+        "responded": "Responded",
+        "closed": "Closed"
+      },
+      "detail": {
+        "title": "Contact Details",
+        "backToList": "Back to Contacts List",
+        "contactInfo": "Contact Information",
+        "submittedOn": "Submitted on",
+        "serviceTypeLabel": "Service Type",
+        "customerMessage": "Customer Message",
+        "manageStatus": "Manage Status",
+        "updateStatusTo": "Update status to",
+        "selectStatus": "Select status",
+        "saveStatus": "Save Status",
+        "notFound": "Contact not found.",
+        "errorFetching": "Error fetching contact details.",
+        "errorUpdatingStatus": "Failed to update status."
       },
       "error": {
         "errorFetching": "Erreur en essayant d'accéder la base de données",
