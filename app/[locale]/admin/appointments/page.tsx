@@ -11,6 +11,14 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
+import {
   Pagination,
   PaginationContent,
   PaginationEllipsis,
@@ -66,6 +74,8 @@ export default function AppointmentsPage() {
   const [dateFilter, setDateFilter] = useState("all")
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 10
+  const [selectedAppointment, setSelectedAppointment] = useState<Reservation | null>(null)
+  const [isAppointmentDetailDialogOpen, setIsAppointmentDetailDialogOpen] = useState(false)
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -133,6 +143,11 @@ export default function AppointmentsPage() {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page)
+  }
+
+  const handleOpenAppointmentDialog = (appointment: Reservation) => {
+    setSelectedAppointment(appointment)
+    setIsAppointmentDetailDialogOpen(true)
   }
 
   const StatusBadge = ({ status }: { status: string }) => {
@@ -255,11 +270,9 @@ export default function AppointmentsPage() {
                         <StatusBadge status={appointment.status} />
                       </TableCell>
                       <TableCell className="text-right">
-                        <Button variant="ghost" size="icon" asChild>
-                          <Link href={`/admin/appointments/${appointment.id}`}>
-                            <MoreHorizontal className="size-4" />
-                            <span className="sr-only">{t("viewDetails")}</span>
-                          </Link>
+                        <Button variant="ghost" size="icon" onClick={() => handleOpenAppointmentDialog(appointment)}>
+                          <MoreHorizontal className="size-4" />
+                          <span className="sr-only">{t("viewDetails")}</span>
                         </Button>
                       </TableCell>
                     </TableRow>
@@ -305,6 +318,91 @@ export default function AppointmentsPage() {
           </div>
         </CardContent>
       </Card>
-    </div>
+
+      {selectedAppointment && (
+        <Dialog open={isAppointmentDetailDialogOpen} onOpenChange={setIsAppointmentDetailDialogOpen}>
+          <DialogContent className="sm:max-w-3xl md:max-w-4xl lg:max-w-5xl">
+            <DialogHeader>
+              <DialogTitle>{t("viewDetails")}</DialogTitle>
+              <DialogDescription>
+                {t("table.id")}: {selectedAppointment.bookingReference}
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-4 py-4 max-h-[70vh] overflow-y-auto">
+              {/* Column 1 */}
+              <div className="space-y-8">
+                <div className="grid grid-cols-[140px_1fr] items-start gap-x-4">
+                  <span className="text-sm font-medium text-muted-foreground">{t("table.customer")}</span>
+                  <span>{`${selectedAppointment.firstName} ${selectedAppointment.lastName}`}</span>
+                </div>
+                <div className="grid grid-cols-[140px_1fr] items-start gap-x-4">
+                  <span className="text-sm font-medium text-muted-foreground">{t("table.email")}</span>
+                  <span className="break-all">{selectedAppointment.email}</span>
+                </div>
+                <div className="grid grid-cols-[140px_1fr] items-start gap-x-4">
+                  <span className="text-sm font-medium text-muted-foreground">{t("table.phone")}</span>
+                  <span>{selectedAppointment.phone}</span>
+                </div>
+                <div className="grid grid-cols-[140px_1fr] items-start gap-x-4">
+                  <span className="text-sm font-medium text-muted-foreground">{t("table.address")}</span>
+                  <span className="whitespace-pre-wrap">{`${selectedAppointment.address}, ${selectedAppointment.city}, ${selectedAppointment.zipCode}`}</span>
+                </div>
+                <div className="grid grid-cols-[140px_1fr] items-start gap-x-4">
+                  <span className="text-sm font-medium text-muted-foreground">{t("table.service")}</span>
+                  <span>{selectedAppointment.serviceType}</span>
+                </div>
+                <div className="grid grid-cols-[140px_1fr] items-start gap-x-4">
+                  <span className="text-sm font-medium text-muted-foreground">{t("table.preferredContact")}</span>
+                  <span>{selectedAppointment.preferredContact}</span>
+                </div>
+                {selectedAppointment.specialInstructions && (
+                  <div className="grid grid-cols-[140px_1fr] items-start gap-x-4">
+                    <span className="text-sm font-medium text-muted-foreground">{t("table.specialInstructions")}</span>
+                    <span className="whitespace-pre-wrap">{selectedAppointment.specialInstructions}</span>
+                  </div>
+                )}
+              </div>
+
+              {/* Column 2 */}
+              <div className="space-y-8"> {/* Increased space-y for better separation */}
+                <div className="grid grid-cols-[140px_1fr] items-start gap-x-4"> {/* Adjusted label width */}
+                  <span className="text-sm font-medium text-muted-foreground">{t("table.date")}</span>
+                  <span>{formatDate(selectedAppointment.selectedDate)}</span>
+                </div>
+                <div className="grid grid-cols-[140px_1fr] items-start gap-x-4">
+                  <span className="text-sm font-medium text-muted-foreground">{t("table.time")}</span>
+                  <span>{selectedAppointment.selectedTime}</span>
+                </div>
+                <div className="grid grid-cols-[140px_1fr] items-start gap-x-4">
+                  <span className="text-sm font-medium text-muted-foreground">{t("table.status")}</span>
+                  <span>{selectedAppointment.status}</span>
+                </div>
+                <div className="grid grid-cols-[140px_1fr] items-start gap-x-4">
+                  <span className="text-sm font-medium text-muted-foreground">{t("table.propertyType")}</span>
+                  <span>{selectedAppointment.propertyType}</span>
+                </div>
+                <div className="grid grid-cols-[140px_1fr] items-start gap-x-4">
+                  <span className="text-sm font-medium text-muted-foreground">{t("table.windows")}</span>
+                  <span>{selectedAppointment.windows}</span>
+                </div>
+                <div className="grid grid-cols-[140px_1fr] items-start gap-x-4">
+                  <span className="text-sm font-medium text-muted-foreground">{t("table.stories")}</span>
+                  <span>{selectedAppointment.stories}</span>
+                </div>
+                <div className="grid grid-cols-[140px_1fr] items-start gap-x-4">
+                  <span className="text-sm font-medium text-muted-foreground">{t("table.createdAt")}</span>
+                  <span>{formatDate(selectedAppointment.createdAt)}</span>
+                </div>
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setIsAppointmentDetailDialogOpen(false)}>
+                {t("table.close", {}, { defaultValue: "Close" })}
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      )}
+</div>
   )
 }

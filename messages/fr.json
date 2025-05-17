@@ -423,7 +423,17 @@
         "date": "Date",
         "time": "Time",
         "status": "Status",
-        "actions": "Actions"
+        "actions": "Actions",
+        "email": "Email",
+        "phone": "Téléphone",
+        "address": "Adresse",
+        "preferredContact": "Méthode de Contact Préférée",
+        "specialInstructions": "Instructions spéciales",
+        "propertyType": "Type de Propriété",
+        "windows": "Nombre de Fenêtres",
+        "stories": "Nombre d'Étages",
+        "createdAt": "Créée à",
+        "close": "Fermer"
       },
       "status": {
         "confirmed": "Confirmed",
@@ -514,6 +524,9 @@
         "errorFetching": "Erreur en essayant d'accéder la base de données",
         "retry": "Réessayer",
         "permissionDeniedError": "Vous n'avez pas les permissions pour accéder la base de données"
+      },
+      "actions": {
+        "close": "Fermer"
       }
     },
     "feedback": {
