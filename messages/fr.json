@@ -87,6 +87,9 @@
     "residential": "Residential",
     "commercial": "Commercial",
     "customer": "Customer",
+    "defaultAuthorName": "Utilisateur Anonyme",
+    "customerRole": "Client Estimé",
+    "noFeedback": "Aucun témoignage à afficher pour le moment.",
     "leaveReview": "Had a great experience with our service?",
     "shareFeedback": "Share your feedback",
     "items": [

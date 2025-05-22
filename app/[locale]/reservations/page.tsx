@@ -1,12 +1,11 @@
 "use client"
 
 import type React from "react"
-
-import { useState } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { useTranslations } from "next-intl"
 import { Link } from "@/i18n/navigation"
 import { motion } from "framer-motion"
-import { format, addDays, startOfWeek, addWeeks, isSameDay, isBefore } from "date-fns"
+import { format, addDays, startOfWeek, addWeeks, isSameDay, isBefore, parse, getHours } from "date-fns"
 import { Calendar, Clock, ArrowLeft, CheckCircle2, ChevronRight, ChevronLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -15,44 +14,51 @@ import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import NavigationBar from "@/components/navigation-bar";
+import NavigationBar from "@/components/navigation-bar"
 
-import { collection, addDoc, doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from '@/app/firebase/config';
+import { collection, addDoc, doc, setDoc, getDoc, updateDoc, query, where, getDocs } from "firebase/firestore"
+import { db } from "@/app/firebase/config"
 
-// Mock data for available time slots
-const generateMockTimeSlots = (date: Date) => {
-  // Generate random availability for demonstration
-  const day = date.getDay()
+interface Reservation {
+  id?: string
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
+  address: string
+  city: string
+  zipCode: string
+  propertyType: string
+  serviceType: string
+  windows: string
+  stories: string
+  specialInstructions: string
+  preferredContact: string
+  selectedDate: string // YYYY-MM-DD format
+  selectedTime: string // "h:mm a" format (e.g., "9:00 AM")
+  bookingReference: string
+  status: string
+  submittedAt: string // YYYY-MM-DD format
+  price: number
+}
 
-  // No slots on Sundays
-  if (day === 0) return []
+// Generates hourly time slots for a given date
+const generateHourlyTimeSlots = (date: Date): string[] => {
+  const dayOfWeek = date.getDay() // Sunday = 0, Saturday = 6
 
-  // Create time slots from 9:00 AM to 4:00 PM in 30-minute increments
-  const timeSlots = [
-    "9:00 AM",
-    "9:30 AM",
-    "10:00 AM",
-    "10:30 AM",
-    "11:00 AM",
-    "11:30 AM",
-    "1:00 PM",
-    "1:30 PM",
-    "2:00 PM",
-    "2:30 PM",
-    "3:00 PM",
-    "3:30 PM",
-    "4:00 PM",
-  ]
+  if (dayOfWeek === 0) return [] // No slots on Sunday
 
-  // Fewer slots on Saturday
-  const slots = day === 6 ? timeSlots.slice(0, 6) : timeSlots
+  const slots: string[] = []
+  const startHour = 9
+  // Saturday: 9 AM, 10 AM, 11 AM. Other weekdays: 9 AM - 4 PM.
+  const endHour = dayOfWeek === 6 ? 11 : 16 // Hours are 0-23. 16 means up to 4:xx PM.
 
-  // Randomly mark some slots as unavailable
-  return slots.map((time) => ({
-    time,
-    available: Math.random() > 0.3, // 70% chance of being available
-  }))
+  for (let hour = startHour; hour <= endHour; hour++) {
+    const slotTime = new Date(date)
+    slotTime.setHours(hour, 0, 0, 0)
+    slots.push(format(slotTime, "h:mm a"))
+  }
+  return slots
 }
 
 export default function ReservationsPage() {
@@ -76,26 +82,88 @@ export default function ReservationsPage() {
     specialInstructions: "",
     preferredContact: "email",
   })
-  const [isSubmitting, setIsSubmitting] = useState(false); // Add a state for submission status
-  const [submissionError, setSubmissionError] = useState<string | null>(null); // Add a state for submission error
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submissionError, setSubmissionError] = useState<string | null>(null)
 
-  // Generate a 4-week calendar starting from the current week
-  const today = new Date()
-  const startDate = startOfWeek(currentMonth, { weekStartsOn: 1 }) // Start on Monday
+  const [reservations, setReservations] = useState<Reservation[]>([])
+  const [isLoadingReservations, setIsLoadingReservations] = useState(true)
 
-  const calendarDays = Array.from({ length: 28 }, (_, i) => {
-    const date = addDays(startDate, i)
-    return {
-      date,
-      isToday: isSameDay(date, today),
-      isPast: isBefore(date, today) && !isSameDay(date, today),
-      timeSlots: generateMockTimeSlots(date),
+  // Fetch reservations for the current 28-day view
+  useEffect(() => {
+    const fetchReservationsForView = async () => {
+      setIsLoadingReservations(true)
+      const viewStartDate = startOfWeek(currentMonth, { weekStartsOn: 1 })
+      const viewEndDate = addDays(viewStartDate, 27) // 28 days in view
+
+      const q = query(
+        collection(db, "reservations"),
+        where("selectedDate", ">=", format(viewStartDate, "yyyy-MM-dd")),
+        where("selectedDate", "<=", format(viewEndDate, "yyyy-MM-dd"))
+      )
+
+      try {
+        const querySnapshot = await getDocs(q)
+        const fetchedReservations = querySnapshot.docs.map(
+          (doc) => ({ id: doc.id, ...doc.data() } as Reservation)
+        )
+        setReservations(fetchedReservations)
+      } catch (error) {
+        console.error("Error fetching reservations: ", error)
+        setSubmissionError("Failed to load existing appointments. Please try refreshing.")
+      } finally {
+        setIsLoadingReservations(false)
+      }
     }
-  })
+    fetchReservationsForView()
+  }, [currentMonth])
+
+  const calendarDays = useMemo(() => {
+    const today = new Date()
+    const startDate = startOfWeek(currentMonth, { weekStartsOn: 1 })
+
+    return Array.from({ length: 28 }, (_, i) => {
+      const date = addDays(startDate, i)
+      const dateStrYYYYMMDD = format(date, "yyyy-MM-dd")
+
+      const reservationsForThisDay = reservations.filter((r) => r.selectedDate === dateStrYYYYMMDD)
+      const baseSlots = generateHourlyTimeSlots(date)
+
+      const timeSlots = baseSlots.map((slotStr) => {
+        const slotDateTime = parse(slotStr, "h:mm a", new Date(date))
+        const currentSlotHour = getHours(slotDateTime)
+        let isAvailable = true
+
+        // Check against existing reservations for blocking
+        for (const res of reservationsForThisDay) {
+          const resSlotDateTime = parse(res.selectedTime, "h:mm a", new Date(date))
+          const bookedHour = getHours(resSlotDateTime)
+          // If current slot hour is within the 4-hour block of a booked slot
+          if (currentSlotHour >= bookedHour && currentSlotHour < bookedHour + 4) {
+            isAvailable = false
+            break
+          }
+        }
+
+        // Check if the slot itself is in the past
+        if (isAvailable && isBefore(slotDateTime, new Date())) {
+          isAvailable = false
+        }
+
+        return { time: slotStr, available: isAvailable }
+      })
+
+      return {
+        date,
+        isToday: isSameDay(date, today),
+        isPast: isBefore(date, today) && !isSameDay(date, today),
+        timeSlots, // Array of { time: string, available: boolean }
+      }
+    })
+  }, [currentMonth, reservations])
 
   const handleDateSelect = (date: Date) => {
     setSelectedDate(date)
-    setSelectedTime(null)
+    setSelectedTime(null) // Reset time when date changes
   }
 
   const handleTimeSelect = (time: string) => {
@@ -120,11 +188,10 @@ export default function ReservationsPage() {
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmissionError(null);
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmissionError(null)
 
-    // Manual validation for required fields
     const requiredFields: Array<keyof typeof formData> = [
       "firstName",
       "lastName",
@@ -137,58 +204,62 @@ export default function ReservationsPage() {
       "windows",
       "stories",
       "preferredContact",
-    ];
+    ]
 
     for (const field of requiredFields) {
       if (!formData[field] || formData[field].trim() === "") {
-        setSubmissionError(`Please fill in the ${field.replace(/([A-Z])/g, ' $1').toLowerCase()} field.`);
-        setIsSubmitting(false);
-        return;
+        setSubmissionError(`Please fill in the ${field.replace(/([A-Z])/g, " $1").toLowerCase()} field.`)
+        setIsSubmitting(false)
+        return
       }
     }
 
     if (!selectedDate || !selectedTime) {
-      setSubmissionError("Please select a date and time.");
-      setIsSubmitting(false);
-      return;
+      setSubmissionError("Please select a date and time.")
+      setIsSubmitting(false)
+      return
+    }
+
+    // Double check availability before submitting (optional, client-side check)
+    const dayData = calendarDays.find(d => d.date && selectedDate && isSameDay(d.date, selectedDate));
+    const slotData = dayData?.timeSlots.find(s => s.time === selectedTime);
+    if (!slotData?.available) {
+        setSubmissionError("The selected time slot is no longer available. Please choose another time.");
+        setIsSubmitting(false);
+        return;
     }
 
     try {
-      // Temporary prices for services
       const servicePrices: Record<string, number> = {
         Basic: 50,
         Standard: 100,
         Premium: 150,
-      };
+      }
+      const price = servicePrices[formData.serviceType] || 0
 
-      const price = servicePrices[formData.serviceType] || 0;
-
-      const reservationData = {
+      const reservationData: Reservation = {
         ...formData,
-        selectedDate: selectedDate.toISOString(), // Store date as ISO string
+        selectedDate: format(selectedDate, "yyyy-MM-dd"), // Store date as YYYY-MM-DD
         selectedTime,
-        bookingReference,
-        status: "pending", // Default status
-        submittedAt: new Date().toISOString().split("T")[0],
-        price, // Add price to reservation data
-      };
+        bookingReference, // Ensure bookingReference is defined in your component
+        status: "pending",
+        submittedAt: format(new Date(), "yyyy-MM-dd"), // Store submission date as YYYY-MM-DD
+        price,
+      }
 
-      // Add reservation to the "reservations" collection
-      await addDoc(collection(db, "reservations"), reservationData);
+      await addDoc(collection(db, "reservations"), reservationData)
 
-      // Add or update customer in the "customers" collection
-      const customerRef = doc(db, "customers", formData.email); // Use email as the document ID
-      const customerSnapshot = await getDoc(customerRef);
+      const customerRef = doc(db, "customers", formData.email)
+      const customerSnapshot = await getDoc(customerRef)
 
       if (customerSnapshot.exists()) {
-        // Update existing customer
-        const customerData = customerSnapshot.data();
+        const customerData = customerSnapshot.data()
         await updateDoc(customerRef, {
           totalSpent: (customerData.totalSpent || 0) + price,
-          lastService: selectedDate.toISOString(),
-        });
+          lastServiceDate: format(selectedDate, "yyyy-MM-dd"), // Store as YYYY-MM-DD
+          lastServiceTime: selectedTime,
+        })
       } else {
-        // Create new customer
         const newCustomerData = {
           name: `${formData.firstName} ${formData.lastName}`,
           email: formData.email,
@@ -197,21 +268,26 @@ export default function ReservationsPage() {
           city: formData.city,
           zipCode: formData.zipCode,
           totalSpent: price,
-          lastService: selectedDate.toISOString(),
-          createdAt: new Date().toISOString()
-        };
-        await setDoc(customerRef, newCustomerData);
+          lastServiceDate: format(selectedDate, "yyyy-MM-dd"), // Store as YYYY-MM-DD
+          lastServiceTime: selectedTime,
+          createdAt: format(new Date(), "yyyy-MM-dd"),
+        }
+        await setDoc(customerRef, newCustomerData)
       }
+      
+      // Manually add the new reservation to the local state to update UI immediately
+      // or re-fetch. For simplicity, adding locally:
+      setReservations(prevReservations => [...prevReservations, {...reservationData, id: "temp-" + Date.now()}]);
 
-      // Move to confirmation step
-      setStep(3);
+
+      setStep(3)
     } catch (error) {
-      console.error("Error adding document: ", error);
-      setSubmissionError("Failed to submit reservation. Please try again.");
+      console.error("Error adding document: ", error)
+      setSubmissionError("Failed to submit reservation. Please try again.")
     } finally {
-      setIsSubmitting(false);
+      setIsSubmitting(false)
     }
-  };
+  }
 
   const goToStep = (newStep: number) => {
     if (newStep === 2 && !selectedDate && !selectedTime) return
@@ -225,7 +301,7 @@ export default function ReservationsPage() {
 
   return (
     <div className="flex min-h-screen flex-col">
-        <NavigationBar />
+      <NavigationBar />
       <main className="flex-1 py-12 md:py-24">
         <div className="container px-4 md:px-6">
           <div className="mx-auto max-w-4xl space-y-8">
@@ -297,7 +373,7 @@ export default function ReservationsPage() {
                         variant="ghost"
                         size="icon"
                         onClick={handlePrevMonth}
-                        disabled={isBefore(startDate, today)}
+                        disabled={isBefore(startOfWeek(currentMonth, { weekStartsOn: 1 }), new Date()) && !isSameDay(startOfWeek(currentMonth, { weekStartsOn: 1 }), new Date())}
                       >
                         <ChevronLeft className="size-4" />
                       </Button>
@@ -314,22 +390,15 @@ export default function ReservationsPage() {
                         </div>
                       ))}
 
-                      {calendarDays.slice(0, 35).map((day, i) => (
+                      {calendarDays.map((day, i) => (
                         <div key={i} className="p-0">
                           <button
                             className={`w-full aspect-square rounded-md flex items-center justify-center text-sm
-                  ${day.isPast ? "text-muted-foreground/50 cursor-not-allowed" : ""}
-                  ${
-                    isSameDay(day.date, selectedDate as Date)
-                      ? "bg-primary text-primary-foreground"
-                      : day.timeSlots.length > 0
-                        ? "hover:bg-muted"
-                        : "text-muted-foreground/50"
-                  }
-                  ${day.isToday ? "border border-primary" : ""}
-                `}
-                            onClick={() => !day.isPast && day.timeSlots.length > 0 && handleDateSelect(day.date)}
-                            disabled={day.isPast || day.timeSlots.length === 0}
+                                ${day.isPast || !day.timeSlots.some(ts => ts.available) ? "text-muted-foreground/50 cursor-not-allowed" : ""}
+                                ${selectedDate && isSameDay(day.date, selectedDate) ? "bg-primary text-primary-foreground" : day.timeSlots.some(ts => ts.available) ? "hover:bg-muted" : "text-muted-foreground/50"}
+                                ${day.isToday ? "border border-primary" : ""}`}
+                            onClick={() => !day.isPast && day.timeSlots.some(ts => ts.available) && handleDateSelect(day.date)}
+                            disabled={day.isPast || !day.timeSlots.some(ts => ts.available)}
                           >
                             {format(day.date, "d")}
                           </button>
@@ -346,24 +415,33 @@ export default function ReservationsPage() {
                         <p className="text-muted-foreground text-sm mb-4">
                           Available time slots for {format(selectedDate, "MMMM d, yyyy")}
                         </p>
-
-                        <div className="grid grid-cols-2 gap-3">
-                          {calendarDays
-                            .find((day) => isSameDay(day.date, selectedDate))
-                            ?.timeSlots.map((slot, i) => (
-                              <Button
-                                key={i}
-                                variant={selectedTime === slot.time ? "default" : "outline"}
-                                className={`justify-start h-12 ${!slot.available ? "opacity-50" : ""}`}
-                                onClick={() => slot.available && handleTimeSelect(slot.time)}
-                                disabled={!slot.available}
-                              >
-                                <Clock className="mr-2 size-4" />
-                                {slot.time}
-                              </Button>
-                            ))}
-                        </div>
-
+                        {isLoadingReservations && (
+                          <div className="flex justify-center items-center h-64">
+                            <div className="size-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+                            <p className="ml-4 text-muted-foreground">Loading available slots...</p>
+                          </div>
+                        )}
+                        {!isLoadingReservations && (
+                          <div className="grid grid-cols-2 gap-3">
+                            {calendarDays
+                              .find((day) => selectedDate && isSameDay(day.date, selectedDate))
+                              ?.timeSlots.map((slot, i) => (
+                                <Button
+                                  key={i}
+                                  variant={selectedTime === slot.time ? "default" : "outline"}
+                                  className={`justify-start h-12 ${!slot.available ? "opacity-50 cursor-not-allowed" : ""}`}
+                                  onClick={() => slot.available && handleTimeSelect(slot.time)}
+                                  disabled={!slot.available}
+                                >
+                                  <Clock className="mr-2 size-4" />
+                                  {slot.time}
+                                </Button>
+                              ))}
+                            {calendarDays.find((day) => selectedDate && isSameDay(day.date, selectedDate))?.timeSlots.every(slot => !slot.available) && (
+                                <p className="col-span-2 text-center text-muted-foreground py-4">No available slots for this day.</p>
+                            )}
+                          </div>
+                        )}
                         <Button className="w-full mt-6" onClick={() => goToStep(2)} disabled={!selectedTime}>
                           Continue to Details
                         </Button>

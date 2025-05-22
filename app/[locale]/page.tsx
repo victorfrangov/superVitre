@@ -21,16 +21,28 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
 import { Tabs } from "@/components/ui/tabs"
-import NavigationBar  from "@/components/navigation-bar";
+import NavigationBar from "@/components/navigation-bar"
+import { collection, query, where, getDocs, orderBy } from "firebase/firestore"
+import { db } from "@/app/firebase/config"
 
 interface FaqItem {
-  question: string;
-  answer: string;
+  question: string
+  answer: string
+}
+
+interface DisplayFeedback {
+  id: string
+  quote: string
+  author: string
+  rating: number
+  role?: string // Optional role
 }
 
 export default function LandingPage() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mounted, setMounted] = useState(false)
+  const [approvedFeedbacks, setApprovedFeedbacks] = useState<DisplayFeedback[]>([])
+  const [feedbacksLoading, setFeedbacksLoading] = useState(true)
 
   // Get translations
   const t = useTranslations()
@@ -58,8 +70,41 @@ export default function LandingPage() {
     }
 
     window.addEventListener("scroll", handleScroll)
+
+    const fetchApprovedFeedbacks = async () => {
+      setFeedbacksLoading(true)
+      try {
+        const feedbacksRef = collection(db, "feedbacks")
+        const q = query(
+          feedbacksRef,
+          where("status", "==", "approved"),
+          where("allowPublic", "==", true),
+          orderBy("submittedAt", "desc") // Or any other order you prefer
+        )
+        const querySnapshot = await getDocs(q)
+        const feedbacks: DisplayFeedback[] = querySnapshot.docs.map((doc) => {
+          const data = doc.data()
+          return {
+            id: doc.id,
+            quote: data.message,
+            author: data.fictionalName || testimonialsT("defaultAuthorName", { defaultValue: "Anonymous User" }),
+            rating: data.rating,
+            role: testimonialsT("customerRole", { defaultValue: "Valued Customer" }),
+          }
+        })
+        setApprovedFeedbacks(feedbacks)
+      } catch (error) {
+        console.error("Error fetching approved feedbacks:", error)
+        // Optionally set an error state here
+      } finally {
+        setFeedbacksLoading(false)
+      }
+    }
+
+    fetchApprovedFeedbacks()
+
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+  }, [testimonialsT]) // Add testimonialsT to dependency array if used for default values
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -318,39 +363,52 @@ export default function LandingPage() {
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight">{testimonialsT("title")}</h2>
               <p className="max-w-[800px] text-muted-foreground md:text-lg">{testimonialsT("description")}</p>
             </motion.div>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {testimonialsT.raw("items").map((testimonial: any, i: number) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.05 }}
-                >
-                  <Card className="h-full overflow-hidden border-border/40 bg-gradient-to-b from-background to-muted/10 backdrop-blur transition-all hover:shadow-md">
-                    <CardContent className="p-6 flex flex-col h-full">
-                      <div className="flex mb-4">
-                        {Array(testimonial.rating)
-                          .fill(0)
-                          .map((_, j) => (
-                            <Star key={j} className="size-4 text-yellow-500 fill-yellow-500" />
-                          ))}
-                      </div>
-                      <p className="text-lg mb-6 flex-grow">{testimonial.quote}</p>
-                      <div className="flex items-center gap-4 mt-auto pt-4 border-t border-border/40">
-                        <div className="size-10 rounded-full bg-muted flex items-center justify-center text-foreground font-medium">
-                          {testimonial.author.charAt(0)}
+            {feedbacksLoading ? (
+              <div className="flex justify-center items-center h-40">
+                <div className="size-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+              </div>
+            ) : approvedFeedbacks.length > 0 ? (
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {approvedFeedbacks.map((testimonial, i) => (
+                  <motion.div
+                    key={testimonial.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: i * 0.05 }}
+                  >
+                    <Card className="h-full overflow-hidden border-border/40 bg-gradient-to-b from-background to-muted/10 backdrop-blur transition-all hover:shadow-md">
+                      <CardContent className="p-6 flex flex-col h-full">
+                        <div className="flex mb-4">
+                          {Array(testimonial.rating)
+                            .fill(0)
+                            .map((_, j) => (
+                              <Star key={j} className="size-4 text-yellow-500 fill-yellow-500" />
+                            ))}
+                          {Array(5 - testimonial.rating)
+                            .fill(0)
+                            .map((_, j) => (
+                              <Star key={`empty-${j}`} className="size-4 text-muted-foreground" />
+                            ))}
                         </div>
-                        <div>
-                          <p className="font-medium">{testimonial.author}</p>
-                          <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                        <p className="text-lg mb-6 flex-grow italic">&quot;{testimonial.quote}&quot;</p>
+                        <div className="flex items-center gap-4 mt-auto pt-4 border-t border-border/40">
+                          <div className="size-10 rounded-full bg-muted flex items-center justify-center text-foreground font-medium">
+                            {testimonial.author.charAt(0).toUpperCase()}
+                          </div>
+                          <div>
+                            <p className="font-medium">{testimonial.author}</p>
+                            {testimonial.role && <p className="text-sm text-muted-foreground">{testimonial.role}</p>}
+                          </div>
                         </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-center text-muted-foreground">{testimonialsT("noFeedback", { defaultValue: "No feedback to display at the moment." })}</p>
+            )}
           </div>
         </section>
 
@@ -397,7 +455,7 @@ export default function LandingPage() {
                       cta: pricingT("plans.enterprise.cta"),
                     },
                   ].map((plan, i) => (
-                    <Card key={i} className={`flex flex-col relative ${ plan.popular ? "border-primary ring-2 ring-primary shadow-lg" : "border-border/40" } ${i === 1 ? "mt-4 md:mt-0" : ""}`}>
+                    <Card key={i} className={`flex flex-col relative ${plan.popular ? "border-primary ring-2 ring-primary shadow-lg" : "border-border/40"} ${i === 1 ? "mt-4 md:mt-0" : ""}`}>
                       {plan.popular && (
                         <Badge className="absolute top-[-2.5rem] left-1/2 transform -translate-x-1/2 rounded-full px-3 py-1 text-sm font-medium">
                           {pricingT("plans.pro.popular")}

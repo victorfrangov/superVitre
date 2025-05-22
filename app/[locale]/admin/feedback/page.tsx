@@ -73,7 +73,7 @@ export default function FeedbackPage() {
     // Only ask for fictional name if the target status is 'approved' and allowPublic is true
     if (targetStatus === "approved" && selectedFeedback.allowPublic) {
       if (!fictionalNameInput.trim()) {
-        setApproveError(t("error.fictionalNameRequired", {defaultValue: "Fictional name is required for public display."}));
+        setApproveError(t("info.fictionalNameRequired", {defaultValue: "Fictional name is required for public display."}));
         return; // Stop if fictional name is required but not provided
       }
       updateData.fictionalName = fictionalNameInput.trim();
