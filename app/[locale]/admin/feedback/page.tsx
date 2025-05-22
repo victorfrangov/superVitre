@@ -10,19 +10,34 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { Label } from "@/components/ui/label"; // Make sure Label is imported
 import { collection, query, getDocs, orderBy, doc, updateDoc } from "firebase/firestore"
 import { db } from "@/app/firebase/config"
 
+interface Feedback {
+  id: string;
+  name: string; // Assuming this is the customer's actual name
+  email: string;
+  message: string;
+  rating: number;
+  allowPublic: boolean;
+  status: "pending" | "approved" | "rejected";
+  submittedAt: any; // Can be Firestore Timestamp or string
+  fictionalName?: string;
+}
+
 export default function FeedbackPage() {
   const t = useTranslations("admin.feedback")
-  const [feedbackList, setFeedbackList] = useState([])
+  const [feedbackList, setFeedbackList] = useState<Feedback[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState("")
   const [statusFilter, setStatusFilter] = useState("all")
   const [dateFilter, setDateFilter] = useState("all")
-  const [selectedFeedback, setSelectedFeedback] = useState<any>(null)
+  const [selectedFeedback, setSelectedFeedback] = useState<Feedback | null>(null)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [fictionalNameInput, setFictionalNameInput] = useState(""); // State for the input
+  const [approveError, setApproveError] = useState<string | null>(null); // State for fictional name validation error
 
   useEffect(() => {
     const fetchFeedbacks = async () => {
@@ -31,10 +46,12 @@ export default function FeedbackPage() {
       try {
         const q = query(collection(db, "feedbacks"), orderBy("submittedAt", "desc"))
         const querySnapshot = await getDocs(q)
-        const feedbackData = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }))
+        const feedbackData = querySnapshot.docs.map((doc) => {
+          return {
+            id: doc.id,
+            ...doc.data(),
+          } as Feedback;
+        })
         setFeedbackList(feedbackData)
       } catch (err) {
         console.error("Error fetching feedback:", err)
@@ -47,16 +64,37 @@ export default function FeedbackPage() {
     fetchFeedbacks()
   }, [t])
 
-  const handleApproveFeedback = async (id: string) => {
+  const handleApproveFeedback = async (id: string, targetStatus: "approved" | "pending" = "approved") => {
+    if (!selectedFeedback) return;
+    setApproveError(null); // Clear previous errors
+
+    const updateData: { status: string; fictionalName?: string } = { status: targetStatus };
+
+    // Only ask for fictional name if the target status is 'approved' and allowPublic is true
+    if (targetStatus === "approved" && selectedFeedback.allowPublic) {
+      if (!fictionalNameInput.trim()) {
+        setApproveError(t("error.fictionalNameRequired", {defaultValue: "Fictional name is required for public display."}));
+        return; // Stop if fictional name is required but not provided
+      }
+      updateData.fictionalName = fictionalNameInput.trim();
+    } else if (targetStatus === "approved" && !selectedFeedback.allowPublic) {
+      // If approving but not public, ensure fictionalName is not sent or is explicitly nulled if previously set
+      // For simplicity, we can remove it if it exists, or ensure it's not in updateData
+      // delete updateData.fictionalName; // Or handle as needed
+    }
+
+
     try {
       const feedbackRef = doc(db, "feedbacks", id)
-      await updateDoc(feedbackRef, { status: "approved" })
+      await updateDoc(feedbackRef, updateData)
       setFeedbackList((prev) =>
-        prev.map((feedback) => (feedback.id === id ? { ...feedback, status: "approved" } : feedback))
+        prev.map((feedback) => (feedback.id === id ? { ...feedback, ...updateData } : feedback))
       )
       setIsDialogOpen(false)
+      setFictionalNameInput(""); // Reset input after successful operation
     } catch (err) {
-      console.error("Error approving feedback:", err)
+      console.error("Error updating feedback status:", err)
+      setApproveError(t("error.approveFailed", {defaultValue: "Failed to update feedback."}));
     }
   }
 
@@ -73,10 +111,21 @@ export default function FeedbackPage() {
     }
   }
 
+  // Helper to format date (if not already present)
+  const formatDate = (dateValue: any): string => {
+    if (!dateValue) return "N/A";
+    try {
+      const date = dateValue.toDate ? dateValue.toDate() : new Date(dateValue);
+      return date.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+    } catch (e) {
+      return "Invalid Date";
+    }
+  };
+  
   const filteredFeedback = feedbackList.filter((feedback) => {
     const matchesSearch =
       searchQuery === "" ||
-      feedback.customer?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      feedback.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       feedback.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       feedback.message?.toLowerCase().includes(searchQuery.toLowerCase())
 
@@ -187,7 +236,7 @@ export default function FeedbackPage() {
                 ) : (
                   filteredFeedback.map((feedback) => (
                     <TableRow key={feedback.id}>
-                      <TableCell className="font-medium">{feedback.id}</TableCell>
+                      <TableCell className="font-medium">{feedback.id.substring(0,6)}...</TableCell>
                       <TableCell>{feedback.name}</TableCell>
                       <TableCell>
                         <div className="flex items-center">
@@ -201,7 +250,7 @@ export default function FeedbackPage() {
                           ))}
                         </div>
                       </TableCell>
-                      <TableCell>{feedback.submittedAt}</TableCell>
+                      <TableCell>{formatDate(feedback.submittedAt)}</TableCell>
                       <TableCell>
                         <Badge
                           variant={
@@ -221,8 +270,10 @@ export default function FeedbackPage() {
                           variant="ghost"
                           size="icon"
                           onClick={() => {
-                            setSelectedFeedback(feedback)
-                            setIsDialogOpen(true)
+                            setSelectedFeedback(feedback);
+                            setFictionalNameInput(feedback.fictionalName || ""); // Pre-fill if exists
+                            setApproveError(null); // Clear previous errors
+                            setIsDialogOpen(true);
                           }}
                         >
                           <MessageSquare className="size-4" />
@@ -239,12 +290,22 @@ export default function FeedbackPage() {
 
       {/* Feedback Detail Dialog */}
       {selectedFeedback && (
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <Dialog 
+          open={isDialogOpen} 
+          onOpenChange={(isOpen) => {
+            setIsDialogOpen(isOpen);
+            if (!isOpen) { // Reset when dialog closes
+              setSelectedFeedback(null);
+              setFictionalNameInput("");
+              setApproveError(null);
+            }
+          }}
+        >
           <DialogContent className="sm:max-w-md">
             <DialogHeader>
               <DialogTitle>{t("feedbackDetails")}</DialogTitle>
               <DialogDescription>
-                {t("from")} {selectedFeedback.customer} ({selectedFeedback.submittedAt})
+                {t("from")} {selectedFeedback.name} ({formatDate(selectedFeedback.submittedAt)})
               </DialogDescription>
             </DialogHeader>
             <div className="space-y-4 py-4">
@@ -269,6 +330,24 @@ export default function FeedbackPage() {
                 <span className="font-medium mr-2">{t("table.allowPublic")}:</span>
                 <span>{selectedFeedback.allowPublic ? t("yes") : t("no")}</span>
               </div>
+
+              {/* Fictional Name Input - shown if allowPublic is true and status is pending */}
+              {selectedFeedback.allowPublic && selectedFeedback.status === 'pending' && (
+                <div className="space-y-1">
+                  <Label htmlFor="fictionalName">{t("info.fictionalName", {defaultValue: "Fictional Name for Public Display"})}</Label>
+                  <Input
+                    id="fictionalName"
+                    value={fictionalNameInput}
+                    onChange={(e) => {
+                      setFictionalNameInput(e.target.value);
+                      if (approveError) setApproveError(null); // Clear error when user types
+                    }}
+                    placeholder={t("info.fictionalNamePlaceholder", {defaultValue: "e.g., Happy Customer"})}
+                  />
+                  {approveError && <p className="text-xs text-destructive pt-1">{approveError}</p>}
+                </div>
+              )}
+
               <div className="flex items-center">
                 <span className="font-medium mr-2">{t("table.status")}:</span>
                 <Badge
@@ -284,14 +363,14 @@ export default function FeedbackPage() {
                 </Badge>
               </div>
             </div>
-            <DialogFooter className="flex sm:justify-between">
+            <DialogFooter className="flex flex-col space-y-2 sm:space-y-0 sm:flex-row sm:justify-between">
               {selectedFeedback.status === "pending" && (
                 <>
-                  <Button variant="destructive" onClick={() => handleRejectFeedback(selectedFeedback.id)}>
+                  <Button variant="destructive" onClick={() => handleRejectFeedback(selectedFeedback.id)} className="w-full sm:w-auto">
                     <X className="mr-2 size-4" />
                     {t("info.reject")}
                   </Button>
-                  <Button onClick={() => handleApproveFeedback(selectedFeedback.id)}>
+                  <Button onClick={() => handleApproveFeedback(selectedFeedback.id, "approved")} className="w-full sm:w-auto">
                     <Check className="mr-2 size-4" />
                     {t("info.approve")}
                   </Button>
@@ -304,9 +383,9 @@ export default function FeedbackPage() {
                 </Button>
               )}
               {selectedFeedback.status === "rejected" && (
-                <Button onClick={() => handleApproveFeedback(selectedFeedback.id)}>
+                <Button onClick={() => handleApproveFeedback(selectedFeedback.id, "pending")}>
                   <Check className="mr-2 size-4" />
-                  {t("info.approve")}
+                  {t("info.setPending", { defaultValue: "Set to Pending"})}
                 </Button>
               )}
             </DialogFooter>

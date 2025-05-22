@@ -6,8 +6,8 @@
 - Fix main page info and buttons
 
 **Need domain/email address**
-- Add image support to reservation. Cloud storage
-- Add captcha.
+- Add image support to reservation. Cloud storage (Will have to add a image viewer in the admin panel)
+- Add captcha v3 on all forms.
 - Setup App Hosting
 - Envoyer des emails de confirmations
 

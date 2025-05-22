@@ -29,7 +29,7 @@ import {
 } from "@/components/ui/pagination"
 import { Badge } from "@/components/ui/badge"
 
-import { collection, getDocs, query, orderBy } from "firebase/firestore"
+import { collection, getDocs, query, orderBy, doc, updateDoc } from "firebase/firestore" // Added doc and updateDoc
 import { db } from '@/app/firebase/config'
 
 interface Reservation {
@@ -50,8 +50,8 @@ interface Reservation {
   preferredContact: string
   selectedDate: string
   selectedTime: string
-  status: "pending" | "confirmed" | "cancelled" | string
-  createdAt: string
+  status: "pending" | "confirmed" | "cancelled" | "completed" | string 
+  submittedAt?: string
 }
 
 const formatDate = (isoDateString: string) => {
@@ -76,6 +76,7 @@ export default function AppointmentsPage() {
   const itemsPerPage = 10
   const [selectedAppointment, setSelectedAppointment] = useState<Reservation | null>(null)
   const [isAppointmentDetailDialogOpen, setIsAppointmentDetailDialogOpen] = useState(false)
+  const [isUpdatingStatus, setIsUpdatingStatus] = useState(false)
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -154,10 +155,10 @@ export default function AppointmentsPage() {
     let variant: "default" | "secondary" | "destructive" | "outline" = "default"
     const labelKey = `status.${status.toLowerCase()}`
     const label = t.rich(labelKey, {
-        defaultValue: status
+        defaultValue: status.charAt(0).toUpperCase() + status.slice(1)
     })
 
-    if (status === "confirmed") {
+    if (status === "confirmed" || status === "completed") {
       variant = "default"
     } else if (status === "pending") {
       variant = "secondary"
@@ -169,6 +170,38 @@ export default function AppointmentsPage() {
 
     return <Badge variant={variant}>{label}</Badge>
   }
+
+  const handleUpdateAppointmentStatus = async (appointmentId: string, newStatus: string) => {
+    if (!selectedAppointment || selectedAppointment.id !== appointmentId) return;
+
+    setIsUpdatingStatus(true);
+    const oldError = error;
+    setError(null);
+
+    try {
+      const appointmentRef = doc(db, "reservations", appointmentId);
+      await updateDoc(appointmentRef, {
+        status: newStatus,
+      });
+
+      // Update local state for immediate UI feedback
+      const updatedAppointments = allAppointments.map(app =>
+        app.id === appointmentId ? { ...app, status: newStatus } : app
+      );
+      setAllAppointments(updatedAppointments);
+
+      if (selectedAppointment.id === appointmentId) {
+        setSelectedAppointment(prevSelected =>
+          prevSelected ? { ...prevSelected, status: newStatus } : null
+        );
+      }
+    } catch (err) {
+      console.error("Error updating appointment status:", err);
+      setError(t("error.statusUpdateError", { defaultValue: "Failed to update status." }));
+    } finally {
+      setIsUpdatingStatus(false);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -375,7 +408,9 @@ export default function AppointmentsPage() {
                 </div>
                 <div className="grid grid-cols-[140px_1fr] items-start gap-x-4">
                   <span className="text-sm font-medium text-muted-foreground">{t("table.status")}</span>
-                  <span>{selectedAppointment.status}</span>
+                  <div>
+                    <StatusBadge status={selectedAppointment.status} />
+                  </div>
                 </div>
                 <div className="grid grid-cols-[140px_1fr] items-start gap-x-4">
                   <span className="text-sm font-medium text-muted-foreground">{t("table.propertyType")}</span>
@@ -391,15 +426,67 @@ export default function AppointmentsPage() {
                 </div>
                 <div className="grid grid-cols-[140px_1fr] items-start gap-x-4">
                   <span className="text-sm font-medium text-muted-foreground">{t("table.createdAt")}</span>
-                  <span>{formatDate(selectedAppointment.createdAt)}</span>
+                  {/* Ensure selectedAppointment.submittedAt is available if that's the intended field */}
+                  <span>{formatDate(selectedAppointment.submittedAt || selectedAppointment.createdAt)}</span>
                 </div>
               </div>
             </div>
-            <DialogFooter>
-              <Button variant="outline" onClick={() => setIsAppointmentDetailDialogOpen(false)}>
-                {t("table.close", {}, { defaultValue: "Close" })}
+            <DialogFooter className="sm:justify-start gap-2 pt-4">
+              {selectedAppointment.status === "pending" && (
+                <>
+                  <Button
+                    variant="default"
+                    onClick={() => handleUpdateAppointmentStatus(selectedAppointment.id, "completed")}
+                    disabled={isUpdatingStatus}
+                  >
+                    {isUpdatingStatus && <Loader2 className="mr-2 size-4 animate-spin" />}
+                    {t("status.markCompleted", { defaultValue: "Mark as Completed" })}
+                  </Button>
+                  <Button
+                    variant="destructive"
+                    onClick={() => handleUpdateAppointmentStatus(selectedAppointment.id, "cancelled")}
+                    disabled={isUpdatingStatus}
+                  >
+                    {isUpdatingStatus && <Loader2 className="mr-2 size-4 animate-spin" />}
+                    {t("status.markCancelled", { defaultValue: "Cancel Appointment" })}
+                  </Button>
+                </>
+              )}
+              {selectedAppointment.status === "completed" && (
+                 <Button
+                    variant="outline"
+                    onClick={() => handleUpdateAppointmentStatus(selectedAppointment.id, "pending")}
+                    disabled={isUpdatingStatus}
+                  >
+                    {isUpdatingStatus && <Loader2 className="mr-2 size-4 animate-spin" />}
+                    {t("status.markPending", { defaultValue: "Mark as Pending" })}
+                  </Button>
+              )}
+               {selectedAppointment.status === "confirmed" && (
+                 <>
+                  <Button
+                      variant="destructive"
+                      onClick={() => handleUpdateAppointmentStatus(selectedAppointment.id, "cancelled")}
+                      disabled={isUpdatingStatus}
+                    >
+                      {isUpdatingStatus && <Loader2 className="mr-2 size-4 animate-spin" />}
+                      {t("status.markCancelled", { defaultValue: "Cancel Appointment" })}
+                    </Button>
+                    <Button // Option to mark a confirmed appointment as completed
+                      variant="default"
+                      onClick={() => handleUpdateAppointmentStatus(selectedAppointment.id, "completed")}
+                      disabled={isUpdatingStatus}
+                    >
+                      {isUpdatingStatus && <Loader2 className="mr-2 size-4 animate-spin" />}
+                      {t("actions.markCompleted", { defaultValue: "Mark as Completed" })}
+                  </Button>status
+                 </>
+              )}
+              <Button variant="outline" onClick={() => setIsAppointmentDetailDialogOpen(false)} disabled={isUpdatingStatus}>
+                {t("table.close", { defaultValue: "Close" })}
               </Button>
             </DialogFooter>
+            {error && <p className="pt-2 text-sm text-destructive text-center">{error}</p>}
           </DialogContent>
         </Dialog>
       )}

@@ -432,18 +432,23 @@
         "propertyType": "Type de Propriété",
         "windows": "Nombre de Fenêtres",
         "stories": "Nombre d'Étages",
-        "createdAt": "Créée à",
+        "createdAt": "Soumis le",
         "close": "Fermer"
       },
       "status": {
         "confirmed": "Confirmed",
         "pending": "Pending",
-        "cancelled": "Cancelled"
+        "cancelled": "Cancelled",
+        "completed": "Completed",
+        "markCompleted": "Mark as Complete",
+        "markPending": "Mark as Pending",
+        "markCancelled": "Mark as Cancelled"
       },
       "error": {
         "errorFetching": "Erreur en essayant d'accéder la base de données",
         "retry": "Réessayer",
-        "permissionDeniedError": "Vous n'avez pas les permissions pour accéder la base de données"
+        "permissionDeniedError": "Vous n'avez pas les permissions pour accéder la base de données",
+        "statusUpdateError": "Failed to update status."
       }
     },
     "contacts": {
@@ -571,7 +576,12 @@
         "message": "Message",
         "approve": "Approuver",
         "reject": "Rejeter",
-        "removeApproval": "Retirer l'approbation"
+        "removeApproval": "Retirer l'approbation",
+        "fictionalName": "Nom fictif",
+        "fictionalNamePlaceholder": "Nom fictif à afficher",
+        "fictionalNameRequired": "Veuillez entrer un nom fictif à afficher",
+        "approveFailed": "Échec de l'approbation du retour",
+        "setPending": "Mettre en attente"
       },
       "table": {
         "allowPublic": "Consentement",
