@@ -18,7 +18,7 @@
   },
   "hero": {
     "title": "Residential Window Cleaning in Saint-Lambert",
-    "description": "We offer professional window cleaning services for a bright and clean interior. Book now!",
+    "description": "We offer window cleaning services for a bright and clean interior. Book now!",
     "benefits": {
       "noCreditCard": "No Deposit Needed",
       "trial": "Cash Payment",
@@ -27,7 +27,7 @@
   },
   "features": {
     "badge": "Our Services",
-    "title": "Sparkling Windows, Effortlessly",
+    "title": "Sparkling Windows, For You",
     "description": "Discover the benefits of choosing SuperVitre for top-quality residential and commercial window cleaning services.",
     "items": {
       "professionalCleaning": {
@@ -86,47 +86,42 @@
   },
   "pricing": {
     "title": "Simple and Transparent Pricing",
-    "description": "Choose the plan that's right for you.",
+    "description": "Choose the plan that brightens your everyday life.",
     "plans": {
       "basic": {
-        "title": "Starter",
+        "title": "Basic",
         "price": "$99",
-        "description": "Perfect for small homes with standard windows.",
+        "description": "The essentials for clear windows and a welcoming home, ideal for regular maintenance.",
         "features": [
-          "Up to 10 windows",
-          "Exterior cleaning",
-          "Screen wiping",
-          "3-month rain guarantee"
+          "Exterior cleaning of all windows",
+          "Exterior frame cleaning"
         ],
         "cta": "Choose this plan"
       },
       "pro": {
-        "title": "Professional",
+        "title": "Standard",
         "price": "$199",
-        "description": "Ideal for growing businesses.",
+        "description": "Our most popular package for impeccable cleanliness, inside and out. Rediscover clarity!",
         "features": [
-          "Up to 20 team members",
-          "Advanced analytics",
-          "25 GB storage",
-          "Priority email support",
-          "API access"
+          "Exterior and interior cleaning of all windows",
+          "Complete cleaning of frames and rails",
+          "Screen Cleaning"
         ],
         "popular": "Most Popular",
-        "cta": "Choose Pro"
+        "cta": "Choose Standard"
       },
       "enterprise": {
-        "title": "Enterprise",
+        "title": "Premium",
         "price": "$299",
-        "description": "For large organizations with complex needs.",
+        "description": "The ultimate SuperVitre experience. Give your windows the royal treatment for unparalleled shine and protection.",
         "features": [
-          "Unlimited team members",
-          "Custom analytics",
-          "Unlimited storage",
-          "24/7 phone and email support",
-          "Advanced API access",
-          "Custom integrations"
+          "Exterior and interior cleaning of all windows",
+          "Complete cleaning of frames and rails",
+          "Screen cleaning",
+          "Application of a special protective sealant to the windows",
+          "Polishing windows for maximum shine"
         ],
-        "cta": "Contact Us"
+        "cta": "Choose Premium"
       }
     }
   },
@@ -296,10 +291,6 @@
       "errorMessage": "An error occurred while sending your message. Please try again.",
       "thankYou": "Thank You!",
       "responseMessage": "We have received your message and will respond as soon as possible."
-    },
-    "map": {
-      "title": "Find Us",
-      "placeholder": "The map will be displayed here"
     }
   },
   "admin": {
@@ -553,7 +544,6 @@
       "emailPlaceholder": "admin@example.com",
       "password": "Password",
       "passwordPlaceholder": "••••••••",
-      "forgotPassword": "Forgot password?",
       "login": "Sign In",
       "loggingIn": "Signing in...",
       "backToWebsite": "Back to Website",

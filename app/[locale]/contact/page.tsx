@@ -121,27 +121,27 @@ export default function ContactPage() {
                   <CardContent className="space-y-2">
                     <div className="flex justify-between">
                       <span className="font-medium">{t("hours.monday")}</span>
-                      <span>8:00 AM - 6:00 PM</span>
+                      <span>10:00 AM - 6:00 PM</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="font-medium">{t("hours.tuesday")}</span>
-                      <span>8:00 AM - 6:00 PM</span>
+                      <span>10:00 AM - 6:00 PM</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="font-medium">{t("hours.wednesday")}</span>
-                      <span>8:00 AM - 6:00 PM</span>
+                      <span>10:00 AM - 6:00 PM</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="font-medium">{t("hours.thursday")}</span>
-                      <span>8:00 AM - 6:00 PM</span>
+                      <span>10:00 AM - 6:00 PM</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="font-medium">{t("hours.friday")}</span>
-                      <span>8:00 AM - 6:00 PM</span>
+                      <span>10:00 AM - 6:00 PM</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="font-medium">{t("hours.saturday")}</span>
-                      <span>9:00 AM - 4:00 PM</span>
+                      <span>10:00 AM - 4:00 PM</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="font-medium">{t("hours.sunday")}</span>

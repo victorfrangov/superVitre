@@ -463,8 +463,8 @@ export default function LandingPage() {
                         </Tabs>
                         <ul className="space-y-2 text-sm text-muted-foreground">
                           {plan.features.map((feature: string, idx: number) => (
-                            <li key={idx} className="flex items-center gap-2">
-                              <Check className="size-4 text-primary" />
+                            <li key={idx} className="flex items-start gap-2">
+                              <Check className="size-4 text-primary mt-1 flex-shrink-0" />
                               <span>{feature}</span>
                             </li>
                           ))}

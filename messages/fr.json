@@ -7,7 +7,7 @@
     "reservations": "Réservation",
     "contact": "Contact",
     "pricing": "Tarifs",
-    "feedback": "Feedback",
+    "feedback": "Donnez votre avis",
     "faq": "FAQ",
     "adminLogin": "Connexion Employés"
   },
@@ -18,7 +18,7 @@
   },
   "hero": {
     "title": "Lavage de vitre résidentiel à Saint-Lambert",
-    "description": "Nous offrons un service de lavage de vitre professionnel pour un intérieur lumineux et propre. Réservez dès maintenant!",
+    "description": "Nous offrons un service de lavage de vitre pour un intérieur lumineux et propre. Réservez dès maintenant!",
     "benefits": {
       "noCreditCard": "Pas besoin de dépôt",
       "trial": "Paiement en espèces",
@@ -27,7 +27,7 @@
   },
   "features": {
     "badge": "Nos Services",
-    "title": "Des Fenêtres Étincelantes, Sans Effort",
+    "title": "Des Fenêtres Étincelantes, Pour Vous",
     "description": "Découvrez les avantages de choisir SuperVitre pour un service de lavage de vitres résidentiel et commercial de qualité supérieure.",
     "items": {
       "professionalCleaning": {
@@ -86,47 +86,42 @@
   },
   "pricing": {
     "title": "Tarification Simple et Transparente",
-    "description": "Choisissez le forfait qui vous convient.",
+    "description": "Choisissez le forfait qui illumine votre quotidien.",
     "plans": {
       "basic": {
-        "title": "Débutant",
+        "title": "Basique",
         "price": "99$",
-        "description": "Perfect for small homes with standard windows.",
+        "description": "L'essentiel pour des vitres claires et une maison accueillante, idéal pour un entretien régulier.",
         "features": [
-          "Up to 10 windows",
-          "Exterior cleaning",
-          "Screen wiping",
-          "3-month rain guarantee"
+          "Lavage extérieur de toutes les vitres",
+          "Nettoyage des cadres extérieurs"
         ],
           "cta": "Choisir ce plan"
       },
       "pro": {
-        "title": "Professionnel",
+        "title": "Standard",
         "price": "199$",
-        "description": "Idéal pour les entreprises en croissance.",
+        "description": "Notre formule la plus populaire pour une propreté impeccable, intérieur comme extérieur. Redécouvrez la clarté !",
         "features": [
-          "Jusqu'à 20 membres d'équipe",
-          "Analyses avancées",
-          "25 Go de stockage",
-          "Support prioritaire par email",
-          "Accès API"
+          "Lavage extérieur et intérieur de toutes les vitres",
+          "Nettoyage complet des cadres et rails",
+          "Nettoyage des moustiquaires"
         ],
         "popular": "Le Plus Populaire",
-        "cta": "Choisir Pro"
+        "cta": "Choisir Standard"
       },
       "enterprise": {
-        "title": "Entreprise",
+        "title": "Premium",
         "price": "299$",
-        "description": "Pour les grandes organisations avec des besoins complexes.",
+        "description": "L'expérience SuperVitre ultime. Offrez à vos vitres un traitement royal pour une brillance et une protection inégalées.",
         "features": [
-          "Membres d'équipe illimités",
-          "Analyses personnalisées",
-          "Stockage illimité",
-          "Support 24/7 par téléphone et email",
-          "Accès API avancé",
-          "Intégrations personnalisées"
+          "Lavage extérieur et intérieur de toutes les vitres",
+          "Nettoyage complet des cadres et rails",
+          "Nettoyage des moustiquaires",
+          "Application d'un scellant protecteur spécial sur les vitres",
+          "Polissage des vitres pour une brillance maximale"
         ],
-        "cta": "Nous Contacter"
+        "cta": "Choisir Premium"
       }
     }
   },
@@ -296,10 +291,6 @@
       "errorMessage": "Un problème est survenu lors de l'envoi de votre message. Veuillez réessayer.",
       "thankYou": "Merci !",
       "responseMessage": "Nous avons bien reçu votre message et nous vous répondrons dès que possible."
-    },
-    "map": {
-      "title": "Trouvez-Nous",
-      "placeholder": "La carte sera affichée ici"
     }
   },
   "admin": {
@@ -553,7 +544,6 @@
       "emailPlaceholder": "admin@example.com",
       "password": "Password",
       "passwordPlaceholder": "••••••••",
-      "forgotPassword": "Forgot password?",
       "login": "Sign In",
       "loggingIn": "Signing in...",
       "backToWebsite": "Back to Website",

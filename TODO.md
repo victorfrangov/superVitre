@@ -1,11 +1,9 @@
 *TODO*
 
 - Add profile pic to admin? (NO)
-- Fix main page info and buttons
-- Fix english translations
+- Add media, logos, videos on the pages
 
 *QUICK*
-- Add pricing text properly
 - Change opened hours and contact info in contact page
 
 **Need domain/email address**
@@ -22,3 +20,6 @@
 -DONE- In admin/appointments/contacts and customers the actions button will open a panel like the other pages to show info about the reservation/customer/contact
 -DONE- Feedback admin panel: Actions button, approving will automatically add the feedback with a custom fake name to the main page
 -DONE- Will have to clear up to 4 hours per reservation, so if 9am is taken next closest time available is 12am
+-DONE- Add pricing text properly
+-DONE- Fix main page info and buttons
+-DONE- Fix english translations
