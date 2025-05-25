@@ -2,6 +2,11 @@
 
 - Add profile pic to admin? (NO)
 - Fix main page info and buttons
+- Fix english translations
+
+*QUICK*
+- Add pricing text properly
+- Change opened hours and contact info in contact page
 
 **Need domain/email address**
 - Add image support to reservation. Cloud storage (Will have to add a image viewer in the admin panel)

@@ -12,130 +12,81 @@
     "adminLogin": "Connexion Employés"
   },
   "cta": {
-    "getStarted": "Reserver",
-    "reserve": "Reserver",
-    "haveAQuestion": "Vous avez une question?",
-    "contactSales": "Contacter les Ventes"
+    "getStarted": "Réserver",
+    "reserve": "Réserver",
+    "haveAQuestion": "Vous avez une question?"
   },
   "hero": {
-    "badge": "Bientôt Disponible",
     "title": "Lavage de vitre résidentiel à Saint-Lambert",
     "description": "Nous offrons un service de lavage de vitre professionnel pour un intérieur lumineux et propre. Réservez dès maintenant!",
     "benefits": {
-      "noCreditCard": "Sans carte de crédit",
-      "trial": "Essai de 14 jours",
+      "noCreditCard": "Pas besoin de dépôt",
+      "trial": "Paiement en espèces",
       "cancelAnytime": "Annulez à tout moment"
     }
   },
-  "logos": {
-    "title": "Approuvé par des entreprises innovantes du monde entier"
-  },
   "features": {
-    "badge": "Fonctionnalités",
-    "title": "Tout ce Dont Vous Avez Besoin pour Réussir",
-    "description": "Notre plateforme complète fournit tous les outils nécessaires pour rationaliser votre flux de travail, augmenter la productivité et atteindre vos objectifs.",
+    "badge": "Nos Services",
+    "title": "Des Fenêtres Étincelantes, Sans Effort",
+    "description": "Découvrez les avantages de choisir SuperVitre pour un service de lavage de vitres résidentiel et commercial de qualité supérieure.",
     "items": {
-      "automation": {
-        "title": "Automatisation Intelligente",
-        "description": "Automatisez les tâches répétitives et les flux de travail pour gagner du temps et réduire les erreurs."
+      "professionalCleaning": {
+        "title": "Nettoyage Professionnel",
+        "description": "Nos techniciens qualifiés utilisent des techniques et équipements professionnels pour un nettoyage impeccable de vos vitres, cadres et moustiquaires."
       },
-      "analytics": {
-        "title": "Analyses Avancées",
-        "description": "Obtenez des informations précieuses grâce à la visualisation des données en temps réel et aux rapports."
+      "streakFree": {
+        "title": "Résultat Garanti Sans Traces",
+        "description": "Nous utilisons des solutions de nettoyage de première qualité et de l'eau purifiée pour assurer des vitres parfaitement transparentes, sans aucune trace ni résidu."
       },
-      "collaboration": {
-        "title": "Collaboration d'Équipe",
-        "description": "Travaillez ensemble de manière transparente avec des outils de communication intégrés."
+      "ecoFriendly": {
+        "title": "Produits Écologiques",
+        "description": "Nous nous soucions de votre environnement. C'est pourquoi nous utilisons des produits de nettoyage biodégradables et respectueux de l'environnement."
       },
-      "security": {
-        "title": "Sécurité d'Entreprise",
-        "description": "Gardez vos données en sécurité avec un chiffrement de bout en bout et des fonctionnalités de conformité."
+      "safetyFirst": {
+        "title": "Sécurité et Fiabilité",
+        "description": "Notre équipe est formée pour travailler en toute sécurité, respectant les normes les plus strictes, et nous sommes entièrement assurés pour votre tranquillité d'esprit."
       },
-      "integration": {
-        "title": "Intégration Transparente",
-        "description": "Connectez-vous à vos outils préférés grâce à notre vaste écosystème d'API."
+      "flexibleScheduling": {
+        "title": "Horaires Flexibles et Pratiques",
+        "description": "Nous offrons des plages horaires flexibles pour s'adapter à votre emploi du temps chargé, incluant les soirs et les week-ends sur demande."
       },
-      "support": {
-        "title": "Support 24/7",
-        "description": "Obtenez de l'aide quand vous en avez besoin avec notre équipe de support dédiée."
+      "satisfactionGuaranteed": {
+        "title": "Satisfaction Garantie",
+        "description": "Votre satisfaction est notre priorité. Si vous n'êtes pas entièrement satisfait, nous nous engageons à revenir pour corriger la situation."
       }
     }
   },
   "howItWorks": {
-    "badge": "Comment Ça Marche",
-    "title": "Processus Simple, Résultats Puissants",
-    "description": "Commencez en quelques minutes et constatez la différence que notre plateforme peut faire pour votre entreprise.",
+    "badge": "Notre Processus",
+    "title": "Des Vitres Propres en Quelques Étapes Simples",
+    "description": "Découvrez comment nous rendons vos vitres impeccables, rapidement et efficacement.",
     "steps": {
       "step1": {
-        "title": "Créer un Compte",
-        "description": "Inscrivez-vous en quelques secondes avec juste votre email. Aucune carte de crédit n'est requise pour commencer."
+        "title": "Réservez Votre Service",
+        "description": "Choisissez une date et une heure qui vous conviennent via notre formulaire de réservation en ligne simple ou appelez-nous directement."
       },
       "step2": {
-        "title": "Configurer l'Espace de Travail",
-        "description": "Personnalisez votre espace de travail pour correspondre au flux de travail et aux exigences uniques de votre équipe."
+        "title": "Confirmation & Préparation",
+        "description": "Nous vous confirmerons votre rendez-vous et vous donnerons quelques conseils simples pour préparer l'arrivée de nos techniciens."
       },
       "step3": {
-        "title": "Augmenter la Productivité",
-        "description": "Commencez à utiliser nos puissantes fonctionnalités pour rationaliser les processus et atteindre vos objectifs."
+        "title": "Profitez de Vitres Étincelantes",
+        "description": "Nos experts nettoient vos vitres avec soin et professionnalisme, vous laissant profiter d'une vue claire et d'une maison plus lumineuse."
       }
     }
   },
   "testimonials": {
-    "badge": "Témoignages",
     "title": "Aimé par des Équipes du Monde Entier",
     "description": "Ne vous fiez pas seulement à notre parole. Voyez ce que nos clients ont à dire sur leur expérience.",
-    "residential": "Residential",
-    "commercial": "Commercial",
-    "customer": "Customer",
     "defaultAuthorName": "Utilisateur Anonyme",
     "customerRole": "Client Estimé",
     "noFeedback": "Aucun témoignage à afficher pour le moment.",
-    "leaveReview": "Had a great experience with our service?",
-    "shareFeedback": "Share your feedback",
-    "items": [
-    {
-      "quote": "SaaSify has transformed how we manage our projects. The automation features have saved us countless hours of manual work.",
-      "author": "Sarah Johnson",
-      "role": "Project Manager, TechCorp",
-      "rating": 5
-    },
-    {
-      "quote": "The analytics dashboard provides insights we never had access to before. It's helped us make data-driven decisions that have improved our ROI.",
-      "author": "Michael Chen",
-      "role": "Marketing Director, GrowthLabs",
-      "rating": 5
-    },
-    {
-      "quote": "Customer support is exceptional. Any time we've had an issue, the team has been quick to respond and resolve it. Couldn't ask for better service.",
-      "author": "Emily Rodriguez",
-      "role": "Operations Lead, StartupX",
-      "rating": 5
-    },
-    {
-      "quote": "We've tried several similar solutions, but none compare to the ease of use and comprehensive features of SaaSify. It's been a game-changer.",
-      "author": "David Kim",
-      "role": "CEO, InnovateNow",
-      "rating": 5
-    },
-    {
-      "quote": "The collaboration tools have made remote work so much easier for our team. We're more productive than ever despite being spread across different time zones.",
-      "author": "Lisa Patel",
-      "role": "HR Director, RemoteFirst",
-      "rating": 5
-    },
-    {
-      "quote": "Implementation was seamless, and the ROI was almost immediate. We've reduced our operational costs by 30% since switching to SaaSify.",
-      "author": "James Wilson",
-      "role": "COO, ScaleUp Inc",
-      "rating": 5
-    }
-  ]
+    "leaveReview": "Vous avez eu une bonne expérience avec nous ?",
+    "shareFeedback": "Partagez votre avis"
   },
   "pricing": {
     "title": "Tarification Simple et Transparente",
-    "description": "Choisissez le forfait qui convient à votre entreprise. Tous les forfaits incluent un essai gratuit de 14 jours.",
-    "monthly": "Mensuel",
-    "annually": "Annuel (Économisez 20%)",
+    "description": "Choisissez le forfait qui vous convient.",
     "plans": {
       "basic": {
         "title": "Débutant",
@@ -182,58 +133,42 @@
   "faq": {
     "badge": "FAQ",
     "title": "Questions Fréquemment Posées",
-    "description": "Trouvez des réponses aux questions courantes sur notre plateforme.",
+    "description": "Trouvez des réponses à vos questions courantes concernant nos services de lavage de vitres.",
     "questions": [
       {
-        "question": "Comment fonctionne l'essai gratuit de 14 jours?",
-        "answer": "Notre essai gratuit de 14 jours vous donne un accès complet à toutes les fonctionnalités de votre forfait sélectionné. Aucune carte de crédit n'est requise pour s'inscrire, et vous pouvez annuler à tout moment pendant la période d'essai sans obligation."
+        "question": "Quelles zones desservez-vous ?",
+        "answer": "Nous desservons principalement la région de Saint-Lambert et ses environs. Vous pouvez consulter notre page de service ou nous contacter directement pour confirmer si nous couvrons votre localité."
       },
       {
-        "question": "Puis-je changer de forfait plus tard?",
-        "answer": "Oui, vous pouvez mettre à niveau ou rétrograder votre forfait à tout moment. Si vous effectuez une mise à niveau, le nouveau prix sera calculé au prorata pour le reste de votre cycle de facturation. Si vous rétrogradez, le nouveau prix prendra effet au début de votre prochain cycle de facturation."
+        "question": "Que se passe-t-il en cas de mauvais temps le jour de mon rendez-vous ?",
+        "answer": "La sécurité est notre priorité. En cas de forte pluie ou de conditions météorologiques dangereuses, nous vous contacterons pour reporter votre service à une date ultérieure qui vous convient, sans frais supplémentaires."
       },
       {
-        "question": "Y a-t-il une limite au nombre d'utilisateurs que je peux ajouter?",
-        "answer": "Le nombre d'utilisateurs dépend de votre forfait. Le forfait Débutant permet jusqu'à 5 membres d'équipe, le forfait Professionnel permet jusqu'à 20, et le forfait Entreprise n'a pas de limite de membres d'équipe."
+        "question": "Le nettoyage des cadres de fenêtres et des moustiquaires est-il inclus ?",
+        "answer": "Oui, notre service standard inclut le nettoyage des vitres, des cadres et des moustiquaires accessibles. Des services plus complets sont disponibles selon vos besoins."
       },
       {
-        "question": "Offrez-vous des réductions pour les organisations à but non lucratif ou les établissements d'enseignement?",
-        "answer": "Oui, nous offrons des tarifs spéciaux pour les organisations à but non lucratif, les établissements d'enseignement et les projets open source. Veuillez contacter notre équipe commerciale pour plus d'informations."
+        "question": "Comment puis-je payer pour le service ?",
+        "answer": "Nous acceptons les paiements en espèces ou par virement Interac une fois le service complété à votre satisfaction. Aucun dépôt n'est requis pour la réservation."
       },
       {
-        "question": "Comment mes données sont-elles sécurisées?",
-        "answer": "Nous prenons la sécurité très au sérieux. Toutes les données sont cryptées à la fois en transit et au repos. Nous utilisons des pratiques de sécurité standard de l'industrie et subissons régulièrement des audits de sécurité. Notre plateforme est conforme au RGPD, au CCPA et à d'autres réglementations pertinentes."
-      },
-      {
-        "question": "Quel type de support proposez-vous?",
-        "answer": "Le support varie selon le forfait. Tous les forfaits incluent le support par email, le forfait Professionnel offrant un support prioritaire par email. Le forfait Entreprise comprend un support 24/7 par téléphone et email. Nous disposons également d'une vaste base de connaissances et d'un forum communautaire disponibles pour tous les utilisateurs."
+        "question": "Que faire si je ne suis pas satisfait du nettoyage ?",
+        "answer": "Votre satisfaction est notre garantie. Si vous n'êtes pas entièrement satisfait du résultat, veuillez nous contacter dans les 24 heures et nous reviendrons corriger la situation sans frais."
       }
     ]
   },
   "finalCta": {
     "title": "Prêt à Transformer Vos Fenêtres?",
-    "description": "Rejoignez des milliers de clients satisfaits qui ont rationalisé leurs processus et augmenté leur productivité avec notre plateforme.",
-    "footnote": "Aucune carte de crédit requise. Essai gratuit de 14 jours. Annulez à tout moment."
+    "description": "Rejoignez nos nombreux clients satisfaits et profitez de fenêtres d'une propreté éclatante qui illumineront votre quotidien.",
+    "footnote": "Réservation simple et rapide. Satisfaction garantie."
   },
   "footer": {
-    "about": "Rationalisez votre flux de travail avec notre plateforme SaaS tout-en-un. Augmentez la productivité et développez votre entreprise.",
+    "about": "SuperVitre offre des services de lavage de vitres professionnels pour les résidences et les commerces. Obtenez une soumission gratuite dès aujourd'hui et laissez entrer la lumière !",
     "categories": {
       "product": "Produit",
       "resources": "Ressources",
       "company": "Entreprise"
-    },
-    "links": {
-      "documentation": "Documentation",
-      "guides": "Guides",
-      "blog": "Blog",
-      "support": "Support",
-      "about": "À Propos",
-      "careers": "Carrières",
-      "privacy": "Politique de Confidentialité",
-      "terms": "Conditions d'Utilisation",
-      "cookies": "Politique de Cookies"
-    },
-    "copyright": "© {year} SuperVitre. Tous droits réservés."
+    }
   },
   "accessibility": {
     "scrollToTop": "Retour en haut",
@@ -244,11 +179,12 @@
   "reservations": {
     "title": "Réservez Votre Service de Lavage de Vitres",
     "subtitle": "Sélectionnez une date et une heure qui vous conviennent",
-    "instructions": "Choisissez un créneau horaire disponible et remplissez vos informations pour réserver votre service de lavage de vitres.",
     "contactInfo": "Informations de Contact",
     "serviceDetails": "Détails du Service",
     "serviceSubtitle": "Dites ce dont vous avez de besoin!",
+    "selectMoment": "Sélectionnez une Date et une Heure",
     "form": {
+      "reservationPour": "Réservation pour: ",
       "firstName": "Prénom",
       "lastName": "Nom",
       "email": "Adresse Email",
@@ -280,6 +216,10 @@
     "calendar": {
       "selectDate": "Sélectionnez une Date",
       "selectTime": "Sélectionnez une Heure",
+      "chooseDatePrompt": "Choisissez votre date de rendez-vous préférée",
+      "availableSlotsPrompt": "Créneaux horaires disponibles pour",
+      "loadingSlots": "Chargement des créneaux disponibles...",
+      "selectDatePrompt": "Veuillez d'abord sélectionner une date",
       "morning": "Matin",
       "afternoon": "Après-midi",
       "available": "Disponible",
@@ -290,9 +230,12 @@
     "buttons": {
       "checkAvailability": "Vérifier la Disponibilité",
       "bookNow": "Réserver Maintenant",
+      "submitting": "Envoi en cours...",
       "previous": "Précédent",
       "next": "Suivant",
-      "submit": "Confirmer la Réservation"
+      "submit": "Confirmer la Réservation",
+      "continueToDetails": "Continuer vers les Détails",
+      "backToHome": "Retour à l'Accueil"
     },
     "confirmation": {
       "title": "Confirmation de Réservation",

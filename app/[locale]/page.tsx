@@ -11,10 +11,10 @@ import {
   Star,
   Zap,
   Shield,
-  Users,
-  BarChart,
-  Layers,
   ArrowUp,
+  Droplets,
+  Leaf,
+  CalendarDays,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
@@ -35,7 +35,7 @@ interface DisplayFeedback {
   quote: string
   author: string
   rating: number
-  role?: string // Optional role
+  role?: string
 }
 
 export default function LandingPage() {
@@ -50,7 +50,6 @@ export default function LandingPage() {
   const heroT = useTranslations("hero")
   const ctaT = useTranslations("cta")
   const featuresT = useTranslations("features")
-  const logosT = useTranslations("logos")
   const howItWorksT = useTranslations("howItWorks")
   const testimonialsT = useTranslations("testimonials")
   const pricingT = useTranslations("pricing")
@@ -104,7 +103,7 @@ export default function LandingPage() {
     fetchApprovedFeedbacks()
 
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [testimonialsT]) // Add testimonialsT to dependency array if used for default values
+  }, [testimonialsT])
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -130,33 +129,33 @@ export default function LandingPage() {
 
   const features = [
     {
-      title: featuresT("items.automation.title"),
-      description: featuresT("items.automation.description"),
+      title: featuresT("items.professionalCleaning.title"),
+      description: featuresT("items.professionalCleaning.description"),
       icon: <Zap className="size-5" />,
     },
     {
-      title: featuresT("items.analytics.title"),
-      description: featuresT("items.analytics.description"),
-      icon: <BarChart className="size-5" />,
+      title: featuresT("items.streakFree.title"),
+      description: featuresT("items.streakFree.description"),
+      icon: <Droplets className="size-5" />,
     },
     {
-      title: featuresT("items.collaboration.title"),
-      description: featuresT("items.collaboration.description"),
-      icon: <Users className="size-5" />,
+      title: featuresT("items.ecoFriendly.title"),
+      description: featuresT("items.ecoFriendly.description"),
+      icon: <Leaf className="size-5" />,
     },
     {
-      title: featuresT("items.security.title"),
-      description: featuresT("items.security.description"),
+      title: featuresT("items.safetyFirst.title"),
+      description: featuresT("items.safetyFirst.description"),
       icon: <Shield className="size-5" />,
     },
     {
-      title: featuresT("items.integration.title"),
-      description: featuresT("items.integration.description"),
-      icon: <Layers className="size-5" />,
+      title: featuresT("items.flexibleScheduling.title"),
+      description: featuresT("items.flexibleScheduling.description"),
+      icon: <CalendarDays className="size-5" />,
     },
     {
-      title: featuresT("items.support.title"),
-      description: featuresT("items.support.description"),
+      title: featuresT("items.satisfactionGuaranteed.title"),
+      description: featuresT("items.satisfactionGuaranteed.description"),
       icon: <Star className="size-5" />,
     },
   ]
@@ -227,27 +226,6 @@ export default function LandingPage() {
               <div className="absolute -bottom-6 -right-6 -z-10 h-[300px] w-[300px] rounded-full bg-gradient-to-br from-primary/30 to-secondary/30 blur-3xl opacity-70"></div>
               <div className="absolute -top-6 -left-6 -z-10 h-[300px] w-[300px] rounded-full bg-gradient-to-br from-secondary/30 to-primary/30 blur-3xl opacity-70"></div>
             </motion.div>
-          </div>
-        </section>
-
-        {/* Logos Section */}
-        <section className="w-full py-12 border-y bg-muted/30">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <p className="text-sm font-medium text-muted-foreground">{logosT("title")}</p>
-              <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12 lg:gap-16">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <Image
-                    key={i}
-                    src={`/placeholder-logo.svg`}
-                    alt={`Company logo ${i}`}
-                    width={120}
-                    height={60}
-                    className="h-8 w-auto opacity-70 grayscale transition-all hover:opacity-100 hover:grayscale-0"
-                  />
-                ))}
-              </div>
-            </div>
           </div>
         </section>
 
@@ -357,9 +335,6 @@ export default function LandingPage() {
               transition={{ duration: 0.5 }}
               className="flex flex-col items-center justify-center space-y-4 text-center mb-12"
             >
-              {/* <Badge className="rounded-full px-4 py-1.5 text-sm font-medium" variant="secondary">
-                {testimonialsT("badge")}
-              </Badge> */}
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight">{testimonialsT("title")}</h2>
               <p className="max-w-[800px] text-muted-foreground md:text-lg">{testimonialsT("description")}</p>
             </motion.div>
@@ -409,6 +384,21 @@ export default function LandingPage() {
             ) : (
               <p className="text-center text-muted-foreground">{testimonialsT("noFeedback", { defaultValue: "No feedback to display at the moment." })}</p>
             )}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="mt-12 text-center"
+            >
+              <p className="text-lg text-muted-foreground mb-4">{testimonialsT("leaveReview")}</p>
+              <Link href="/feedback">
+                <Button size="lg" variant="outline" className="rounded-full h-12 px-8 text-base">
+                  {testimonialsT("shareFeedback")}
+                  <ArrowRight className="ml-2 size-4" />
+                </Button>
+              </Link>
+            </motion.div>
           </div>
         </section>
 
@@ -548,17 +538,21 @@ export default function LandingPage() {
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">{finalCtaT("title")}</h2>
               <p className="mx-auto max-w-[700px] text-primary-foreground/80 md:text-xl">{finalCtaT("description")}</p>
               <div className="flex flex-col sm:flex-row gap-4 mt-4">
-                <Button size="lg" variant="secondary" className="rounded-full h-12 px-8 text-base">
-                  {ctaT("reserve")}
-                  <ArrowRight className="ml-2 size-4" />
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="rounded-full h-12 px-8 text-base bg-transparent border-white text-white hover:bg-white/10"
-                >
-                  {ctaT("haveAQuestion")}
-                </Button>
+                <Link href="/reservations">
+                  <Button size="lg" variant="secondary" className="rounded-full h-12 px-8 text-base">
+                    {ctaT("reserve")}
+                    <ArrowRight className="ml-2 size-4" />
+                  </Button>
+                </Link>
+                <Link href="/contact">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="rounded-full h-12 px-8 text-base bg-transparent border-white text-white hover:bg-white/10"
+                  >
+                    {ctaT("haveAQuestion")}
+                  </Button>
+                </Link>
               </div>
               <p className="text-sm text-primary-foreground/80 mt-4">{finalCtaT("footnote")}</p>
             </motion.div>
@@ -597,23 +591,6 @@ export default function LandingPage() {
                   </Link>
                 </li>
               </ul>
-            </div>
-            {/* More footer sections */}
-          </div>
-          <div className="flex flex-col gap-4 sm:flex-row justify-between items-center border-t border-border/40 pt-8">
-            <p className="text-xs text-muted-foreground">
-              {footerT.rich("copyright", { year: new Date().getFullYear() })}
-            </p>
-            <div className="flex gap-4">
-              <Link href="#" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
-                {footerT("links.privacy")}
-              </Link>
-              <Link href="#" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
-                {footerT("links.terms")}
-              </Link>
-              <Link href="#" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
-                {footerT("links.cookies")}
-              </Link>
             </div>
           </div>
         </div>

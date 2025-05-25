@@ -1,10 +1,10 @@
 {
   "meta": {
     "title": "Residential Window Cleaning in Saint-Lambert",
-    "description": "Professional window cleaning for a brighter home."
+    "description": "Professional window cleaning for a bright interior."
   },
   "navigation": {
-    "reservations": "Reservations",
+    "reservations": "Booking",
     "contact": "Contact",
     "pricing": "Pricing",
     "feedback": "Feedback",
@@ -14,125 +14,79 @@
   "cta": {
     "getStarted": "Book Now",
     "reserve": "Book Now",
-    "haveAQuestion": "Have a question?",
-    "contactSales": "Contact Sales"
+    "haveAQuestion": "Have a question?"
   },
   "hero": {
-    "badge": "Coming Soon",
     "title": "Residential Window Cleaning in Saint-Lambert",
-    "description": "Professional window cleaning services for homes and businesses. Book your appointment today for crystal clear results.",
+    "description": "We offer professional window cleaning services for a bright and clean interior. Book now!",
     "benefits": {
-      "noCreditCard": "No credit card required",
-      "trial": "14-day trial",
-      "cancelAnytime": "Cancel anytime"
+      "noCreditCard": "No Deposit Needed",
+      "trial": "Cash Payment",
+      "cancelAnytime": "Cancel Anytime"
     }
   },
-  "logos": {
-    "title": "Trusted by innovative companies worldwide"
-  },
   "features": {
-    "badge": "Features",
-    "title": "Everything You Need to Succeed",
-    "description": "Our comprehensive platform provides all the tools necessary to streamline your workflow, increase productivity, and achieve your goals.",
+    "badge": "Our Services",
+    "title": "Sparkling Windows, Effortlessly",
+    "description": "Discover the benefits of choosing SuperVitre for top-quality residential and commercial window cleaning services.",
     "items": {
-      "automation": {
-        "title": "Smart Automation",
-        "description": "Automate repetitive tasks and workflows to save time and reduce errors."
+      "professionalCleaning": {
+        "title": "Professional Cleaning",
+        "description": "Our qualified technicians use professional techniques and equipment for an impeccable cleaning of your windows, frames, and screens."
       },
-      "analytics": {
-        "title": "Advanced Analytics",
-        "description": "Gain valuable insights with real-time data visualization and reporting."
+      "streakFree": {
+        "title": "Streak-Free Results Guaranteed",
+        "description": "We use premium cleaning solutions and purified water to ensure perfectly transparent windows, without any streaks or residue."
       },
-      "collaboration": {
-        "title": "Team Collaboration",
-        "description": "Work together seamlessly with integrated communication tools."
+      "ecoFriendly": {
+        "title": "Eco-Friendly Products",
+        "description": "We care about your environment. That's why we use biodegradable and environmentally friendly cleaning products."
       },
-      "security": {
-        "title": "Enterprise Security",
-        "description": "Keep your data safe with end-to-end encryption and compliance features."
+      "safetyFirst": {
+        "title": "Safety and Reliability",
+        "description": "Our team is trained to work safely, adhering to the strictest standards, and we are fully insured for your peace of mind."
       },
-      "integration": {
-        "title": "Seamless Integration",
-        "description": "Connect with your favorite tools through our extensive API ecosystem."
+      "flexibleScheduling": {
+        "title": "Flexible and Convenient Hours",
+        "description": "We offer flexible time slots to fit your busy schedule, including evenings and weekends upon request."
       },
-      "support": {
-        "title": "24/7 Support",
-        "description": "Get help whenever you need it with our dedicated support team."
+      "satisfactionGuaranteed": {
+        "title": "Satisfaction Guaranteed",
+        "description": "Your satisfaction is our priority. If you are not completely satisfied, we promise to return and correct the situation."
       }
     }
   },
   "howItWorks": {
-    "badge": "How It Works",
-    "title": "Simple Process, Powerful Results",
-    "description": "Get started in minutes and see the difference our platform can make for your business.",
+    "badge": "Our Process",
+    "title": "Clean Windows in a Few Simple Steps",
+    "description": "Discover how we make your windows spotless, quickly and efficiently.",
     "steps": {
       "step1": {
-        "title": "Create Account",
-        "description": "Sign up in seconds with just your email. No credit card required to get started."
+        "title": "Book Your Service",
+        "description": "Choose a date and time that suits you via our simple online booking form or call us directly."
       },
       "step2": {
-        "title": "Configure Workspace",
-        "description": "Customize your workspace to match your team's unique workflow and requirements."
+        "title": "Confirmation & Preparation",
+        "description": "We will confirm your appointment and give you some simple tips to prepare for our technicians' arrival."
       },
       "step3": {
-        "title": "Boost Productivity",
-        "description": "Start using our powerful features to streamline processes and achieve your goals."
+        "title": "Enjoy Sparkling Windows",
+        "description": "Our experts clean your windows with care and professionalism, leaving you to enjoy a clear view and a brighter home."
       }
     }
   },
   "testimonials": {
-    "badge": "Testimonials",
     "title": "Loved by Teams Worldwide",
     "description": "Don't just take our word for it. See what our customers have to say about their experience.",
-    "residential": "Residential",
-    "commercial": "Commercial",
-    "customer": "Customer",
-    "leaveReview": "Had a great experience with our service?",
-    "shareFeedback": "Share your feedback",
-    "items": [
-      {
-        "quote": "SaaSify has transformed how we manage our projects. The automation features have saved us countless hours of manual work.",
-        "author": "Sarah Johnson",
-        "role": "Project Manager, TechCorp",
-        "rating": 5
-      },
-      {
-        "quote": "The analytics dashboard provides insights we never had access to before. It's helped us make data-driven decisions that have improved our ROI.",
-        "author": "Michael Chen",
-        "role": "Marketing Director, GrowthLabs",
-        "rating": 5
-      },
-      {
-        "quote": "Customer support is exceptional. Any time we've had an issue, the team has been quick to respond and resolve it. Couldn't ask for better service.",
-        "author": "Emily Rodriguez",
-        "role": "Operations Lead, StartupX",
-        "rating": 5
-      },
-      {
-        "quote": "We've tried several similar solutions, but none compare to the ease of use and comprehensive features of SaaSify. It's been a game-changer.",
-        "author": "David Kim",
-        "role": "CEO, InnovateNow",
-        "rating": 5
-      },
-      {
-        "quote": "The collaboration tools have made remote work so much easier for our team. We're more productive than ever despite being spread across different time zones.",
-        "author": "Lisa Patel",
-        "role": "HR Director, RemoteFirst",
-        "rating": 5
-      },
-      {
-        "quote": "Implementation was seamless, and the ROI was almost immediate. We've reduced our operational costs by 30% since switching to SaaSify.",
-        "author": "James Wilson",
-        "role": "COO, ScaleUp Inc",
-        "rating": 5
-      }
-    ]
+    "defaultAuthorName": "Anonymous User",
+    "customerRole": "Valued Customer",
+    "noFeedback": "No testimonials to display at the moment.",
+    "leaveReview": "Had a good experience with us?",
+    "shareFeedback": "Share your feedback"
   },
   "pricing": {
-    "title": "Simple, Transparent Pricing",
-    "description": "Choose the plan that's right for your business. All plans include a 14-day free trial.",
-    "monthly": "Monthly",
-    "annually": "Annually (Save 20%)",
+    "title": "Simple and Transparent Pricing",
+    "description": "Choose the plan that's right for you.",
     "plans": {
       "basic": {
         "title": "Starter",
@@ -144,7 +98,7 @@
           "Screen wiping",
           "3-month rain guarantee"
         ],
-        "cta": "Choose Plan"
+        "cta": "Choose this plan"
       },
       "pro": {
         "title": "Professional",
@@ -153,7 +107,7 @@
         "features": [
           "Up to 20 team members",
           "Advanced analytics",
-          "25GB storage",
+          "25 GB storage",
           "Priority email support",
           "API access"
         ],
@@ -168,7 +122,7 @@
           "Unlimited team members",
           "Custom analytics",
           "Unlimited storage",
-          "24/7 phone & email support",
+          "24/7 phone and email support",
           "Advanced API access",
           "Custom integrations"
         ],
@@ -179,58 +133,42 @@
   "faq": {
     "badge": "FAQ",
     "title": "Frequently Asked Questions",
-    "description": "Find answers to common questions about our platform.",
+    "description": "Find answers to your common questions about our window cleaning services.",
     "questions": [
       {
-        "question": "How does the 14-day free trial work?",
-        "answer": "Our 14-day free trial gives you full access to all features of your selected plan. No credit card is required to sign up, and you can cancel at any time during the trial period with no obligation."
+        "question": "Which areas do you serve?",
+        "answer": "We primarily serve the Saint-Lambert region and its surroundings. You can check our service page or contact us directly to confirm if we cover your location."
       },
       {
-        "question": "Can I change plans later?",
-        "answer": "Yes, you can upgrade or downgrade your plan at any time. If you upgrade, the new pricing will be prorated for the remainder of your billing cycle. If you downgrade, the new pricing will take effect at the start of your next billing cycle."
+        "question": "What happens in case of bad weather on the day of my appointment?",
+        "answer": "Safety is our priority. In case of heavy rain or dangerous weather conditions, we will contact you to reschedule your service to a later date that suits you, at no extra cost."
       },
       {
-        "question": "Is there a limit to how many users I can add?",
-        "answer": "The number of users depends on your plan. The Starter plan allows up to 5 team members, the Professional plan allows up to 20, and the Enterprise plan has no limit on team members."
+        "question": "Is cleaning of window frames and screens included?",
+        "answer": "Yes, our standard service includes cleaning of accessible windows, frames, and screens. More comprehensive services are available according to your needs."
       },
       {
-        "question": "Do you offer discounts for nonprofits or educational institutions?",
-        "answer": "Yes, we offer special pricing for nonprofits, educational institutions, and open-source projects. Please contact our sales team for more information."
+        "question": "How can I pay for the service?",
+        "answer": "We accept cash or Interac e-Transfer payments once the service is completed to your satisfaction. No deposit is required for booking."
       },
       {
-        "question": "How secure is my data?",
-        "answer": "We take security very seriously. All data is encrypted both in transit and at rest. We use industry-standard security practices and regularly undergo security audits. Our platform is compliant with GDPR, CCPA, and other relevant regulations."
-      },
-      {
-        "question": "What kind of support do you offer?",
-        "answer": "Support varies by plan. All plans include email support, with the Professional plan offering priority email support. The Enterprise plan includes 24/7 phone and email support. We also have an extensive knowledge base and community forum available to all users."
+        "question": "What if I'm not satisfied with the cleaning?",
+        "answer": "Your satisfaction is our guarantee. If you are not completely satisfied with the result, please contact us within 24 hours, and we will return to correct the situation at no charge."
       }
     ]
   },
   "finalCta": {
     "title": "Ready to Transform Your Windows?",
-    "description": "Join thousands of satisfied customers who have streamlined their processes and increased their productivity with our platform.",
-    "footnote": "No credit card required. 14-day free trial. Cancel anytime."
+    "description": "Join our many satisfied customers and enjoy sparkling clean windows that will brighten your daily life.",
+    "footnote": "Simple and quick booking. Satisfaction guaranteed."
   },
   "footer": {
-    "about": "Streamline your workflow with our all-in-one SaaS platform. Boost productivity and grow your business.",
+    "about": "SuperVitre offers professional window cleaning services for residences and businesses. Get a free quote today and let the light in!",
     "categories": {
       "product": "Product",
       "resources": "Resources",
       "company": "Company"
-    },
-    "links": {
-      "documentation": "Documentation",
-      "guides": "Guides",
-      "blog": "Blog",
-      "support": "Support",
-      "about": "About Us",
-      "careers": "Careers",
-      "privacy": "Privacy Policy",
-      "terms": "Terms of Service",
-      "cookies": "Cookie Policy"
-    },
-    "copyright": "© {year} SuperVitre. All rights reserved."
+    }
   },
   "accessibility": {
     "scrollToTop": "Scroll to top",
@@ -241,17 +179,19 @@
   "reservations": {
     "title": "Book Your Window Cleaning Service",
     "subtitle": "Select a date and time that works for you",
-    "instructions": "Choose an available time slot and fill in your information to book your window cleaning service.",
     "contactInfo": "Contact Information",
     "serviceDetails": "Service Details",
+    "serviceSubtitle": "Tell us what you need!",
+    "selectMoment": "Select a Date and Time",
     "form": {
+      "reservationPour": "Booking for: ",
       "firstName": "First Name",
       "lastName": "Last Name",
       "email": "Email Address",
       "phone": "Phone Number",
       "address": "Property Address",
       "city": "City",
-      "zipCode": "Zip Code",
+      "zipCode": "Postal Code",
       "propertyType": "Property Type",
       "propertyTypes": {
         "residential": "Residential",
@@ -259,9 +199,9 @@
       },
       "serviceType": "Service Type",
       "serviceTypes": {
-        "basic": "Basic - Exterior Only",
-        "standard": "Standard - Interior & Exterior",
-        "premium": "Premium - Full Package"
+        "Basic": "Basic - Exterior Only",
+        "Standard": "Standard - Interior & Exterior",
+        "Premium": "Premium - Full Package"
       },
       "windows": "Number of Windows",
       "stories": "Number of Stories",
@@ -276,6 +216,10 @@
     "calendar": {
       "selectDate": "Select a Date",
       "selectTime": "Select a Time",
+      "chooseDatePrompt": "Choose your preferred appointment date",
+      "availableSlotsPrompt": "Available time slots for",
+      "loadingSlots": "Loading available slots...",
+      "selectDatePrompt": "Please select a date first",
       "morning": "Morning",
       "afternoon": "Afternoon",
       "available": "Available",
@@ -286,9 +230,12 @@
     "buttons": {
       "checkAvailability": "Check Availability",
       "bookNow": "Book Now",
+      "submitting": "Submitting...",
       "previous": "Previous",
       "next": "Next",
-      "submit": "Confirm Booking"
+      "submit": "Confirm Booking",
+      "continueToDetails": "Continue to Details",
+      "backToHome": "Back to Home"
     },
     "confirmation": {
       "title": "Booking Confirmation",
@@ -303,7 +250,7 @@
   },
   "contact": {
     "title": "Contact Us",
-    "subtitle": "Have questions or need a quote? Contact our team and we'll get back to you as soon as possible.",
+    "subtitle": "Have questions or need a quote? Contact our team, and we'll get back to you as soon as possible.",
     "contactInfo": {
       "title": "Contact Information",
       "subtitle": "Contact our team",
@@ -324,16 +271,20 @@
     },
     "form": {
       "title": "Send Us a Message",
-      "subtitle": "Fill out the form below and we'll get back to you as soon as possible.",
+      "subtitle": "Fill out the form below, and we'll get back to you as soon as possible.",
       "firstName": "First Name",
       "lastName": "Last Name",
       "email": "Email Address",
       "phone": "Phone Number (optional)",
-      "serviceType": "Type of Service",
+      "serviceType": "Service Type",
       "serviceTypes": {
         "residential": "Residential",
         "commercial": "Commercial",
         "other": "Other"
+      },
+      "validationError":{
+        "fieldsRequired": "Please fill in all required fields (*).",
+        "invalidEmail": "Please enter a valid email address."
       },
       "message": "Your Message",
       "send": "Send Message",
@@ -342,13 +293,13 @@
       "successTitle": "Message Sent",
       "successMessage": "Thank you for your message. We will get back to you shortly.",
       "errorTitle": "Error",
-      "errorMessage": "There was a problem sending your message. Please try again.",
+      "errorMessage": "An error occurred while sending your message. Please try again.",
       "thankYou": "Thank You!",
-      "responseMessage": "We have received your message and will get back to you as soon as possible."
+      "responseMessage": "We have received your message and will respond as soon as possible."
     },
     "map": {
       "title": "Find Us",
-      "placeholder": "Map will be displayed here"
+      "placeholder": "The map will be displayed here"
     }
   },
   "admin": {
@@ -368,6 +319,7 @@
       "title": "Dashboard",
       "newAppointment": "New Appointment",
       "fromLastPeriod": "from last period",
+      "loading": "Loading...",
       "stats": {
         "appointments": "Appointments",
         "revenue": "Revenue",
@@ -406,8 +358,10 @@
       "today": "Today",
       "tomorrow": "Tomorrow",
       "thisWeek": "This week",
+      "loadingAppointments": "Loading appointments...",
       "noAppointmentsFound": "No appointments found",
       "viewDetails": "View details",
+      "authenticating": "Authenticating...",
       "table": {
         "id": "ID",
         "customer": "Customer",
@@ -415,12 +369,32 @@
         "date": "Date",
         "time": "Time",
         "status": "Status",
-        "actions": "Actions"
+        "actions": "Actions",
+        "email": "Email",
+        "phone": "Phone",
+        "address": "Address",
+        "preferredContact": "Preferred Contact Method",
+        "specialInstructions": "Special Instructions",
+        "propertyType": "Property Type",
+        "windows": "Number of Windows",
+        "stories": "Number of Stories",
+        "createdAt": "Submitted on",
+        "close": "Close"
       },
       "status": {
         "confirmed": "Confirmed",
         "pending": "Pending",
-        "cancelled": "Cancelled"
+        "cancelled": "Cancelled",
+        "completed": "Completed",
+        "markCompleted": "Mark as Complete",
+        "markPending": "Mark as Pending",
+        "markCancelled": "Mark as Cancelled"
+      },
+      "error": {
+        "errorFetching": "Error trying to access the database",
+        "retry": "Retry",
+        "permissionDeniedError": "You do not have permission to access the database",
+        "statusUpdateError": "Failed to update status."
       }
     },
     "contacts": {
@@ -438,6 +412,7 @@
       "thisWeek": "This week",
       "noContactsFound": "No contacts found",
       "viewDetails": "View details",
+      "loading": "Loading...",
       "table": {
         "id": "ID",
         "name": "Name",
@@ -448,7 +423,28 @@
       },
       "status": {
         "new": "New",
-        "responded": "Responded"
+        "responded": "Responded",
+        "closed": "Closed"
+      },
+      "detail": {
+        "title": "Contact Details",
+        "backToList": "Back to Contacts List",
+        "contactInfo": "Contact Information",
+        "submittedOn": "Submitted on",
+        "serviceTypeLabel": "Service Type",
+        "customerMessage": "Customer Message",
+        "manageStatus": "Manage Status",
+        "updateStatusTo": "Update status to",
+        "selectStatus": "Select status",
+        "saveStatus": "Save Status",
+        "notFound": "Contact not found.",
+        "errorFetching": "Error fetching contact details.",
+        "errorUpdatingStatus": "Failed to update status."
+      },
+      "error": {
+        "errorFetching": "Error trying to access the database",
+        "retry": "Retry",
+        "permissionDeniedError": "You do not have permission to access the database"
       }
     },
     "customers": {
@@ -460,13 +456,14 @@
       "allCustomersDescription": "View and manage all customers",
       "searchPlaceholder": "Search customers...",
       "filterByStatus": "Filter by status",
-      "filterByDate": "Filter by join date",
+      "filterByDate": "Filter by registration date",
       "allStatuses": "All",
       "allDates": "All dates",
       "today": "Today",
       "thisWeek": "This week",
       "noCustomersFound": "No customers found",
       "viewDetails": "View details",
+      "loading": "Loading...",
       "table": {
         "id": "Customer ID",
         "name": "Name",
@@ -489,6 +486,14 @@
         "active": "Active",
         "inactive": "Inactive",
         "lead": "Lead"
+      },
+      "error": {
+        "errorFetching": "Error trying to access the database",
+        "retry": "Retry",
+        "permissionDeniedError": "You do not have permission to access the database"
+      },
+      "actions": {
+        "close": "Close"
       }
     },
     "feedback": {
@@ -502,6 +507,7 @@
       "searchPlaceholder": "Search feedback...",
       "filterByRating": "Filter by rating",
       "filterByDate": "Filter by date",
+      "filterByStatus": "All",
       "allRatings": "All ratings",
       "allDates": "All dates",
       "today": "Today",
@@ -509,11 +515,25 @@
       "thisWeek": "This week",
       "noFeedbackFound": "No feedback found",
       "viewDetails": "View details",
+      "feedbackDetails": "Feedback",
+      "from": "Feedback from: ",
+      "loading": "Loading...",
+      "info": {
+        "message": "Message",
+        "approve": "Approve",
+        "reject": "Reject",
+        "removeApproval": "Remove Approval",
+        "fictionalName": "Fictional Name",
+        "fictionalNamePlaceholder": "Fictional name to display",
+        "fictionalNameRequired": "Please enter a fictional name to display",
+        "approveFailed": "Failed to approve feedback",
+        "setPending": "Set to Pending"
+      },
       "table": {
         "allowPublic": "Consent",
         "id": "Feedback ID",
         "customer": "Customer",
-        "service": "Related Service",
+        "service": "Concerned Service",
         "rating": "Rating (out of 5)",
         "comment": "Comment",
         "date": "Feedback Date",
@@ -548,20 +568,31 @@
   },
   "feedback": {
     "title": "Leave Us a Review",
-    "subtitle": "We appreciate your feedback! Share your experience with our services.",
+    "subtitle": "Share your experience with our services.",
     "rating": "Your Rating (out of 5)",
-    "name": "Name",
+    "name": "Name/First Name",
     "email": "Email",
-    "backToHome": "Back to Home",
+    "returnToHome": "Return",
     "shareYourExperience": "Tell us what you think!",
     "feedback": "Describe your experience...",
-    "allowPublicDisplay": "I agree that my review (rating and message) can be displayed publicly on the website. My name and email will not be displayed.",
-    "submitFeedback": "Submit My Review",
-    "submittingButton": "Submitting...",
+    "allowPublicDisplay": "I agree that my review (rating and message) may be publicly displayed on the site. My name and email will not be displayed. A fictional name will be used instead.",
+    "submitFeedback": "Send My Review",
+    "submittingButton": "Sending...",
     "successTitle": "Review Sent!",
-    "successMessage": "Thank you for your feedback. We will review it soon.",
-    "errorTitle": "Submission Error",
-    "errorMessage": "There was a problem submitting your review. Please try again.",
-    "starRatingContext": "star out of 5"
+    "errorTitle": "Sending Error",
+    "errorMessage": "A problem occurred while sending your review. Please try again.",
+    "starRatingContext": "star out of 5",
+    "submitting": "Sending...",
+    "thankYou": "Thank You!",
+    "feedbackReceived": "Well received. We will review it soon.",
+    "appreciateYourFeedback": "Your feedback helps us improve our services and guide our future customers.",
+    "form": {
+      "validationError":{
+        "ratingRequired": "Please provide a rating to continue.",
+        "fieldsRequired": "Please fill in all required fields (*).",
+        "invalidEmail": "Please enter a valid email address."
+      },
+      "errorMessage": "A problem occurred while sending your review. Please try again."
+    }
   }
 }

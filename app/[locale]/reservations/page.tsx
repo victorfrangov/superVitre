@@ -345,28 +345,23 @@ export default function ReservationsPage() {
             {/* Step 1: Date and Time Selection */}
             {step === 1 && (
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
-                <div className="mb-8">
-                  <h1 className="text-3xl font-bold tracking-tight text-center mb-2">{t("title")}</h1>
-                  <p className="text-center text-muted-foreground">{t("subtitle")}</p>
-                </div>
-
                 {/* Progress steps */}
                 <div className="flex mb-8">
                   <div className="flex-1 bg-background border rounded-l-lg p-4 flex items-center justify-center gap-2 font-medium bg-primary/5">
                     <Calendar className="size-5" />
-                    <span>Select Date & Time</span>
+                    <span>{t("selectMoment")}</span>
                   </div>
                   <div className="flex-1 bg-background border-t border-b border-r p-4 flex items-center justify-center gap-2 text-muted-foreground">
                     <span>2</span>
-                    <span>Your Details</span>
+                    <span>{t("contactInfo")}</span>
                   </div>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-6">
                   {/* Date selection */}
                   <div className="bg-background border rounded-lg p-6">
-                    <h2 className="text-xl font-semibold mb-1">Select a Date</h2>
-                    <p className="text-muted-foreground text-sm mb-4">Choose your preferred appointment date</p>
+                    <h2 className="text-xl font-semibold mb-1">{t("calendar.selectDate")}</h2>
+                    <p className="text-muted-foreground text-sm mb-4">{t("calendar.chooseDatePrompt")}</p>
 
                     <div className="mb-4 flex items-center justify-between">
                       <Button
@@ -409,16 +404,16 @@ export default function ReservationsPage() {
 
                   {/* Time selection */}
                   <div className="bg-background border rounded-lg p-6">
-                    <h2 className="text-xl font-semibold mb-1">Select a Time</h2>
+                    <h2 className="text-xl font-semibold mb-1">{t("calendar.selectTime")}</h2>
                     {selectedDate ? (
                       <>
                         <p className="text-muted-foreground text-sm mb-4">
-                          Available time slots for {format(selectedDate, "MMMM d, yyyy")}
+                          {t("calendar.availableSlotsPrompt")} {format(selectedDate, "MMMM d, yyyy")}
                         </p>
                         {isLoadingReservations && (
                           <div className="flex justify-center items-center h-64">
                             <div className="size-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-                            <p className="ml-4 text-muted-foreground">Loading available slots...</p>
+                            <p className="ml-4 text-muted-foreground">{t("calendar.loadingSlots")}</p>
                           </div>
                         )}
                         {!isLoadingReservations && (
@@ -438,18 +433,18 @@ export default function ReservationsPage() {
                                 </Button>
                               ))}
                             {calendarDays.find((day) => selectedDate && isSameDay(day.date, selectedDate))?.timeSlots.every(slot => !slot.available) && (
-                                <p className="col-span-2 text-center text-muted-foreground py-4">No available slots for this day.</p>
+                                <p className="col-span-2 text-center text-muted-foreground py-4">{t("calendar.noTimesAvailable")}</p>
                             )}
                           </div>
                         )}
                         <Button className="w-full mt-6" onClick={() => goToStep(2)} disabled={!selectedTime}>
-                          Continue to Details
+                          {t("buttons.continueToDetails")}
                         </Button>
                       </>
                     ) : (
                       <div className="flex flex-col items-center justify-center h-64 text-muted-foreground">
                         <Calendar className="size-10 mb-2 opacity-20" />
-                        <p>Please select a date first</p>
+                        <p>{t("calendar.selectDatePrompt")}</p>
                       </div>
                     )}
                   </div>
@@ -459,7 +454,7 @@ export default function ReservationsPage() {
                   <Button variant="outline" asChild size="sm">
                     <Link href="/">
                       <ArrowLeft className="mr-2 size-4" />
-                      Back to Home
+                      {t("buttons.backToHome")}
                     </Link>
                   </Button>
                 </div>
@@ -469,20 +464,14 @@ export default function ReservationsPage() {
             {/* Step 2: Contact Information */}
             {step === 2 && (
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
-                <div className="mb-8">
-                  <h1 className="text-3xl font-bold tracking-tight text-center mb-2">{t("title")}</h1>
-                  <p className="text-center text-muted-foreground">{t("subtitle")}</p>
-                </div>
-
-                {/* Progress steps */}
                 <div className="flex mb-8">
                   <div className="flex-1 bg-background border rounded-l-lg p-4 flex items-center justify-center gap-2 text-muted-foreground">
                     <span>1</span>
-                    <span>Select Date & Time</span>
+                    <span>{t("selectMoment")}</span>
                   </div>
                   <div className="flex-1 bg-background border p-4 flex items-center justify-center gap-2 font-medium bg-primary/5">
                     <Clock className="size-5" />
-                    <span>Your Details</span>
+                    <span>{t("contactInfo")}</span>
                   </div>
                 </div>
 
@@ -492,7 +481,7 @@ export default function ReservationsPage() {
                     <CardDescription>
                       {selectedDate && selectedTime && (
                         <span>
-                          Booking for: <strong>{format(selectedDate, "EEEE, MMMM d, yyyy")}</strong> at{" "}
+                          {t("form.reservationPour")} <strong>{format(selectedDate, "EEEE, MMMM d, yyyy")}</strong> at{" "}
                           <strong>{selectedTime}</strong>
                         </span>
                       )}
@@ -680,7 +669,7 @@ export default function ReservationsPage() {
                       {t("buttons.previous")}
                     </Button>
                     <Button onClick={handleSubmit} disabled={isSubmitting}>
-                      {isSubmitting ? "Submitting..." : t("buttons.submit")}
+                      {isSubmitting ? t("buttons.submitting") : t("buttons.submit")}
                     </Button>
                   </CardFooter>
                   {submissionError && <p className="text-red-500 text-sm mt-2 text-center">{submissionError}</p>}
@@ -691,20 +680,16 @@ export default function ReservationsPage() {
             {/* Step 3: Confirmation */}
             {step === 3 && (
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
-                <div className="mb-8">
-                  <h1 className="text-3xl font-bold tracking-tight text-center mb-2">{t("confirmation.title")}</h1>
-                  <p className="text-center text-muted-foreground">{t("subtitle")}</p>
-                </div>
 
                 {/* Progress steps */}
                 <div className="flex mb-8">
                   <div className="flex-1 bg-background border rounded-l-lg p-4 flex items-center justify-center gap-2 text-muted-foreground">
                     <span>1</span>
-                    <span>Select Date & Time</span>
+                    <span>{t("selectMoment")}</span>
                   </div>
                   <div className="flex-1 bg-background border p-4 flex items-center justify-center gap-2 text-muted-foreground">
                     <span>2</span>
-                    <span>Your Details</span>
+                    <span>{t("contactInfo")}</span>
                   </div>
                 </div>
 
@@ -756,7 +741,7 @@ export default function ReservationsPage() {
                     <Button asChild>
                       <Link href="/">
                         <ArrowLeft className="mr-2 size-4" />
-                        Return to Home
+                        {t("buttons.backToHome")}
                       </Link>
                     </Button>
                   </CardFooter>
