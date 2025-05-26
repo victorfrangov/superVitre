@@ -291,6 +291,9 @@
       "successTitle": "Message Envoyé",
       "successMessage": "Merci pour votre message. Nous vous répondrons sous peu.",
       "errorTitle": "Erreur",
+      "uploadImagesLabel": "Attach Images (Optional)",
+      "selectedImagesText": "{count, plural, =1 {Selected image:} other {Selected images:}}",
+      "errorImageUpload": "Failed to upload image {fileName}. Please try again or remove the image.",
       "errorMessage": "Un problème est survenu lors de l'envoi de votre message. Veuillez réessayer.",
       "thankYou": "Merci !",
       "responseMessage": "Nous avons bien reçu votre message et nous vous répondrons dès que possible."

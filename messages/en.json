@@ -291,6 +291,9 @@
       "successTitle": "Message Sent",
       "successMessage": "Thank you for your message. We will get back to you shortly.",
       "errorTitle": "Error",
+      "uploadImagesLabel": "Joindre des Images (Optionnel)",
+      "selectedImagesText": "{count, plural, =1 {Image sélectionnée :} other {Images sélectionnées :}}",
+      "errorImageUpload": "Échec du téléchargement de l'image {fileName}. Veuillez réessayer ou supprimer l'image.",
       "errorMessage": "An error occurred while sending your message. Please try again.",
       "thankYou": "Thank You!",
       "responseMessage": "We have received your message and will respond as soon as possible."

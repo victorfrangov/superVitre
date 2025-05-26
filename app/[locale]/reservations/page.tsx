@@ -17,7 +17,7 @@ import { Textarea } from "@/components/ui/textarea"
 import NavigationBar from "@/components/navigation-bar"
 
 import { collection, addDoc, doc, setDoc, getDoc, updateDoc, query, where, getDocs } from "firebase/firestore"
-import { ref, uploadBytes } from "firebase/storage"
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
 import { db, clientStorage } from "@/app/firebase/config"
 
 interface Reservation {
@@ -252,9 +252,11 @@ export default function ReservationsPage() {
       const imageUrls: string[] = []
       if (specialInstructionsImages.length > 0) {
         for (const imageFile of specialInstructionsImages) {
-          const imageRef = ref(clientStorage, `reservation_instructions/${bookingReference}/${imageFile.name}`)
+          const imageRef = ref(clientStorage, `reservation_instructions/${bookingReference}/${Date.now()}_${imageFile.name}`)
           try {
-            await uploadBytes(imageRef, imageFile)
+            const snapshot = await uploadBytes(imageRef, imageFile)
+            const downloadUrl = await getDownloadURL(snapshot.ref);
+            imageUrls.push(downloadUrl);
           } catch (uploadError) {
             setSubmissionError(`Failed to upload image ${imageFile.name}. Please try again or submit without it.`)
             setIsSubmitting(false);
@@ -265,13 +267,13 @@ export default function ReservationsPage() {
 
       const reservationData: Reservation = {
         ...formData,
-        selectedDate: format(selectedDate, "yyyy-MM-dd"), // Store date as YYYY-MM-DD
+        selectedDate: format(selectedDate, "yyyy-MM-dd"),
         selectedTime,
-        bookingReference, // Ensure bookingReference is defined in your component
+        bookingReference,
         status: "pending",
-        submittedAt: format(new Date(), "yyyy-MM-dd"), // Store submission date as YYYY-MM-DD
+        submittedAt: format(new Date(), "yyyy-MM-dd"),
         price,
-        specialInstructionsImageUrls: imageUrls, // Store array of URLs
+        specialInstructionsImageUrls: imageUrls,
       }
 
       await addDoc(collection(db, "reservations"), reservationData)
@@ -283,7 +285,7 @@ export default function ReservationsPage() {
         const customerData = customerSnapshot.data()
         await updateDoc(customerRef, {
           totalSpent: (customerData.totalSpent || 0) + price,
-          lastServiceDate: format(selectedDate, "yyyy-MM-dd"), // Store as YYYY-MM-DD
+          lastServiceDate: format(selectedDate, "yyyy-MM-dd"),
           lastServiceTime: selectedTime,
         })
       } else {
@@ -295,7 +297,7 @@ export default function ReservationsPage() {
           city: formData.city,
           zipCode: formData.zipCode,
           totalSpent: price,
-          lastServiceDate: format(selectedDate, "yyyy-MM-dd"), // Store as YYYY-MM-DD
+          lastServiceDate: format(selectedDate, "yyyy-MM-dd"),
           lastServiceTime: selectedTime,
           createdAt: format(new Date(), "yyyy-MM-dd"),
         }
@@ -306,7 +308,7 @@ export default function ReservationsPage() {
       // or re-fetch. For simplicity, adding locally:
       setReservations(prevReservations => [...prevReservations, {...reservationData, id: "temp-" + Date.now()}]);
 
-
+      setSpecialInstructionsImages([]); // Clear images after successful submission
       setStep(3)
     } catch (error) {
       console.error("Error adding document: ", error)

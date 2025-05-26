@@ -15,11 +15,12 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Textarea } from "@/components/ui/textarea"
 import NavigationBar from "@/components/navigation-bar"
 
-import { collection, addDoc } from "firebase/firestore"
-import { db } from '@/app/firebase/config'
+import { collection, addDoc } from "firebase/firestore";
+import { db, clientStorage } from '@/app/firebase/config'; // Added clientStorage
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage"; // Added Firebase Storage functions
 
 export default function ContactPage() {
-  const t = useTranslations("contact")
+  const t = useTranslations("contact");
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -27,55 +28,85 @@ export default function ContactPage() {
     phone: "",
     serviceType: "residential",
     message: "",
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [formError, setFormError] = useState<string | null>(null)
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
+  const [contactImages, setContactImages] = useState<File[]>([]); // New state for images
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-    if (formError) setFormError(null)
-  }
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (formError) setFormError(null);
+  };
 
   const handleRadioChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, serviceType: value }))
-    if (formError) setFormError(null)
-  }
+    setFormData((prev) => ({ ...prev, serviceType: value }));
+    if (formError) setFormError(null);
+  };
+
+  // New handler for image selection
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setContactImages(prevImages => [...prevImages, ...Array.from(e.target.files!)]);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setFormError(null)
+    e.preventDefault();
+    setFormError(null);
 
     if (!formData.firstName.trim() || !formData.lastName.trim() || !formData.email.trim() || !formData.message.trim()) {
-      setFormError(t("form.validationError.fieldsRequired"))
-      return
+      setFormError(t("form.validationError.fieldsRequired"));
+      return;
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
-      setFormError(t("form.validationError.invalidEmail"))
-      return
+      setFormError(t("form.validationError.invalidEmail"));
+      return;
     }
 
-    setIsSubmitting(true)
+    setIsSubmitting(true);
 
     try {
+      const imageUrls: string[] = [];
+      if (contactImages.length > 0) {
+        const submissionId = `${Date.now()}_${Math.random().toString(36).substring(2, 10)}`;
+        for (const imageFile of contactImages) {
+          const imageRef = ref(clientStorage, `contact_images/${submissionId}/${imageFile.name}`);
+          try {
+            await uploadBytes(imageRef, imageFile);
+            const downloadUrl = await getDownloadURL(imageRef);
+            imageUrls.push(downloadUrl);
+          } catch (uploadError) {
+            console.error(`Error uploading image ${imageFile.name}:`, uploadError);
+            setFormError(t("form.errorImageUpload", { fileName: imageFile.name }));
+            setIsSubmitting(false);
+            return;
+          }
+        }
+      }
+
       const contactData = {
         ...formData,
         status: "new",
         submittedAt: new Date().toISOString().split("T")[0],
-      }
+        imageUrls: imageUrls, // Add image URLs
+      };
 
-      await addDoc(collection(db, "contacts"), contactData)
-      setIsSubmitted(true)
+      await addDoc(collection(db, "contacts"), contactData);
+      setIsSubmitted(true);
+      setContactImages([]); // Clear images after successful submission
     } catch (error) {
-        console.error("Error adding document: ", error)
-        setFormError(t("form.errorMessage"))
+      console.error("Error adding document: ", error);
+      if (!formError) { // Avoid overwriting specific image upload error
+        setFormError(t("form.errorMessage"));
+      }
     } finally {
-        setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -237,6 +268,33 @@ export default function ContactPage() {
                             rows={5}
                           />
                         </div>
+
+                        {/* New Image Upload Field */}
+                        <div className="space-y-2">
+                          <Label htmlFor="contactImages">{t("form.uploadImagesLabel")}</Label>
+                          <Input
+                            id="contactImages"
+                            name="contactImages"
+                            type="file"
+                            accept="image/*"
+                            multiple
+                            onChange={handleImageChange}
+                            className="pt-2"
+                          />
+                          {contactImages.length > 0 && (
+                            <div className="mt-2 space-y-1">
+                              <p className="text-sm font-medium text-muted-foreground">
+                                {t("form.selectedImagesText", { count: contactImages.length })}
+                              </p>
+                              <ul className="list-disc list-inside text-sm text-muted-foreground">
+                                {contactImages.map((file, index) => (
+                                  <li key={index}>{file.name}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                        </div>
+
                         {formError && (
                           <p className="text-sm font-medium text-destructive text-center">{formError}</p>
                         )}
@@ -276,5 +334,5 @@ export default function ContactPage() {
         </div>
       </main>
     </div>
-  )
+  );
 }
