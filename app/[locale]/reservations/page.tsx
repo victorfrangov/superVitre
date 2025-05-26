@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl"
 import { Link } from "@/i18n/navigation"
 import { motion } from "framer-motion"
 import { format, addDays, startOfWeek, addWeeks, isSameDay, isBefore, parse, getHours } from "date-fns"
-import { Calendar, Clock, ArrowLeft, CheckCircle2, ChevronRight, ChevronLeft } from "lucide-react"
+import { Calendar, Clock, ArrowLeft, CheckCircle2, ChevronRight, ChevronLeft, X } from "lucide-react" // Added X icon
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -62,6 +62,8 @@ const generateHourlyTimeSlots = (date: Date): string[] => {
   }
   return slots
 }
+
+const MAX_IMAGES = 5; // Define the maximum number of images
 
 export default function ReservationsPage() {
   const t = useTranslations("reservations")
@@ -190,10 +192,35 @@ export default function ReservationsPage() {
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      // Append new files to the existing array
-      setSpecialInstructionsImages(prevImages => [...prevImages, ...Array.from(e.target.files!)])
+      if (specialInstructionsImages.length >= MAX_IMAGES) {
+        setSubmissionError(t("form.maxImagesError", { count: MAX_IMAGES }));
+        // Clear the file input value so the same files can't be "re-selected" immediately
+        e.target.value = "";
+        return;
+      }
+
+      const filesToAdd = Array.from(e.target.files);
+      const remainingSlots = MAX_IMAGES - specialInstructionsImages.length;
+      
+      let newImages = filesToAdd;
+      if (filesToAdd.length > remainingSlots) {
+        newImages = filesToAdd.slice(0, remainingSlots);
+        setSubmissionError(t("form.maxImagesReachedDuringSelection", { count: MAX_IMAGES }));
+      }
+      
+      setSpecialInstructionsImages(prevImages => [...prevImages, ...newImages]);
+      // Clear the file input value after processing to allow selecting the same file again if needed after removal (if you implement removal)
+      e.target.value = ""; 
     }
   }
+
+  const handleRemoveImage = (indexToRemove: number) => {
+    setSpecialInstructionsImages(prevImages => prevImages.filter((_, index) => index !== indexToRemove));
+    // If an error message related to max images was shown, clear it as there's now space.
+    if (submissionError?.includes(t("form.maxImagesError", { count: MAX_IMAGES })) || submissionError?.includes(t("form.maxImagesReachedDuringSelection", { count: MAX_IMAGES }))) {
+      setSubmissionError(null);
+    }
+  };
 
   const handleRadioChange = (name: string, value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }))
@@ -312,7 +339,7 @@ export default function ReservationsPage() {
       setStep(3)
     } catch (error) {
       console.error("Error adding document: ", error)
-      setSubmissionError("Failed to submit reservation. Please try again.")
+      setSubmissionError(t("form.submitErrorGeneric"))
     } finally {
       setIsSubmitting(false)
     }
@@ -324,7 +351,7 @@ export default function ReservationsPage() {
   }
 
   // Generate a mock booking reference
-  const bookingReference = `SV${Math.floor(Math.random() * 10000)
+  const bookingReference = `SV${Math.floor(Math.random() * 100000000)
     .toString()
     .padStart(7, "0")}`
 
@@ -669,7 +696,7 @@ export default function ReservationsPage() {
 
                         {/* New Image Upload Field */}
                         <div className="space-y-2">
-                          <Label htmlFor="specialInstructionsImage">{t("form.specialInstructionsImageLabel")}</Label>
+                          <Label htmlFor="specialInstructionsImage">{t("form.specialInstructionsImageLabel", { count: MAX_IMAGES })}</Label>
                           <Input
                             id="specialInstructionsImage"
                             name="specialInstructionsImage"
@@ -678,7 +705,13 @@ export default function ReservationsPage() {
                             multiple
                             onChange={handleImageChange}
                             className="pt-2"
+                            disabled={specialInstructionsImages.length >= MAX_IMAGES} // Disable input if limit reached
                           />
+                          {specialInstructionsImages.length >= MAX_IMAGES && (
+                            <p className="text-xs text-muted-foreground mt-1">
+                              {t("form.maxImagesError", { count: MAX_IMAGES })}
+                            </p>
+                          )}
                           {specialInstructionsImages.length > 0 && (
                             <div className="mt-2 space-y-1">
                               <p className="text-sm font-medium text-muted-foreground">
@@ -686,7 +719,18 @@ export default function ReservationsPage() {
                               </p>
                               <ul className="list-disc list-inside text-sm text-muted-foreground">
                                 {specialInstructionsImages.map((file, index) => (
-                                  <li key={index}>{file.name}</li>
+                                  <li key={index} className="flex items-center justify-between">
+                                    <span>{file.name}</span>
+                                    <Button
+                                      variant="ghost"
+                                      size="sm"
+                                      onClick={() => handleRemoveImage(index)}
+                                      aria-label={t("form.removeImageAriaLabel", { fileName: file.name })}
+                                      className="ml-2 p-1 h-auto" // Adjusted padding and height for a smaller button
+                                    >
+                                      <X className="size-4" />
+                                    </Button>
+                                  </li>
                                 ))}
                               </ul>
                             </div>

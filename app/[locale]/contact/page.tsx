@@ -6,7 +6,7 @@ import { useState } from "react"
 import { useTranslations } from "next-intl"
 import { motion } from "framer-motion"
 import { Link } from "@/i18n/navigation"
-import { ArrowLeft, CheckCircle, Mail, Phone, Send } from "lucide-react"
+import { ArrowLeft, CheckCircle, Mail, Phone, Send, X } from "lucide-react" // Added X icon
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -18,6 +18,8 @@ import NavigationBar from "@/components/navigation-bar"
 import { collection, addDoc } from "firebase/firestore";
 import { db, clientStorage } from '@/app/firebase/config'; // Added clientStorage
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"; // Added Firebase Storage functions
+
+const MAX_IMAGES = 5; // Define the maximum number of images
 
 export default function ContactPage() {
   const t = useTranslations("contact");
@@ -32,7 +34,7 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
-  const [contactImages, setContactImages] = useState<File[]>([]); // New state for images
+  const [contactImages, setContactImages] = useState<File[]>([]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -45,10 +47,33 @@ export default function ContactPage() {
     if (formError) setFormError(null);
   };
 
-  // New handler for image selection
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      setContactImages(prevImages => [...prevImages, ...Array.from(e.target.files!)]);
+      if (contactImages.length >= MAX_IMAGES) {
+        setFormError(t("form.maxImagesError", { count: MAX_IMAGES }));
+        e.target.value = ""; // Clear file input
+        return;
+      }
+
+      const filesToAdd = Array.from(e.target.files);
+      const remainingSlots = MAX_IMAGES - contactImages.length;
+
+      let newImages = filesToAdd;
+      if (filesToAdd.length > remainingSlots) {
+        newImages = filesToAdd.slice(0, remainingSlots);
+        setFormError(t("form.maxImagesReachedDuringSelection", { count: MAX_IMAGES }));
+      }
+      
+      setContactImages(prevImages => [...prevImages, ...newImages]);
+      e.target.value = ""; // Clear file input
+    }
+  };
+
+  const handleRemoveImage = (indexToRemove: number) => {
+    setContactImages(prevImages => prevImages.filter((_, index) => index !== indexToRemove));
+    // If an error message related to max images was shown, clear it as there's now space.
+    if (formError?.includes(t("form.maxImagesError", { count: MAX_IMAGES })) || formError?.includes(t("form.maxImagesReachedDuringSelection", { count: MAX_IMAGES }))) {
+      setFormError(null);
     }
   };
 
@@ -271,7 +296,7 @@ export default function ContactPage() {
 
                         {/* New Image Upload Field */}
                         <div className="space-y-2">
-                          <Label htmlFor="contactImages">{t("form.uploadImagesLabel")}</Label>
+                          <Label htmlFor="contactImages">{t("form.uploadImagesLabel", { count: MAX_IMAGES })}</Label>
                           <Input
                             id="contactImages"
                             name="contactImages"
@@ -280,7 +305,13 @@ export default function ContactPage() {
                             multiple
                             onChange={handleImageChange}
                             className="pt-2"
+                            disabled={contactImages.length >= MAX_IMAGES} // Disable input if limit reached
                           />
+                          {contactImages.length >= MAX_IMAGES && !formError?.includes(t("form.maxImagesReachedDuringSelection", { count: MAX_IMAGES })) && (
+                            <p className="text-xs text-muted-foreground mt-1">
+                              {t("form.maxImagesError", { count: MAX_IMAGES })}
+                            </p>
+                          )}
                           {contactImages.length > 0 && (
                             <div className="mt-2 space-y-1">
                               <p className="text-sm font-medium text-muted-foreground">
@@ -288,7 +319,18 @@ export default function ContactPage() {
                               </p>
                               <ul className="list-disc list-inside text-sm text-muted-foreground">
                                 {contactImages.map((file, index) => (
-                                  <li key={index}>{file.name}</li>
+                                  <li key={index} className="flex items-center justify-between">
+                                    <span>{file.name}</span>
+                                    <Button
+                                      variant="ghost"
+                                      size="sm"
+                                      onClick={() => handleRemoveImage(index)}
+                                      aria-label={t("form.removeImageAriaLabel", { fileName: file.name })}
+                                      className="ml-2 p-1 h-auto"
+                                    >
+                                      <X className="size-4" />
+                                    </Button>
+                                  </li>
                                 ))}
                               </ul>
                             </div>
