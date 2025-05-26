@@ -17,7 +17,8 @@ import { Textarea } from "@/components/ui/textarea"
 import NavigationBar from "@/components/navigation-bar"
 
 import { collection, addDoc, doc, setDoc, getDoc, updateDoc, query, where, getDocs } from "firebase/firestore"
-import { db } from "@/app/firebase/config"
+import { ref, uploadBytes } from "firebase/storage"
+import { db, clientStorage } from "@/app/firebase/config"
 
 interface Reservation {
   id?: string
@@ -40,6 +41,7 @@ interface Reservation {
   status: string
   submittedAt: string // YYYY-MM-DD format
   price: number
+  specialInstructionsImageUrls?: string[];
 }
 
 // Generates hourly time slots for a given date
@@ -82,6 +84,7 @@ export default function ReservationsPage() {
     specialInstructions: "",
     preferredContact: "email",
   })
+  const [specialInstructionsImages, setSpecialInstructionsImages] = useState<File[]>([]) // Changed to File[]
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submissionError, setSubmissionError] = useState<string | null>(null)
 
@@ -120,6 +123,7 @@ export default function ReservationsPage() {
   const calendarDays = useMemo(() => {
     const today = new Date()
     const startDate = startOfWeek(currentMonth, { weekStartsOn: 1 })
+    const SERVICE_DURATION = 4; // Define service duration in hours
 
     return Array.from({ length: 28 }, (_, i) => {
       const date = addDays(startDate, i)
@@ -137,8 +141,9 @@ export default function ReservationsPage() {
         for (const res of reservationsForThisDay) {
           const resSlotDateTime = parse(res.selectedTime, "h:mm a", new Date(date))
           const bookedHour = getHours(resSlotDateTime)
-          // If current slot hour is within the 4-hour block of a booked slot
-          if (currentSlotHour >= bookedHour && currentSlotHour < bookedHour + 4) {
+          
+          if (currentSlotHour < bookedHour + SERVICE_DURATION &&
+              currentSlotHour + SERVICE_DURATION > bookedHour) {
             isAvailable = false
             break
           }
@@ -156,7 +161,7 @@ export default function ReservationsPage() {
         date,
         isToday: isSameDay(date, today),
         isPast: isBefore(date, today) && !isSameDay(date, today),
-        timeSlots, // Array of { time: string, available: boolean }
+        timeSlots: timeSlots // Array of { time: string, available: boolean }
       }
     })
   }, [currentMonth, reservations])
@@ -181,6 +186,13 @@ export default function ReservationsPage() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      // Append new files to the existing array
+      setSpecialInstructionsImages(prevImages => [...prevImages, ...Array.from(e.target.files!)])
+    }
   }
 
   const handleRadioChange = (name: string, value: string) => {
@@ -237,6 +249,20 @@ export default function ReservationsPage() {
       }
       const price = servicePrices[formData.serviceType] || 0
 
+      const imageUrls: string[] = []
+      if (specialInstructionsImages.length > 0) {
+        for (const imageFile of specialInstructionsImages) {
+          const imageRef = ref(clientStorage, `reservation_instructions/${bookingReference}/${imageFile.name}`)
+          try {
+            await uploadBytes(imageRef, imageFile)
+          } catch (uploadError) {
+            setSubmissionError(`Failed to upload image ${imageFile.name}. Please try again or submit without it.`)
+            setIsSubmitting(false);
+            return;
+          }
+        }
+      }
+
       const reservationData: Reservation = {
         ...formData,
         selectedDate: format(selectedDate, "yyyy-MM-dd"), // Store date as YYYY-MM-DD
@@ -245,6 +271,7 @@ export default function ReservationsPage() {
         status: "pending",
         submittedAt: format(new Date(), "yyyy-MM-dd"), // Store submission date as YYYY-MM-DD
         price,
+        specialInstructionsImageUrls: imageUrls, // Store array of URLs
       }
 
       await addDoc(collection(db, "reservations"), reservationData)
@@ -295,9 +322,9 @@ export default function ReservationsPage() {
   }
 
   // Generate a mock booking reference
-  const bookingReference = `WC${Math.floor(Math.random() * 10000)
+  const bookingReference = `SV${Math.floor(Math.random() * 10000)
     .toString()
-    .padStart(4, "0")}`
+    .padStart(7, "0")}`
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -636,6 +663,32 @@ export default function ReservationsPage() {
                             onChange={handleInputChange}
                             rows={3}
                           />
+                        </div>
+
+                        {/* New Image Upload Field */}
+                        <div className="space-y-2">
+                          <Label htmlFor="specialInstructionsImage">{t("form.specialInstructionsImageLabel")}</Label>
+                          <Input
+                            id="specialInstructionsImage"
+                            name="specialInstructionsImage"
+                            type="file"
+                            accept="image/*"
+                            multiple
+                            onChange={handleImageChange}
+                            className="pt-2"
+                          />
+                          {specialInstructionsImages.length > 0 && (
+                            <div className="mt-2 space-y-1">
+                              <p className="text-sm font-medium text-muted-foreground">
+                                {t("form.selectedImage", { count: specialInstructionsImages.length })}
+                              </p>
+                              <ul className="list-disc list-inside text-sm text-muted-foreground">
+                                {specialInstructionsImages.map((file, index) => (
+                                  <li key={index}>{file.name}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
                         </div>
 
                         <div className="space-y-2">

@@ -5,10 +5,9 @@ import { useTranslations } from "next-intl";
 import { collection, query, getDocs, orderBy, limit } from "firebase/firestore";
 import { db } from "@/app/firebase/config";
 
-// Components for your admin dashboard
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { ArrowRight, ArrowUpRight, Calendar, DollarSign, Mail, MoreHorizontal, Phone, Users } from "lucide-react";
+import { ArrowRight, Calendar, DollarSign, Mail, MoreHorizontal, Phone, Users } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "@/i18n/navigation";
@@ -16,8 +15,8 @@ import { Link } from "@/i18n/navigation";
 export default function AdminDashboardPage() {
   const t = useTranslations("admin.dashboard");
   const [stats, setStats] = useState([]);
-  const [recentAppointments, setRecentAppointments] = useState([]); // Define recentAppointments
-  const [recentContacts, setRecentContacts] = useState([]); // Define recentContacts
+  const [recentAppointments, setRecentAppointments] = useState([]);
+  const [recentContacts, setRecentContacts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -51,7 +50,7 @@ export default function AdminDashboardPage() {
 
         // Fetch customers
         const customersSnapshot = await getDocs(collection(db, "customers"));
-        const totalCustomers = customersSnapshot.size; // Total number of customers
+        const totalCustomers = customersSnapshot.size;
 
         // Calculate stats
         const totalAppointments = appointmentsData.length;

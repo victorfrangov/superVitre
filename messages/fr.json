@@ -201,6 +201,9 @@
       "windows": "Nombre de Fenêtres",
       "stories": "Nombre d'Étages",
       "specialInstructions": "Instructions Spéciales",
+      "specialInstructionsImageLabel": "Image pour Instructions Spéciales (Optionnel)",
+      "uploadImageButton": "Télécharger une image",
+      "selectedImage": "{count, plural, =1 {Image sélectionnée :} other {Images sélectionnées :}}",
       "preferredContact": "Méthode de Contact Préférée",
       "contactMethods": {
         "email": "Email",

@@ -201,6 +201,9 @@
       "windows": "Number of Windows",
       "stories": "Number of Stories",
       "specialInstructions": "Special Instructions",
+      "specialInstructionsImageLabel": "Image for Special Instructions (Optional)",
+      "uploadImageButton": "Upload Image",
+      "selectedImage": "{count, plural, =1 {Selected image :} other {Selected images :}}",
       "preferredContact": "Preferred Contact Method",
       "contactMethods": {
         "email": "Email",
