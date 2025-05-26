@@ -379,8 +379,9 @@
         "propertyType": "Property Type",
         "windows": "Number of Windows",
         "stories": "Number of Stories",
-        "createdAt": "Submitted on",
-        "close": "Close"
+        "submittedAt": "Submitted At",
+        "close": "Close",
+        "price": "Price"
       },
       "status": {
         "confirmed": "Confirmed",
@@ -390,6 +391,27 @@
         "markCompleted": "Mark as Complete",
         "markPending": "Mark as Pending",
         "markCancelled": "Mark as Cancelled"
+      },
+      "detail": {
+        "title": "Détails du Rendez-vous",
+        "backToList": "Retour à la liste des Rendez-vous",
+        "appointmentInfo": "Informations du Rendez-vous",
+        "customerInfo": "Informations Client",
+        "serviceInfo": "Détails du Service",
+        "dateTimeInfo": "Date et Heure",
+        "instructionsAndImages": "Instructions Spéciales et Images",
+        "noInstructions": "Aucune instruction spéciale fournie.",
+        "attachedImages": "Images Jointes",
+        "instructionImageAlt": "Image d'instruction",
+        "noImages": "Aucune image fournie.",
+        "manageStatus": "Gérer le Statut",
+        "updateStatusTo": "Mettre à jour le statut vers",
+        "selectStatus": "Sélectionner le statut",
+        "saveStatus": "Enregistrer le Statut",
+        "notFound": "Rendez-vous non trouvé.",
+        "errorFetching": "Erreur lors de la récupération des détails du rendez-vous.",
+        "errorTitle": "Erreur",
+        "notFoundTitle": "Non trouvé"
       },
       "error": {
         "errorFetching": "Error trying to access the database",
@@ -440,7 +462,11 @@
         "saveStatus": "Save Status",
         "notFound": "Contact not found.",
         "errorFetching": "Error fetching contact details.",
-        "errorUpdatingStatus": "Failed to update status."
+        "errorUpdatingStatus": "Failed to update status.",
+        "attachedImages": "Attached Images",
+        "contactImageAlt": "Contact image",
+        "errorTitle": "Error",
+        "notFoundTitle": "Not Found"
       },
       "error": {
         "errorFetching": "Error trying to access the database",

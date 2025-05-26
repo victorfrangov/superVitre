@@ -12,11 +12,43 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "@/i18n/navigation";
 
+type Stat = {
+  title: string;
+  value: string | number;
+  trend: string;
+  icon: React.ElementType;
+  color: string;
+};
+
 export default function AdminDashboardPage() {
   const t = useTranslations("admin.dashboard");
-  const [stats, setStats] = useState([]);
-  const [recentAppointments, setRecentAppointments] = useState([]);
-  const [recentContacts, setRecentContacts] = useState([]);
+  const [stats, setStats] = useState<Stat[]>([]);
+  type Appointment = {
+    id: string;
+    firstName: string;
+    lastName: string;
+    address?: string;
+    selectedDate?: string;
+    selectedTime?: string;
+    status?: string;
+    price?: number;
+    [key: string]: any;
+  };
+
+  type Contact = {
+    id: string;
+    firstName: string;
+    lastName: string;
+    email?: string;
+    phone?: string;
+    message?: string;
+    submittedAt?: string;
+    status?: string;
+    [key: string]: any;
+  };
+
+  const [recentAppointments, setRecentAppointments] = useState<Appointment[]>([]);
+  const [recentContacts, setRecentContacts] = useState<Contact[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -24,19 +56,20 @@ export default function AdminDashboardPage() {
       setIsLoading(true);
 
       try {
-        // Fetch recent appointments
-        const appointmentsQuery = query(
+        // Fetch ALL appointments, ordered by most recent
+        const allAppointmentsQuery = query(
           collection(db, "reservations"),
-          orderBy("submittedAt", "desc"),
-          limit(5)
+          orderBy("submittedAt", "desc") // Order by submittedAt to easily get recent ones
         );
-        const appointmentsSnapshot = await getDocs(appointmentsQuery);
-        const appointmentsData = appointmentsSnapshot.docs.map((doc) => ({
+        const allAppointmentsSnapshot = await getDocs(allAppointmentsQuery);
+        const allAppointmentsData: Appointment[] = allAppointmentsSnapshot.docs.map((doc) => ({
           id: doc.id,
-          ...doc.data(),
+          ...(doc.data() as Appointment),
         }));
 
-        // Fetch recent contacts
+        // Get the 5 most recent appointments for the list
+        const recentAppointmentsData = allAppointmentsData.slice(0, 5);
+
         const contactsQuery = query(
           collection(db, "contacts"),
           orderBy("submittedAt", "desc"),
@@ -52,10 +85,9 @@ export default function AdminDashboardPage() {
         const customersSnapshot = await getDocs(collection(db, "customers"));
         const totalCustomers = customersSnapshot.size;
 
-        // Calculate stats
-        const totalAppointments = appointmentsData.length;
-        const totalRevenue = appointmentsData.reduce((sum, appt) => sum + (appt.price || 0), 0);
-        const totalInquiries = contactsData.length;
+        const totalAppointments = allAppointmentsData.length; // Count of all appointments
+        const totalRevenue = allAppointmentsData.reduce((sum, appt) => sum + (appt.price || 0), 0); // Revenue from all appointments
+        const totalInquiries = contactsData.length; // This is still based on recent 5 contacts.
 
         setStats([
           {
@@ -67,7 +99,7 @@ export default function AdminDashboardPage() {
           },
           {
             title: t("stats.revenue"),
-            value: `$${totalRevenue.toFixed(2)}`,
+            value: `$${totalRevenue}`,
             trend: "up",
             icon: DollarSign,
             color: "bg-green-500",
@@ -88,8 +120,8 @@ export default function AdminDashboardPage() {
           },
         ]);
 
-        setRecentAppointments(appointmentsData); // Set recent appointments
-        setRecentContacts(contactsData); // Set recent contacts
+        setRecentAppointments(recentAppointmentsData);
+        setRecentContacts(contactsData);
       } catch (error) {
         console.error("Error fetching dashboard data:", error);
       } finally {

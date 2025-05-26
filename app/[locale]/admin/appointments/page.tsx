@@ -4,20 +4,12 @@ import { useState, useEffect } from "react"
 import { useTranslations } from "next-intl"
 import { Link } from "@/i18n/navigation"
 import { format, parseISO, isToday, isTomorrow, isThisWeek } from "date-fns"
-import { Calendar, Download, Filter, MoreHorizontal, Plus, Search, Loader2 } from "lucide-react"
+import { Calendar, Filter, MoreHorizontal, Search, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
 import {
   Pagination,
   PaginationContent,
@@ -28,7 +20,7 @@ import {
 } from "@/components/ui/pagination"
 import { Badge } from "@/components/ui/badge"
 
-import { collection, getDocs, query, orderBy, doc, updateDoc } from "firebase/firestore" // Added doc and updateDoc
+import { collection, getDocs, query, orderBy } from "firebase/firestore"
 import { db } from '@/app/firebase/config'
 
 interface Reservation {
@@ -46,14 +38,16 @@ interface Reservation {
   windows: string
   stories: string
   specialInstructions?: string
+  specialInstructionsImageUrls?: string[]
+  price?: number
   preferredContact: string
   selectedDate: string
   selectedTime: string
-  status: "pending" | "confirmed" | "cancelled" | "completed" | string 
+  status: "pending" | "confirmed" | "cancelled" | "completed" | string
   submittedAt?: string
 }
 
-const formatDate = (isoDateString: string) => {
+const formatDate = (isoDateString?: string) => {
   if (!isoDateString) return "N/A"
   try {
     return format(parseISO(isoDateString), "yyyy-MM-dd")
@@ -73,9 +67,6 @@ export default function AppointmentsPage() {
   const [dateFilter, setDateFilter] = useState("all")
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 10
-  const [selectedAppointment, setSelectedAppointment] = useState<Reservation | null>(null)
-  const [isAppointmentDetailDialogOpen, setIsAppointmentDetailDialogOpen] = useState(false)
-  const [isUpdatingStatus, setIsUpdatingStatus] = useState(false)
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -145,11 +136,6 @@ export default function AppointmentsPage() {
     setCurrentPage(page)
   }
 
-  const handleOpenAppointmentDialog = (appointment: Reservation) => {
-    setSelectedAppointment(appointment)
-    setIsAppointmentDetailDialogOpen(true)
-  }
-
   const StatusBadge = ({ status }: { status: string }) => {
     let variant: "default" | "secondary" | "destructive" | "outline" = "default"
     const labelKey = `status.${status.toLowerCase()}`
@@ -169,38 +155,6 @@ export default function AppointmentsPage() {
 
     return <Badge variant={variant}>{label}</Badge>
   }
-
-  const handleUpdateAppointmentStatus = async (appointmentId: string, newStatus: string) => {
-    if (!selectedAppointment || selectedAppointment.id !== appointmentId) return;
-
-    setIsUpdatingStatus(true);
-    const oldError = error;
-    setError(null);
-
-    try {
-      const appointmentRef = doc(db, "reservations", appointmentId);
-      await updateDoc(appointmentRef, {
-        status: newStatus,
-      });
-
-      // Update local state for immediate UI feedback
-      const updatedAppointments = allAppointments.map(app =>
-        app.id === appointmentId ? { ...app, status: newStatus } : app
-      );
-      setAllAppointments(updatedAppointments);
-
-      if (selectedAppointment.id === appointmentId) {
-        setSelectedAppointment(prevSelected =>
-          prevSelected ? { ...prevSelected, status: newStatus } : null
-        );
-      }
-    } catch (err) {
-      console.error("Error updating appointment status:", err);
-      setError(t("error.statusUpdateError", { defaultValue: "Failed to update status." }));
-    } finally {
-      setIsUpdatingStatus(false);
-    }
-  };
 
   if (isLoading) {
     return (
@@ -302,9 +256,11 @@ export default function AppointmentsPage() {
                         <StatusBadge status={appointment.status} />
                       </TableCell>
                       <TableCell className="text-right">
-                        <Button variant="ghost" size="icon" onClick={() => handleOpenAppointmentDialog(appointment)}>
-                          <MoreHorizontal className="size-4" />
-                          <span className="sr-only">{t("viewDetails")}</span>
+                        <Button variant="ghost" size="icon" asChild>
+                          <Link href={`/admin/appointments/${appointment.id}`}>
+                            <MoreHorizontal className="size-4" />
+                            <span className="sr-only">{t("viewDetails")}</span>
+                          </Link>
                         </Button>
                       </TableCell>
                     </TableRow>
@@ -350,145 +306,6 @@ export default function AppointmentsPage() {
           </div>
         </CardContent>
       </Card>
-
-      {selectedAppointment && (
-        <Dialog open={isAppointmentDetailDialogOpen} onOpenChange={setIsAppointmentDetailDialogOpen}>
-          <DialogContent className="sm:max-w-3xl md:max-w-4xl lg:max-w-5xl">
-            <DialogHeader>
-              <DialogTitle>{t("viewDetails")}</DialogTitle>
-              <DialogDescription>
-                {t("table.id")}: {selectedAppointment.bookingReference}
-              </DialogDescription>
-            </DialogHeader>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-4 py-4 max-h-[70vh] overflow-y-auto">
-              {/* Column 1 */}
-              <div className="space-y-8">
-                <div className="grid grid-cols-[140px_1fr] items-start gap-x-4">
-                  <span className="text-sm font-medium text-muted-foreground">{t("table.customer")}</span>
-                  <span>{`${selectedAppointment.firstName} ${selectedAppointment.lastName}`}</span>
-                </div>
-                <div className="grid grid-cols-[140px_1fr] items-start gap-x-4">
-                  <span className="text-sm font-medium text-muted-foreground">{t("table.email")}</span>
-                  <span className="break-all">{selectedAppointment.email}</span>
-                </div>
-                <div className="grid grid-cols-[140px_1fr] items-start gap-x-4">
-                  <span className="text-sm font-medium text-muted-foreground">{t("table.phone")}</span>
-                  <span>{selectedAppointment.phone}</span>
-                </div>
-                <div className="grid grid-cols-[140px_1fr] items-start gap-x-4">
-                  <span className="text-sm font-medium text-muted-foreground">{t("table.address")}</span>
-                  <span className="whitespace-pre-wrap">{`${selectedAppointment.address}, ${selectedAppointment.city}, ${selectedAppointment.zipCode}`}</span>
-                </div>
-                <div className="grid grid-cols-[140px_1fr] items-start gap-x-4">
-                  <span className="text-sm font-medium text-muted-foreground">{t("table.service")}</span>
-                  <span>{selectedAppointment.serviceType}</span>
-                </div>
-                <div className="grid grid-cols-[140px_1fr] items-start gap-x-4">
-                  <span className="text-sm font-medium text-muted-foreground">{t("table.preferredContact")}</span>
-                  <span>{selectedAppointment.preferredContact}</span>
-                </div>
-                {selectedAppointment.specialInstructions && (
-                  <div className="grid grid-cols-[140px_1fr] items-start gap-x-4">
-                    <span className="text-sm font-medium text-muted-foreground">{t("table.specialInstructions")}</span>
-                    <span className="whitespace-pre-wrap">{selectedAppointment.specialInstructions}</span>
-                  </div>
-                )}
-              </div>
-
-              {/* Column 2 */}
-              <div className="space-y-8"> {/* Increased space-y for better separation */}
-                <div className="grid grid-cols-[140px_1fr] items-start gap-x-4"> {/* Adjusted label width */}
-                  <span className="text-sm font-medium text-muted-foreground">{t("table.date")}</span>
-                  <span>{formatDate(selectedAppointment.selectedDate)}</span>
-                </div>
-                <div className="grid grid-cols-[140px_1fr] items-start gap-x-4">
-                  <span className="text-sm font-medium text-muted-foreground">{t("table.time")}</span>
-                  <span>{selectedAppointment.selectedTime}</span>
-                </div>
-                <div className="grid grid-cols-[140px_1fr] items-start gap-x-4">
-                  <span className="text-sm font-medium text-muted-foreground">{t("table.status")}</span>
-                  <div>
-                    <StatusBadge status={selectedAppointment.status} />
-                  </div>
-                </div>
-                <div className="grid grid-cols-[140px_1fr] items-start gap-x-4">
-                  <span className="text-sm font-medium text-muted-foreground">{t("table.propertyType")}</span>
-                  <span>{selectedAppointment.propertyType}</span>
-                </div>
-                <div className="grid grid-cols-[140px_1fr] items-start gap-x-4">
-                  <span className="text-sm font-medium text-muted-foreground">{t("table.windows")}</span>
-                  <span>{selectedAppointment.windows}</span>
-                </div>
-                <div className="grid grid-cols-[140px_1fr] items-start gap-x-4">
-                  <span className="text-sm font-medium text-muted-foreground">{t("table.stories")}</span>
-                  <span>{selectedAppointment.stories}</span>
-                </div>
-                <div className="grid grid-cols-[140px_1fr] items-start gap-x-4">
-                  <span className="text-sm font-medium text-muted-foreground">{t("table.createdAt")}</span>
-                  {/* Ensure selectedAppointment.submittedAt is available if that's the intended field */}
-                  <span>{formatDate(selectedAppointment.submittedAt || selectedAppointment.createdAt)}</span>
-                </div>
-              </div>
-            </div>
-            <DialogFooter className="sm:justify-start gap-2 pt-4">
-              {selectedAppointment.status === "pending" && (
-                <>
-                  <Button
-                    variant="default"
-                    onClick={() => handleUpdateAppointmentStatus(selectedAppointment.id, "completed")}
-                    disabled={isUpdatingStatus}
-                  >
-                    {isUpdatingStatus && <Loader2 className="mr-2 size-4 animate-spin" />}
-                    {t("status.markCompleted", { defaultValue: "Mark as Completed" })}
-                  </Button>
-                  <Button
-                    variant="destructive"
-                    onClick={() => handleUpdateAppointmentStatus(selectedAppointment.id, "cancelled")}
-                    disabled={isUpdatingStatus}
-                  >
-                    {isUpdatingStatus && <Loader2 className="mr-2 size-4 animate-spin" />}
-                    {t("status.markCancelled", { defaultValue: "Cancel Appointment" })}
-                  </Button>
-                </>
-              )}
-              {selectedAppointment.status === "completed" && (
-                 <Button
-                    variant="outline"
-                    onClick={() => handleUpdateAppointmentStatus(selectedAppointment.id, "pending")}
-                    disabled={isUpdatingStatus}
-                  >
-                    {isUpdatingStatus && <Loader2 className="mr-2 size-4 animate-spin" />}
-                    {t("status.markPending", { defaultValue: "Mark as Pending" })}
-                  </Button>
-              )}
-               {selectedAppointment.status === "confirmed" && (
-                 <>
-                  <Button
-                      variant="destructive"
-                      onClick={() => handleUpdateAppointmentStatus(selectedAppointment.id, "cancelled")}
-                      disabled={isUpdatingStatus}
-                    >
-                      {isUpdatingStatus && <Loader2 className="mr-2 size-4 animate-spin" />}
-                      {t("status.markCancelled", { defaultValue: "Cancel Appointment" })}
-                    </Button>
-                    <Button // Option to mark a confirmed appointment as completed
-                      variant="default"
-                      onClick={() => handleUpdateAppointmentStatus(selectedAppointment.id, "completed")}
-                      disabled={isUpdatingStatus}
-                    >
-                      {isUpdatingStatus && <Loader2 className="mr-2 size-4 animate-spin" />}
-                      {t("actions.markCompleted", { defaultValue: "Mark as Completed" })}
-                  </Button>status
-                 </>
-              )}
-              <Button variant="outline" onClick={() => setIsAppointmentDetailDialogOpen(false)} disabled={isUpdatingStatus}>
-                {t("table.close", { defaultValue: "Close" })}
-              </Button>
-            </DialogFooter>
-            {error && <p className="pt-2 text-sm text-destructive text-center">{error}</p>}
-          </DialogContent>
-        </Dialog>
-      )}
-</div>
+    </div>
   )
 }

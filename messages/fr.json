@@ -348,7 +348,6 @@
     },
     "appointments": {
       "title": "Appointments",
-      "export": "Export",
       "newAppointment": "New Appointment",
       "allAppointments": "All Appointments",
       "allAppointmentsDescription": "View and manage all your scheduled appointments",
@@ -380,8 +379,9 @@
         "propertyType": "Type de Propriété",
         "windows": "Nombre de Fenêtres",
         "stories": "Nombre d'Étages",
-        "createdAt": "Soumis le",
-        "close": "Fermer"
+        "submittedAt": "Soumis le",
+        "close": "Fermer",
+        "price": "Prix"
       },
       "status": {
         "confirmed": "Confirmed",
@@ -391,6 +391,27 @@
         "markCompleted": "Mark as Complete",
         "markPending": "Mark as Pending",
         "markCancelled": "Mark as Cancelled"
+      },
+      "detail": {
+        "title": "Détails du Rendez-vous",
+        "backToList": "Retour à la liste des Rendez-vous",
+        "appointmentInfo": "Informations du Rendez-vous",
+        "customerInfo": "Informations Client",
+        "serviceInfo": "Détails du Service",
+        "dateTimeInfo": "Date et Heure",
+        "instructionsAndImages": "Instructions Spéciales et Images",
+        "noInstructions": "Aucune instruction spéciale fournie.",
+        "attachedImages": "Images Jointes",
+        "instructionImageAlt": "Image d'instruction",
+        "noImages": "Aucune image fournie.",
+        "manageStatus": "Gérer le Statut",
+        "updateStatusTo": "Mettre à jour le statut vers",
+        "selectStatus": "Sélectionner le statut",
+        "saveStatus": "Enregistrer le Statut",
+        "notFound": "Rendez-vous non trouvé.",
+        "errorFetching": "Erreur lors de la récupération des détails du rendez-vous.",
+        "errorTitle": "Erreur",
+        "notFoundTitle": "Non trouvé"
       },
       "error": {
         "errorFetching": "Erreur en essayant d'accéder la base de données",
@@ -441,7 +462,11 @@
         "saveStatus": "Save Status",
         "notFound": "Contact not found.",
         "errorFetching": "Error fetching contact details.",
-        "errorUpdatingStatus": "Failed to update status."
+        "errorUpdatingStatus": "Failed to update status.",
+        "attachedImages": "Images Jointes",
+        "contactImageAlt": "Contact image",
+        "errorTitle": "Erreur",
+        "notFoundTitle": "Non trouvé"
       },
       "error": {
         "errorFetching": "Erreur en essayant d'accéder la base de données",

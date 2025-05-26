@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation"
 import { useTranslations } from "next-intl"
 import { doc, getDoc, updateDoc, Timestamp } from "firebase/firestore"
 import { db } from "@/app/firebase/config"
-import { ArrowLeft, Mail, Phone, MessageSquare, User, Tag, Edit3, Save, Loader2 } from "lucide-react"
+import { ArrowLeft, Mail, Phone, MessageSquare, User, Tag, Edit3, Save, Loader2, ImageIcon, Maximize2, AlertTriangle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -23,6 +23,7 @@ interface Contact {
   message: string
   status: "new" | "responded" | "closed" | string
   submittedAt: string | Timestamp // Can be ISO string or Firestore Timestamp
+  imageUrls?: string[]
 }
 
 // Helper to format date
@@ -30,13 +31,11 @@ const formatDate = (dateString: string | Timestamp | undefined): string => {
   if (!dateString) return "N/A"
   try {
     const date = typeof dateString === 'string' ? new Date(dateString) : dateString.toDate();
-    // Check if dateString is just YYYY-MM-DD, if so, time might not be relevant or accurate
     if (typeof dateString === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
       return date.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
     }
     return date.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }) + " " + date.toLocaleTimeString();
   } catch (error) {
-    console.error("Error formatting date:", dateString, error)
     return typeof dateString === 'string' ? dateString : "Invalid Date";
   }
 }
@@ -104,18 +103,21 @@ export default function ContactDetailPage() {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-        <p className="ml-2">{t("loading")}</p>
+      <div className="flex flex-col justify-center items-center min-h-screen p-4">
+        <Loader2 className="h-12 w-12 animate-spin text-primary mb-4" />
+        <p className="text-lg text-muted-foreground">{t("loading", {defaultValue: "Loading..."})}</p>
       </div>
     )
   }
 
   if (error && !contact) { // Show error prominently if contact couldn't be loaded
     return (
-      <div className="flex flex-col justify-center items-center h-screen text-destructive">
-        <p>{error}</p>
-        <Button onClick={() => router.push(`/${locale}/admin/contacts`)} className="mt-4">
+      <div className="flex flex-col justify-center items-center min-h-screen p-4 text-center">
+        <AlertTriangle className="h-12 w-12 text-destructive mb-4" />
+        <p className="text-xl font-semibold text-destructive mb-2">{t("detail.errorTitle", {defaultValue: "Error"})}</p>
+        <p className="text-muted-foreground mb-6">{error}</p>
+        <Button onClick={() => router.push(`/${locale}/admin/contacts`)} variant="outline">
+          <ArrowLeft className="mr-2 h-4 w-4" />
           {t("detail.backToList", {defaultValue: "Back to Contacts List"})}
         </Button>
       </div>
@@ -124,9 +126,12 @@ export default function ContactDetailPage() {
   
   if (!contact) { // Fallback if contact is null after loading and no major error was set
     return (
-      <div className="flex flex-col justify-center items-center h-screen">
-        <p>{t("detail.notFound", {defaultValue: "Contact not found."})}</p>
-        <Button onClick={() => router.push(`/${locale}/admin/contacts`)} className="mt-4">
+      <div className="flex flex-col justify-center items-center min-h-screen p-4 text-center">
+        <User className="h-12 w-12 text-muted-foreground mb-4" /> {/* Changed icon for not found */}
+        <p className="text-xl font-semibold mb-2">{t("detail.notFoundTitle", {defaultValue: "Not Found"})}</p>
+        <p className="text-muted-foreground mb-6">{t("detail.notFound", {defaultValue: "Contact not found."})}</p>
+        <Button onClick={() => router.push(`/${locale}/admin/contacts`)} variant="outline">
+          <ArrowLeft className="mr-2 h-4 w-4" />
           {t("detail.backToList", {defaultValue: "Back to Contacts List"})}
         </Button>
       </div>
@@ -154,99 +159,137 @@ export default function ContactDetailPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <Card className="lg:col-span-1">
-          <CardHeader>
-            <CardTitle className="flex items-center text-xl">
-              <User className="mr-2 h-5 w-5" /> {t("detail.contactInfo", {defaultValue: "Contact Information"})}
-            </CardTitle>
-            <CardDescription>
-              {t("detail.submittedOn", {defaultValue: "Submitted on"})}: {formatDate(contact.submittedAt)}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4 text-sm">
-            <div className="flex items-start">
-              <User className="mr-4 mt-1 h-4 w-4 text-muted-foreground flex-shrink-0" />
-              <div>
-                <span className="font-medium">{contact.firstName} {contact.lastName}</span>
-              </div>
-            </div>
-            <div className="flex items-start">
-              <Mail className="mr-4 mt-1 h-4 w-4 text-muted-foreground flex-shrink-0" />
-              <a href={`mailto:${contact.email}`} className="text-primary hover:underline break-all">
-                {contact.email}
-              </a>
-            </div>
-            {contact.phone && (
+        <div className="lg:col-span-1 space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl">
+                <User className="mr-3 h-5 w-5 text-primary" /> {t("detail.contactInfo", {defaultValue: "Contact Information"})}
+              </CardTitle>
+              <CardDescription>
+                {t("detail.submittedOn", {defaultValue: "Submitted on"})}: {formatDate(contact.submittedAt)}
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-3 text-sm">
               <div className="flex items-start">
-                <Phone className="mr-4 mt-1 h-4 w-4 text-muted-foreground flex-shrink-0" />
-                <span>{contact.phone}</span>
+                <User className="mr-3 mt-1 h-4 w-4 text-muted-foreground flex-shrink-0" />
+                <div>
+                  <span className="font-medium">{contact.firstName} {contact.lastName}</span>
+                </div>
               </div>
-            )}
-            <div className="flex items-start">
-              <Tag className="mr-4 mt-1 h-4 w-4 text-muted-foreground flex-shrink-0" />
-              <div>
-                <span className="font-medium">{t("detail.serviceTypeLabel", {defaultValue: "Service Type"})}:</span> {contact.serviceType}
+              <div className="flex items-start">
+                <Mail className="mr-3 mt-1 h-4 w-4 text-muted-foreground flex-shrink-0" />
+                <a href={`mailto:${contact.email}`} className="text-primary hover:underline break-all">
+                  {contact.email}
+                </a>
               </div>
-            </div>
-            <div className="flex items-center">
-              <Label className="mr-2 text-muted-foreground">{t("table.status", {defaultValue: "Status"})}:</Label>
-              <Badge variant={contact.status === "new" ? "default" : contact.status === "responded" ? "secondary" : "outline"}>
-                {getStatusLabel(contact.status)}
-              </Badge>
-            </div>
-          </CardContent>
-        </Card>
+              {contact.phone && (
+                <div className="flex items-start">
+                  <Phone className="mr-3 mt-1 h-4 w-4 text-muted-foreground flex-shrink-0" />
+                  <span>{contact.phone}</span>
+                </div>
+              )}
+              <div className="flex items-start">
+                <Tag className="mr-3 mt-1 h-4 w-4 text-muted-foreground flex-shrink-0" />
+                <div>
+                  <span className="font-medium text-muted-foreground">{t("detail.serviceTypeLabel", {defaultValue: "Service Type"})}:</span> {contact.serviceType}
+                </div>
+              </div>
+              <div className="flex items-center pt-2">
+                <Label className="mr-2 text-xs font-semibold uppercase text-muted-foreground">{t("table.status", {defaultValue: "Status"})}:</Label>
+                <Badge variant={contact.status === "new" ? "default" : contact.status === "responded" ? "secondary" : "outline"}>
+                  {getStatusLabel(contact.status)}
+                </Badge>
+              </div>
+            </CardContent>
+          </Card>
 
-        <Card className="lg:col-span-2">
-          <CardHeader>
-            <CardTitle className="flex items-center text-xl">
-              <MessageSquare className="mr-2 h-5 w-5" /> {t("detail.customerMessage", {defaultValue: "Customer Message"})}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Textarea
-              value={contact.message}
-              readOnly
-              className="min-h-[200px] lg:min-h-[calc(100%-4rem)] bg-muted/20 border p-4 rounded-md text-sm leading-relaxed"
-              rows={10}
-            />
-          </CardContent>
-        </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl">
+                <Edit3 className="mr-3 h-5 w-5 text-primary" /> {t("detail.manageStatus", {defaultValue: "Manage Status"})}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <div className="flex-grow w-full">
+                <Label htmlFor="status-select" className="mb-1 block text-xs font-semibold uppercase text-muted-foreground">{t("detail.updateStatusTo", {defaultValue: "Update status to"})}</Label>
+                <Select value={currentStatus} onValueChange={setCurrentStatus}>
+                  <SelectTrigger id="status-select" className="w-full">
+                    <SelectValue placeholder={t("detail.selectStatus", {defaultValue: "Select status"})} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {statusOptions.map(option => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <Button onClick={handleStatusChange} disabled={isUpdatingStatus || currentStatus === contact.status} className="w-full mt-2">
+                {isUpdatingStatus ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : (
+                  <Save className="mr-2 h-4 w-4" />
+                )}
+                {t("detail.saveStatus", {defaultValue: "Save Status"})}
+              </Button>
+              {error && currentStatus !== contact.status && <p className="pt-2 text-xs text-destructive">{error}</p>}
+            </CardContent>
+          </Card>
+        </div>
+        
+
+        <div className="lg:col-span-2 space-y-6">
+            <Card>
+            <CardHeader>
+                <CardTitle className="flex items-center text-xl">
+                <MessageSquare className="mr-3 h-5 w-5 text-primary" /> {t("detail.customerMessage", {defaultValue: "Customer Message"})}
+                </CardTitle>
+            </CardHeader>
+            <CardContent>
+                <Textarea
+                value={contact.message}
+                readOnly
+                className="min-h-[150px] bg-muted/30 border p-3 rounded-md text-sm leading-relaxed"
+                rows={8}
+                />
+            </CardContent>
+            </Card>
+
+            {/* Image Display Card */}
+            {(contact.imageUrls && contact.imageUrls.length > 0) && (
+            <Card>
+                <CardHeader>
+                <CardTitle className="flex items-center text-xl">
+                    <ImageIcon className="mr-3 h-5 w-5 text-primary" /> {t("detail.attachedImages", { defaultValue: "Attached Images" })}
+                </CardTitle>
+                </CardHeader>
+                <CardContent>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                    {contact.imageUrls.map((url, index) => (
+                    <a 
+                        key={index} 
+                        href={url} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="group aspect-square block border rounded-lg overflow-hidden relative hover:shadow-md transition-all duration-200"
+                    >
+                        <img 
+                        src={url} 
+                        alt={`${t("detail.contactImageAlt", { defaultValue: "Contact image" })} ${index + 1}`} 
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" 
+                        />
+                        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 flex items-center justify-center transition-opacity duration-300">
+                        <Maximize2 className="h-6 w-6 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        </div>
+                    </a>
+                    ))}
+                </div>
+                </CardContent>
+            </Card>
+            )}
+        </div>
       </div>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center text-xl">
-            <Edit3 className="mr-2 h-5 w-5" /> {t("detail.manageStatus", {defaultValue: "Manage Status"})}
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="flex flex-col sm:flex-row items-end gap-4">
-          <div className="flex-grow w-full sm:w-auto">
-            <Label htmlFor="status-select" className="mb-1 block text-sm font-medium">{t("detail.updateStatusTo", {defaultValue: "Update status to"})}</Label>
-            <Select value={currentStatus} onValueChange={setCurrentStatus}>
-              <SelectTrigger id="status-select" className="w-full md:w-[220px]">
-                <SelectValue placeholder={t("detail.selectStatus", {defaultValue: "Select status"})} />
-              </SelectTrigger>
-              <SelectContent>
-                {statusOptions.map(option => (
-                  <SelectItem key={option.value} value={option.value}>
-                    {option.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <Button onClick={handleStatusChange} disabled={isUpdatingStatus || currentStatus === contact.status} className="w-full sm:w-auto">
-            {isUpdatingStatus ? (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            ) : (
-              <Save className="mr-2 h-4 w-4" />
-            )}
-            {t("detail.saveStatus", {defaultValue: "Save Status"})}
-          </Button>
-        </CardContent>
-        {error && currentStatus !== contact.status && <p className="px-6 pb-4 text-sm text-destructive">{error}</p>}
-      </Card>
     </div>
   )
 }

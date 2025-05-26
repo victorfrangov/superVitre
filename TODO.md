@@ -2,6 +2,7 @@
 
 - Add profile pic to admin? (NO)
 - Add media, logos, videos on the pages
+- Recheck the purpose of the status badges, approved confirmed pending, etc
 
 *QUICK*
 - Change opened hours and contact info in contact page
