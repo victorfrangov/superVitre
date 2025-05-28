@@ -19,6 +19,8 @@
   "hero": {
     "title": "Residential Window Cleaning in Saint-Lambert",
     "description": "We offer window cleaning services for a bright and clean interior. Book now!",
+    "imageLoadError": "Error. Image not loaded.",
+    "imageAlt": "Image",
     "benefits": {
       "noCreditCard": "No Deposit Needed",
       "trial": "Cash Payment",

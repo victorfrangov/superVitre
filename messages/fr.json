@@ -19,6 +19,8 @@
   "hero": {
     "title": "Lavage de vitre résidentiel à Saint-Lambert",
     "description": "Nous offrons un service de lavage de vitre pour un intérieur lumineux et propre. Réservez dès maintenant!",
+    "imageLoadError": "Erreur. Image non chargée",
+    "imageAlt": "Image",
     "benefits": {
       "noCreditCard": "Pas besoin de dépôt",
       "trial": "Paiement en espèces",

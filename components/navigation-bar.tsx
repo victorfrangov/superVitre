@@ -3,11 +3,13 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ChevronRight, Menu, X, UserRoundCog, Sun, Moon } from "lucide-react";
+import { ChevronRight, Menu, X, UserRoundCog, Sun, Moon, Image as ImageIcon } from "lucide-react";
 import { motion } from "framer-motion";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
+import { ref, getDownloadURL } from "firebase/storage";
+import { assetStorage } from "@/app/firebase/config";
 
 export default function NavigationBar() {
   const navT = useTranslations("navigation");
@@ -16,9 +18,24 @@ export default function NavigationBar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { theme, setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [logoUrl, setLogoUrl] = useState<string | null>(null);
+  const [logoLoading, setLogoLoading] = useState(true);
 
   useEffect(() => {
     setMounted(true);
+    const fetchLogo = async () => {
+      try {
+        const logoRef = ref(assetStorage, 'logo.JPEG');
+        const url = await getDownloadURL(logoRef);
+        setLogoUrl(url);
+      } catch (error) {
+        console.error("Error fetching logo from Firebase Storage:", error);
+      } finally {
+        setLogoLoading(false);
+      }
+    };
+
+    fetchLogo();
   }, []);
 
   const links = [
@@ -42,8 +59,14 @@ export default function NavigationBar() {
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
         {/* Logo and Home Link */}
         <Link href="/" className="flex items-center gap-3 font-bold text-lg">
-          <div className="size-8 rounded-lg bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center text-primary-foreground">
-            S
+          <div className="size-8 rounded-lg bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center text-primary-foreground overflow-hidden">
+            {logoLoading ? (
+              <ImageIcon className="size-4 animate-pulse" /> // Placeholder while loading
+            ) : logoUrl ? (
+              <img src={logoUrl} alt="SuperVitre Logo" className="w-full h-full object-cover" />
+            ) : (
+              "S" // Fallback if image fails to load or no URL
+            )}
           </div>
           <span>SuperVitre</span>
         </Link>

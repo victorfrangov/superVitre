@@ -15,6 +15,7 @@ import {
   Droplets,
   Leaf,
   CalendarDays,
+  Image as ImageIcon,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
@@ -23,7 +24,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Tabs } from "@/components/ui/tabs"
 import NavigationBar from "@/components/navigation-bar"
 import { collection, query, where, getDocs, orderBy } from "firebase/firestore"
-import { db } from "@/app/firebase/config"
+import { db, assetStorage } from "@/app/firebase/config"
+import { ref, getDownloadURL } from "firebase/storage"
 
 interface FaqItem {
   question: string
@@ -43,6 +45,8 @@ export default function LandingPage() {
   const [mounted, setMounted] = useState(false)
   const [approvedFeedbacks, setApprovedFeedbacks] = useState<DisplayFeedback[]>([])
   const [feedbacksLoading, setFeedbacksLoading] = useState(true)
+  const [heroImageUrl, setHeroImageUrl] = useState<string | null>(null)
+  const [heroImageLoading, setHeroImageLoading] = useState(true)
 
   // Get translations
   const t = useTranslations()
@@ -100,7 +104,21 @@ export default function LandingPage() {
       }
     }
 
+    const fetchHeroImage = async () => {
+      setHeroImageLoading(true);
+      try {
+        const imageRef = ref(assetStorage, 'logo.JPEG'); 
+        const url = await getDownloadURL(imageRef);
+        setHeroImageUrl(url);
+      } catch (error) {
+        console.error("Error fetching hero image from Firebase Storage:", error);
+      } finally {
+        setHeroImageLoading(false);
+      }
+    };
+
     fetchApprovedFeedbacks()
+    fetchHeroImage()
 
     return () => window.removeEventListener("scroll", handleScroll)
   }, [testimonialsT])
@@ -212,15 +230,26 @@ export default function LandingPage() {
               transition={{ duration: 0.7, delay: 0.2 }}
               className="relative mx-auto max-w-5xl"
             >
-              <div className="rounded-xl overflow-hidden shadow-2xl border border-border/40 bg-gradient-to-b from-background to-muted/20">
-                <Image
-                  src="https://www.laveurdecarreaux.com/new/wp-content/uploads/2019/06/laveur-vitre-carreau-nettoyeur-1.jpg"
-                  width={1280}
-                  height={720}
-                  alt="SuperVitre dashboard"
-                  className="w-full h-auto"
-                  priority
-                />
+              <div className="rounded-xl overflow-hidden shadow-2xl border border-border/40 bg-gradient-to-b from-background to-muted/20 aspect-[16/9]"> {/* Added aspect-ratio for placeholder */}
+                {heroImageLoading ? (
+                  <div className="w-full h-full flex items-center justify-center bg-muted">
+                    <ImageIcon className="size-16 text-muted-foreground animate-pulse" />
+                  </div>
+                ) : heroImageUrl ? (
+                  <Image
+                    src={heroImageUrl}
+                    width={1280}
+                    height={720}
+                    alt={heroT("imageAlt", {defaultValue: "Professional window cleaning service"})} // Added alt text from translations
+                    className="w-full h-full object-cover" // Ensure object-cover
+                    priority
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-muted">
+                     <ImageIcon className="size-16 text-destructive" /> 
+                     <p className="ml-2 text-destructive">{heroT("imageLoadError", {defaultValue: "Image unavailable"})}</p>
+                  </div>
+                )}
                 <div className="absolute inset-0 rounded-xl ring-1 ring-inset ring-black/10 dark:ring-white/10"></div>
               </div>
               <div className="absolute -bottom-6 -right-6 -z-10 h-[300px] w-[300px] rounded-full bg-gradient-to-br from-primary/30 to-secondary/30 blur-3xl opacity-70"></div>

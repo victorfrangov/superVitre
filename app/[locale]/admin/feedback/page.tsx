@@ -68,7 +68,7 @@ export default function FeedbackPage() {
     if (!selectedFeedback) return;
     setApproveError(null); // Clear previous errors
 
-    const updateData: { status: string; fictionalName?: string } = { status: targetStatus };
+    const updateData: { status: "approved" | "pending" | "rejected"; fictionalName?: string } = { status: targetStatus };
 
     // Only ask for fictional name if the target status is 'approved' and allowPublic is true
     if (targetStatus === "approved" && selectedFeedback.allowPublic) {
@@ -88,7 +88,15 @@ export default function FeedbackPage() {
       const feedbackRef = doc(db, "feedbacks", id)
       await updateDoc(feedbackRef, updateData)
       setFeedbackList((prev) =>
-        prev.map((feedback) => (feedback.id === id ? { ...feedback, ...updateData } : feedback))
+        prev.map((feedback) =>
+          feedback.id === id
+            ? {
+                ...feedback,
+                status: updateData.status,
+                fictionalName: updateData.fictionalName ?? feedback.fictionalName,
+              }
+            : feedback
+        )
       )
       setIsDialogOpen(false)
       setFictionalNameInput(""); // Reset input after successful operation
@@ -363,30 +371,34 @@ export default function FeedbackPage() {
                 </Badge>
               </div>
             </div>
-            <DialogFooter className="flex flex-col space-y-2 sm:space-y-0 sm:flex-row sm:justify-between">
-              {selectedFeedback.status === "pending" && (
+            <DialogFooter className="flex flex-col space-y-2 sm:space-y-0 sm:flex-row sm:justify-end pt-4">
+              {selectedFeedback.allowPublic && (
                 <>
-                  <Button variant="destructive" onClick={() => handleRejectFeedback(selectedFeedback.id)} className="w-full sm:w-auto">
-                    <X className="mr-2 size-4" />
-                    {t("info.reject")}
-                  </Button>
-                  <Button onClick={() => handleApproveFeedback(selectedFeedback.id, "approved")} className="w-full sm:w-auto">
-                    <Check className="mr-2 size-4" />
-                    {t("info.approve")}
-                  </Button>
+                  {selectedFeedback.status === "pending" && (
+                    <>
+                      <Button variant="destructive" onClick={() => handleRejectFeedback(selectedFeedback.id)} className="w-full sm:w-auto">
+                        <X className="mr-2 size-4" />
+                        {t("info.reject")}
+                      </Button>
+                      <Button onClick={() => handleApproveFeedback(selectedFeedback.id, "approved")} className="w-full sm:w-auto">
+                        <Check className="mr-2 size-4" />
+                        {t("info.approve")}
+                      </Button>
+                    </>
+                  )}
+                  {selectedFeedback.status === "approved" && (
+                    <Button variant="outline" onClick={() => handleApproveFeedback(selectedFeedback.id, "pending")} className="w-full sm:w-auto">
+                      <Loader2 className="mr-2 size-4" />
+                      {t("info.setPending", { defaultValue: "Move to Pending"})}
+                    </Button>
+                  )}
+                  {selectedFeedback.status === "rejected" && (
+                    <Button onClick={() => handleApproveFeedback(selectedFeedback.id, "pending")} className="w-full sm:w-auto">
+                      <Check className="mr-2 size-4" />
+                      {t("info.setPending", { defaultValue: "Set to Pending"})}
+                    </Button>
+                  )}
                 </>
-              )}
-              {selectedFeedback.status === "approved" && (
-                <Button variant="destructive" onClick={() => handleRejectFeedback(selectedFeedback.id)}>
-                  <X className="mr-2 size-4" />
-                  {t("info.removeApproval")}
-                </Button>
-              )}
-              {selectedFeedback.status === "rejected" && (
-                <Button onClick={() => handleApproveFeedback(selectedFeedback.id, "pending")}>
-                  <Check className="mr-2 size-4" />
-                  {t("info.setPending", { defaultValue: "Set to Pending"})}
-                </Button>
               )}
             </DialogFooter>
           </DialogContent>
