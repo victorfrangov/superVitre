@@ -77,12 +77,7 @@ export default function FeedbackPage() {
         return; // Stop if fictional name is required but not provided
       }
       updateData.fictionalName = fictionalNameInput.trim();
-    } else if (targetStatus === "approved" && !selectedFeedback.allowPublic) {
-      // If approving but not public, ensure fictionalName is not sent or is explicitly nulled if previously set
-      // For simplicity, we can remove it if it exists, or ensure it's not in updateData
-      // delete updateData.fictionalName; // Or handle as needed
     }
-
 
     try {
       const feedbackRef = doc(db, "feedbacks", id)

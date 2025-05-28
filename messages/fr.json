@@ -573,7 +573,11 @@
         "pending": "En attente",
         "approved": "Approuvé",
         "rejected": "Rejeté"
-      }
+      },
+      "error": {
+        "errorFetching": "Erreur en essayant d'accéder la base de données",
+        "retry": "Réessayer"
+    }
     },
     "login": {
       "title": "Admin Login",
@@ -591,7 +595,9 @@
       "successMessage": "You have been successfully logged in.",
       "errorTitle": "Login Failed",
       "errorMessage": "Invalid email or password. Please try again.",
-      "invalidCredentials": "Invalid email or password. Please try again."
+      "invalidCredentials": "Invalid email or password. Please try again.",
+      "loginWithGoogle": "Login with Google",
+      "subtitleGoogle": "Sign in with your Google account to access the admin panel."
     }
   },
   "feedback": {

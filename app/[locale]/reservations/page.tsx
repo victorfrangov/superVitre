@@ -16,7 +16,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea"
 import NavigationBar from "@/components/navigation-bar"
 
-import { collection, addDoc, doc, setDoc, getDoc, updateDoc, query, where, getDocs } from "firebase/firestore"
+import { collection, addDoc, query, where, getDocs } from "firebase/firestore"
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
 import { db, clientStorage } from "@/app/firebase/config"
 
@@ -304,32 +304,6 @@ export default function ReservationsPage() {
       }
 
       await addDoc(collection(db, "reservations"), reservationData)
-
-      const customerRef = doc(db, "customers", formData.email)
-      const customerSnapshot = await getDoc(customerRef)
-
-      if (customerSnapshot.exists()) {
-        const customerData = customerSnapshot.data()
-        await updateDoc(customerRef, {
-          totalSpent: (customerData.totalSpent || 0) + price,
-          lastServiceDate: format(selectedDate, "yyyy-MM-dd"),
-          lastServiceTime: selectedTime,
-        })
-      } else {
-        const newCustomerData = {
-          name: `${formData.firstName} ${formData.lastName}`,
-          email: formData.email,
-          phone: formData.phone,
-          address: formData.address,
-          city: formData.city,
-          zipCode: formData.zipCode,
-          totalSpent: price,
-          lastServiceDate: format(selectedDate, "yyyy-MM-dd"),
-          lastServiceTime: selectedTime,
-          createdAt: format(new Date(), "yyyy-MM-dd"),
-        }
-        await setDoc(customerRef, newCustomerData)
-      }
       
       // Manually add the new reservation to the local state to update UI immediately
       // or re-fetch. For simplicity, adding locally:
