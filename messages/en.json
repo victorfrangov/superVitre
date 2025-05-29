@@ -157,7 +157,8 @@
   "finalCta": {
     "title": "Ready to Transform Your Windows?",
     "description": "Join our many satisfied customers and enjoy sparkling clean windows that will brighten your daily life.",
-    "footnote": "Simple and quick booking. Satisfaction guaranteed."
+    "footnote": "Simple and quick booking. Satisfaction guaranteed.",
+    "recaptchaNotice": "This site is protected by reCAPTCHA and the Google <privacyLink>Privacy Policy</privacyLink> and <termsLink>Terms of Service</termsLink> apply."
   },
   "footer": {
     "about": "SuperVitre offers professional window cleaning services for residences and businesses. Get a free quote today and let the light in!",

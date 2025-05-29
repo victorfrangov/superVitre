@@ -599,6 +599,12 @@ export default function LandingPage() {
                 <span>SuperVitre</span>
               </div>
               <p className="text-sm text-muted-foreground">{footerT("about")}</p>
+              <p className="mx-auto max-w-[700px] text-xs text-muted-foreground mt-2 text-center">
+                {finalCtaT.rich("recaptchaNotice", {
+                  privacyLink: (chunks) => <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary-foreground">{chunks}</a>,
+                  termsLink: (chunks) => <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary-foreground">{chunks}</a>,
+                })}
+              </p>
               {/* Social links */}
             </div>
             <div className="space-y-4">

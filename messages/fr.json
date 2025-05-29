@@ -157,7 +157,8 @@
   "finalCta": {
     "title": "Prêt à Transformer Vos Fenêtres?",
     "description": "Rejoignez nos nombreux clients satisfaits et profitez de fenêtres d'une propreté éclatante qui illumineront votre quotidien.",
-    "footnote": "Réservation simple et rapide. Satisfaction garantie."
+    "footnote": "Réservation simple et rapide. Satisfaction garantie.",
+    "recaptchaNotice": "This site is protected by reCAPTCHA and the Google <privacyLink>Privacy Policy</privacyLink> and <termsLink>Terms of Service</termsLink> apply."
   },
   "footer": {
     "about": "SuperVitre offre des services de lavage de vitres professionnels pour les résidences et les commerces. Obtenez une soumission gratuite dès aujourd'hui et laissez entrer la lumière !",

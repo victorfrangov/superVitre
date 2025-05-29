@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
           <Script
-            src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_SITE_CAPTCHA_KEY}`}
+            src="https://www.google.com/recaptcha/api.js?render=6LcbwE4rAAAAAP6XFo9RcgaCZzeT2CDlGEqK6bVv"
             strategy="beforeInteractive"
           />
       </head>
