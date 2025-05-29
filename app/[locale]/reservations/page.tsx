@@ -35,11 +35,11 @@ interface Reservation {
   stories: string
   specialInstructions: string
   preferredContact: string
-  selectedDate: string // YYYY-MM-DD format
-  selectedTime: string // "h:mm a" format (e.g., "9:00 AM")
+  selectedDate: string
+  selectedTime: string
   bookingReference: string
   status: string
-  submittedAt: string // YYYY-MM-DD format
+  submittedAt: string
   price: number
   specialInstructionsImageUrls?: string[];
 }

@@ -23,17 +23,14 @@ export default async function LocaleLayout({
   children: React.ReactNode;
   params: Promise<{locale: string}>;
 }) {
-  // Ensure that the incoming `locale` is valid
   const {locale} = await params;
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
  
   return (
-    <html lang={locale} suppressHydrationWarning className="light" style={{colorScheme: "light"}}>
-      <body>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider locale={locale}>
+        {children}
+    </NextIntlClientProvider>
   );
 }
