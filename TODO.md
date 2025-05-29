@@ -1,6 +1,5 @@
 *TODO*
 
-- Add profile pic to admin? (NO)
 - Add media, logos, videos on the pages
 
 *QUICK*
@@ -8,7 +7,6 @@
 
 **Need domain/email address**
 - Add captcha v3 on all forms.
-- Setup App Hosting
 - Envoyer des emails de confirmations
 
 *IMPORTANT*
@@ -24,3 +22,4 @@
 -DONE- Fix english translations
 -DONE- Add image support to reservation. Cloud storage (Will have to add a image viewer in the admin panel)
 -DONE- Recheck the purpose of the status badges, approved confirmed pending, etc
+-DONE- Setup App Hosting

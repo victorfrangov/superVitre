@@ -25,7 +25,7 @@ let appCheck;
 
 if (typeof window !== 'undefined') {
   appCheck = initializeAppCheck(app, {
-    provider: new ReCaptchaV3Provider('6LcbwE4rAAAAAP6XFo9RcgaCZzeT2CDlGEqK6bVv'),
+    provider: new ReCaptchaV3Provider(process.env.NEXT_PUBLIC_SITE_CAPTCHA_KEY),
     isTokenAutoRefreshEnabled: true
   });
 }

@@ -208,8 +208,11 @@
       "selectedImage": "{count, plural, =0 {Aucune image sélectionnée} =1 {Image sélectionnée :} other {{count} images sélectionnées}}",
       "maxImagesError": "Vous avez atteint le maximum de {count} images.",
       "maxImagesReachedDuringSelection": "Seules {count} images peuvent être sélectionnées. Certains fichiers n'ont pas été ajoutés.",
+      "imageUploadError": "Erreur en essayant de charger le(s) image(s).",
       "submitErrorGeneric": "Échec de la soumission de la réservation. Veuillez réessayer.",
       "removeImageAriaLabel": "Supprimer l'image {fileName}",
+      "recaptchaError": "reCAPTCHA Error.",
+      "recaptchaNotReadyError": "reCAPTCHA pas pret.",
       "preferredContact": "Méthode de Contact Préférée",
       "contactMethods": {
         "email": "Email",
@@ -304,7 +307,9 @@
       "maxImagesError": "Vous avez atteint le maximum de {count} images.",
       "maxImagesReachedDuringSelection": "Seules {count} images peuvent être sélectionnées. Certains fichiers n'ont pas été ajoutés.",
       "thankYou": "Merci !",
-      "responseMessage": "Nous avons bien reçu votre message et nous vous répondrons dès que possible."
+      "responseMessage": "Nous avons bien reçu votre message et nous vous répondrons dès que possible.",
+      "recaptchaError": "reCAPTCHA Error.",
+      "recaptchaNotReadyError": "reCAPTCHA pas pret."
     }
   },
   "admin": {

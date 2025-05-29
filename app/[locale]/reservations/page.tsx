@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl"
 import { Link } from "@/i18n/navigation"
 import { motion } from "framer-motion"
 import { format, addDays, startOfWeek, addWeeks, isSameDay, isBefore, parse, getHours } from "date-fns"
-import { Calendar, Clock, ArrowLeft, CheckCircle2, ChevronRight, ChevronLeft, X } from "lucide-react" // Added X icon
+import { Calendar, Clock, ArrowLeft, CheckCircle2, ChevronRight, ChevronLeft, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -15,6 +15,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import NavigationBar from "@/components/navigation-bar"
+import { useForm } from "react-hook-form";
 
 import { collection, addDoc, query, where, getDocs } from "firebase/firestore"
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
@@ -44,6 +45,8 @@ interface Reservation {
   specialInstructionsImageUrls?: string[];
 }
 
+const MAX_IMAGES = 5; // Define the maximum number of images
+
 // Generates hourly time slots for a given date
 const generateHourlyTimeSlots = (date: Date): string[] => {
   const dayOfWeek = date.getDay() // Sunday = 0, Saturday = 6
@@ -62,8 +65,6 @@ const generateHourlyTimeSlots = (date: Date): string[] => {
   }
   return slots
 }
-
-const MAX_IMAGES = 5; // Define the maximum number of images
 
 export default function ReservationsPage() {
   const t = useTranslations("reservations")
@@ -92,6 +93,8 @@ export default function ReservationsPage() {
 
   const [reservations, setReservations] = useState<Reservation[]>([])
   const [isLoadingReservations, setIsLoadingReservations] = useState(true)
+
+  const { register, handleSubmit, formState: { errors } } = useForm<Reservation>(); // Or your specific form data type
 
   // Fetch reservations for the current 28-day view
   useEffect(() => {
@@ -226,10 +229,39 @@ export default function ReservationsPage() {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmitForm = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
     setSubmissionError(null)
+
+    let recaptchaToken = null;
+
+    if (typeof window !== 'undefined' && window.grecaptcha && process.env.NEXT_PUBLIC_SITE_CAPTCHA_KEY) {
+      try {
+        await new Promise<void>((resolve, reject) => {
+          window.grecaptcha.ready(() => {
+            resolve();
+          });
+          setTimeout(() => {
+            reject(new Error("reCAPTCHA ready timeout"));
+          }, 5000);
+        });
+        
+        recaptchaToken = await window.grecaptcha.execute(process.env.NEXT_PUBLIC_SITE_CAPTCHA_KEY, { action: 'submit_reservation' });
+        if (!recaptchaToken) {
+          throw new Error("reCAPTCHA token was not generated.");
+        }
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        setSubmissionError(t("form.recaptchaError") + (errorMessage ? `: ${errorMessage}` : ""));
+        setIsSubmitting(false);
+        return; 
+      }
+    } else {
+      setSubmissionError(t("form.recaptchaNotReadyError")); 
+      setIsSubmitting(false);
+      return; 
+    }
 
     const requiredFields: Array<keyof typeof formData> = [
       "firstName",
@@ -285,7 +317,7 @@ export default function ReservationsPage() {
             const downloadUrl = await getDownloadURL(snapshot.ref);
             imageUrls.push(downloadUrl);
           } catch (uploadError) {
-            setSubmissionError(`Failed to upload image ${imageFile.name}. Please try again or submit without it.`)
+            setSubmissionError(t("form.imageUploadError"))
             setIsSubmitting(false);
             return;
           }
@@ -294,11 +326,11 @@ export default function ReservationsPage() {
 
       const reservationData: Reservation = {
         ...formData,
-        selectedDate: format(selectedDate, "yyyy-MM-dd"),
-        selectedTime,
-        bookingReference,
+        selectedDate: format(selectedDate!, "yyyy-MM-dd"), // Added non-null assertion assuming validation handles it
+        selectedTime: selectedTime!, // Added non-null assertion
+        bookingReference, // Ensure bookingReference is defined in this scope
         status: "pending",
-        submittedAt: format(new Date(), "yyyy-MM-dd"),
+        submittedAt: format(new Date(), "yyyy-MM-dd HH:mm:ss"), // More precise timestamp
         price,
         specialInstructionsImageUrls: imageUrls,
       }
@@ -518,7 +550,7 @@ export default function ReservationsPage() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <form onSubmit={handleSubmitForm} className="space-y-6">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="space-y-2">
                           <Label htmlFor="firstName">{t("form.firstName")} <span className="text-destructive">*</span></Label>
@@ -741,7 +773,7 @@ export default function ReservationsPage() {
                       <ArrowLeft className="mr-2 size-4" />
                       {t("buttons.previous")}
                     </Button>
-                    <Button onClick={handleSubmit} disabled={isSubmitting}>
+                    <Button onClick={handleSubmitForm} disabled={isSubmitting}>
                       {isSubmitting ? t("buttons.submitting") : t("buttons.submit")}
                     </Button>
                   </CardFooter>

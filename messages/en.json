@@ -209,7 +209,10 @@
       "maxImagesError": "You have reached the maximum of {count} images.",
       "maxImagesReachedDuringSelection": "Only {count} images can be selected. Some files were not added.",
       "removeImageAriaLabel": "Remove image {fileName}",
+      "imageUploadError": "Error trying to load image(s)",
       "submitErrorGeneric": "Failed to submit reservation. Please try again.",
+      "recaptchaError": "reCAPTCHA Error.",
+      "recaptchaNotReadyError": "reCAPTCHA not ready.",
       "uploadImageButton": "Upload Image",
       "preferredContact": "Preferred Contact Method",
       "contactMethods": {
@@ -303,7 +306,9 @@
       "errorImageUpload": "Échec du téléchargement de l'image {fileName}. Veuillez réessayer ou supprimer l'image.",
       "errorMessage": "An error occurred while sending your message. Please try again.",
       "thankYou": "Thank You!",
-      "responseMessage": "We have received your message and will respond as soon as possible."
+      "responseMessage": "We have received your message and will respond as soon as possible.",
+      "recaptchaError": "reCAPTCHA Error.",
+      "recaptchaNotReadyError": "reCAPTCHA not ready."
     }
   },
   "admin": {

@@ -71,6 +71,37 @@ export default function FeedbackPage() {
 
     setIsSubmitting(true)
 
+    // --- BEGIN reCAPTCHA LOGIC ---
+    let recaptchaToken = null;
+
+    if (typeof window !== 'undefined' && window.grecaptcha && process.env.NEXT_PUBLIC_SITE_CAPTCHA_KEY) {
+      try {
+        await new Promise<void>((resolve, reject) => {
+          window.grecaptcha.ready(() => {
+            resolve();
+          });
+          setTimeout(() => {
+            reject(new Error("reCAPTCHA ready timeout"));
+          }, 5000);
+        });
+        
+        recaptchaToken = await window.grecaptcha.execute(process.env.NEXT_PUBLIC_SITE_CAPTCHA_KEY, { action: 'submit_feedback_form' });
+        if (!recaptchaToken) {
+          throw new Error("reCAPTCHA token was not generated.");
+        }
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        setFormError(t("form.recaptchaError"));
+        setIsSubmitting(false);
+        return; 
+      }
+    } else {
+      setFormError(t("form.recaptchaNotReadyError")); 
+      setIsSubmitting(false);
+      return; 
+    }
+    // --- END reCAPTCHA LOGIC ---
+
     try {
       const feedbackData = {
         ...formData,

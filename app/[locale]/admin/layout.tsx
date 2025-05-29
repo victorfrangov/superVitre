@@ -129,8 +129,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </Avatar>
             <div className="flex flex-col">
               {/* Replace with actual user name/email if available */}
-              <span className="text-sm font-medium">Admin User</span>
-              <span className="text-xs text-muted-foreground">admin@supervitre.com</span>
+              <span className="text-sm font-medium">{currentUser.displayName}</span>
+              <span className="text-xs text-muted-foreground">{currentUser.email}</span>
             </div>
           </div>
           <Button variant="ghost" className="w-full justify-start mt-2 text-muted-foreground" onClick={handleSignOut}>
