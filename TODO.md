@@ -6,7 +6,6 @@
 - Change opened hours and contact info in contact page
 
 **Need domain/email address**
-- Add captcha v3 on all forms.
 - Envoyer des emails de confirmations
 
 *IMPORTANT*
@@ -23,3 +22,4 @@
 -DONE- Add image support to reservation. Cloud storage (Will have to add a image viewer in the admin panel)
 -DONE- Recheck the purpose of the status badges, approved confirmed pending, etc
 -DONE- Setup App Hosting
+-DONE- Add captcha v3 on all forms.

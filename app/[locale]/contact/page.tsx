@@ -125,7 +125,6 @@ export default function ContactPage() {
     }
     // --- END reCAPTCHA LOGIC ---
 
-
     try {
       const imageUrls: string[] = [];
       if (contactImages.length > 0) {
