@@ -35,9 +35,12 @@ exports.sendReservationConfirmationEmail = onDocumentCreated(
         const userEmail = reservationData.email;
         const userName = reservationData.firstName;
         const bookingReference = reservationData.bookingReference;
+        const bookingAddress = reservationData.address;
+        const phone = reservationData.phone;
         const selectedDate = reservationData.selectedDate;
         const selectedTime = reservationData.selectedTime;
         const serviceType = reservationData.serviceType;
+        const price = reservationData.price;
 
         if (!userEmail) {
           logger.error("No email found in reservation data.");
@@ -48,10 +51,14 @@ exports.sendReservationConfirmationEmail = onDocumentCreated(
 
         const emailContent = await email.renderAll("confirmation", {
           userName,
+          userEmail,
           bookingReference,
+          bookingAddress,
+          phone,
           selectedDate,
           selectedTime,
           serviceType,
+          price,
         });
 
         const resend = new Resend(resendApiKey.value());
