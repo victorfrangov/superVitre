@@ -1,4 +1,4 @@
-const {onDocumentWritten} = require("firebase-functions/v2/firestore");
+const {onDocumentCreated} = require("firebase-functions/v2/firestore");
 const {defineSecret} = require("firebase-functions/params");
 const logger = require("firebase-functions/logger");
 const {Resend} = require("resend");
@@ -19,9 +19,9 @@ const email = new Email({
 });
 
 // Example: Send a confirmation email when a new reservation is created
-exports.sendReservationConfirmationEmail = onDocumentWritten(
-    "reservations/{reservationId}",
+exports.sendReservationConfirmationEmail = onDocumentCreated(
     {
+      document: "reservations/{reservationId}",
       secrets: [resendApiKey],
     },
     async (event) => {
@@ -29,12 +29,15 @@ exports.sendReservationConfirmationEmail = onDocumentWritten(
           event.params.reservationId);
 
       try {
-        const reservationData = event.data.after.data();
+        const reservationData = event.data.data();
         logger.log("Reservation data:", reservationData);
 
         const userEmail = reservationData.email;
         const userName = reservationData.firstName;
         const bookingReference = reservationData.bookingReference;
+        const selectedDate = reservationData.selectedDate;
+        const selectedTime = reservationData.selectedTime;
+        const serviceType = reservationData.serviceType;
 
         if (!userEmail) {
           logger.error("No email found in reservation data.");
@@ -46,6 +49,9 @@ exports.sendReservationConfirmationEmail = onDocumentWritten(
         const emailContent = await email.renderAll("confirmation", {
           userName,
           bookingReference,
+          selectedDate,
+          selectedTime,
+          serviceType,
         });
 
         const resend = new Resend(resendApiKey.value());
@@ -54,6 +60,7 @@ exports.sendReservationConfirmationEmail = onDocumentWritten(
           to: [userEmail],
           subject: emailContent.subject,
           html: emailContent.html,
+          text: emailContent.text,
         });
 
         if (error) {
