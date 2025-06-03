@@ -23,8 +23,7 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import NavigationBar from "@/components/navigation-bar"
 import { collection, query, where, getDocs, orderBy } from "firebase/firestore"
-import { db, assetStorage } from "@/app/firebase/config"
-import { ref, getDownloadURL } from "firebase/storage"
+import { db } from "@/app/firebase/config"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
 
 interface FaqItem {
@@ -116,11 +115,12 @@ export default function LandingPage() {
     const fetchHeroImage = async () => {
       setHeroImageLoading(true);
       try {
-        const imageRef = ref(assetStorage, 'logo.JPEG'); 
-        const url = await getDownloadURL(imageRef);
-        setHeroImageUrl(url);
+        // Set the hero image URL directly from the CDN
+        setHeroImageUrl("http://cdn.supervitre.net/logo.JPEG"); 
       } catch (error) {
-        console.error("Error fetching hero image from Firebase Storage:", error);
+        // This catch block might be less relevant for a static URL,
+        // but kept in case of future changes or if an error state is still desired.
+        console.error("Error setting hero image URL (CDN):", error);
       } finally {
         setHeroImageLoading(false);
       }
@@ -128,22 +128,49 @@ export default function LandingPage() {
 
     const fetchBeforeAfterImages = async () => {
       setBeforeAfterLoading(true);
-      try {
-        const beforePromises = [];
-        const afterPromises = [];
-        for (let i = 1; i <= 15; i++) {
-          beforePromises.push(getDownloadURL(ref(assetStorage, `avant-${i}.webp`)).catch(() => null));
-          afterPromises.push(getDownloadURL(ref(assetStorage, `apres-${i}.webp`)).catch(() => null));
+      const cdnBaseUrl = "http://cdn.supervitre.net/avantapres/";
+      const maxImagesToCheck = 50; // Max number of images to check for each category
+
+      const verifiedBefores: string[] = [];
+      const verifiedAfters: string[] = [];
+
+      // Helper function to check if an image URL is valid using the Image object
+      const checkImageExists = (url: string): Promise<string | null> => {
+        return new Promise((resolve) => {
+          const img = new window.Image();
+          img.onload = () => resolve(url); // Image exists
+          img.onerror = () => resolve(null); // Image doesn't exist or error loading
+          img.src = url;
+        });
+      };
+
+      // Check "before" images sequentially
+      for (let i = 1; i <= maxImagesToCheck; i++) {
+        const imageUrl = `${cdnBaseUrl}avant-${i}.webp`;
+        const existingUrl = await checkImageExists(imageUrl);
+        if (existingUrl) {
+          verifiedBefores.push(existingUrl);
+        } else {
+          // Assuming images are sequential, if one is missing, stop checking for more "before" images
+          break;
         }
-        const befores = (await Promise.all(beforePromises)).filter(Boolean);
-        const afters = (await Promise.all(afterPromises)).filter(Boolean);
-        setBeforeImages(befores as string[]);
-        setAfterImages(afters as string[]);
-      } catch (error) {
-        console.error('Error fetching before/after images:', error);
-      } finally {
-        setBeforeAfterLoading(false);
       }
+
+      // Check "after" images sequentially
+      for (let i = 1; i <= maxImagesToCheck; i++) {
+        const imageUrl = `${cdnBaseUrl}apres-${i}.webp`;
+        const existingUrl = await checkImageExists(imageUrl);
+        if (existingUrl) {
+          verifiedAfters.push(existingUrl);
+        } else {
+          // Assuming images are sequential, if one is missing, stop checking for more "after" images
+          break;
+        }
+      }
+
+      setBeforeImages(verifiedBefores);
+      setAfterImages(verifiedAfters);
+      setBeforeAfterLoading(false);
     };
 
     fetchApprovedFeedbacks()
