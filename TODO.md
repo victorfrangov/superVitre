@@ -5,9 +5,6 @@
 *QUICK*
 - Change opened hours and contact info in contact page
 
-**Need domain/email address**
-- Envoyer des emails de confirmations
-
 *IMPORTANT*
 - Fix database security rules
 
@@ -23,3 +20,4 @@
 -DONE- Recheck the purpose of the status badges, approved confirmed pending, etc
 -DONE- Setup App Hosting
 -DONE- Add captcha v3 on all forms.
+-DONE- Envoyer des emails de confirmations (English and french)
