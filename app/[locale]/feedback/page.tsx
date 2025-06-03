@@ -90,7 +90,6 @@ export default function FeedbackPage() {
           throw new Error("reCAPTCHA token was not generated.");
         }
       } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : String(error);
         setFormError(t("form.recaptchaError"));
         setIsSubmitting(false);
         return; 

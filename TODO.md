@@ -1,6 +1,7 @@
 *TODO*
 
 - Add media, logos, videos on the pages
+- Add before n after section right under the hero section
 
 *QUICK*
 - Change opened hours and contact info in contact page
