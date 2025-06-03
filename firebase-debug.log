@@ -1,0 +1,35 @@
+[debug] [2025-06-03T02:22:53.969Z] ----------------------------------------------------------------------
+[debug] [2025-06-03T02:22:53.972Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\victo\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only functions
+[debug] [2025-06-03T02:22:53.972Z] CLI Version:   14.5.1
+[debug] [2025-06-03T02:22:53.972Z] Platform:      win32
+[debug] [2025-06-03T02:22:53.972Z] Node Version:  v20.10.0
+[debug] [2025-06-03T02:22:53.972Z] Time:          Mon Jun 02 2025 22:22:53 GMT-0400 (Eastern Daylight Saving Time)
+[debug] [2025-06-03T02:22:53.972Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-06-03T02:22:54.127Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-06-03T02:22:54.128Z] > authorizing via signed-in user (victor.frangov@gmail.com)
+[debug] [2025-06-03T02:22:54.128Z] [iam] checking project supervitre-3a19e for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2025-06-03T02:22:54.129Z] Checked if tokens are valid: false, expires at: 1748911856134
+[debug] [2025-06-03T02:22:54.129Z] Checked if tokens are valid: false, expires at: 1748911856134
+[debug] [2025-06-03T02:22:54.129Z] > refreshing access token with scopes: []
+[debug] [2025-06-03T02:22:54.130Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-06-03T02:22:54.131Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-06-03T02:22:54.335Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-06-03T02:22:54.335Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-06-03T02:22:54.341Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/supervitre-3a19e:testIamPermissions [none]
+[debug] [2025-06-03T02:22:54.341Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/supervitre-3a19e:testIamPermissions x-goog-quota-user=projects/supervitre-3a19e
+[debug] [2025-06-03T02:22:54.341Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/supervitre-3a19e:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2025-06-03T02:22:54.646Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/supervitre-3a19e:testIamPermissions 200
+[debug] [2025-06-03T02:22:54.646Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/supervitre-3a19e:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2025-06-03T02:22:54.647Z] Checked if tokens are valid: true, expires at: 1748920973335
+[debug] [2025-06-03T02:22:54.647Z] Checked if tokens are valid: true, expires at: 1748920973335
+[debug] [2025-06-03T02:22:54.647Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/supervitre-3a19e/serviceAccounts/supervitre-3a19e@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2025-06-03T02:22:54.647Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/supervitre-3a19e/serviceAccounts/supervitre-3a19e@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2025-06-03T02:22:55.065Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/supervitre-3a19e/serviceAccounts/supervitre-3a19e@appspot.gserviceaccount.com:testIamPermissions 404
+[debug] [2025-06-03T02:22:55.065Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/supervitre-3a19e/serviceAccounts/supervitre-3a19e@appspot.gserviceaccount.com:testIamPermissions {"error":{"code":404,"message":"Unknown service account","status":"NOT_FOUND"}}
+[debug] [2025-06-03T02:22:55.066Z] [functions] service account IAM check errored, deploy may fail: Request to https://iam.googleapis.com/v1/projects/supervitre-3a19e/serviceAccounts/supervitre-3a19e@appspot.gserviceaccount.com:testIamPermissions had HTTP Error: 404, Unknown service account {"name":"FirebaseError","children":[],"context":{"body":{"error":{"code":404,"message":"Unknown service account","status":"NOT_FOUND"}},"response":{"statusCode":404}},"exit":1,"message":"Request to https://iam.googleapis.com/v1/projects/supervitre-3a19e/serviceAccounts/supervitre-3a19e@appspot.gserviceaccount.com:testIamPermissions had HTTP Error: 404, Unknown service account","status":404}
+[info] 
+[info] === Deploying to 'supervitre-3a19e'...
+[info] 
+[info] i  deploying functions 
+[info] Running command: npm --prefix "$RESOURCE_DIR" run lint
