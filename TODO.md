@@ -1,7 +1,8 @@
 *TODO*
 
 - Add media, logos, videos on the pages
-- Optimize image loading
+- Optimize image loading (CDN) + TinyPng
+- Webhooks for Resend emails
 
 *QUICK*
 - Change opened hours and contact info in contact page
