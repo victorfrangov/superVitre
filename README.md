@@ -18,8 +18,8 @@ SuperVitre is a modern web application designed for managing window cleaning ser
 
 ## Tech Stack
 
-- **Frontend**: React, Next.js, Tailwind CSS
-- **Backend**: Firebase (Authentication, Firestore)
+- **Frontend**: React, Next.js
+- **Backend**: Firebase, Resend, Google Cloud, Squarespace
 - **Styling**: Tailwind CSS
 - **State Management**: React Context API
 - **Animations**: Framer Motion
@@ -28,7 +28,7 @@ SuperVitre is a modern web application designed for managing window cleaning ser
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/your-username/supervitre.git
+git clone https://github.com/vict0rfr/supervitre.git
 cd supervitre
 ```
 
@@ -71,8 +71,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 If you have any questions or need assistance, feel free to reach out:
 
-- **Email**: support@supervitre.com
-- **Phone**: +1 (555) 123-4567
+- **Email**: support@supervitre.net
 
 You can also follow us on social media for updates and promotions:
 
