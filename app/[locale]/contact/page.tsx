@@ -188,14 +188,14 @@ export default function ContactPage() {
                       <Phone className="size-5 text-primary mt-0.5" />
                       <div>
                         <h3 className="font-medium">{t("contactInfo.phone")}</h3>
-                        <p className="text-sm text-muted-foreground">(555) 123-4567</p>
+                        <p className="text-sm text-muted-foreground">(438) 503-8171</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
                       <Mail className="size-5 text-primary mt-0.5" />
                       <div>
                         <h3 className="font-medium">{t("contactInfo.email")}</h3>
-                        <p className="text-sm text-muted-foreground">contact@supervitre.com</p>
+                        <p className="text-sm text-muted-foreground">support@supervitre.net</p>
                       </div>
                     </div>
                   </CardContent>

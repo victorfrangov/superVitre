@@ -96,43 +96,42 @@
   },
   "pricing": {
     "title": "Simple and Transparent Pricing",
-    "description": "Choose the plan that brightens your everyday life.",
-    "plans": {
-      "basic": {
-        "title": "Basic",
-        "price": "$99",
-        "description": "The essentials for clear windows and a welcoming home, ideal for regular maintenance.",
-        "features": [
-          "Exterior cleaning of all windows",
-          "Exterior frame cleaning"
-        ],
-        "cta": "Choose this plan"
+    "description": "Choose the package that brightens your daily life. No hidden fees, no surprises.",
+    "smallWindows": {
+      "title": "Small Windows",
+      "description": "Standard residential windows",
+      "extPrice": "$5 – $8 per window",
+      "extIntPrice": "$8 – $12 per window"
+    },
+    "largeWindows": {
+      "title": "Large Windows",
+      "description": "Patio doors, bay windows, etc.",
+      "extPrice": "$8 – $12 per window",
+      "extIntPrice": "$16 – $20 per window"
+    },
+    "exteriorOnly": "Exterior only: ",
+    "interiorExterior": "Interior + Exterior: ",
+    "borders": "Borders: ",
+    "included": "Included",
+    "extras": {
+      "title": "Add-ons & Extras",
+      "description": "Customize your cleaning",
+      "seal": {
+        "title": "Add seal: ",
+        "price": "$1 – $3 per window"
       },
-      "pro": {
-        "title": "Standard",
-        "price": "$199",
-        "description": "Our most popular package for impeccable cleanliness, inside and out. Rediscover clarity!",
-        "features": [
-          "Exterior and interior cleaning of all windows",
-          "Complete cleaning of frames and rails",
-          "Screen Cleaning"
-        ],
-        "popular": "Most Popular",
-        "cta": "Choose Standard"
+      "screens": {
+        "title": "Screen cleaning: ",
+        "price": "$3 – $5 per screen"
       },
-      "enterprise": {
-        "title": "Premium",
-        "price": "$299",
-        "description": "The ultimate SuperVitre experience. Give your windows the royal treatment for unparalleled shine and protection.",
-        "features": [
-          "Exterior and interior cleaning of all windows",
-          "Complete cleaning of frames and rails",
-          "Screen cleaning",
-          "Application of a special protective sealant to the windows",
-          "Polishing windows for maximum shine"
-        ],
-        "cta": "Choose Premium"
+      "extraFloors": {
+        "title": "Multi-floor: ",
+        "price": "Extra charge applies"
       }
+    },
+    "footer": {
+      "averageCost": "Average cost per home: ",
+      "note": "Final price may vary depending on number of windows, size, accessibility, and number of floors. Contact us for a personalized quote."
     }
   },
   "faq": {

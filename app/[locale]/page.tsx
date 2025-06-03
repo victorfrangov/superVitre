@@ -20,13 +20,12 @@ import {
 import { Button } from "@/components/ui/button"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
-import { Tabs } from "@/components/ui/tabs"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import NavigationBar from "@/components/navigation-bar"
 import { collection, query, where, getDocs, orderBy } from "firebase/firestore"
 import { db, assetStorage } from "@/app/firebase/config"
 import { ref, getDownloadURL } from "firebase/storage"
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
+import { Dialog, DialogContent } from "@/components/ui/dialog"
 
 interface FaqItem {
   question: string
@@ -604,7 +603,6 @@ export default function LandingPage() {
         {/* Pricing Section */}
         <section id="pricing" className="w-full py-20 md:py-32 bg-muted/30 relative overflow-hidden">
           <div className="absolute inset-0 -z-10 h-full w-full bg-white dark:bg-black [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_40%,transparent_100%)]"></div>
-
           <div className="container px-4 md:px-6 relative">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -613,71 +611,81 @@ export default function LandingPage() {
               transition={{ duration: 0.5 }}
               className="flex flex-col items-center justify-center space-y-4 text-center mb-12"
             >
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">{pricingT("title")}</h2>
-              <p className="max-w-[800px] text-muted-foreground md:text-lg">{pricingT("description")}</p>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">{pricingT("title", { defaultValue: "Pricing" })}</h2>
+              <p className="max-w-[800px] text-muted-foreground md:text-lg">
+                {pricingT("description", { defaultValue: "Transparent pricing for every window and every home." })}
+              </p>
             </motion.div>
-
             <div className="mx-auto max-w-5xl">
-              <Tabs defaultValue="monthly" className="w-full">
-                <div className="grid md:grid-cols-3 gap-8">
-                  {[
-                    {
-                      title: pricingT("plans.basic.title"),
-                      price: pricingT("plans.basic.price"),
-                      description: pricingT("plans.basic.description"),
-                      features: pricingT.raw("plans.basic.features"),
-                      cta: pricingT("plans.basic.cta"),
-                    },
-                    {
-                      title: pricingT("plans.pro.title"),
-                      price: pricingT("plans.pro.price"),
-                      description: pricingT("plans.pro.description"),
-                      features: pricingT.raw("plans.pro.features"),
-                      cta: pricingT("plans.pro.cta"),
-                      popular: true,
-                    },
-                    {
-                      title: pricingT("plans.enterprise.title"),
-                      price: pricingT("plans.enterprise.price"),
-                      description: pricingT("plans.enterprise.description"),
-                      features: pricingT.raw("plans.enterprise.features"),
-                      cta: pricingT("plans.enterprise.cta"),
-                    },
-                  ].map((plan, i) => (
-                    <Card key={i} className={`flex flex-col relative ${plan.popular ? "border-primary ring-2 ring-primary shadow-lg" : "border-border/40"} ${i === 1 ? "mt-4 md:mt-0" : ""}`}>
-                      {plan.popular && (
-                        <Badge className="absolute top-[-2.5rem] left-1/2 transform -translate-x-1/2 rounded-full px-3 py-1 text-sm font-medium">
-                          {pricingT("plans.pro.popular")}
-                        </Badge>
-                      )}
-                      <CardHeader className="pt-8">
-                        <CardTitle className="text-2xl font-bold">{plan.title}</CardTitle>
-                        <CardDescription>{plan.description}</CardDescription>
-                      </CardHeader>
-                      <CardContent className="flex-grow">
-                        <Tabs defaultValue="monthly" className="w-full">
-                          <div className="text-4xl font-bold mb-2">
-                            <span>{plan.price}</span>
-                          </div>
-                        </Tabs>
-                        <ul className="space-y-2 text-sm text-muted-foreground">
-                          {plan.features.map((feature: string, idx: number) => (
-                            <li key={idx} className="flex items-start gap-2">
-                              <Check className="size-4 text-primary mt-1 flex-shrink-0" />
-                              <span>{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </CardContent>
-                      <CardFooter>
-                        <Button className="w-full rounded-full" variant={plan.popular ? "default" : "outline"}>
-                          {plan.cta}
-                        </Button>
-                      </CardFooter>
-                    </Card>
-                  ))}
+              <div className="grid gap-8 md:grid-cols-3">
+                {/* Small Windows */}
+                <Card className="flex flex-col border-primary/40">
+                  <CardHeader className="pt-8">
+                    <CardTitle className="text-2xl font-bold">{pricingT("smallWindows.title")}</CardTitle>
+                    <CardDescription>{pricingT("smallWindows.description")}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-2 text-base text-muted-foreground">
+                      <li>
+                        <span className="font-semibold text-foreground">{pricingT("exteriorOnly")}</span>{pricingT("smallWindows.extPrice", { defaultValue: "5$ - 8$ par fenêtre" })}
+                      </li>
+                      <li>
+                        <span className="font-semibold text-foreground">{pricingT("interiorExterior")}</span>{pricingT("smallWindows.extIntPrice", { defaultValue: "8$ - 12$ par fenêtre" })}
+                      </li>
+                      <li>
+                        <span className="font-semibold text-foreground">{pricingT("borders")}</span>{pricingT("included", { defaultValue: "Inclus" })}
+                      </li>
+                    </ul>
+                  </CardContent>
+                </Card>
+                {/* Large Windows */}
+                <Card className="flex flex-col border-primary/40">
+                  <CardHeader className="pt-8">
+                    <CardTitle className="text-2xl font-bold">{pricingT("largeWindows.title")}</CardTitle>
+                    <CardDescription>{pricingT("largeWindows.description")}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-2 text-base text-muted-foreground">
+                      <li>
+                        <span className="font-semibold text-foreground">{pricingT("exteriorOnly")}</span>{pricingT("largeWindows.extPrice", { defaultValue: "8$ - 12$ par fenêtre" })}
+                      </li>
+                      <li>
+                        <span className="font-semibold text-foreground">{pricingT("interiorExterior")}</span>{pricingT("largeWindows.extIntPrice", { defaultValue: "16$ - 20$ par fenêtre" })}
+                      </li>
+                      <li>
+                        <span className="font-semibold text-foreground">{pricingT("borders")}</span>{pricingT("included", { defaultValue: "Inclus" })}
+                      </li>
+                    </ul>
+                  </CardContent>
+                </Card>
+                {/* Add-ons & Extras */}
+                <Card className="flex flex-col border-primary/40">
+                  <CardHeader className="pt-8">
+                    <CardTitle className="text-2xl font-bold">{pricingT("extras.title")}</CardTitle>
+                    <CardDescription>{pricingT("extras.description")}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-2 text-base text-muted-foreground">
+                      <li>
+                        <span className="font-semibold text-foreground">{pricingT("extras.seal.title")}</span>{pricingT("extras.seal.price", { defaultValue: "1$ - 3$ par fenêtre" })}
+                      </li>
+                      <li>
+                        <span className="font-semibold text-foreground">{pricingT("extras.screens.title")}</span>{pricingT("extras.screens.price", { defaultValue: "3$ - 5$ par moustiquaire" })}
+                      </li>
+                      <li>
+                        <span className="font-semibold text-foreground">{pricingT("extras.extraFloors.title")}</span>{pricingT("extras.extraFloors.price", { defaultValue: "10$ - 20$ par étage supplémentaire" })}
+                      </li>
+                    </ul>
+                  </CardContent>
+                </Card>
+              </div>
+              <div className="mt-10 text-center">
+                <div className="text-lg font-semibold text-primary">{pricingT("footer.averageCost")}<span className="font-bold">$180 – $350</span>
                 </div>
-              </Tabs>
+                <div className="text-sm text-muted-foreground mt-2">
+                  {pricingT("footer.note", { defaultValue: "Les prix peuvent varier en fonction de la taille et de l'état des fenêtres." })}
+                </div>
+              </div>
             </div>
           </div>
         </section>

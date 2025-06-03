@@ -1,7 +1,7 @@
 *TODO*
 
 - Add media, logos, videos on the pages
-- Add before n after section right under the hero section
+- Optimize image loading
 
 *QUICK*
 - Change opened hours and contact info in contact page
@@ -22,3 +22,4 @@
 -DONE- Setup App Hosting
 -DONE- Add captcha v3 on all forms.
 -DONE- Envoyer des emails de confirmations (English and french)
+-DONE- Add before n after section right under the hero section

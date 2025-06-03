@@ -96,43 +96,48 @@
   },
   "pricing": {
     "title": "Tarification Simple et Transparente",
-    "description": "Choisissez le forfait qui illumine votre quotidien.",
-    "plans": {
-      "basic": {
-        "title": "Basique",
-        "price": "99$",
-        "description": "L'essentiel pour des vitres claires et une maison accueillante, idéal pour un entretien régulier.",
-        "features": [
-          "Lavage extérieur de toutes les vitres",
-          "Nettoyage des cadres extérieurs"
-        ],
-          "cta": "Choisir ce plan"
+    "description": "Choisissez le forfait qui illumine votre quotidien. Pas de frais cachés, pas de surprises.",
+    "exteriorOnly": "Extérieur Seulement: ",
+    "interiorExterior": "Intérieur & Extérieur: ",
+    "borders": "Cadres: ",
+    "included": "Inclus",
+    "smallWindows": {
+      "title": "Petites Fenêtres",
+      "description": "Fenêtres résidentielles standard.",
+      "extPrice": "5$ - 8$ par fenêtre",
+      "extIntPrice": "8$ - 12$ par fenêtre",
+      "details": "Nettoyage intérieur et extérieur de petites fenêtres."
+    },
+    "largeWindows": {
+      "title": "Grandes Fenêtres",
+      "description": "Portes de patios, fenêtres principales, etc.",
+      "extPrice": "8$ - 12$ par fenêtre",
+      "extIntPrice": "16$ - 20$ par fenêtre",
+      "price": "À partir de 80$",
+      "details": "Nettoyage intérieur et extérieur de grandes fenêtres."
+    },
+    "extras": {
+      "title": "Extras",
+      "description": "Ajoutez des services supplémentaires pour un nettoyage complet.",
+      "screens": {
+        "title": "Moustiquaires: ",
+        "price": "3$ - 5$ par moustiquaire",
+        "details": "Nettoyage des moustiquaires pour une vue dégagée."
       },
-      "pro": {
-        "title": "Standard",
-        "price": "199$",
-        "description": "Notre formule la plus populaire pour une propreté impeccable, intérieur comme extérieur. Redécouvrez la clarté !",
-        "features": [
-          "Lavage extérieur et intérieur de toutes les vitres",
-          "Nettoyage complet des cadres et rails",
-          "Nettoyage des moustiquaires"
-        ],
-        "popular": "Le Plus Populaire",
-        "cta": "Choisir Standard"
+      "seal": {
+        "title": "Scellants: ",
+        "price": "1$ - 3$ par fenêtre",
+        "details": "Application de scellant pour protéger vos fenêtres contre les intempéries."
       },
-      "enterprise": {
-        "title": "Premium",
-        "price": "299$",
-        "description": "L'expérience SuperVitre ultime. Offrez à vos vitres un traitement royal pour une brillance et une protection inégalées.",
-        "features": [
-          "Lavage extérieur et intérieur de toutes les vitres",
-          "Nettoyage complet des cadres et rails",
-          "Nettoyage des moustiquaires",
-          "Application d'un scellant protecteur spécial sur les vitres",
-          "Polissage des vitres pour une brillance maximale"
-        ],
-        "cta": "Choisir Premium"
+      "extraFloors": {
+        "title": "Étages Supplémentaires: ",
+        "price": "10$ - 20$ par étage supplémentaire",
+        "details": "Nettoyage des fenêtres situées à des étages supérieurs."
       }
+    },
+    "footer": {
+      "averageCost": "Coût moyen pour une maison de taille moyenne : ",
+      "note": "*Tous les prix sont estimés et peuvent varier en fonction de la taille et de l'état des fenêtres. Contactez-nous pour un devis personnalisé."
     }
   },
   "faq": {
