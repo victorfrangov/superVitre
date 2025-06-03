@@ -27,6 +27,14 @@
       "cancelAnytime": "Annulez à tout moment"
     }
   },
+  "beforeAfter": {
+    "title": "Avant et Après",
+    "description": "Découvrez la différence que SuperVitre peut apporter à vos fenêtres. Nos services de lavage de vitres transforment votre espace en un lieu lumineux et accueillant.",
+    "beforeImageAlt": "Avant le lavage de vitre",
+    "before": "Avant",
+    "after": "Après",
+    "afterImageAlt": "Après le lavage de vitre"
+  },
   "features": {
     "badge": "Nos Services",
     "title": "Des Fenêtres Étincelantes, Pour Vous",

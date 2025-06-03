@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useTranslations } from "next-intl"
 import { Link } from "@/i18n/navigation"
 import Image from "next/image"
@@ -26,6 +26,7 @@ import NavigationBar from "@/components/navigation-bar"
 import { collection, query, where, getDocs, orderBy } from "firebase/firestore"
 import { db, assetStorage } from "@/app/firebase/config"
 import { ref, getDownloadURL } from "firebase/storage"
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 
 interface FaqItem {
   question: string
@@ -47,10 +48,19 @@ export default function LandingPage() {
   const [feedbacksLoading, setFeedbacksLoading] = useState(true)
   const [heroImageUrl, setHeroImageUrl] = useState<string | null>(null)
   const [heroImageLoading, setHeroImageLoading] = useState(true)
+  const [beforeImages, setBeforeImages] = useState<string[]>([]);
+  const [afterImages, setAfterImages] = useState<string[]>([]);
+  const [modalImage, setModalImage] = useState<{ url: string; label: string } | null>(null);
+  const [beforeAfterLoading, setBeforeAfterLoading] = useState(true)
+
+  // Add refs for scrolling containers
+  const beforeScrollRef = useRef<HTMLDivElement>(null)
+  const afterScrollRef = useRef<HTMLDivElement>(null)
 
   // Get translations
   const t = useTranslations()
   const navT = useTranslations("navigation")
+  const bnaT = useTranslations("beforeAfter")
   const heroT = useTranslations("hero")
   const ctaT = useTranslations("cta")
   const featuresT = useTranslations("features")
@@ -117,8 +127,29 @@ export default function LandingPage() {
       }
     };
 
+    const fetchBeforeAfterImages = async () => {
+      setBeforeAfterLoading(true);
+      try {
+        const beforePromises = [];
+        const afterPromises = [];
+        for (let i = 1; i <= 15; i++) {
+          beforePromises.push(getDownloadURL(ref(assetStorage, `avant-${i}.webp`)).catch(() => null));
+          afterPromises.push(getDownloadURL(ref(assetStorage, `apres-${i}.webp`)).catch(() => null));
+        }
+        const befores = (await Promise.all(beforePromises)).filter(Boolean);
+        const afters = (await Promise.all(afterPromises)).filter(Boolean);
+        setBeforeImages(befores as string[]);
+        setAfterImages(afters as string[]);
+      } catch (error) {
+        console.error('Error fetching before/after images:', error);
+      } finally {
+        setBeforeAfterLoading(false);
+      }
+    };
+
     fetchApprovedFeedbacks()
     fetchHeroImage()
+    fetchBeforeAfterImages()
 
     return () => window.removeEventListener("scroll", handleScroll)
   }, [testimonialsT])
@@ -177,6 +208,44 @@ export default function LandingPage() {
       icon: <Star className="size-5" />,
     },
   ]
+
+  // Auto-scroll effect for before/after images
+  useEffect(() => {
+    let beforeInterval: NodeJS.Timeout | null = null
+    let afterInterval: NodeJS.Timeout | null = null
+
+    function startAutoScroll(ref: React.RefObject<HTMLDivElement>) {
+      if (!ref.current) return
+      let scrollAmount = 0
+      const scrollStep = 1 // px per tick
+      const scrollDelay = 20 // ms per tick
+
+      return setInterval(() => {
+        if (!ref.current) return
+        if (
+          ref.current.scrollLeft + ref.current.offsetWidth >=
+          ref.current.scrollWidth
+        ) {
+          // Reset to start for infinite loop
+          ref.current.scrollLeft = 0
+        } else {
+          ref.current.scrollLeft += scrollStep
+        }
+      }, scrollDelay)
+    }
+
+    if (beforeImages.length > 1) {
+      beforeInterval = startAutoScroll(beforeScrollRef)
+    }
+    if (afterImages.length > 1) {
+      afterInterval = startAutoScroll(afterScrollRef)
+    }
+
+    return () => {
+      if (beforeInterval) clearInterval(beforeInterval)
+      if (afterInterval) clearInterval(afterInterval)
+    }
+  }, [beforeImages, afterImages])
 
   return (
     <div className="flex min-h-[100dvh] flex-col">
@@ -256,6 +325,107 @@ export default function LandingPage() {
               <div className="absolute -top-6 -left-6 -z-10 h-[300px] w-[300px] rounded-full bg-gradient-to-br from-secondary/30 to-primary/30 blur-3xl opacity-70"></div>
             </motion.div>
           </div>
+        </section>
+
+        {/* Before and After Section with Seamless Auto-Scroll */}
+        <section id="before-after" className="w-full py-20 md:py-32 bg-muted/30">
+          {/* Remove container for full width */}
+          <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+              {bnaT("title", { defaultValue: "See the Difference!" })}
+            </h2>
+            <p className="max-w-[800px] text-muted-foreground md:text-lg">
+              {bnaT("description", { defaultValue: "Swipe through our real results. Tap any image to zoom in!" })}
+            </p>
+          </div>
+          {beforeAfterLoading ? (
+            <div className="flex justify-center items-center h-40">
+              <ImageIcon className="size-16 text-muted-foreground animate-pulse" />
+            </div>
+          ) : (
+            <>
+              {/* Before Images Auto-Scroll (scroll left) */}
+              <div className="mb-10 w-full">
+                <h3 className="text-xl font-bold mb-4 text-center">{bnaT("before", { defaultValue: "Before" })}</h3>
+                <div className="relative overflow-hidden w-full">
+                  <div className="flex animate-scroll-left space-x-6 group w-max">
+                    {[...beforeImages, ...beforeImages].map((url, idx) => (
+                      <button
+                        key={idx}
+                        className="flex-shrink-0 rounded-xl overflow-hidden border border-border/40 bg-gradient-to-b from-background to-muted/20 w-64 h-80 transition-transform hover:scale-105"
+                        onClick={() => setModalImage({ url, label: `${bnaT("before", { defaultValue: "Before" })} ${((idx % beforeImages.length) + 1)}` })}
+                        aria-label={`Voir avant ${((idx % beforeImages.length) + 1)}`}
+                        type="button"
+                      >
+                        <Image src={url} width={320} height={400} alt={`Before cleaning ${((idx % beforeImages.length) + 1)}`} className="w-full h-full object-cover" />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              {/* After Images Auto-Scroll (scroll right) */}
+              <div className="w-full">
+                <h3 className="text-xl font-bold mb-4 text-center">{bnaT("after", { defaultValue: "After" })}</h3>
+                <div className="relative overflow-hidden w-full">
+                  <div className="flex animate-scroll-right space-x-6 group w-max">
+                    {[...afterImages, ...afterImages].map((url, idx) => (
+                      <button
+                        key={idx}
+                        className="flex-shrink-0 rounded-xl overflow-hidden border border-border/40 bg-gradient-to-b from-background to-muted/20 w-64 h-80 transition-transform hover:scale-105"
+                        onClick={() => setModalImage({ url, label: `${bnaT("after", { defaultValue: "After" })} ${((idx % afterImages.length) + 1)}` })}
+                        aria-label={`Voir après ${((idx % afterImages.length) + 1)}`}
+                        type="button"
+                      >
+                        <Image src={url} width={320} height={400} alt={`After cleaning ${((idx % afterImages.length) + 1)}`} className="w-full h-full object-cover" />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              {/* Modal for enlarged image */}
+              <Dialog open={!!modalImage} onOpenChange={() => setModalImage(null)}>
+                <DialogContent className="max-w-2xl w-full flex flex-col items-center max-h-[90vh] overflow-auto">
+                  {modalImage && (
+                    <>
+                      <span className="mb-2 font-semibold text-lg">{modalImage.label}</span>
+                      <div className="w-full flex justify-center items-center">
+                        <Image
+                          src={modalImage.url}
+                          width={640}
+                          height={800}
+                          alt={modalImage.label}
+                          className="w-auto max-h-[70vh] h-auto rounded-xl object-contain"
+                          style={{ maxWidth: "100%" }}
+                        />
+                      </div>
+                    </>
+                  )}
+                </DialogContent>
+              </Dialog>
+            </>
+          )}
+          <style jsx>{`
+            @keyframes scroll-left {
+              0% { transform: translateX(0); }
+              100% { transform: translateX(-50%); }
+            }
+            @keyframes scroll-right {
+              0% { transform: translateX(-50%); }
+              100% { transform: translateX(0); }
+            }
+            .animate-scroll-left {
+              animation: scroll-left 60s linear infinite;
+            }
+            .animate-scroll-left:hover {
+              animation-play-state: paused;
+            }
+            .animate-scroll-right {
+              animation: scroll-right 60s linear infinite;
+            }
+            .animate-scroll-right:hover {
+              animation-play-state: paused;
+            }
+          `}</style>
         </section>
 
         {/* Features Section */}

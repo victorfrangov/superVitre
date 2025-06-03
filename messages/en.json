@@ -27,6 +27,14 @@
       "cancelAnytime": "Cancel Anytime"
     }
   },
+  "beforeAfter": {
+    "title": "Before and After",
+    "description": "See the difference our professional window cleaning can make.",
+    "beforeImageAlt": "Before cleaning",
+    "before": "Before",
+    "after": "After",
+    "afterImageAlt": "After cleaning"
+  },
   "features": {
     "badge": "Our Services",
     "title": "Sparkling Windows, For You",
