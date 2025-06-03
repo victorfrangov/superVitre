@@ -25,7 +25,7 @@ export default function NavigationBar() {
     setMounted(true);
     const fetchLogo = async () => {
       try {
-        const logoRef = ref(assetStorage, 'logo.JPEG');
+        const logoRef = ref(assetStorage, 'favicon.webp');
         const url = await getDownloadURL(logoRef);
         setLogoUrl(url);
       } catch (error) {

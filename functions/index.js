@@ -49,7 +49,9 @@ exports.sendReservationConfirmationEmail = onDocumentCreated(
 
         logger.log("Sending email to:", userEmail);
 
-        const emailContent = await email.renderAll("confirmation", {
+        const locale = reservationData.locale || "fr";
+
+        const emailContent = await email.renderAll(`${locale}/confirmation`, {
           userName,
           userEmail,
           bookingReference,

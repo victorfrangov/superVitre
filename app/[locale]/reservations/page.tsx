@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useState, useEffect, useMemo } from "react"
-import { useTranslations } from "next-intl"
+import { useTranslations, useLocale } from "next-intl"
 import { Link } from "@/i18n/navigation"
 import { motion } from "framer-motion"
 import { format, addDays, startOfWeek, addWeeks, isSameDay, isBefore, parse, getHours } from "date-fns"
@@ -43,6 +43,7 @@ interface Reservation {
   submittedAt: string
   price: number
   specialInstructionsImageUrls?: string[];
+  locale?: string;
 }
 
 const MAX_IMAGES = 5; // Define the maximum number of images
@@ -68,6 +69,7 @@ const generateHourlyTimeSlots = (date: Date): string[] => {
 
 export default function ReservationsPage() {
   const t = useTranslations("reservations")
+  const locale = useLocale(); // Get the current locale
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [selectedTime, setSelectedTime] = useState<string | null>(null)
   const [currentMonth, setCurrentMonth] = useState(new Date())
@@ -90,6 +92,7 @@ export default function ReservationsPage() {
   const [specialInstructionsImages, setSpecialInstructionsImages] = useState<File[]>([]) // Changed to File[]
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submissionError, setSubmissionError] = useState<string | null>(null)
+  const [confirmedBookingReference, setConfirmedBookingReference] = useState<string | null>(null); // New state
 
   const [reservations, setReservations] = useState<Reservation[]>([])
   const [isLoadingReservations, setIsLoadingReservations] = useState(true)
@@ -291,7 +294,6 @@ export default function ReservationsPage() {
       return
     }
 
-    // Double check availability before submitting (optional, client-side check)
     const dayData = calendarDays.find(d => d.date && selectedDate && isSameDay(d.date, selectedDate));
     const slotData = dayData?.timeSlots.find(s => s.time === selectedTime);
     if (!slotData?.available) {
@@ -299,6 +301,11 @@ export default function ReservationsPage() {
         setIsSubmitting(false);
         return;
     }
+
+    // Generate bookingReference here, once per submission attempt
+    const currentBookingReference = `SV${Math.floor(Math.random() * 100000000)
+      .toString()
+      .padStart(7, "0")}`;
 
     try {
       const servicePrices: Record<string, number> = {
@@ -311,7 +318,7 @@ export default function ReservationsPage() {
       const imageUrls: string[] = []
       if (specialInstructionsImages.length > 0) {
         for (const imageFile of specialInstructionsImages) {
-          const imageRef = ref(clientStorage, `reservation_instructions/${bookingReference}/${Date.now()}_${imageFile.name}`)
+          const imageRef = ref(clientStorage, `reservation_instructions/${currentBookingReference}/${Date.now()}_${imageFile.name}`)
           try {
             const snapshot = await uploadBytes(imageRef, imageFile)
             const downloadUrl = await getDownloadURL(snapshot.ref);
@@ -326,22 +333,23 @@ export default function ReservationsPage() {
 
       const reservationData: Reservation = {
         ...formData,
-        selectedDate: format(selectedDate!, "yyyy-MM-dd"), // Added non-null assertion assuming validation handles it
-        selectedTime: selectedTime!, // Added non-null assertion
-        bookingReference, // Ensure bookingReference is defined in this scope
+        selectedDate: format(selectedDate!, "yyyy-MM-dd"), 
+        selectedTime: selectedTime!, 
+        bookingReference: currentBookingReference, // Use the generated reference
         status: "pending",
-        submittedAt: format(new Date(), "yyyy-MM-dd HH:mm:ss"), // More precise timestamp
+        submittedAt: format(new Date(), "yyyy-MM-dd HH:mm:ss"), 
         price,
         specialInstructionsImageUrls: imageUrls,
+        locale: locale, // Add the locale here
       }
 
       await addDoc(collection(db, "reservations"), reservationData)
       
-      // Manually add the new reservation to the local state to update UI immediately
-      // or re-fetch. For simplicity, adding locally:
+      setConfirmedBookingReference(currentBookingReference); // Store the confirmed reference in state
+      
       setReservations(prevReservations => [...prevReservations, {...reservationData, id: "temp-" + Date.now()}]);
 
-      setSpecialInstructionsImages([]); // Clear images after successful submission
+      setSpecialInstructionsImages([]); 
       setStep(3)
     } catch (error) {
       console.error("Error adding document: ", error)
@@ -355,11 +363,6 @@ export default function ReservationsPage() {
     if (newStep === 2 && !selectedDate && !selectedTime) return
     setStep(newStep)
   }
-
-  // Generate a mock booking reference
-  const bookingReference = `SV${Math.floor(Math.random() * 100000000)
-    .toString()
-    .padStart(7, "0")}`
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -810,7 +813,7 @@ export default function ReservationsPage() {
                     <div className="space-y-6">
                       <div className="text-xl font-bold border border-border rounded-md py-3 bg-muted/30">
                         <p>{t("confirmation.reference")}</p>
-                        <p className="text-primary">{bookingReference}</p>
+                        <p className="text-primary">{confirmedBookingReference}</p> {/* Use the state variable here */}
                       </div>
 
                       <div className="text-left border border-border rounded-md p-4">
