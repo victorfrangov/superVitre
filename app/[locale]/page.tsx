@@ -116,7 +116,7 @@ export default function LandingPage() {
       setHeroImageLoading(true);
       try {
         // Set the hero image URL directly from the CDN
-        setHeroImageUrl("http://cdn.supervitre.net/logo.JPEG"); 
+        setHeroImageUrl("https://cdn.supervitre.net/logo.JPEG"); 
       } catch (error) {
         // This catch block might be less relevant for a static URL,
         // but kept in case of future changes or if an error state is still desired.
@@ -128,7 +128,7 @@ export default function LandingPage() {
 
     const fetchBeforeAfterImages = async () => {
       setBeforeAfterLoading(true);
-      const cdnBaseUrl = "http://cdn.supervitre.net/avantapres/";
+      const cdnBaseUrl = "https://cdn.supervitre.net/avantapres/";
       const maxImagesToCheck = 50; // Max number of images to check for each category
 
       const verifiedBefores: string[] = [];

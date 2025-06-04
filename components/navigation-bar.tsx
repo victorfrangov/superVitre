@@ -16,7 +16,7 @@ export default function NavigationBar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { theme, setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const [logoUrl, setLogoUrl] = useState<string | null>("http://cdn.supervitre.net/favicon.webp");
+  const [logoUrl, setLogoUrl] = useState<string | null>("https://cdn.supervitre.net/favicon.webp");
 
   useEffect(() => {
     setMounted(true);
