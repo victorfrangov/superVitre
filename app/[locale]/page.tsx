@@ -410,17 +410,17 @@ export default function LandingPage() {
               </div>
               {/* Modal for enlarged image */}
               <Dialog open={!!modalImage} onOpenChange={() => setModalImage(null)}>
-                <DialogContent className="max-w-2xl w-full flex flex-col items-center max-h-[90vh] overflow-auto">
+                <DialogContent className="max-w-2xl w-full p-2 sm:p-3 md:p-4 flex flex-col items-center max-h-[90vh] overflow-auto">
                   {modalImage && (
                     <>
-                      <span className="mb-2 font-semibold text-lg">{modalImage.label}</span>
-                      <div className="w-full flex justify-center items-center">
+                      <span className="mb-1 sm:mb-2 font-semibold text-lg shrink-0">{modalImage.label}</span>
+                      <div className="w-full flex-grow flex justify-center items-center overflow-hidden">
                         <Image
                           src={modalImage.url}
                           width={640}
                           height={800}
                           alt={modalImage.label}
-                          className="w-auto max-h-[70vh] h-auto rounded-xl object-contain"
+                          className="w-auto h-auto max-w-full max-h-full rounded-lg object-contain"
                           style={{ maxWidth: "100%" }}
                         />
                       </div>

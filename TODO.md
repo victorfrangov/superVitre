@@ -1,8 +1,6 @@
 *TODO*
 
 - Add media, logos, videos on the pages
-- Optimize image loading (CDN) + TinyPng
-- Webhooks for Resend emails
 
 *QUICK*
 - Change opened hours and contact info in contact page
@@ -24,3 +22,4 @@
 -DONE- Add captcha v3 on all forms.
 -DONE- Envoyer des emails de confirmations (English and french)
 -DONE- Add before n after section right under the hero section
+-DONE- Optimize image loading (CDN) + TinyPng
