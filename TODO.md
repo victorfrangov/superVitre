@@ -1,6 +1,7 @@
 *TODO*
 
 - Add media, logos, videos on the pages
+- Setup apphosting.yaml
 
 *QUICK*
 - Change opened hours and contact info in contact page
