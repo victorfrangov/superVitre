@@ -50,14 +50,21 @@ const MAX_IMAGES = 5; // Define the maximum number of images
 
 // Generates hourly time slots for a given date
 const generateHourlyTimeSlots = (date: Date): string[] => {
-  const dayOfWeek = date.getDay() // Sunday = 0, Saturday = 6
-
-  if (dayOfWeek === 0) return [] // No slots on Sunday
+  const dayOfWeek = date.getDay() // Sunday = 0, Monday = 1, ..., Saturday = 6
 
   const slots: string[] = []
-  const startHour = 9
-  // Saturday: 9 AM, 10 AM, 11 AM. Other weekdays: 9 AM - 4 PM.
-  const endHour = dayOfWeek === 6 ? 11 : 16 // Hours are 0-23. 16 means up to 4:xx PM.
+  const startHour = 10 // All days start at 10 AM
+
+  let endHour;
+
+  // Determine end hour based on contact page hours
+  // Last slot should start one hour before closing if slots are 1hr.
+  // The SERVICE_DURATION logic will handle blocking for longer services.
+  if (dayOfWeek >= 1 && dayOfWeek <= 5) { // Monday to Friday
+    endHour = 18
+  } else { // Saturday (6) or Sunday (0)
+    endHour = 16
+  }
 
   for (let hour = startHour; hour <= endHour; hour++) {
     const slotTime = new Date(date)

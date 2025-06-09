@@ -116,7 +116,7 @@ export default function LandingPage() {
       setHeroImageLoading(true);
       try {
         // Set the hero image URL directly from the CDN
-        setHeroImageUrl("https://cdn.supervitre.net/logo.JPEG"); 
+        setHeroImageUrl("https://cdn.supervitre.net/hero-2.webp"); 
       } catch (error) {
         // This catch block might be less relevant for a static URL,
         // but kept in case of future changes or if an error state is still desired.
@@ -279,18 +279,18 @@ export default function LandingPage() {
       <main className="flex-1">
         {/* Hero Section */}
         <section className="w-full py-20 md:py-32 lg:py-40 overflow-hidden">
-          <div className="container px-4 md:px-6 relative">
+          <div className="container px-4 md:px-6 relative flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-12 xl:gap-16">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="text-center max-w-3xl mx-auto mb-12"
+              className="lg:w-1/2 xl:w-[45%] lg:max-w-2xl text-center lg:text-left mx-auto lg:mx-0 mb-12 lg:mb-0 flex flex-col items-center lg:items-start"
             >
               <h1 className="text-4xl md:text-5xl lg:text-6xl lg:leading-tight font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">
                 {heroT("title")}
               </h1>
-              <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">{heroT("description")}</p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto lg:mx-0">{heroT("description")}</p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Link href="/reservations">
                   <Button size="lg" className="rounded-full h-12 px-8 text-base">
                     {ctaT("reserve")}
@@ -303,7 +303,7 @@ export default function LandingPage() {
                   </Button>
                 </Link>
               </div>
-              <div className="flex items-center justify-center gap-4 mt-6 text-sm text-muted-foreground">
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mt-6 text-sm text-muted-foreground">
                 <div className="flex items-center gap-1">
                   <Check className="size-4 text-primary" />
                   <span>{heroT("benefits.noCreditCard")}</span>
@@ -319,13 +319,14 @@ export default function LandingPage() {
               </div>
             </motion.div>
 
+            {/* Image Content Block - Adjusted for side-by-side layout */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="relative mx-auto max-w-5xl"
+              className="lg:w-1/2 xl:w-[55%] relative w-full mx-auto lg:mx-0 lg:-mt-16" // Added lg:-mt-16 to move image up
             >
-              <div className="rounded-xl overflow-hidden shadow-2xl border border-border/40 bg-gradient-to-b from-background to-muted/20 aspect-[16/9]"> {/* Added aspect-ratio for placeholder */}
+              <div className="rounded-xl overflow-hidden shadow-2xl border border-border/40 bg-gradient-to-b from-background to-muted/20 aspect-[1/1]">
                 {heroImageLoading ? (
                   <div className="w-full h-full flex items-center justify-center bg-muted">
                     <ImageIcon className="size-16 text-muted-foreground animate-pulse" />
@@ -333,10 +334,10 @@ export default function LandingPage() {
                 ) : heroImageUrl ? (
                   <Image
                     src={heroImageUrl}
-                    width={1280}
-                    height={720}
-                    alt={heroT("imageAlt", {defaultValue: "Professional window cleaning service"})} // Added alt text from translations
-                    className="w-full h-full object-cover" // Ensure object-cover
+                    width={1280} // Original width, aspect ratio will be maintained
+                    height={960} // Adjusted height for 4/3 based on 1280 width
+                    alt={heroT("imageAlt", {defaultValue: "Professional window cleaning service"})}
+                    className="w-full h-full object-cover"
                     priority
                   />
                 ) : (
@@ -347,8 +348,9 @@ export default function LandingPage() {
                 )}
                 <div className="absolute inset-0 rounded-xl ring-1 ring-inset ring-black/10 dark:ring-white/10"></div>
               </div>
-              <div className="absolute -bottom-6 -right-6 -z-10 h-[300px] w-[300px] rounded-full bg-gradient-to-br from-primary/30 to-secondary/30 blur-3xl opacity-70"></div>
-              <div className="absolute -top-6 -left-6 -z-10 h-[300px] w-[300px] rounded-full bg-gradient-to-br from-secondary/30 to-primary/30 blur-3xl opacity-70"></div>
+              {/* Decorative blurs - their positioning is relative to this motion.div, so should adapt */}
+              <div className="absolute -bottom-6 -right-6 -z-10 h-[200px] w-[200px] md:h-[300px] md:w-[300px] rounded-full bg-gradient-to-br from-primary/30 to-secondary/30 blur-3xl opacity-50 lg:opacity-70"></div>
+              <div className="absolute -top-6 -left-6 -z-10 h-[200px] w-[200px] md:h-[300px] md:w-[300px] rounded-full bg-gradient-to-br from-secondary/30 to-primary/30 blur-3xl opacity-50 lg:opacity-70"></div>
             </motion.div>
           </div>
         </section>

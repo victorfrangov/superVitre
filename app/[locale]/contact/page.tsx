@@ -232,7 +232,7 @@ export default function ContactPage() {
                     </div>
                     <div className="flex justify-between">
                       <span className="font-medium">{t("hours.sunday")}</span>
-                      <span>{t("hours.closed")}</span>
+                      <span>10:00 AM - 4:00 PM</span>
                     </div>
                   </CardContent>
                 </Card>
