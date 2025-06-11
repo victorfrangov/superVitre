@@ -1,5 +1,12 @@
 "use client"
 
+// Extend the Window interface to include grecaptcha
+declare global {
+  interface Window {
+    grecaptcha?: any;
+  }
+}
+
 import type React from "react"
 import { useState, useEffect, useMemo } from "react"
 import { useTranslations, useLocale } from "next-intl"
@@ -246,7 +253,7 @@ export default function ReservationsPage() {
 
     let recaptchaToken = null;
 
-    if (typeof window !== 'undefined' && window.grecaptcha && process.env.NEXT_PUBLIC_SITE_CAPTCHA_KEY) {
+    if (typeof window !== 'undefined' && window.grecaptcha && process.env.NEXT_PUBLIC_SITE_CAPTCHA_ENTERPRISE_KEY) {
       try {
         await new Promise<void>((resolve, reject) => {
           window.grecaptcha.ready(() => {
@@ -257,7 +264,7 @@ export default function ReservationsPage() {
           }, 5000);
         });
         
-        recaptchaToken = await window.grecaptcha.execute(process.env.NEXT_PUBLIC_SITE_CAPTCHA_KEY, { action: 'submit_reservation' });
+        recaptchaToken = await window.grecaptcha.execute(process.env.NEXT_PUBLIC_SITE_CAPTCHA_ENTERPRISE_KEY, { action: 'submit_reservation' });
         if (!recaptchaToken) {
           throw new Error("reCAPTCHA token was not generated.");
         }

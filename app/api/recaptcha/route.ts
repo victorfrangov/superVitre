@@ -2,11 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { RecaptchaEnterpriseServiceClient } from '@google-cloud/recaptcha-enterprise';
 
 const PROJECT_ID = process.env.RECAPTCHA_PROJECT_ID;
-const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_SITE_CAPTCHA_KEY;
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_SITE_CAPTCHA_ENTERPRISE_KEY;
 
-/**
- * Create an assessment to analyze the risk of a UI action.
- */
 async function createRecaptchaAssessment({
   token,
   recaptchaAction,
@@ -46,8 +43,6 @@ async function createRecaptchaAssessment({
       response.riskAnalysis?.reasons?.forEach((reason) => {
         console.log(reason);
       });
-      // You can implement more sophisticated logic based on the score and reasons
-      // For example, require MFA for low scores or block very low scores.
       return { success: true, score: response.riskAnalysis?.score, error: null };
     } else {
       console.log(`Action mismatch: Expected ${recaptchaAction}, got ${response.tokenProperties?.action}`);
@@ -58,8 +53,6 @@ async function createRecaptchaAssessment({
     // Do not expose detailed error messages to the client in production
     throw new Error("Failed to verify reCAPTCHA token due to a server-side issue.");
   } finally {
-    // Closing the client is important, especially in serverless environments.
-    // Consider caching the client in high-traffic scenarios if appropriate for your deployment.
     await client.close();
   }
 }
@@ -71,9 +64,6 @@ export async function POST(req: NextRequest) {
     if (!token || !recaptchaAction) {
       return NextResponse.json({ success: false, error: 'Missing token or action.' }, { status: 400 });
     }
-
-    // Ensure your environment is configured for Google Cloud authentication
-    // e.g., GOOGLE_APPLICATION_CREDENTIALS environment variable is set.
     const assessmentResult = await createRecaptchaAssessment({ token, recaptchaAction });
 
     if (assessmentResult.success) {

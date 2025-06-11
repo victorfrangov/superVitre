@@ -74,7 +74,7 @@ export default function FeedbackPage() {
     // --- BEGIN reCAPTCHA LOGIC ---
     let recaptchaToken = null;
 
-    if (typeof window !== 'undefined' && window.grecaptcha && process.env.NEXT_PUBLIC_SITE_CAPTCHA_KEY) {
+    if (typeof window !== 'undefined' && window.grecaptcha && process.env.NEXT_PUBLIC_SITE_CAPTCHA_ENTERPRISE_KEY) {
       try {
         await new Promise<void>((resolve, reject) => {
           window.grecaptcha.ready(() => {
@@ -85,7 +85,7 @@ export default function FeedbackPage() {
           }, 5000);
         });
         
-        recaptchaToken = await window.grecaptcha.execute(process.env.NEXT_PUBLIC_SITE_CAPTCHA_KEY, { action: 'submit_feedback_form' });
+        recaptchaToken = await window.grecaptcha.execute(process.env.NEXT_PUBLIC_SITE_CAPTCHA_ENTERPRISE_KEY, { action: 'submit_feedback_form' });
         if (!recaptchaToken) {
           throw new Error("reCAPTCHA token was not generated.");
         }

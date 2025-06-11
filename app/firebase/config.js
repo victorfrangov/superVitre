@@ -22,9 +22,9 @@ const clientStorage = getStorage(app, "gs://supervitre-clients");
 const assetStorage = getStorage(app, "gs://supervitre-assets");
 
 if (typeof window !== "undefined") {
-  if (process.env.NEXT_PUBLIC_SITE_CAPTCHA_KEY) {
+  if (process.env.NEXT_PUBLIC_APP_CHECK_RECAPTCHA_V3_SITE_KEY) {
     const appCheck = initializeAppCheck(app, {
-      provider: new ReCaptchaV3Provider(process.env.NEXT_PUBLIC_SITE_CAPTCHA_KEY),
+      provider: new ReCaptchaV3Provider(process.env.NEXT_PUBLIC_APP_CHECK_RECAPTCHA_V3_SITE_KEY),
       isTokenAutoRefreshEnabled: true
     });
     console.log("Firebase App Check initialized with ReCaptchaV3Provider.");
