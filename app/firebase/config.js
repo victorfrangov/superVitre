@@ -21,13 +21,16 @@ const db = getFirestore(app);
 const clientStorage = getStorage(app, "gs://supervitre-clients");
 const assetStorage = getStorage(app, "gs://supervitre-assets");
 
-let appCheck;
-
-if (typeof window !== 'undefined') {
-  appCheck = initializeAppCheck(app, {
-    provider: new ReCaptchaV3Provider(process.env.NEXT_PUBLIC_SITE_CAPTCHA_KEY),
-    isTokenAutoRefreshEnabled: true
-  });
+if (typeof window !== "undefined") {
+  if (process.env.NEXT_PUBLIC_SITE_CAPTCHA_KEY) {
+    const appCheck = initializeAppCheck(app, {
+      provider: new ReCaptchaV3Provider(process.env.NEXT_PUBLIC_SITE_CAPTCHA_KEY),
+      isTokenAutoRefreshEnabled: true
+    });
+    console.log("Firebase App Check initialized with ReCaptchaV3Provider.");
+  } else {
+    console.error("reCAPTCHA V3 Site Key is NOT DEFINED for App Check.");
+  }
 }
 
-export { app, auth, db, clientStorage, assetStorage, appCheck };
+export { app, auth, db, clientStorage, assetStorage };

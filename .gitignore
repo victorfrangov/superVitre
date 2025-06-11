@@ -9,6 +9,7 @@
 
 # production
 /build
+app/api/recaptcha/supervitre-3a19e-*.json
 
 # debug
 npm-debug.log*

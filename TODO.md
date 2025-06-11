@@ -2,9 +2,7 @@
 
 *LATER ON*
 - Fine tune apphosting.yaml
-
-
-- Add media, logos, videos on the pages
+- Faire une estimation du prix baser sur le nb de fenetres et d'etages (refaire tt la page de reservation)
 
 *QUICK*
 - Change opened hours and contact info in contact page
@@ -27,3 +25,4 @@
 -DONE- Envoyer des emails de confirmations (English and french)
 -DONE- Add before n after section right under the hero section
 -DONE- Optimize image loading (CDN) + TinyPng
+-DONE- Add media, logos, videos on the pages
