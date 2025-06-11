@@ -219,6 +219,7 @@
       "imageUploadError": "Error trying to load image(s)",
       "submitErrorGeneric": "Failed to submit reservation. Please try again.",
       "recaptchaError": "reCAPTCHA Error.",
+      "recaptchaVerificationFailed": "reCAPTCHA Error",
       "recaptchaNotReadyError": "reCAPTCHA not ready.",
       "uploadImageButton": "Upload Image",
       "preferredContact": "Preferred Contact Method",

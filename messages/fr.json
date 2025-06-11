@@ -225,6 +225,7 @@
       "submitErrorGeneric": "Échec de la soumission de la réservation. Veuillez réessayer.",
       "removeImageAriaLabel": "Supprimer l'image {fileName}",
       "recaptchaError": "reCAPTCHA Error.",
+      "recaptchaVerificationFailed": "reCAPTCHA Error",
       "recaptchaNotReadyError": "reCAPTCHA pas pret.",
       "preferredContact": "Méthode de Contact Préférée",
       "contactMethods": {

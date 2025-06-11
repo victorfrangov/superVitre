@@ -1,11 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { RecaptchaEnterpriseServiceClient } from '@google-cloud/recaptcha-enterprise';
 
-// Ensure these are set in your .env.local or environment variables
-// RECAPTCHA_PROJECT_ID: Your Google Cloud Project ID
-// NEXT_PUBLIC_SITE_CAPTCHA_KEY: Your reCAPTCHA site key (used by client and server for siteKey in event)
-// GOOGLE_APPLICATION_CREDENTIALS: Path to your service account JSON file with "reCAPTCHA Enterprise Agent" role (for server-side authentication)
-
 const PROJECT_ID = process.env.RECAPTCHA_PROJECT_ID;
 const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_SITE_CAPTCHA_KEY;
 
@@ -32,7 +27,7 @@ async function createRecaptchaAssessment({
     assessment: {
       event: {
         token: token,
-        siteKey: RECAPTCHA_SITE_KEY, // This is your reCAPTCHA site key
+        siteKey: RECAPTCHA_SITE_KEY,
       },
     },
     parent: projectPath,
