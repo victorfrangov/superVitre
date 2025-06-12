@@ -327,7 +327,8 @@
       "responseMessage": "Nous avons bien reçu votre message et nous vous répondrons dès que possible.",
       "recaptchaError": "reCAPTCHA Error.",
       "recaptchaNotReadyError": "reCAPTCHA pas pret.",
-      "removeImageAriaLabel": "Supprimer l'image {fileName}"
+      "removeImageAriaLabel": "Supprimer l'image {fileName}",
+      "recaptchaVerificationFailed": "reCAPTCHA Error"
     }
   },
   "admin": {
