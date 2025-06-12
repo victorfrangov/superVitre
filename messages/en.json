@@ -97,6 +97,10 @@
   "pricing": {
     "title": "Simple and Transparent Pricing",
     "description": "Choose the package that brightens your daily life. No hidden fees, no surprises.",
+    "exteriorOnly": "Exterior only: ",
+    "interiorExterior": "Interior + Exterior: ",
+    "borders": "Borders: ",
+    "included": "Included",
     "smallWindows": {
       "title": "Small Windows",
       "description": "Standard residential windows",
@@ -109,24 +113,21 @@
       "extPrice": "$8 – $12 per window",
       "extIntPrice": "$16 – $20 per window"
     },
-    "exteriorOnly": "Exterior only: ",
-    "interiorExterior": "Interior + Exterior: ",
-    "borders": "Borders: ",
-    "included": "Included",
     "extras": {
       "title": "Add-ons & Extras",
       "description": "Customize your cleaning",
-      "seal": {
-        "title": "Add seal: ",
-        "price": "$1 – $3 per window"
-      },
       "screens": {
         "title": "Screen cleaning: ",
         "price": "$3 – $5 per screen"
       },
+      "seal": {
+        "title": "Add seal: ",
+        "price": "$1 – $3 per window"
+      },
       "extraFloors": {
         "title": "Multi-floor: ",
-        "price": "Extra charge applies"
+        "price": "Variable",
+        "hiddenPrice": "20$ - 30$ per floor"
       }
     },
     "footer": {
@@ -190,6 +191,7 @@
     "selectMoment": "Select a Date and Time",
     "form": {
       "reservationPour": "Booking for: ",
+      "atTime": "at",
       "firstName": "First Name",
       "lastName": "Last Name",
       "email": "Email Address",
@@ -210,6 +212,13 @@
       },
       "windows": "Number of Windows",
       "stories": "Number of Stories",
+      "selectStoriesPlaceholder": "Select the number of stories",
+      "includeInteriorLabel": "Include interior window cleaning",
+      "cleaningTypeLabel": "Cleaning Type:",
+      "interiorExterior": "Interior & Exterior",
+      "exteriorOnly": "Exterior Only",
+      "estimatedPriceLabel": "Estimated Price Range:",
+      "unableToEstimatePrice": "Unable to calculate an estimate at this time.",
       "specialInstructions": "Special Instructions",
       "specialInstructionsImageLabel": "Attach Images for Special Instructions (Optional, Max {count})",
       "selectedImage": "{count, plural, =0 {No images selected} =1 {Selected image:} other {{count} selected images}}",
@@ -260,7 +269,7 @@
       "details": "Booking Details",
       "date": "Date:",
       "time": "Time:",
-      "service": "Service:",
+      "nameLabel": "Name:",
       "contact": "We will contact you shortly to confirm your appointment."
     }
   },
@@ -397,7 +406,10 @@
         "stories": "Number of Stories",
         "submittedAt": "Submitted At",
         "close": "Close",
-        "price": "Price"
+        "price": "Price",
+        "interiorCleaning": "Interior",
+        "yes": "Yes",
+        "no": "No"
       },
       "status": {
         "confirmed": "Confirmed",

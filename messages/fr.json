@@ -105,34 +105,29 @@
       "title": "Petites Fenêtres",
       "description": "Fenêtres résidentielles standard.",
       "extPrice": "5$ - 8$ par fenêtre",
-      "extIntPrice": "8$ - 12$ par fenêtre",
-      "details": "Nettoyage intérieur et extérieur de petites fenêtres."
+      "extIntPrice": "8$ - 12$ par fenêtre"
     },
     "largeWindows": {
       "title": "Grandes Fenêtres",
       "description": "Portes de patios, fenêtres principales, etc.",
       "extPrice": "8$ - 12$ par fenêtre",
-      "extIntPrice": "16$ - 20$ par fenêtre",
-      "price": "À partir de 80$",
-      "details": "Nettoyage intérieur et extérieur de grandes fenêtres."
+      "extIntPrice": "16$ - 20$ par fenêtre"
     },
     "extras": {
       "title": "Extras",
       "description": "Ajoutez des services supplémentaires pour un nettoyage complet.",
       "screens": {
         "title": "Moustiquaires: ",
-        "price": "3$ - 5$ par moustiquaire",
-        "details": "Nettoyage des moustiquaires pour une vue dégagée."
+        "price": "3$ - 5$ par moustiquaire"
       },
       "seal": {
         "title": "Scellants: ",
-        "price": "1$ - 3$ par fenêtre",
-        "details": "Application de scellant pour protéger vos fenêtres contre les intempéries."
+        "price": "1$ - 3$ par fenêtre"
       },
       "extraFloors": {
         "title": "Étages Supplémentaires: ",
-        "price": "10$ - 20$ par étage supplémentaire",
-        "details": "Nettoyage des fenêtres situées à des étages supérieurs."
+        "price": "Variable",
+        "hiddenPrice": "20$ - 30$ par étage"
       }
     },
     "footer": {
@@ -195,7 +190,8 @@
     "serviceSubtitle": "Dites ce dont vous avez de besoin!",
     "selectMoment": "Sélectionnez une Date et une Heure",
     "form": {
-      "reservationPour": "Réservation pour: ",
+      "reservationPour": "Réservation pour : ",
+      "atTime": "à",
       "firstName": "Prénom",
       "lastName": "Nom",
       "email": "Adresse Email",
@@ -216,6 +212,13 @@
       },
       "windows": "Nombre de Fenêtres",
       "stories": "Nombre d'Étages",
+      "selectStoriesPlaceholder": "Sélectionnez le nombre d'étages",
+      "includeInteriorLabel": "Inclure le nettoyage intérieur des fenêtres",
+      "cleaningTypeLabel": "Type de Nettoyage :",
+      "interiorExterior": "Intérieur & Extérieur",
+      "exteriorOnly": "Extérieur Seulement",
+      "estimatedPriceLabel": "Fourchette de Prix Estimée :",
+      "unableToEstimatePrice": "Impossible de calculer une estimation pour le moment.",
       "specialInstructions": "Instructions Spéciales",
       "specialInstructionsImageLabel": "Joindre des Images pour Instructions Spéciales (Optionnel, Max {count})",
       "selectedImage": "{count, plural, =0 {Aucune image sélectionnée} =1 {Image sélectionnée :} other {{count} images sélectionnées}}",
@@ -265,7 +268,7 @@
       "details": "Détails de la Réservation",
       "date": "Date :",
       "time": "Heure :",
-      "service": "Service :",
+      "nameLabel": "Nom :",
       "contact": "Nous vous contacterons sous peu pour confirmer votre rendez-vous."
     }
   },
@@ -403,7 +406,10 @@
         "stories": "Nombre d'Étages",
         "submittedAt": "Soumis le",
         "close": "Fermer",
-        "price": "Prix"
+        "price": "Prix",
+        "interiorCleaning": "Intérieur",
+        "yes": "Oui",
+        "no": "Non"
       },
       "status": {
         "confirmed": "Confirmed",

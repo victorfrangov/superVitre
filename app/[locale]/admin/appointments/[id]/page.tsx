@@ -39,17 +39,18 @@ interface Reservation {
   city: string
   zipCode: string
   propertyType: string
-  serviceType: string
   windows: string
   stories: string
   specialInstructions?: string
   specialInstructionsImageUrls?: string[]
   price?: number
+  estimatedPriceRange?: string
   preferredContact: string
-  selectedDate: string // Expected as "yyyy-MM-dd" or full ISO string
+  selectedDate: string
   selectedTime: string
-  status: "pending" | "confirmed" | "cancelled" | "completed" | string // Allow other strings for flexibility
-  submittedAt?: string // Expected as ISO string
+  status: "pending" | "confirmed" | "cancelled" | "completed" | string
+  submittedAt?: string
+  includeInterior?: boolean
 }
 
 const formatDateDisplay = (dateString?: string, dateFormat: string = "PPP, p") => {
@@ -246,10 +247,11 @@ export default function AppointmentDetailPage() {
             </CardHeader>
             <CardContent className="space-y-3 text-sm">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3">
-                <div><strong className="font-medium text-muted-foreground">{t("table.service", {defaultValue: "Service Type"})}:</strong> {appointment.serviceType}</div>
-                <div><strong className="font-medium text-muted-foreground">{t("table.propertyType", {defaultValue: "Property Type"})}:</strong> {appointment.propertyType}</div>
-                <div><strong className="font-medium text-muted-foreground">{t("table.windows", {defaultValue: "Windows"})}:</strong> {appointment.windows}</div>
-                <div><strong className="font-medium text-muted-foreground">{t("table.stories", {defaultValue: "Stories"})}:</strong> {appointment.stories}</div>
+                <div><strong className="font-medium text-muted-foreground">{t("table.price", { defaultValue: "Estimated Price Range" })}:</strong>{" "}{appointment.estimatedPriceRange ? appointment.estimatedPriceRange : "-"}</div>
+                <div><strong className="font-medium text-muted-foreground">{t("table.propertyType", { defaultValue: "Property Type" })}:</strong>{" "}{appointment.propertyType}</div>
+                <div><strong className="font-medium text-muted-foreground">{t("table.windows", { defaultValue: "Windows" })}:</strong>{" "}{appointment.windows}</div>
+                <div><strong className="font-medium text-muted-foreground">{t("table.stories", { defaultValue: "Stories" })}:</strong>{" "}{appointment.stories}</div>
+                <div><strong className="font-medium text-muted-foreground">{t("table.interiorCleaning", { defaultValue: "Interior Cleaning" })}:</strong>{" "}{appointment.includeInterior? t("table.yes", { defaultValue: "Yes" }): t("table.no", { defaultValue: "No" })}</div>
               </div>
             </CardContent>
           </Card>

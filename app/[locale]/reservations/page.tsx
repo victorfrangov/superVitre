@@ -1,6 +1,5 @@
 "use client"
 
-// Extend the Window interface to include grecaptcha
 declare global {
   interface Window {
     grecaptcha?: any;
@@ -23,6 +22,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea"
 import NavigationBar from "@/components/navigation-bar"
 import { useForm } from "react-hook-form";
+import { Checkbox } from "@/components/ui/checkbox"
 
 import { collection, addDoc, query, where, getDocs } from "firebase/firestore"
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
@@ -38,9 +38,9 @@ interface Reservation {
   city: string
   zipCode: string
   propertyType: string
-  serviceType: string
   windows: string
   stories: string
+  includeInterior: boolean;
   specialInstructions: string
   preferredContact: string
   selectedDate: string
@@ -48,7 +48,7 @@ interface Reservation {
   bookingReference: string
   status: string
   submittedAt: string
-  price: number
+  estimatedPriceRange?: string;
   specialInstructionsImageUrls?: string[];
   locale?: string;
 }
@@ -83,6 +83,7 @@ const generateHourlyTimeSlots = (date: Date): string[] => {
 
 export default function ReservationsPage() {
   const t = useTranslations("reservations")
+  const tPricing = useTranslations("pricing");
   const locale = useLocale(); // Get the current locale
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [selectedTime, setSelectedTime] = useState<string | null>(null)
@@ -97,21 +98,94 @@ export default function ReservationsPage() {
     city: "",
     zipCode: "",
     propertyType: "residential",
-    serviceType: "Standard",
-    windows: "1",
+    windows: "10",
     stories: "1",
+    includeInterior: true,
     specialInstructions: "",
     preferredContact: "email",
   })
-  const [specialInstructionsImages, setSpecialInstructionsImages] = useState<File[]>([]) // Changed to File[]
+  const [specialInstructionsImages, setSpecialInstructionsImages] = useState<File[]>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submissionError, setSubmissionError] = useState<string | null>(null)
-  const [confirmedBookingReference, setConfirmedBookingReference] = useState<string | null>(null); // New state
+  const [confirmedBookingReference, setConfirmedBookingReference] = useState<string | null>(null); 
+  const [estimatedPrice, setEstimatedPrice] = useState<string | null>(null);
 
   const [reservations, setReservations] = useState<Reservation[]>([])
   const [isLoadingReservations, setIsLoadingReservations] = useState(true)
 
-  const { register, handleSubmit, formState: { errors } } = useForm<Reservation>(); // Or your specific form data type
+  const { register, handleSubmit, formState: { errors } } = useForm<Reservation>();
+
+  // Helper function to parse price strings like "X$ - Y$"
+  const parsePriceRange = (priceString: string): { min: number; max: number } => {
+    const parts = priceString.match(/(\d+)\$\s*-\s*(\d+)\$/);
+    if (parts && parts.length === 3) {
+      return { min: parseInt(parts[1], 10), max: parseInt(parts[2], 10) };
+    }
+    const singlePrice = priceString.match(/(\d+)\$/); // For cases like "X$"
+    if (singlePrice && singlePrice.length === 2) {
+      const val = parseInt(singlePrice[1], 10);
+      return { min: val, max: val };
+    }
+    return { min: 0, max: 0 }; // Default or error
+  };
+
+  useEffect(() => {
+    const numWindows = parseInt(formData.windows, 10);
+    let numStories = formData.stories === "4+" ? 4 : parseInt(formData.stories, 10); // Treat "4+" as 4 for calculation
+
+    if (isNaN(numWindows) || numWindows <= 0 || isNaN(numStories) || numStories <= 0) {
+      setEstimatedPrice(null);
+      return;
+    }
+
+    let minPricePerWindow: number;
+    let maxPricePerWindow: number;
+
+    if (formData.includeInterior) {
+      // Interior & Exterior selected
+      const smallWindowIntExtPriceString = tPricing("smallWindows.extIntPrice"); // e.g., "8$ - 12$"
+      const largeWindowIntExtPriceString = tPricing("largeWindows.extIntPrice"); // e.g., "16$ - 20$"
+      
+      minPricePerWindow = parsePriceRange(smallWindowIntExtPriceString).min;
+      maxPricePerWindow = parsePriceRange(largeWindowIntExtPriceString).max;
+    } else {
+      // Exterior Only selected
+      const smallWindowExtPriceString = tPricing("smallWindows.extPrice"); // e.g., "5$ - 8$"
+      const largeWindowExtPriceString = tPricing("largeWindows.extPrice"); // e.g., "8$ - 12$"
+
+      minPricePerWindow = parsePriceRange(smallWindowExtPriceString).min;
+      maxPricePerWindow = parsePriceRange(largeWindowExtPriceString).max;
+    }
+
+    let totalWindowMinCost = numWindows * minPricePerWindow;
+    let totalWindowMaxCost = numWindows * maxPricePerWindow;
+
+    let totalFloorMinCost = 0;
+    let totalFloorMaxCost = 0;
+
+    if (numStories > 1) {
+      const extraFloors = numStories - 1;
+      const floorPriceString = tPricing("extras.extraFloors.hiddenPrice"); // "20$ - 30$ par étage supplémentaire"
+      const { min: floorMinPricePerExtra, max: floorMaxPricePerExtra } = parsePriceRange(floorPriceString);
+      totalFloorMinCost = extraFloors * floorMinPricePerExtra;
+      totalFloorMaxCost = extraFloors * floorMaxPricePerExtra;
+    }
+
+    const estimatedMinTotal = totalWindowMinCost + totalFloorMinCost;
+    const estimatedMaxTotal = totalWindowMaxCost + totalFloorMaxCost;
+
+    if (estimatedMinTotal > 0 || estimatedMaxTotal > 0) {
+      // Ensure min is not greater than max if window count is low and ranges overlap significantly
+      if (estimatedMinTotal > estimatedMaxTotal && numWindows === 1) { // Or some other logic for single window
+         setEstimatedPrice(`$${Math.min(estimatedMinTotal, estimatedMaxTotal)} - $${Math.max(estimatedMinTotal, estimatedMaxTotal)}`);
+      } else {
+         setEstimatedPrice(`$${estimatedMinTotal} - $${estimatedMaxTotal}`);
+      }
+    } else {
+      setEstimatedPrice(t("form.unableToEstimatePrice"));
+    }
+  }, [formData.windows, formData.stories, formData.includeInterior, tPricing, t]);
+
 
   // Fetch reservations for the current 28-day view
   useEffect(() => {
@@ -206,8 +280,14 @@ export default function ReservationsPage() {
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
+    const { name, value, type } = e.target;
+    if (type === 'checkbox') {
+      // Assuming the checkbox is for 'includeInterior'
+      const { checked } = e.target as HTMLInputElement;
+      setFormData((prev) => ({ ...prev, [name]: checked }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   }
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -304,7 +384,7 @@ export default function ReservationsPage() {
       return; 
     }
 
-    const requiredFields: Array<keyof typeof formData> = [
+    const requiredFields: Array<keyof Omit<typeof formData, 'specialInstructions' | 'includeInterior' /* serviceType removed */>> = [
       "firstName",
       "lastName",
       "email",
@@ -312,14 +392,13 @@ export default function ReservationsPage() {
       "address",
       "city",
       "zipCode",
-      "serviceType",
       "windows",
       "stories",
       "preferredContact",
     ]
 
     for (const field of requiredFields) {
-      if (!formData[field] || formData[field].trim() === "") {
+      if (!formData[field] || String(formData[field]).trim() === "") {
         setSubmissionError(`Please fill in the ${field.replace(/([A-Z])/g, " $1").toLowerCase()} field.`)
         setIsSubmitting(false)
         return
@@ -346,13 +425,6 @@ export default function ReservationsPage() {
       .padStart(7, "0")}`;
 
     try {
-      const servicePrices: Record<string, number> = {
-        Basic: 50,
-        Standard: 100,
-        Premium: 150,
-      }
-      const price = servicePrices[formData.serviceType] || 0
-
       const imageUrls: string[] = []
       if (specialInstructionsImages.length > 0) {
         for (const imageFile of specialInstructionsImages) {
@@ -371,14 +443,14 @@ export default function ReservationsPage() {
 
       const reservationData: Reservation = {
         ...formData,
-        selectedDate: format(selectedDate!, "yyyy-MM-dd"), 
-        selectedTime: selectedTime!, 
-        bookingReference: currentBookingReference, // Use the generated reference
+        selectedDate: format(selectedDate!, "yyyy-MM-dd"),
+        selectedTime: selectedTime!,
+        bookingReference: currentBookingReference, 
         status: "pending",
-        submittedAt: format(new Date(), "yyyy-MM-dd HH:mm:ss"), 
-        price,
+        submittedAt: format(new Date(), "yyyy-MM-dd HH:mm:ss"),
+        estimatedPriceRange: estimatedPrice || undefined,
         specialInstructionsImageUrls: imageUrls,
-        locale: locale, // Add the locale here
+        locale: locale, 
       }
 
       await addDoc(collection(db, "reservations"), reservationData)
@@ -567,25 +639,13 @@ export default function ReservationsPage() {
             {/* Step 2: Contact Information */}
             {step === 2 && (
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
-                <div className="flex mb-8">
-                  <div className="flex-1 bg-background border rounded-l-lg p-4 flex items-center justify-center gap-2 text-muted-foreground">
-                    <span>1</span>
-                    <span>{t("selectMoment")}</span>
-                  </div>
-                  <div className="flex-1 bg-background border p-4 flex items-center justify-center gap-2 font-medium bg-primary/5">
-                    <Clock className="size-5" />
-                    <span>{t("contactInfo")}</span>
-                  </div>
-                </div>
-
                 <Card>
                   <CardHeader>
                     <CardTitle>{t("contactInfo")}</CardTitle>
                     <CardDescription>
                       {selectedDate && selectedTime && (
                         <span>
-                          {t("form.reservationPour")} <strong>{format(selectedDate, "EEEE, MMMM d, yyyy")}</strong> at{" "}
-                          <strong>{selectedTime}</strong>
+                          {t("form.reservationPour")} <strong>{format(selectedDate, "EEEE, MMMM d, yyyy")}</strong> {t("form.atTime")} <strong>{selectedTime}</strong>
                         </span>
                       )}
                     </CardDescription>
@@ -673,28 +733,6 @@ export default function ReservationsPage() {
                           <h3 className="text-xl font-bold tracking-tight">{t("serviceDetails")}</h3>
                           <p className="text-base text-muted-foreground">{t("serviceSubtitle")}</p>
                         </div>
-                        <div className="space-y-2">
-                          <Label>{t("form.serviceType")} <span className="text-destructive">*</span></Label>
-                          <RadioGroup
-                            defaultValue={formData.serviceType}
-                            onValueChange={(value) => handleRadioChange("serviceType", value)}
-                            className="grid grid-cols-1 sm:grid-cols-3 gap-2"
-                            required
-                          >
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="Basic" id="Basic" />
-                              <Label htmlFor="Basic">{t("form.serviceTypes.Basic")}</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="Standard" id="Standard" />
-                              <Label htmlFor="Standard">{t("form.serviceTypes.Standard")}</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="Premium" id="Premium" />
-                              <Label htmlFor="Premium">{t("form.serviceTypes.Premium")}</Label>
-                            </div>
-                          </RadioGroup>
-                        </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div className="space-y-2">
@@ -715,10 +753,9 @@ export default function ReservationsPage() {
                               name="stories"
                               value={formData.stories}
                               onValueChange={(value) => handleRadioChange("stories", value)}
-                              required
                             >
                               <SelectTrigger>
-                                <SelectValue placeholder="Select number of stories" />
+                                <SelectValue placeholder={t("form.selectStoriesPlaceholder")} />
                               </SelectTrigger>
                               <SelectContent>
                                 <SelectItem value="1">1</SelectItem>
@@ -728,6 +765,20 @@ export default function ReservationsPage() {
                               </SelectContent>
                             </Select>
                           </div>
+                        </div>
+                        
+                        <div className="flex items-center space-x-2 mt-4">
+                          <Checkbox
+                            id="includeInterior"
+                            name="includeInterior"
+                            checked={formData.includeInterior}
+                            onCheckedChange={(checked) => {
+                              setFormData((prev) => ({ ...prev, includeInterior: Boolean(checked) }));
+                            }}
+                          />
+                          <Label htmlFor="includeInterior" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                            {t("form.includeInteriorLabel")}
+                          </Label>
                         </div>
 
                         <div className="space-y-2">
@@ -826,24 +877,9 @@ export default function ReservationsPage() {
             {/* Step 3: Confirmation */}
             {step === 3 && (
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
-
-                {/* Progress steps */}
-                <div className="flex mb-8">
-                  <div className="flex-1 bg-background border rounded-l-lg p-4 flex items-center justify-center gap-2 text-muted-foreground">
-                    <span>1</span>
-                    <span>{t("selectMoment")}</span>
-                  </div>
-                  <div className="flex-1 bg-background border p-4 flex items-center justify-center gap-2 text-muted-foreground">
-                    <span>2</span>
-                    <span>{t("contactInfo")}</span>
-                  </div>
-                </div>
-
+                {/* ... progress steps ... */}
                 <Card className="text-center">
                   <CardHeader>
-                    <div className="mx-auto size-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                      <CheckCircle2 className="size-8 text-primary" />
-                    </div>
                     <CardTitle className="text-2xl">{t("confirmation.title")}</CardTitle>
                     <CardDescription>{t("confirmation.message")}</CardDescription>
                   </CardHeader>
@@ -851,7 +887,7 @@ export default function ReservationsPage() {
                     <div className="space-y-6">
                       <div className="text-xl font-bold border border-border rounded-md py-3 bg-muted/30">
                         <p>{t("confirmation.reference")}</p>
-                        <p className="text-primary">{confirmedBookingReference}</p> {/* Use the state variable here */}
+                        <p className="text-primary">{confirmedBookingReference}</p>
                       </div>
 
                       <div className="text-left border border-border rounded-md p-4">
@@ -868,18 +904,27 @@ export default function ReservationsPage() {
                             <p className="font-medium">{selectedTime}</p>
                           </div>
                           <div>
-                            <span className="text-muted-foreground">{t("confirmation.service")}</span>
-                            <p className="font-medium">{t(`form.serviceTypes.${formData.serviceType}`)}</p>
+                            <span className="text-muted-foreground">{t("form.windows")}</span>
+                            <p className="font-medium">{formData.windows}</p>
                           </div>
                           <div>
-                            <span className="text-muted-foreground">Name:</span>
+                            <span className="text-muted-foreground">{t("form.stories")}</span>
+                            <p className="font-medium">{formData.stories}</p>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">{t("form.cleaningTypeLabel")}</span>
                             <p className="font-medium">
-                              {formData.firstName} {formData.lastName}
+                              {formData.includeInterior ? t("form.interiorExterior") : t("form.exteriorOnly")}
                             </p>
                           </div>
+                          {estimatedPrice && (
+                            <div>
+                              <span className="text-muted-foreground">{t("form.estimatedPriceLabel")}</span>
+                              <p className="font-medium">{estimatedPrice}</p>
+                            </div>
+                          )}
                         </div>
                       </div>
-
                       <p className="text-muted-foreground">{t("confirmation.contact")}</p>
                     </div>
                   </CardContent>

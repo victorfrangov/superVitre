@@ -24,7 +24,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import NavigationBar from "@/components/navigation-bar"
 import { collection, query, where, getDocs, orderBy } from "firebase/firestore"
 import { db } from "@/app/firebase/config"
-import { Dialog, DialogContent } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 
 interface FaqItem {
   question: string
@@ -385,7 +385,14 @@ export default function LandingPage() {
                         aria-label={`Voir avant ${((idx % beforeImages.length) + 1)}`}
                         type="button"
                       >
-                        <Image src={url} width={320} height={400} alt={`Before cleaning ${((idx % beforeImages.length) + 1)}`} className="w-full h-full object-cover" />
+                        <Image
+                          src={url}
+                          width={320}
+                          height={400}
+                          alt={`Before cleaning ${((idx % beforeImages.length) + 1)}`}
+                          className="w-full h-full object-cover"
+                          priority // Add priority to all images
+                        />
                       </button>
                     ))}
                   </div>
@@ -404,7 +411,14 @@ export default function LandingPage() {
                         aria-label={`Voir après ${((idx % afterImages.length) + 1)}`}
                         type="button"
                       >
-                        <Image src={url} width={320} height={400} alt={`After cleaning ${((idx % afterImages.length) + 1)}`} className="w-full h-full object-cover" />
+                        <Image
+                          src={url}
+                          width={320}
+                          height={400}
+                          alt={`After cleaning ${((idx % afterImages.length) + 1)}`}
+                          className="w-full h-full object-cover"
+                          priority // Add priority to all images
+                        />
                       </button>
                     ))}
                   </div>
@@ -413,6 +427,16 @@ export default function LandingPage() {
               {/* Modal for enlarged image */}
               <Dialog open={!!modalImage} onOpenChange={() => setModalImage(null)}>
                 <DialogContent className="max-w-2xl w-full p-2 sm:p-3 md:p-4 flex flex-col items-center max-h-[90vh] overflow-auto">
+                  {/* Visually hidden title for accessibility */}
+                  <DialogTitle className="sr-only">
+                    {modalImage?.label || "Image preview"}
+                  </DialogTitle>
+                  {/* Visually hidden description for accessibility */}
+                  <DialogDescription className="sr-only">
+                    {modalImage?.label
+                      ? `Zoomed image: ${modalImage.label}`
+                      : "Zoomed image preview"}
+                  </DialogDescription>
                   {modalImage && (
                     <>
                       <span className="mb-1 sm:mb-2 font-semibold text-lg shrink-0">{modalImage.label}</span>

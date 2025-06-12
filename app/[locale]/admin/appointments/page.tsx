@@ -34,7 +34,6 @@ interface Reservation {
   city: string
   zipCode: string
   propertyType: string
-  serviceType: string
   windows: string
   stories: string
   specialInstructions?: string
@@ -45,6 +44,7 @@ interface Reservation {
   selectedTime: string
   status: "pending" | "confirmed" | "cancelled" | "completed" | string
   submittedAt?: string
+  estimatedPriceRange?: string
 }
 
 const formatDate = (isoDateString?: string) => {
@@ -230,7 +230,7 @@ export default function AppointmentsPage() {
                 <TableRow>
                   <TableHead>{t("table.id")}</TableHead>
                   <TableHead>{t("table.customer")}</TableHead>
-                  <TableHead>{t("table.service")}</TableHead>
+                  <TableHead>{t("table.price")}</TableHead>
                   <TableHead>{t("table.date")}</TableHead>
                   <TableHead>{t("table.time")}</TableHead>
                   <TableHead>{t("table.status")}</TableHead>
@@ -249,7 +249,12 @@ export default function AppointmentsPage() {
                     <TableRow key={appointment.id}>
                       <TableCell className="font-medium">{appointment.bookingReference}</TableCell>
                       <TableCell>{`${appointment.firstName} ${appointment.lastName}`}</TableCell>
-                      <TableCell>{appointment.serviceType}</TableCell>
+                      {/* Show estimatedPriceRange instead of serviceType */}
+                      <TableCell>
+                        {appointment.estimatedPriceRange
+                          ? appointment.estimatedPriceRange
+                          : "-"}
+                      </TableCell>
                       <TableCell>{formatDate(appointment.selectedDate)}</TableCell>
                       <TableCell>{appointment.selectedTime}</TableCell>
                       <TableCell>
