@@ -2,13 +2,7 @@
 
 *LATER ON*
 - Fine tune apphosting.yaml
-- Faire une estimation du prix baser sur le nb de fenetres et d'etages (refaire tt la page de reservation)
 
-*QUICK*
-- Change opened hours and contact info in contact page
-
-*IMPORTANT*
-- Fix database security rules
 
 -DONE- In admin panel, appointments -> see all info for appointment.
 -DONE- Add a customers database, when the client will reserve it will get the price to pay add += to the total spent, to keep track of how much the client spent
@@ -26,3 +20,6 @@
 -DONE- Add before n after section right under the hero section
 -DONE- Optimize image loading (CDN) + TinyPng
 -DONE- Add media, logos, videos on the pages
+-DONE- Change opened hours and contact info in contact page
+-DONE- Faire une estimation du prix baser sur le nb de fenetres et d'etages (refaire tt la page de reservation)
+-DONE- Fix database security rules

@@ -86,7 +86,23 @@ export default function AdminDashboardPage() {
         const totalCustomers = customersSnapshot.size;
 
         const totalAppointments = allAppointmentsData.length; // Count of all appointments
-        const totalRevenue = allAppointmentsData.reduce((sum, appt) => sum + (appt.price || 0), 0); // Revenue from all appointments
+        const parseMinFromRange = (range?: string) => {
+          if (!range) return 0;
+          // Match the first number in the string (e.g., "$24 - $60" or "24$ - 60$")
+          const match = range.match(/(\d+([.,]\d+)?)/);
+          return match ? parseFloat(match[1].replace(',', '.')) : 0;
+        };
+
+        const totalRevenue = allAppointmentsData.reduce((sum, appt) => {
+          if (appt.estimatedPriceRange) {
+            return sum + parseMinFromRange(appt.estimatedPriceRange);
+          }
+          if (appt.price) {
+            return sum + appt.price;
+          }
+          return sum;
+        }, 0); // Revenue from all appointments
+
         const totalInquiries = contactsData.length; // This is still based on recent 5 contacts.
 
         setStats([

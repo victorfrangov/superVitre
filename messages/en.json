@@ -325,7 +325,8 @@
       "thankYou": "Thank You!",
       "responseMessage": "We have received your message and will respond as soon as possible.",
       "recaptchaError": "reCAPTCHA Error.",
-      "recaptchaNotReadyError": "reCAPTCHA not ready."
+      "recaptchaNotReadyError": "reCAPTCHA not ready.",
+      "removeImageAriaLabel": "Remove image {fileName}"
     }
   },
   "admin": {

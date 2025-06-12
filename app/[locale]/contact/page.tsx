@@ -112,9 +112,33 @@ export default function ContactPage() {
         if (!recaptchaToken) {
           throw new Error("reCAPTCHA token was not generated.");
         }
+
+        // ---- Verify token with backend ----
+        const verificationResponse = await fetch('/api/recaptcha', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            token: recaptchaToken,
+            recaptchaAction: "submit_contact_form",
+          }),
+        });
+
+        const verificationData = await verificationResponse.json();
+
+        if (!verificationResponse.ok || !verificationData.success) {
+          setFormError(t("form.recaptchaVerificationFailed") + (verificationData.error ? `: ${verificationData.error}` : ''));
+          setIsSubmitting(false);
+          return;
+        }
+        // Optional: You could log verificationData.score or use it for further checks if needed
+        console.log("reCAPTCHA verification successful, score:", verificationData.score);
+        // ---- End verification ----
+
       } catch (error) {
         const errorMessage = error instanceof Error ? error.message : String(error);
-        setFormError(t("form.recaptchaError"));
+        setFormError(t("form.recaptchaError") + (errorMessage ? `: ${errorMessage}` : ""));
         setIsSubmitting(false);
         return;
       }
