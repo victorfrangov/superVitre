@@ -3,6 +3,8 @@
 *LATER ON*
 - Fine tune apphosting.yaml
 
+-fix email service
+
 
 -DONE- In admin panel, appointments -> see all info for appointment.
 -DONE- Add a customers database, when the client will reserve it will get the price to pay add += to the total spent, to keep track of how much the client spent
