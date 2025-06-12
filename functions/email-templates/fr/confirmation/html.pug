@@ -159,7 +159,7 @@ html(xmlns="http://www.w3.org/1999/xhtml", xmlns:v="urn:schemas-microsoft-com:vm
                                           table.t12(role="presentation", cellpadding="0", cellspacing="0", width="100%", style="width:100%;")
                                             tr
                                               td.t11(style="padding:0 0 22px 0;")
-                                                p.t10(style="margin:0;Margin:0;font-family:Albert Sans,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:22px;font-weight:400;font-style:normal;font-size:16px;text-decoration:none;text-transform:none;direction:ltr;color:#333333;text-align:left;mso-line-height-rule:exactly;mso-text-raise:2px;") Votre réservation #{serviceType} pour #{selectedDate} à #{selectedTime} est confirmée.
+                                                p.t10(style="margin:0;Margin:0;font-family:Albert Sans,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:22px;font-weight:400;font-style:normal;font-size:16px;text-decoration:none;text-transform:none;direction:ltr;color:#333333;text-align:left;mso-line-height-rule:exactly;mso-text-raise:2px;") Votre réservation pour le #{selectedDate} à #{selectedTime} est confirmée.
                                 tr
                                   td(align="center")
                                     table.t19(role="presentation", cellpadding="0", cellspacing="0", style="Margin-left:auto;Margin-right:auto;")
@@ -186,7 +186,7 @@ html(xmlns="http://www.w3.org/1999/xhtml", xmlns:v="urn:schemas-microsoft-com:vm
                                           table.t27(role="presentation", cellpadding="0", cellspacing="0", width="100%", style="width:100%;")
                                             tr
                                               td.t26
-                                                p.t25(style="margin:0;Margin:0;font-family:Albert Sans,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:22px;font-weight:bold;font-style:normal;font-size:16px;text-decoration:none;text-transform:none;direction:ltr;color:#333333;text-align:left;mso-line-height-rule:exactly;mso-text-raise:2px;") Type de Service
+                                                p.t25(style="margin:0;Margin:0;font-family:Albert Sans,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:22px;font-weight:bold;font-style:normal;font-size:16px;text-decoration:none;text-transform:none;direction:ltr;color:#333333;text-align:left;mso-line-height-rule:exactly;mso-text-raise:2px;") Type de Nettoyage
                                 tr
                                   td(align="center")
                                     table.t34(role="presentation", cellpadding="0", cellspacing="0", style="Margin-left:auto;Margin-right:auto;")
@@ -195,7 +195,26 @@ html(xmlns="http://www.w3.org/1999/xhtml", xmlns:v="urn:schemas-microsoft-com:vm
                                           table.t32(role="presentation", cellpadding="0", cellspacing="0", width="100%", style="width:100%;")
                                             tr
                                               td.t31(style="padding:0 0 22px 0;")
-                                                p.t30(style="margin:0;Margin:0;font-family:Albert Sans,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:22px;font-weight:400;font-style:normal;font-size:16px;text-decoration:none;text-transform:none;direction:ltr;color:#333333;text-align:left;mso-line-height-rule:exactly;mso-text-raise:2px;") #{serviceType}
+                                                p.t30(style="margin:0;Margin:0;font-family:Albert Sans,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:22px;font-weight:400;font-style:normal;font-size:16px;text-decoration:none;text-transform:none;direction:ltr;color:#333333;text-align:left;mso-line-height-rule:exactly;mso-text-raise:2px;") #{includeInterior ? 'Intérieur et extérieur' : 'Extérieur seulement'}
+                                if estimatedPriceRange
+                                  tr
+                                    td(align="center")
+                                      table.t29(role="presentation", cellpadding="0", cellspacing="0", style="Margin-left:auto;Margin-right:auto;") // Reusing classes for structure
+                                        tr
+                                          td.t28(width="500", style="width:600px;") 
+                                            table.t27(role="presentation", cellpadding="0", cellspacing="0", width="100%", style="width:100%;")
+                                              tr
+                                                td.t26
+                                                  p.t25(style="margin:0;Margin:0;font-family:Albert Sans,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:22px;font-weight:bold;font-style:normal;font-size:16px;text-decoration:none;text-transform:none;direction:ltr;color:#333333;text-align:left;mso-line-height-rule:exactly;mso-text-raise:2px;") Fourchette de prix estimée
+                                  tr
+                                    td(align="center")
+                                      table.t34(role="presentation", cellpadding="0", cellspacing="0", style="Margin-left:auto;Margin-right:auto;") // Reusing classes for structure
+                                        tr
+                                          td.t33(width="500", style="width:600px;") 
+                                            table.t32(role="presentation", cellpadding="0", cellspacing="0", width="100%", style="width:100%;")
+                                              tr
+                                                td.t31(style="padding:0 0 22px 0;")
+                                                  p.t30(style="margin:0;Margin:0;font-family:Albert Sans,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:22px;font-weight:400;font-style:normal;font-size:16px;text-decoration:none;text-transform:none;direction:ltr;color:#333333;text-align:left;mso-line-height-rule:exactly;mso-text-raise:2px;") #{estimatedPriceRange}
                                 tr
                                   td(align="center")
                                     table.t39(role="presentation", cellpadding="0", cellspacing="0", style="Margin-left:auto;Margin-right:auto;")

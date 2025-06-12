@@ -39,7 +39,8 @@ exports.sendReservationConfirmationEmail = onDocumentCreated(
         const phone = reservationData.phone;
         const selectedDate = reservationData.selectedDate;
         const selectedTime = reservationData.selectedTime;
-        const serviceType = reservationData.serviceType;
+        const estimatedPriceRange = reservationData.estimatedPriceRange;
+        const includeInterior = reservationData.includeInterior;
         const price = reservationData.price;
 
         if (!userEmail) {
@@ -59,7 +60,8 @@ exports.sendReservationConfirmationEmail = onDocumentCreated(
           phone,
           selectedDate,
           selectedTime,
-          serviceType,
+          estimatedPriceRange,
+          includeInterior,
           price,
         });
 
