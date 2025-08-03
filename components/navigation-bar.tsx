@@ -24,10 +24,11 @@ export default function NavigationBar() {
 
   const links = [
     { href: "/reservations", label: navT("reservations") },
-    { href: "/contact", label: navT("contact") },
     { href: "/#pricing", label: navT("pricing") },
+    { href: "/contact", label: navT("contact") },
     { href: "/feedback", label: navT("feedback") },
     { href: "/#faq", label: navT("faq") },
+    { href: "/about", label: navT("about") },
   ];
 
   const toggleTheme = () => {

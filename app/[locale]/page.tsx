@@ -728,6 +728,9 @@ export default function LandingPage() {
                       <li>
                         <span className="font-semibold text-foreground">{pricingT("extras.extraFloors.title")}</span>{pricingT("extras.extraFloors.price", { defaultValue: "10$ - 20$ par étage supplémentaire" })}
                       </li>
+                      <li>
+                        <span className="font-semibold text-foreground">{pricingT("extras.gutters.title")}</span>{pricingT("extras.gutters.price")}
+                      </li>
                     </ul>
                   </CardContent>
                 </Card>

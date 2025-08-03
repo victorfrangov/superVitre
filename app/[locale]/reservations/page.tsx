@@ -48,7 +48,6 @@ interface Reservation {
   bookingReference: string
   status: string
   submittedAt: string
-  estimatedPriceRange?: string;
   specialInstructionsImageUrls?: string[];
   locale?: string;
 }
@@ -83,7 +82,6 @@ const generateHourlyTimeSlots = (date: Date): string[] => {
 
 export default function ReservationsPage() {
   const t = useTranslations("reservations")
-  const tPricing = useTranslations("pricing");
   const locale = useLocale(); // Get the current locale
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [selectedTime, setSelectedTime] = useState<string | null>(null)
@@ -108,84 +106,20 @@ export default function ReservationsPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submissionError, setSubmissionError] = useState<string | null>(null)
   const [confirmedBookingReference, setConfirmedBookingReference] = useState<string | null>(null); 
-  const [estimatedPrice, setEstimatedPrice] = useState<string | null>(null);
 
   const [reservations, setReservations] = useState<Reservation[]>([])
   const [isLoadingReservations, setIsLoadingReservations] = useState(true)
 
   const { register, handleSubmit, formState: { errors } } = useForm<Reservation>();
 
-  // Helper function to parse price strings like "X$ - Y$"
-  const parsePriceRange = (priceString: string): { min: number; max: number } => {
-    const parts = priceString.match(/(\d+)\$\s*-\s*(\d+)\$/);
-    if (parts && parts.length === 3) {
-      return { min: parseInt(parts[1], 10), max: parseInt(parts[2], 10) };
-    }
-    const singlePrice = priceString.match(/(\d+)\$/); // For cases like "X$"
-    if (singlePrice && singlePrice.length === 2) {
-      const val = parseInt(singlePrice[1], 10);
-      return { min: val, max: val };
-    }
-    return { min: 0, max: 0 }; // Default or error
-  };
-
   useEffect(() => {
     const numWindows = parseInt(formData.windows, 10);
     let numStories = formData.stories === "4+" ? 4 : parseInt(formData.stories, 10); // Treat "4+" as 4 for calculation
 
     if (isNaN(numWindows) || numWindows <= 0 || isNaN(numStories) || numStories <= 0) {
-      setEstimatedPrice(null);
       return;
     }
-
-    let minPricePerWindow: number;
-    let maxPricePerWindow: number;
-
-    if (formData.includeInterior) {
-      // Interior & Exterior selected
-      const smallWindowIntExtPriceString = tPricing("smallWindows.extIntPrice"); // e.g., "8$ - 12$"
-      const largeWindowIntExtPriceString = tPricing("largeWindows.extIntPrice"); // e.g., "16$ - 20$"
-      
-      minPricePerWindow = parsePriceRange(smallWindowIntExtPriceString).min;
-      maxPricePerWindow = parsePriceRange(largeWindowIntExtPriceString).max;
-    } else {
-      // Exterior Only selected
-      const smallWindowExtPriceString = tPricing("smallWindows.extPrice"); // e.g., "5$ - 8$"
-      const largeWindowExtPriceString = tPricing("largeWindows.extPrice"); // e.g., "8$ - 12$"
-
-      minPricePerWindow = parsePriceRange(smallWindowExtPriceString).min;
-      maxPricePerWindow = parsePriceRange(largeWindowExtPriceString).max;
-    }
-
-    let totalWindowMinCost = numWindows * minPricePerWindow;
-    let totalWindowMaxCost = numWindows * maxPricePerWindow;
-
-    let totalFloorMinCost = 0;
-    let totalFloorMaxCost = 0;
-
-    if (numStories > 1) {
-      const extraFloors = numStories - 1;
-      const floorPriceString = tPricing("extras.extraFloors.hiddenPrice"); // "20$ - 30$ par étage supplémentaire"
-      const { min: floorMinPricePerExtra, max: floorMaxPricePerExtra } = parsePriceRange(floorPriceString);
-      totalFloorMinCost = extraFloors * floorMinPricePerExtra;
-      totalFloorMaxCost = extraFloors * floorMaxPricePerExtra;
-    }
-
-    const estimatedMinTotal = totalWindowMinCost + totalFloorMinCost;
-    const estimatedMaxTotal = totalWindowMaxCost + totalFloorMaxCost;
-
-    if (estimatedMinTotal > 0 || estimatedMaxTotal > 0) {
-      // Ensure min is not greater than max if window count is low and ranges overlap significantly
-      if (estimatedMinTotal > estimatedMaxTotal && numWindows === 1) { // Or some other logic for single window
-         setEstimatedPrice(`$${Math.min(estimatedMinTotal, estimatedMaxTotal)} - $${Math.max(estimatedMinTotal, estimatedMaxTotal)}`);
-      } else {
-         setEstimatedPrice(`$${estimatedMinTotal} - $${estimatedMaxTotal}`);
-      }
-    } else {
-      setEstimatedPrice(t("form.unableToEstimatePrice"));
-    }
-  }, [formData.windows, formData.stories, formData.includeInterior, tPricing, t]);
-
+  }, []);
 
   // Fetch reservations for the current 28-day view
   useEffect(() => {
@@ -448,7 +382,6 @@ export default function ReservationsPage() {
         bookingReference: currentBookingReference, 
         status: "pending",
         submittedAt: format(new Date(), "yyyy-MM-dd HH:mm:ss"),
-        estimatedPriceRange: estimatedPrice || undefined,
         specialInstructionsImageUrls: imageUrls,
         locale: locale, 
       }
@@ -917,12 +850,6 @@ export default function ReservationsPage() {
                               {formData.includeInterior ? t("form.interiorExterior") : t("form.exteriorOnly")}
                             </p>
                           </div>
-                          {estimatedPrice && (
-                            <div>
-                              <span className="text-muted-foreground">{t("form.estimatedPriceLabel")}</span>
-                              <p className="font-medium">{estimatedPrice}</p>
-                            </div>
-                          )}
                         </div>
                       </div>
                       <p className="text-muted-foreground">{t("confirmation.contact")}</p>

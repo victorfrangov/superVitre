@@ -9,6 +9,7 @@
     "pricing": "Pricing",
     "feedback": "Feedback",
     "faq": "FAQ",
+    "about": "About Us",
     "adminLogin": "Employee Login"
   },
   "cta": {
@@ -126,8 +127,12 @@
       },
       "extraFloors": {
         "title": "Multi-floor: ",
-        "price": "Variable",
+        "price": "Varies",
         "hiddenPrice": "20$ - 30$ per floor"
+      },
+      "gutters": {
+        "title": "Gutter cleaning: ",
+        "price": "Varies"
       }
     },
     "footer": {
@@ -656,6 +661,25 @@
         "invalidEmail": "Please enter a valid email address."
       },
       "errorMessage": "A problem occurred while sending your review. Please try again."
+    }
+  },
+  "about": {
+    "title": "About SuperVitre",
+    "description": "At SuperVitre, we believe that clean windows transform your living space. Our passionate team is committed to providing exceptional window cleaning service, combining professionalism and attention to detail. Whether for your home or business, we are here to offer you a clear and sparkling view.",
+    "ourValuesTitle": "We aspire to be the leader in window cleaning on the South Shore, recognized for our quality and customer service.",
+    "team": {
+      "member1": {
+        "name": "Elliot Fauchon-Roy",
+        "role": "Founder"
+      },
+      "member2": {
+        "name": "Victor Frangov",
+        "role": "Co-Founder"
+      },
+      "member3": {
+        "name": "Antoine Laberge",
+        "role": "Co-Founder"
+      }
     }
   }
 }

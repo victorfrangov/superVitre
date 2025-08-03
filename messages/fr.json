@@ -9,6 +9,7 @@
     "pricing": "Tarifs",
     "feedback": "Donnez votre avis",
     "faq": "FAQ",
+    "about": "À propos",
     "adminLogin": "Connexion Employés"
   },
   "cta": {
@@ -128,6 +129,10 @@
         "title": "Étages Supplémentaires: ",
         "price": "Variable",
         "hiddenPrice": "20$ - 30$ par étage"
+      },
+      "gutters": {
+        "title": "Gouttières: ",
+        "price": "Variable"
       }
     },
     "footer": {
@@ -655,6 +660,25 @@
         "invalidEmail": "Veuillez entrer une adresse email valide."
       },
       "errorMessage": "Un problème est survenu lors de l'envoi de votre avis. Veuillez réessayer."
+    }
+  },
+  "about": {
+    "title": "À Propos de SuperVitre",
+    "description": "Chez SuperVitre, nous croyons que des fenêtres propres transforment votre espace de vie. Notre équipe passionnée s'engage à fournir un service de lavage de vitres exceptionnel, alliant professionnalisme et souci du détail. Que ce soit pour votre maison ou votre entreprise, nous sommes là pour vous offrir une vue claire et éclatante.",
+    "ourValuesTitle": "Nous aspirons à être le leader du lavage de vitres sur la Rive-Sud, reconnu pour notre qualité et notre service client.",
+    "team": {
+      "member1": {
+        "name": "Elliot Fauchon-Roy",
+        "role": "Fondateur"
+      },
+      "member2": {
+        "name": "Victor Frangov",
+        "role": "Co-Fondateur"
+      },
+      "member3": {
+        "name": "Antoine Laberge",
+        "role": "Co-Fondateur"
+      }
     }
   }
 }
