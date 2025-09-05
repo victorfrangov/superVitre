@@ -2,6 +2,10 @@
 
 ## Update
 
+This website was archived as my friend's business only runs during the summer.
+
+## 
+
 SuperVitre is a modern web application designed for managing window cleaning services. It provides features for customers to book appointments, leave feedback, and explore services, while administrators can manage appointments, feedback, and customer data.
 
 ## Features
@@ -11,6 +15,8 @@ SuperVitre is a modern web application designed for managing window cleaning ser
 - **Feedback Submission**: Share your experience and rate the service.
 - **Contact Form**: Get in touch with the team for inquiries.
 - **Responsive Design**: Optimized for both desktop and mobile devices.
+- **reCAPTCHA**: Bot detection support for extra security
+- **Accessibility**: Easy to maintain internationalization (i18n) for multiple languages. Light and dark mode support. Labels for screen readers.
 
 ### Admin Features
 - **Dashboard**: View key metrics like appointments, revenue, and customer stats.
@@ -21,13 +27,13 @@ SuperVitre is a modern web application designed for managing window cleaning ser
 ## Tech Stack
 
 - **Frontend**: React, Next.js
-- **Backend**: Firebase, Resend, Google Cloud
+- **Backend**: Firebase, Resend, Google Cloud, CDN
 - **Styling**: Tailwind CSS
 
-### Main page
+## Main page
 ![Main Page GIF](main-page.gif)
 
-### Others pages
+## Others pages
 ![Other pages GIF](other-pages.gif)
 
 
