@@ -17,7 +17,6 @@ import {
   CalendarDays,
   Image as ImageIcon,
   Phone,
-  MapPin,
   Clock,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -90,64 +89,25 @@ export default function LandingPage() {
     window.addEventListener("scroll", handleScroll)
 
     const fetchHeroImage = async () => {
-      setHeroImageLoading(true);
+      setHeroImageLoading(true)
       try {
-        // Set the hero image URL directly from the CDN
-        setHeroImageUrl("https://cdn.supervitre.net/hero-2.webp"); 
+        setHeroImageUrl("/hero-2.webp")
       } catch (error) {
-        // This catch block might be less relevant for a static URL,
-        // but kept in case of future changes or if an error state is still desired.
-        console.error("Error setting hero image URL (CDN):", error);
+        console.error("Error setting hero image URL:", error)
       } finally {
-        setHeroImageLoading(false);
+        setHeroImageLoading(false)
       }
     };
 
     const fetchBeforeAfterImages = async () => {
-      setBeforeAfterLoading(true);
-      const cdnBaseUrl = "https://cdn.supervitre.net/avantapres/";
-      const maxImagesToCheck = 50; // Max number of images to check for each category
+      setBeforeAfterLoading(true)
+      const localBaseUrl = "avantapres/"
+      const beforeCount = 8  // avant-1.png ... avant-8.png
+      const afterCount = 9   // apres-1.png ... apres-9.png
 
-      const verifiedBefores: string[] = [];
-      const verifiedAfters: string[] = [];
-
-      // Helper function to check if an image URL is valid using the Image object
-      const checkImageExists = (url: string): Promise<string | null> => {
-        return new Promise((resolve) => {
-          const img = new window.Image();
-          img.onload = () => resolve(url); // Image exists
-          img.onerror = () => resolve(null); // Image doesn't exist or error loading
-          img.src = url;
-        });
-      };
-
-      // Check "before" images sequentially
-      for (let i = 1; i <= maxImagesToCheck; i++) {
-        const imageUrl = `${cdnBaseUrl}avant-${i}.webp`;
-        const existingUrl = await checkImageExists(imageUrl);
-        if (existingUrl) {
-          verifiedBefores.push(existingUrl);
-        } else {
-          // Assuming images are sequential, if one is missing, stop checking for more "before" images
-          break;
-        }
-      }
-
-      // Check "after" images sequentially
-      for (let i = 1; i <= maxImagesToCheck; i++) {
-        const imageUrl = `${cdnBaseUrl}apres-${i}.webp`;
-        const existingUrl = await checkImageExists(imageUrl);
-        if (existingUrl) {
-          verifiedAfters.push(existingUrl);
-        } else {
-          // Assuming images are sequential, if one is missing, stop checking for more "after" images
-          break;
-        }
-      }
-
-      setBeforeImages(verifiedBefores);
-      setAfterImages(verifiedAfters);
-      setBeforeAfterLoading(false);
+      setBeforeImages(Array.from({ length: beforeCount }, (_, i) => `${localBaseUrl}avant-${i + 1}.webp`))
+      setAfterImages(Array.from({ length: afterCount }, (_, i) => `${localBaseUrl}apres-${i + 1}.webp`))
+      setBeforeAfterLoading(false)
     };
 
     fetchHeroImage()
