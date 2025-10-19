@@ -101,9 +101,9 @@ export default function LandingPage() {
 
     const fetchBeforeAfterImages = async () => {
       setBeforeAfterLoading(true)
-      const localBaseUrl = "avantapres/"
-      const beforeCount = 8  // avant-1.png ... avant-8.png
-      const afterCount = 9   // apres-1.png ... apres-9.png
+      const localBaseUrl = "/avantapres/"
+      const beforeCount = 8
+      const afterCount = 9
 
       setBeforeImages(Array.from({ length: beforeCount }, (_, i) => `${localBaseUrl}avant-${i + 1}.webp`))
       setAfterImages(Array.from({ length: afterCount }, (_, i) => `${localBaseUrl}apres-${i + 1}.webp`))
