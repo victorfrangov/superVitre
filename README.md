@@ -2,56 +2,32 @@
 
 ## Update
 
-This website was archived as my friend's business only runs during the summer.
+As of 19.10.2025, the website has been simplified to a static brochure. All cloud-backed features have been removed: no database, authentication, admin dashboard, online feedback, or contact forms. We no longer store user data. The site now serves only static content with phone reservation instructions.
 
-## 
+## Overview
 
 SuperVitre is a modern web application designed for managing window cleaning services. It provides features for customers to book appointments, leave feedback, and explore services, while administrators can manage appointments, feedback, and customer data.
 
 ## Features
 
 ### Customer Features
-- **Online Reservations**: Book window cleaning services with ease.
-- **Feedback Submission**: Share your experience and rate the service.
-- **Contact Form**: Get in touch with the team for inquiries.
-- **Responsive Design**: Optimized for both desktop and mobile devices.
-- **reCAPTCHA**: Bot detection support for extra security
-- **Accessibility**: Easy to maintain internationalization (i18n) for multiple languages. Light and dark mode support. Labels for screen readers.
+- Static brochure site with service info and pricing.
+- Phone reservations only (no online booking).
+- Responsive design (desktop and mobile).
+- Accessibility: i18n-ready, light/dark mode, screen-reader labels.
 
 ### Admin Features
-- **Dashboard**: View key metrics like appointments, revenue, and customer stats.
-- **Feedback Management**: Approve, reject, or view customer feedback.
-- **Customer Management**: Manage customer details and service history.
-- **Appointment Management**: Track and manage appointments.
+- None (admin dashboard removed).
 
 ## Tech Stack
 
-- **Frontend**: React, Next.js
-- **Backend**: Firebase, Resend, Google Cloud, CDN
-- **Styling**: Tailwind CSS
+- Frontend: Next.js (static pages), React
+- Hosting: Netlify
+- Assets: Local /public folder
+- No backend services or databases
 
 ## Main page
 ![Main Page GIF](main-page.gif)
 
 ## Others pages
 ![Other pages GIF](other-pages.gif)
-
-
-## Contributing
-
-Contributions are welcome!
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Contact
-
-If you have any questions or need assistance, feel free to reach out:
-
-- **Email**: support@supervitre.net (Email address was archived)
-
-You can also follow us on social media for updates and promotions:
-
-- **Facebook**: [SuperVitre](https://facebook.com/supervitre) (Deleted)
-- **Instagram**: [@supervitre](https://instagram.com/supervitre) (Deleted)
