@@ -79,6 +79,12 @@ export default function NavigationBar() {
               {resolvedTheme === "dark" ? <Sun className="size-5" /> : <Moon className="size-5" />}
             </Button>
           )}
+          <Button asChild className="rounded-full">
+            <Link href="#contact">
+              {ctaT("getStarted")}
+              <ChevronRight className="size-4 -ml-1" />
+            </Link>
+          </Button>
         </div>
 
         {/* Mobile Menu Button */}

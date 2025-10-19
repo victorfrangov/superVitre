@@ -16,6 +16,9 @@ import {
   Leaf,
   CalendarDays,
   Image as ImageIcon,
+  Phone,
+  MapPin,
+  Clock,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
@@ -37,11 +40,13 @@ interface DisplayFeedback {
   role?: string
 }
 
+const CONTACT_PHONE_DISPLAY = "+1 (438) 503-8171"
+const CONTACT_PHONE_URI = "4385038171"
+const BUSINESS_HOURS = "Monday to Friday : 9:00 - 17:00. Saturday and Sunday: Closed"
+
 export default function LandingPage() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mounted, setMounted] = useState(false)
-  const [approvedFeedbacks, setApprovedFeedbacks] = useState<DisplayFeedback[]>([])
-  const [feedbacksLoading, setFeedbacksLoading] = useState(true)
   const [heroImageUrl, setHeroImageUrl] = useState<string | null>(null)
   const [heroImageLoading, setHeroImageLoading] = useState(true)
   const [beforeImages, setBeforeImages] = useState<string[]>([]);
@@ -64,9 +69,13 @@ export default function LandingPage() {
   const testimonialsT = useTranslations("testimonials")
   const pricingT = useTranslations("pricing")
   const faqT = useTranslations("faq")
-  const finalCtaT = useTranslations("finalCta")
   const footerT = useTranslations("footer")
   const accessibilityT = useTranslations("accessibility")
+  const contactT = useTranslations("contact")
+
+  const CONTACT_PHONE_URI = "4385038171"
+  const contactPhoneDisplay = "+1 (438) 503-8171"
+  const businessHoursText = "Monday to Friday: 9:00 - 17:00. Saturday and Sunday: Closed"
 
   useEffect(() => {
     setMounted(true)
@@ -258,7 +267,7 @@ export default function LandingPage() {
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto lg:mx-0">{heroT("description")}</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Link href="/reservations">
+                <Link href="#contact">
                   <Button size="lg" className="rounded-full h-12 px-8 text-base">
                     {ctaT("reserve")}
                     <ArrowRight className="ml-2 size-4" />
@@ -358,7 +367,7 @@ export default function LandingPage() {
                           height={400}
                           alt={`Before cleaning ${((idx % beforeImages.length) + 1)}`}
                           className="w-full h-full object-cover"
-                          priority // Add priority to all images
+                          priority
                         />
                       </button>
                     ))}
@@ -384,7 +393,7 @@ export default function LandingPage() {
                           height={400}
                           alt={`After cleaning ${((idx % afterImages.length) + 1)}`}
                           className="w-full h-full object-cover"
-                          priority // Add priority to all images
+                          priority
                         />
                       </button>
                     ))}
@@ -472,7 +481,7 @@ export default function LandingPage() {
             >
               {features.map((feature, i) => (
                 <motion.div key={i} variants={item}>
-                  <Card className="h-full overflow-hidden border-border/40 bg-gradient-to-b from-background to-muted/10 backdrop-blur transition-all hover:shadow-md">
+                  <Card className="h-full overflow-hidden border border-black/10 dark:border-white/30 bg-gradient-to-b from-background to-muted/10 backdrop-blur transition-all hover:shadow-md">
                     <CardContent className="p-6 flex flex-col h-full">
                       <div className="size-10 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center text-primary mb-4">
                         {feature.icon}
@@ -562,7 +571,7 @@ export default function LandingPage() {
             <div className="mx-auto max-w-5xl">
               <div className="grid gap-8 md:grid-cols-3">
                 {/* Small Windows */}
-                <Card className="flex flex-col border-primary/40">
+                <Card className="flex flex-col border border-black/10 dark:border-white/30">
                   <CardHeader className="pt-8">
                     <CardTitle className="text-2xl font-bold">{pricingT("smallWindows.title")}</CardTitle>
                     <CardDescription>{pricingT("smallWindows.description")}</CardDescription>
@@ -582,7 +591,7 @@ export default function LandingPage() {
                   </CardContent>
                 </Card>
                 {/* Large Windows */}
-                <Card className="flex flex-col border-primary/40">
+                <Card className="flex flex-col border border-black/10 dark:border-white/30">
                   <CardHeader className="pt-8">
                     <CardTitle className="text-2xl font-bold">{pricingT("largeWindows.title")}</CardTitle>
                     <CardDescription>{pricingT("largeWindows.description")}</CardDescription>
@@ -602,7 +611,7 @@ export default function LandingPage() {
                   </CardContent>
                 </Card>
                 {/* Add-ons & Extras */}
-                <Card className="flex flex-col border-primary/40">
+                <Card className="flex flex-col border border-black/10 dark:border-white/30">
                   <CardHeader className="pt-8">
                     <CardTitle className="text-2xl font-bold">{pricingT("extras.title")}</CardTitle>
                     <CardDescription>{pricingT("extras.description")}</CardDescription>
@@ -674,41 +683,79 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="w-full py-20 md:py-32 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground relative overflow-hidden">
-          <div className="absolute inset-0 -z-10"></div>
-          <div className="absolute -top-24 -left-24 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
-          <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+        {/* Contact Section */}
+        <section
+          id="contact"
+          className="w-full py-20 md:py-32 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground relative overflow-hidden"
+        >
+          {/* decorative blur like CTA */}
+          <div className="absolute -top-24 -left-24 w-64 h-64 bg-white/10 rounded-full blur-3xl -z-10"></div>
+          <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-white/10 rounded-full blur-3xl -z-10"></div>
 
-          <div className="container px-4 md:px-6 relative">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="flex flex-col items-center justify-center space-y-6 text-center"
-            >
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">{finalCtaT("title")}</h2>
-              <p className="mx-auto max-w-[700px] text-primary-foreground/80 md:text-xl">{finalCtaT("description")}</p>
-              <div className="flex flex-col sm:flex-row gap-4 mt-4">
-                <Link href="/reservations">
-                  <Button size="lg" variant="secondary" className="rounded-full h-12 px-8 text-base">
-                    {ctaT("reserve")}
-                    <ArrowRight className="ml-2 size-4" />
-                  </Button>
-                </Link>
-                <Link href="/contact">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="rounded-full h-12 px-8 text-base bg-transparent border-white text-white hover:bg-white/10"
-                  >
-                    {ctaT("haveAQuestion")}
-                  </Button>
-                </Link>
-              </div>
-              <p className="text-sm text-primary-foreground/80 mt-4">{finalCtaT("footnote")}</p>
-            </motion.div>
+          <div className="container px-4 md:px-6">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
+              <Badge className="rounded-full px-4 py-1.5 text-sm font-medium" variant="secondary">
+                {contactT("badge", { defaultValue: "Contact" })}
+              </Badge>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+                {contactT("title", { defaultValue: "Book an appointment" })}
+              </h2>
+              <p className="max-w-[800px] text-primary-foreground/80 md:text-lg">
+                {contactT("subtitle", {
+                  defaultValue:
+                    "Call or email us to schedule your window cleaning. Fast replies during business hours.",
+                })}
+              </p>
+            </div>
+
+            <div className="mx-auto max-w-4xl grid gap-6 sm:grid-cols-2">
+              {/* Phone card */}
+              <Card className="border border-black/20 dark:border-white/60 bg-white/15 dark:bg-white/10 backdrop-blur-sm text-primary-foreground">
+                <CardContent className="p-6 space-y-4">
+                  <div className="flex items-center gap-3">
+                    <div className="size-10 rounded-full bg-white/20 dark:bg-white/15 flex items-center justify-center text-primary-foreground">
+                      <Phone className="size-5" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-primary-foreground/80">
+                        {contactT("callUs", { defaultValue: "Call us" })}
+                      </p>
+                      <p className="text-lg font-semibold">{contactPhoneDisplay}</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <Link href={`tel:${CONTACT_PHONE_URI}`}>
+                      <Button
+                        className="rounded-full border border-white/30 bg-white/50 text-primary hover:bg-white/70 dark:bg-white/30 dark:text-white dark:hover:bg-white/20"
+                      >
+                        {contactT("callNow", { defaultValue: "Call now" })}
+                        <ArrowRight className="ml-2 size-4" />
+                      </Button>
+                    </Link>
+                    <Link href={`sms:${CONTACT_PHONE_URI}`}>
+                      <Button className="rounded-full border border-white/30 bg-white/30 text-primary hover:bg-white/50 dark:bg-white/10 dark:text-white dark:hover:bg-white/20">
+                        {contactT("sendSms", { defaultValue: "Send SMS" })}
+                      </Button>
+                    </Link>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Hours */}
+              <Card className="border border-black/20 dark:border-white/60 bg-white/15 dark:bg-white/10 backdrop-blur-sm text-primary-foreground">
+                <CardContent className="p-6 flex items-start gap-3">
+                  <div className="size-10 rounded-full bg-white/20 dark:bg-white/15 flex items-center justify-center text-primary-foreground shrink-0">
+                    <Clock className="size-5" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-primary-foreground/80">
+                      {contactT("businessHours", { defaultValue: "Business hours" })}
+                    </p>
+                    <p className="text-lg font-semibold">{businessHoursText}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </section>
       </main>
@@ -723,24 +770,13 @@ export default function LandingPage() {
                 <span>SuperVitre</span>
               </div>
               <p className="text-sm text-muted-foreground">{footerT("about")}</p>
-              <p className="mx-auto max-w-[700px] text-xs text-muted-foreground mt-2 text-center">
-                {finalCtaT.rich("recaptchaNotice", {
-                  privacyLink: (chunks) => <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary-foreground">{chunks}</a>,
-                  termsLink: (chunks) => <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary-foreground">{chunks}</a>,
-                })}
-              </p>
               {/* Social links */}
             </div>
             <div className="space-y-4">
               <h4 className="text-sm font-bold">{footerT("categories.product")}</h4>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <Link href="/reservations" className="text-muted-foreground hover:text-foreground transition-colors">
-                    {navT("reservations")}
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">
+                  <Link href="#contact" className="text-muted-foreground hover:text-foreground transition-colors">
                     {navT("contact")}
                   </Link>
                 </li>
