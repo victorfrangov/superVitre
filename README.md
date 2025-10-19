@@ -2,7 +2,7 @@
 
 ## Update
 
-This website was archived as my friend's business only runs during the summer.
+This website was archived as my friend's business only runs during the summer. Please see the static branch, where this project has been made static to keep it running, without maintenance.
 
 ## 
 
