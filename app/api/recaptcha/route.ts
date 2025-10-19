@@ -67,10 +67,6 @@ export async function POST(req: NextRequest) {
     const assessmentResult = await createRecaptchaAssessment({ token, recaptchaAction });
 
     if (assessmentResult.success) {
-      // Example: Check if the score is above a certain threshold
-      // if (assessmentResult.score !== null && assessmentResult.score < 0.5) {
-      //   return NextResponse.json({ success: false, error: 'Low reCAPTCHA score.', score: assessmentResult.score }, { status: 403 });
-      // }
       return NextResponse.json({ success: true, score: assessmentResult.score });
     } else {
       return NextResponse.json({ success: false, error: assessmentResult.error || 'reCAPTCHA verification failed.' }, { status: 400 });
