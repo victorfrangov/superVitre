@@ -22,8 +22,6 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import NavigationBar from "@/components/navigation-bar"
-import { collection, query, where, getDocs, orderBy } from "firebase/firestore"
-import { db } from "@/app/firebase/config"
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 
 interface FaqItem {
@@ -81,36 +79,6 @@ export default function LandingPage() {
     }
 
     window.addEventListener("scroll", handleScroll)
-
-    const fetchApprovedFeedbacks = async () => {
-      setFeedbacksLoading(true)
-      try {
-        const feedbacksRef = collection(db, "feedbacks")
-        const q = query(
-          feedbacksRef,
-          where("status", "==", "approved"),
-          where("allowPublic", "==", true),
-          orderBy("submittedAt", "desc") // Or any other order you prefer
-        )
-        const querySnapshot = await getDocs(q)
-        const feedbacks: DisplayFeedback[] = querySnapshot.docs.map((doc) => {
-          const data = doc.data()
-          return {
-            id: doc.id,
-            quote: data.message,
-            author: data.fictionalName || testimonialsT("defaultAuthorName", { defaultValue: "Anonymous User" }),
-            rating: data.rating,
-            role: testimonialsT("customerRole", { defaultValue: "Valued Customer" }),
-          }
-        })
-        setApprovedFeedbacks(feedbacks)
-      } catch (error) {
-        console.error("Error fetching approved feedbacks:", error)
-        // Optionally set an error state here
-      } finally {
-        setFeedbacksLoading(false)
-      }
-    }
 
     const fetchHeroImage = async () => {
       setHeroImageLoading(true);
@@ -173,7 +141,6 @@ export default function LandingPage() {
       setBeforeAfterLoading(false);
     };
 
-    fetchApprovedFeedbacks()
     fetchHeroImage()
     fetchBeforeAfterImages()
 
@@ -573,83 +540,6 @@ export default function LandingPage() {
                 </motion.div>
               ))}
             </div>
-          </div>
-        </section>
-
-        {/* Testimonials Section */}
-        <section id="testimonials" className="w-full py-200 md:py-32">
-          <div className="container px-4 md:px-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="flex flex-col items-center justify-center space-y-4 text-center mb-12"
-            >
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">{testimonialsT("title")}</h2>
-              <p className="max-w-[800px] text-muted-foreground md:text-lg">{testimonialsT("description")}</p>
-            </motion.div>
-            {feedbacksLoading ? (
-              <div className="flex justify-center items-center h-40">
-                <div className="size-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-              </div>
-            ) : approvedFeedbacks.length > 0 ? (
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {approvedFeedbacks.map((testimonial, i) => (
-                  <motion.div
-                    key={testimonial.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: i * 0.05 }}
-                  >
-                    <Card className="h-full overflow-hidden border-border/40 bg-gradient-to-b from-background to-muted/10 backdrop-blur transition-all hover:shadow-md">
-                      <CardContent className="p-6 flex flex-col h-full">
-                        <div className="flex mb-4">
-                          {Array(testimonial.rating)
-                            .fill(0)
-                            .map((_, j) => (
-                              <Star key={j} className="size-4 text-yellow-500 fill-yellow-500" />
-                            ))}
-                          {Array(5 - testimonial.rating)
-                            .fill(0)
-                            .map((_, j) => (
-                              <Star key={`empty-${j}`} className="size-4 text-muted-foreground" />
-                            ))}
-                        </div>
-                        <p className="text-lg mb-6 flex-grow italic">&quot;{testimonial.quote}&quot;</p>
-                        <div className="flex items-center gap-4 mt-auto pt-4 border-t border-border/40">
-                          <div className="size-10 rounded-full bg-muted flex items-center justify-center text-foreground font-medium">
-                            {testimonial.author.charAt(0).toUpperCase()}
-                          </div>
-                          <div>
-                            <p className="font-medium">{testimonial.author}</p>
-                            {testimonial.role && <p className="text-sm text-muted-foreground">{testimonial.role}</p>}
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-center text-muted-foreground">{testimonialsT("noFeedback", { defaultValue: "No feedback to display at the moment." })}</p>
-            )}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="mt-12 text-center"
-            >
-              <p className="text-lg text-muted-foreground mb-4">{testimonialsT("leaveReview")}</p>
-              <Link href="/feedback">
-                <Button size="lg" variant="outline" className="rounded-full h-12 px-8 text-base">
-                  {testimonialsT("shareFeedback")}
-                  <ArrowRight className="ml-2 size-4" />
-                </Button>
-              </Link>
-            </motion.div>
           </div>
         </section>
 

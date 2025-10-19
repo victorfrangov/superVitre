@@ -23,10 +23,7 @@ export default function NavigationBar() {
   }, []);
 
   const links = [
-    { href: "/reservations", label: navT("reservations") },
     { href: "/#pricing", label: navT("pricing") },
-    { href: "/contact", label: navT("contact") },
-    { href: "/feedback", label: navT("feedback") },
     { href: "/#faq", label: navT("faq") },
     { href: "/about", label: navT("about") },
   ];
@@ -82,19 +79,6 @@ export default function NavigationBar() {
               {resolvedTheme === "dark" ? <Sun className="size-5" /> : <Moon className="size-5" />}
             </Button>
           )}
-          <Link
-            href="/login"
-            className="p-2 text-muted-foreground hover:text-foreground transition-colors"
-            aria-label={navT("adminLogin") || "Admin Login"}
-          >
-            <UserRoundCog className="size-5" />
-          </Link>
-          <Button asChild className="rounded-full">
-            <Link href="/reservations">
-              {ctaT("getStarted")}
-              <ChevronRight className="size-4 -ml-1" />
-            </Link>
-          </Button>
         </div>
 
         {/* Mobile Menu Button */}
