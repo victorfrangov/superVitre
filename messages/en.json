@@ -174,7 +174,8 @@
     "callUs": "Call us",
     "callNow": "Call",
     "sendSms": "Send a text",
-    "businessHours": "Business hours"
+    "businessHours": "Business hours",
+    "hours": "Monday to Friday: 9:00 - 17:00. Saturday and Sunday: Closed"
   },
   "footer": {
     "about": "SuperVitre offers professional window cleaning services for residences and businesses. Get a free quote today and let the light in!",

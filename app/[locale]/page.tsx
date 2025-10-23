@@ -31,18 +31,6 @@ interface FaqItem {
   answer: string
 }
 
-interface DisplayFeedback {
-  id: string
-  quote: string
-  author: string
-  rating: number
-  role?: string
-}
-
-const CONTACT_PHONE_DISPLAY = "+1 (438) 503-8171"
-const CONTACT_PHONE_URI = "4385038171"
-const BUSINESS_HOURS = "Monday to Friday : 9:00 - 17:00. Saturday and Sunday: Closed"
-
 export default function LandingPage() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mounted, setMounted] = useState(false)
@@ -74,7 +62,6 @@ export default function LandingPage() {
 
   const CONTACT_PHONE_URI = "4385038171"
   const contactPhoneDisplay = "+1 (438) 503-8171"
-  const businessHoursText = "Monday to Friday: 9:00 - 17:00. Saturday and Sunday: Closed"
 
   useEffect(() => {
     setMounted(true)
@@ -711,7 +698,7 @@ export default function LandingPage() {
                     <p className="text-sm text-primary-foreground/80">
                       {contactT("businessHours", { defaultValue: "Business hours" })}
                     </p>
-                    <p className="text-lg font-semibold">{businessHoursText}</p>
+                    <p className="text-lg font-semibold">{contactT("hours")}</p>
                   </div>
                 </CardContent>
               </Card>

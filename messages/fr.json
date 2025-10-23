@@ -174,7 +174,8 @@
     "callUs": "Appelez-nous",
     "callNow": "Appelez",
     "sendSms": "Envoyez un SMS",
-    "businessHours": "Heures d'ouverture"
+    "businessHours": "Heures d'ouverture",
+    "hours": "Lundi à Vendredi: 9:00 - 17:00. Samedi et Dimanche: Fermé"
   },
   "footer": {
     "about": "SuperVitre offre des services de lavage de vitres professionnels pour les résidences et les commerces. Obtenez une soumission gratuite dès aujourd'hui et laissez entrer la lumière !",
