@@ -35,7 +35,8 @@ export default async function LocaleLayout({
   // Enable static rendering
   setRequestLocale(locale);
 
-  const messages = await getMessages({ locale });
+  // Directly load messages for the requested locale
+  const messages = (await import(`@/messages/${locale}.json`)).default;
  
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>

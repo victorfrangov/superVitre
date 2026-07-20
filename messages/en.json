@@ -87,10 +87,14 @@
     }
   },
   "testimonials": {
-    "title": "Loved by Teams Worldwide",
+    "badge": "Testimonials",
+    "title": "What Our Customers Say",
     "description": "Don't just take our word for it. See what our customers have to say about their experience.",
     "defaultAuthorName": "Anonymous User",
     "customerRole": "Valued Customer",
+    "residential": "Residential",
+    "commercial": "Commercial",
+    "customer": "Customer",
     "noFeedback": "No testimonials to display at the moment.",
     "leaveReview": "Had a good experience with us?",
     "shareFeedback": "Share your feedback"
