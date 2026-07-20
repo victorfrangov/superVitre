@@ -4,9 +4,13 @@ import "@/styles/globals.css"
 import { notFound } from "next/navigation"
 import { routing } from "@/i18n/routing"
 import { NextIntlClientProvider, hasLocale } from "next-intl"
-import { getTranslations } from "next-intl/server"
+import { getMessages, getTranslations, setRequestLocale } from "next-intl/server"
 
-export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }))
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: "meta" })
 
@@ -27,9 +31,15 @@ export default async function LocaleLayout({
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
+
+  // Enable static rendering
+  setRequestLocale(locale);
+
+  // Directly load messages for the requested locale
+  const messages = (await import(`@/messages/${locale}.json`)).default;
  
   return (
-    <NextIntlClientProvider locale={locale}>
+    <NextIntlClientProvider locale={locale} messages={messages}>
         {children}
     </NextIntlClientProvider>
   );
