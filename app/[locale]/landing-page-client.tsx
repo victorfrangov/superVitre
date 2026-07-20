@@ -34,12 +34,12 @@ interface FaqItem {
 export default function LandingPageClient() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mounted, setMounted] = useState(false)
-  const [heroImageUrl, setHeroImageUrl] = useState<string | null>(null)
-  const [heroImageLoading, setHeroImageLoading] = useState(true)
-  const [beforeImages, setBeforeImages] = useState<string[]>([])
-  const [afterImages, setAfterImages] = useState<string[]>([])
+  const [heroImageUrl] = useState<string | null>("/hero-2.webp")
+  const [heroImageLoading] = useState(false)
+  const [beforeImages] = useState<string[]>(() => Array.from({ length: 8 }, (_, i) => `/avantapres/avant-${i + 1}.webp`))
+  const [afterImages] = useState<string[]>(() => Array.from({ length: 9 }, (_, i) => `/avantapres/apres-${i + 1}.webp`))
   const [modalImage, setModalImage] = useState<{ url: string; label: string } | null>(null)
-  const [beforeAfterLoading, setBeforeAfterLoading] = useState(true)
+  const [beforeAfterLoading] = useState(false)
 
   // Add refs for scrolling containers
   const beforeScrollRef = useRef<HTMLDivElement>(null)
@@ -74,34 +74,8 @@ export default function LandingPageClient() {
     }
 
     window.addEventListener("scroll", handleScroll)
-
-    const fetchHeroImage = async () => {
-      setHeroImageLoading(true)
-      try {
-        setHeroImageUrl("/hero-2.webp")
-      } catch (error) {
-        console.error("Error setting hero image URL:", error)
-      } finally {
-        setHeroImageLoading(false)
-      }
-    }
-
-    const fetchBeforeAfterImages = async () => {
-      setBeforeAfterLoading(true)
-      const localBaseUrl = "/avantapres/"
-      const beforeCount = 8
-      const afterCount = 9
-
-      setBeforeImages(Array.from({ length: beforeCount }, (_, i) => `${localBaseUrl}avant-${i + 1}.webp`))
-      setAfterImages(Array.from({ length: afterCount }, (_, i) => `${localBaseUrl}apres-${i + 1}.webp`))
-      setBeforeAfterLoading(false)
-    }
-
-    fetchHeroImage()
-    fetchBeforeAfterImages()
-
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [testimonialsT])
+  }, [])
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -163,9 +137,8 @@ export default function LandingPageClient() {
     let beforeInterval: NodeJS.Timeout | null = null
     let afterInterval: NodeJS.Timeout | null = null
 
-    function startAutoScroll(ref: React.RefObject<HTMLDivElement>) {
-      if (!ref.current) return
-      let scrollAmount = 0
+    function startAutoScroll(ref: React.RefObject<HTMLDivElement | null>) {
+      if (!ref.current) return null
       const scrollStep = 1 // px per tick
       const scrollDelay = 20 // ms per tick
 
@@ -314,7 +287,6 @@ export default function LandingPageClient() {
                           height={400}
                           alt={`Before cleaning ${((idx % beforeImages.length) + 1)}`}
                           className="w-full h-full object-cover"
-                          priority
                         />
                       </button>
                     ))}
@@ -340,7 +312,6 @@ export default function LandingPageClient() {
                           height={400}
                           alt={`After cleaning ${((idx % afterImages.length) + 1)}`}
                           className="w-full h-full object-cover"
-                          priority
                         />
                       </button>
                     ))}
@@ -526,13 +497,13 @@ export default function LandingPageClient() {
                   <CardContent>
                     <ul className="space-y-2 text-base text-muted-foreground">
                       <li>
-                        <span className="font-semibold text-foreground">{pricingT("exteriorOnly")}</span>{pricingT("smallWindows.extPrice", { defaultValue: "5$ - 8$ par fenêtre" })}
+                        <span className="font-semibold text-foreground">{pricingT("exteriorOnly")}</span>{pricingT("smallWindows.extPrice")}
                       </li>
                       <li>
-                        <span className="font-semibold text-foreground">{pricingT("interiorExterior")}</span>{pricingT("smallWindows.extIntPrice", { defaultValue: "8$ - 12$ par fenêtre" })}
+                        <span className="font-semibold text-foreground">{pricingT("interiorExterior")}</span>{pricingT("smallWindows.extIntPrice")}
                       </li>
                       <li>
-                        <span className="font-semibold text-foreground">{pricingT("borders")}</span>{pricingT("included", { defaultValue: "Inclus" })}
+                        <span className="font-semibold text-foreground">{pricingT("borders")}</span>{pricingT("included")}
                       </li>
                     </ul>
                   </CardContent>
@@ -546,13 +517,13 @@ export default function LandingPageClient() {
                   <CardContent>
                     <ul className="space-y-2 text-base text-muted-foreground">
                       <li>
-                        <span className="font-semibold text-foreground">{pricingT("exteriorOnly")}</span>{pricingT("largeWindows.extPrice", { defaultValue: "8$ - 12$ par fenêtre" })}
+                        <span className="font-semibold text-foreground">{pricingT("exteriorOnly")}</span>{pricingT("largeWindows.extPrice")}
                       </li>
                       <li>
-                        <span className="font-semibold text-foreground">{pricingT("interiorExterior")}</span>{pricingT("largeWindows.extIntPrice", { defaultValue: "16$ - 20$ par fenêtre" })}
+                        <span className="font-semibold text-foreground">{pricingT("interiorExterior")}</span>{pricingT("largeWindows.extIntPrice")}
                       </li>
                       <li>
-                        <span className="font-semibold text-foreground">{pricingT("borders")}</span>{pricingT("included", { defaultValue: "Inclus" })}
+                        <span className="font-semibold text-foreground">{pricingT("borders")}</span>{pricingT("included")}
                       </li>
                     </ul>
                   </CardContent>
@@ -566,13 +537,13 @@ export default function LandingPageClient() {
                   <CardContent>
                     <ul className="space-y-2 text-base text-muted-foreground">
                       <li>
-                        <span className="font-semibold text-foreground">{pricingT("extras.seal.title")}</span>{pricingT("extras.seal.price", { defaultValue: "1$ - 3$ par fenêtre" })}
+                        <span className="font-semibold text-foreground">{pricingT("extras.seal.title")}</span>{pricingT("extras.seal.price")}
                       </li>
                       <li>
-                        <span className="font-semibold text-foreground">{pricingT("extras.screens.title")}</span>{pricingT("extras.screens.price", { defaultValue: "3$ - 5$ par moustiquaire" })}
+                        <span className="font-semibold text-foreground">{pricingT("extras.screens.title")}</span>{pricingT("extras.screens.price")}
                       </li>
                       <li>
-                        <span className="font-semibold text-foreground">{pricingT("extras.extraFloors.title")}</span>{pricingT("extras.extraFloors.price", { defaultValue: "10$ - 20$ par étage supplémentaire" })}
+                        <span className="font-semibold text-foreground">{pricingT("extras.extraFloors.title")}</span>{pricingT("extras.extraFloors.price")}
                       </li>
                       <li>
                         <span className="font-semibold text-foreground">{pricingT("extras.gutters.title")}</span>{pricingT("extras.gutters.price")}
@@ -585,7 +556,7 @@ export default function LandingPageClient() {
                 <div className="text-lg font-semibold text-primary">{pricingT("footer.averageCost")}<span className="font-bold">$180 – $350</span>
                 </div>
                 <div className="text-sm text-muted-foreground mt-2">
-                  {pricingT("footer.note", { defaultValue: "Les prix peuvent varier en fonction de la taille et de l'état des fenêtres." })}
+                  {pricingT("footer.note")}
                 </div>
               </div>
             </div>
@@ -734,6 +705,21 @@ export default function LandingPageClient() {
                 </li>
               </ul>
             </div>
+          </div>
+
+          <div className="flex flex-col items-center justify-between gap-4 border-t border-border/60 pt-8 text-xs text-muted-foreground sm:flex-row">
+            <p>© {new Date().getFullYear()} SuperVitre. {footerT("rights")}</p>
+            <p className="flex items-center gap-1">
+              <span>{footerT("madeBy")}</span>
+              <a
+                href="https://situsdigital.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-foreground hover:text-primary transition-colors hover:underline underline-offset-4"
+              >
+                Situs Digital
+              </a>
+            </p>
           </div>
         </div>
       </footer>

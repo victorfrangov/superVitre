@@ -1,15 +1,14 @@
 import type React from "react"
 import { Inter } from "next/font/google"
 import type { Metadata } from "next"
-import Script from "next/script"
 import { ThemeProvider } from "@/components/theme-provider"
-import { LanguageProvider } from "@/contexts/language-context"
+import { Analytics } from "@vercel/analytics/react"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "SuperVitre",
-  description: "Lavage de vitre résidentiel à Saint-Lambert."
+  description: "Lavage de vitre résidentiel sur la Rive-Sud."
 }
 
 export default function RootLayout({
@@ -18,29 +17,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      {/* <head>
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-5HM2GE18GS"
-          strategy="afterInteractive"
-        />
-        <Script id="gtag-init" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-5HM2GE18GS');
-          `}
-        </Script>
-        <Script
-          src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_SITE_CAPTCHA_ENTERPRISE_KEY}`}
-          strategy="beforeInteractive"
-        />
-      </head> */}
+    <html suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <LanguageProvider>{children}</LanguageProvider>
+          {children}
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   )

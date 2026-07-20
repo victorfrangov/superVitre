@@ -183,7 +183,9 @@
       "product": "Produit",
       "resources": "Ressources",
       "company": "Entreprise"
-    }
+    },
+    "rights": "Tous droits réservés.",
+    "madeBy": "Fait par"
   },
   "accessibility": {
     "scrollToTop": "Retour en haut",

@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { ChevronRight, Menu, X, UserRoundCog, Sun, Moon, Image as ImageIcon } from "lucide-react";
 import { motion } from "framer-motion";
@@ -44,7 +45,7 @@ export default function NavigationBar() {
           <div className="size-8 rounded-lg bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center text-primary-foreground overflow-hidden">
             {/* Simplified logo rendering logic */}
             {logoUrl ? (
-              <img src={logoUrl} alt="SuperVitre Logo" className="w-full h-full object-cover" />
+              <Image src={logoUrl} alt="SuperVitre Logo" width={32} height={32} className="w-full h-full object-cover" priority />
             ) : (
               <ImageIcon className="size-4" /> // Fallback if URL is somehow null, or a default letter
             )}

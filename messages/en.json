@@ -183,7 +183,9 @@
       "product": "Product",
       "resources": "Resources",
       "company": "Company"
-    }
+    },
+    "rights": "All rights reserved.",
+    "madeBy": "Made by"
   },
   "accessibility": {
     "scrollToTop": "Scroll to top",
