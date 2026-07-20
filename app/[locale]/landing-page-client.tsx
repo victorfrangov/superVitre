@@ -715,7 +715,7 @@ export default function LandingPageClient() {
                 href="https://situsdigital.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-medium text-foreground hover:text-primary transition-colors hover:underline underline-offset-4"
+                className="font-medium text-foreground hover:text-primary transition-colors"
               >
                 Situs Digital
               </a>
