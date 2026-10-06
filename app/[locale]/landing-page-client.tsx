@@ -712,12 +712,12 @@ export default function LandingPageClient() {
             <p className="flex items-center gap-1">
               <span>{footerT("madeBy")}</span>
               <a
-                href="https://situsdigital.com"
+                href="https://kollowo.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-medium text-foreground hover:text-primary transition-colors"
               >
-                Situs Digital
+                Kollowo
               </a>
             </p>
           </div>
