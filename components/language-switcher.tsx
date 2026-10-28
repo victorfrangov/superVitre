@@ -19,7 +19,7 @@ export function LanguageSwitcher() {
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="rounded-full relative">
+        <Button variant="ghost" size="icon" className="size-11 rounded-full relative">
           <Globe className="size-[18px]" />
           <span className="absolute -bottom-1 -right-1 text-xs">{currentLocale.flag}</span>
           <span className="sr-only">{t("changeLanguage")}</span>
@@ -31,6 +31,7 @@ export function LanguageSwitcher() {
             <Link
               href={pathname}
               locale={lang.code}
+              hrefLang={lang.code}
               className={`flex items-center gap-2 cursor-pointer ${locale === lang.code ? "bg-muted" : ""}`}
               onClick={() => setOpen(false)}
             >

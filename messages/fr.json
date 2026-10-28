@@ -1,7 +1,10 @@
 {
   "meta": {
-    "title": "Lavage de vitre résidentiel sur la Rive-Sud",
-    "description": "Lavage de vitre professionnel pour un intérieur lumineux."
+    "title": "Lavage de vitres Saint-Lambert et Rive-Sud | SuperVitre",
+    "description": "Lavage de vitres intérieur et extérieur à Saint-Lambert et sur la Rive-Sud. Dès 5 $ par fenêtre, cadres inclus, sans dépôt. Paiement comptant ou Interac.",
+    "aboutTitle": "À propos de SuperVitre | Lavage de vitres sur la Rive-Sud",
+    "aboutDescription": "Rencontrez l'équipe de SuperVitre, entreprise de lavage de vitres qui dessert Saint-Lambert et la Rive-Sud : travail soigné, prix clairs, aucun dépôt.",
+    "ogImageAlt": "SuperVitre, lavage de vitres à Saint-Lambert et sur la Rive-Sud"
   },
   "navigation": {
     "reservations": "Réservation",
@@ -10,7 +13,7 @@
     "feedback": "Donnez votre avis",
     "faq": "FAQ",
     "about": "À propos",
-    "adminLogin": "Connexion Employés"
+    "home": "Accueil"
   },
   "cta": {
     "getStarted": "Réserver",
@@ -18,10 +21,9 @@
     "haveAQuestion": "Vous avez une question?"
   },
   "hero": {
-    "title": "Lavage de vitre résidentiel sur la Rive-Sud",
-    "description": "Nous offrons un service de lavage de vitre pour un intérieur lumineux et propre. Réservez dès maintenant!",
-    "imageLoadError": "Erreur. Image non chargée",
-    "imageAlt": "Image",
+    "title": "Lavage de vitres à Saint-Lambert et sur la Rive-Sud",
+    "description": "Lavage de vitres intérieur et extérieur à Saint-Lambert et ailleurs sur la Rive-Sud, pour une maison lumineuse et propre. Réservez dès maintenant!",
+    "imageAlt": "Technicien de SuperVitre qui lave les vitres d'une maison avec une perche télescopique",
     "benefits": {
       "noCreditCard": "Pas besoin de dépôt",
       "trial": "Paiement en espèces",
@@ -31,10 +33,30 @@
   "beforeAfter": {
     "title": "Avant et Après",
     "description": "Découvrez la différence que SuperVitre peut apporter à vos fenêtres. Nos services de lavage de vitres transforment votre espace en un lieu lumineux et accueillant.",
-    "beforeImageAlt": "Avant le lavage de vitre",
     "before": "Avant",
     "after": "Après",
-    "afterImageAlt": "Après le lavage de vitre"
+    "zoom": "Agrandir la photo",
+    "beforeAlts": [
+      "Porte vitrée sale, avec des traces sur le verre, avant le lavage",
+      "Bas de porte vitrée et seuil couverts de poussière avant le lavage",
+      "Coin de porte vitrée et cadre encrassés avant le lavage",
+      "Cadre de fenêtre noir avec saleté et toiles d'araignée avant le lavage",
+      "Fenêtre triple dans un mur de brique, vitres sales avant le lavage",
+      "Vitre et rebord de fenêtre sales, vus de l'intérieur, avant le lavage",
+      "Porte vitrée ouverte avec un cadre encrassé avant le lavage",
+      "Gouttière remplie de débris avant le nettoyage"
+    ],
+    "afterAlts": [
+      "Porte vitrée propre et sans traces après le lavage",
+      "Bas de porte vitrée et cadre propres après le lavage",
+      "Coin de porte vitrée et cadre nettoyés",
+      "Cadre de fenêtre noir et vitre propres après le lavage",
+      "Fenêtre triple dans un mur de brique, vitres propres après le lavage",
+      "Lavage à la raclette d'une rampe de balcon en verre",
+      "Rampe de balcon en verre propre après le lavage",
+      "Panneaux de verre de balcon nettoyés",
+      "Façade de brique avec une fenêtre triple propre après le lavage"
+    ]
   },
   "features": {
     "badge": "Nos Services",
@@ -74,7 +96,7 @@
     "steps": {
       "step1": {
         "title": "Réservez Votre Service",
-        "description": "Choisissez une date et une heure qui vous conviennent via notre formulaire de réservation en ligne simple ou appelez-nous directement."
+        "description": "Appelez-nous ou envoyez-nous un SMS pour choisir une date et une heure qui vous conviennent."
       },
       "step2": {
         "title": "Confirmation & Préparation",
@@ -141,6 +163,7 @@
     },
     "footer": {
       "averageCost": "Coût moyen pour une maison de taille moyenne : ",
+      "averageRange": "180 $ – 350 $",
       "note": "*Tous les prix sont estimés et peuvent varier en fonction de la taille et de l'état des fenêtres. Contactez-nous pour un devis personnalisé."
     }
   },
@@ -151,7 +174,7 @@
     "questions": [
       {
         "question": "Quelles zones desservez-vous ?",
-        "answer": "Nous desservons principalement la région de Saint-Lambert et ses environs. Vous pouvez consulter notre page de service ou nous contacter directement pour confirmer si nous couvrons votre localité."
+        "answer": "Nous desservons principalement Saint-Lambert et ses environs, sur la Rive-Sud de Montréal. Appelez-nous ou envoyez-nous un SMS pour confirmer que nous couvrons votre secteur."
       },
       {
         "question": "Que se passe-t-il en cas de mauvais temps le jour de mon rendez-vous ?",
@@ -179,15 +202,13 @@
     "callNow": "Appelez",
     "sendSms": "Envoyez un SMS",
     "businessHours": "Heures d'ouverture",
-    "hours": "Lundi à Vendredi: 9:00 - 17:00. Samedi et Dimanche: Fermé"
+    "hours": "Lundi à Vendredi: 9:00 - 17:00. Samedi et Dimanche: Fermé",
+    "serviceArea": "Secteur desservi",
+    "serviceAreaValue": "Saint-Lambert et environs, Rive-Sud de Montréal"
   },
   "footer": {
     "about": "SuperVitre offre des services de lavage de vitres professionnels pour les résidences et les commerces. Obtenez une soumission gratuite dès aujourd'hui et laissez entrer la lumière !",
-    "categories": {
-      "product": "Produit",
-      "resources": "Ressources",
-      "company": "Entreprise"
-    },
+    "linksTitle": "Liens rapides",
     "rights": "Tous droits réservés.",
     "madeBy": "Fait par"
   },
@@ -214,6 +235,7 @@
         "name": "Antoine Laberge",
         "role": "Co-Fondateur"
       }
-    }
+    },
+    "cta": "Une question ou une soumission? Appelez-nous ou réservez en quelques minutes."
   }
 }

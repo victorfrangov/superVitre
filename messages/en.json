@@ -1,7 +1,10 @@
 {
   "meta": {
-    "title": "Residential Window Cleaning on the South Shore",
-    "description": "Professional window cleaning for a bright interior."
+    "title": "Window Cleaning Saint-Lambert & South Shore | SuperVitre",
+    "description": "Interior and exterior window cleaning in Saint-Lambert and on Montreal's South Shore. From $5 per window, frames included, no deposit. Pay cash or Interac.",
+    "aboutTitle": "About SuperVitre | Window Cleaning on the South Shore",
+    "aboutDescription": "Meet the SuperVitre team, a window cleaning company serving Saint-Lambert and Montreal's South Shore: careful work, clear prices, no deposit.",
+    "ogImageAlt": "SuperVitre, window cleaning in Saint-Lambert and on Montreal's South Shore"
   },
   "navigation": {
     "reservations": "Booking",
@@ -10,7 +13,7 @@
     "feedback": "Feedback",
     "faq": "FAQ",
     "about": "About Us",
-    "adminLogin": "Employee Login"
+    "home": "Home"
   },
   "cta": {
     "getStarted": "Book Now",
@@ -18,10 +21,9 @@
     "haveAQuestion": "Have a question?"
   },
   "hero": {
-    "title": "Residential Window Cleaning on the South Shore",
-    "description": "We offer window cleaning services for a bright and clean interior. Book now!",
-    "imageLoadError": "Error. Image not loaded.",
-    "imageAlt": "Image",
+    "title": "Window Cleaning in Saint-Lambert and on the South Shore",
+    "description": "Interior and exterior window cleaning in Saint-Lambert and across the South Shore, for a bright and clean home. Book now!",
+    "imageAlt": "SuperVitre technician cleaning the windows of a house with a telescopic pole",
     "benefits": {
       "noCreditCard": "No Deposit Needed",
       "trial": "Cash Payment",
@@ -31,10 +33,30 @@
   "beforeAfter": {
     "title": "Before and After",
     "description": "See the difference our professional window cleaning can make.",
-    "beforeImageAlt": "Before cleaning",
     "before": "Before",
     "after": "After",
-    "afterImageAlt": "After cleaning"
+    "zoom": "Enlarge photo",
+    "beforeAlts": [
+      "Dirty glass door with streaks on the glass, before cleaning",
+      "Dusty glass door bottom and sill before cleaning",
+      "Grimy glass door corner and frame before cleaning",
+      "Black window frame with dirt and cobwebs before cleaning",
+      "Triple window in a brick wall with dirty glass before cleaning",
+      "Dirty window glass and sill seen from inside, before cleaning",
+      "Open glass door with a grimy frame before cleaning",
+      "Gutter full of debris before cleaning"
+    ],
+    "afterAlts": [
+      "Clean, streak-free glass door after cleaning",
+      "Clean glass door bottom and frame after cleaning",
+      "Glass door corner and frame after cleaning",
+      "Clean black window frame and glass after cleaning",
+      "Triple window in a brick wall with clean glass after cleaning",
+      "Squeegee cleaning a glass balcony railing",
+      "Glass balcony railing after cleaning",
+      "Cleaned glass balcony panels",
+      "Brick house front with a clean triple window after cleaning"
+    ]
   },
   "features": {
     "badge": "Our Services",
@@ -74,7 +96,7 @@
     "steps": {
       "step1": {
         "title": "Book Your Service",
-        "description": "Choose a date and time that suits you via our simple online booking form or call us directly."
+        "description": "Call or text us to pick a date and time that suits you."
       },
       "step2": {
         "title": "Confirmation & Preparation",
@@ -104,7 +126,7 @@
     "description": "Choose the package that brightens your daily life. No hidden fees, no surprises.",
     "exteriorOnly": "Exterior only: ",
     "interiorExterior": "Interior + Exterior: ",
-    "borders": "Borders: ",
+    "borders": "Frames: ",
     "included": "Included",
     "smallWindows": {
       "title": "Small Windows",
@@ -141,6 +163,7 @@
     },
     "footer": {
       "averageCost": "Average cost per home: ",
+      "averageRange": "$180 – $350",
       "note": "Final price may vary depending on number of windows, size, accessibility, and number of floors. Contact us for a personalized quote."
     }
   },
@@ -151,7 +174,7 @@
     "questions": [
       {
         "question": "Which areas do you serve?",
-        "answer": "We primarily serve the Saint-Lambert region and its surroundings. You can check our service page or contact us directly to confirm if we cover your location."
+        "answer": "We primarily serve Saint-Lambert and its surroundings on Montreal's South Shore. Call or text us to confirm that we cover your area."
       },
       {
         "question": "What happens in case of bad weather on the day of my appointment?",
@@ -179,15 +202,13 @@
     "callNow": "Call",
     "sendSms": "Send a text",
     "businessHours": "Business hours",
-    "hours": "Monday to Friday: 9:00 - 17:00. Saturday and Sunday: Closed"
+    "hours": "Monday to Friday: 9:00 - 17:00. Saturday and Sunday: Closed",
+    "serviceArea": "Service area",
+    "serviceAreaValue": "Saint-Lambert and surroundings, Montreal's South Shore"
   },
   "footer": {
     "about": "SuperVitre offers professional window cleaning services for residences and businesses. Get a free quote today and let the light in!",
-    "categories": {
-      "product": "Product",
-      "resources": "Resources",
-      "company": "Company"
-    },
+    "linksTitle": "Quick links",
     "rights": "All rights reserved.",
     "madeBy": "Made by"
   },
@@ -214,6 +235,7 @@
         "name": "Antoine Laberge",
         "role": "Co-Founder"
       }
-    }
+    },
+    "cta": "A question or a quote? Call us or book in a few minutes."
   }
 }
