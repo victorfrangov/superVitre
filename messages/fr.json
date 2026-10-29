@@ -1,10 +1,10 @@
 {
   "meta": {
-    "title": "Lavage de vitres Saint-Lambert et Rive-Sud | SuperVitre",
-    "description": "Lavage de vitres intérieur et extérieur à Saint-Lambert et sur la Rive-Sud. Dès 5 $ par fenêtre, cadres inclus, sans dépôt. Paiement comptant ou Interac.",
+    "title": "Lavage de vitres sur la Rive-Sud de Montréal | SuperVitre",
+    "description": "Lavage de vitres partout sur la Rive-Sud : Longueuil, Brossard, Saint-Lambert, Boucherville et plus. Dès 5 $ par fenêtre, cadres inclus, sans dépôt.",
     "aboutTitle": "À propos de SuperVitre | Lavage de vitres sur la Rive-Sud",
-    "aboutDescription": "Rencontrez l'équipe de SuperVitre, entreprise de lavage de vitres qui dessert Saint-Lambert et la Rive-Sud : travail soigné, prix clairs, aucun dépôt.",
-    "ogImageAlt": "SuperVitre, lavage de vitres à Saint-Lambert et sur la Rive-Sud"
+    "aboutDescription": "Rencontrez l'équipe de SuperVitre, entreprise de lavage de vitres qui dessert toute la Rive-Sud de Montréal : travail soigné, prix clairs, aucun dépôt.",
+    "ogImageAlt": "SuperVitre, lavage de vitres partout sur la Rive-Sud de Montréal"
   },
   "navigation": {
     "reservations": "Réservation",
@@ -21,8 +21,8 @@
     "haveAQuestion": "Vous avez une question?"
   },
   "hero": {
-    "title": "Lavage de vitres à Saint-Lambert et sur la Rive-Sud",
-    "description": "Lavage de vitres intérieur et extérieur à Saint-Lambert et ailleurs sur la Rive-Sud, pour une maison lumineuse et propre. Réservez dès maintenant!",
+    "title": "Lavage de vitres sur toute la Rive-Sud",
+    "description": "Lavage de vitres intérieur et extérieur partout sur la Rive-Sud de Montréal, de Longueuil à Brossard, pour une maison lumineuse et propre. Réservez dès maintenant!",
     "imageAlt": "Technicien de SuperVitre qui lave les vitres d'une maison avec une perche télescopique",
     "benefits": {
       "noCreditCard": "Pas besoin de dépôt",
@@ -174,7 +174,7 @@
     "questions": [
       {
         "question": "Quelles zones desservez-vous ?",
-        "answer": "Nous desservons principalement Saint-Lambert et ses environs, sur la Rive-Sud de Montréal. Appelez-nous ou envoyez-nous un SMS pour confirmer que nous couvrons votre secteur."
+        "answer": "Nous desservons toute la Rive-Sud de Montréal, notamment Longueuil (y compris Saint-Hubert et Greenfield Park), Brossard, Saint-Lambert, Boucherville, Saint-Bruno-de-Montarville, La Prairie, Candiac, Chambly, Sainte-Julie et Varennes. Votre ville n'est pas dans la liste? Appelez-nous ou envoyez-nous un SMS."
       },
       {
         "question": "Que se passe-t-il en cas de mauvais temps le jour de mon rendez-vous ?",
@@ -204,7 +204,7 @@
     "businessHours": "Heures d'ouverture",
     "hours": "Lundi à Vendredi: 9:00 - 17:00. Samedi et Dimanche: Fermé",
     "serviceArea": "Secteur desservi",
-    "serviceAreaValue": "Saint-Lambert et environs, Rive-Sud de Montréal"
+    "serviceAreaValue": "Toute la Rive-Sud de Montréal"
   },
   "footer": {
     "about": "SuperVitre offre des services de lavage de vitres professionnels pour les résidences et les commerces. Obtenez une soumission gratuite dès aujourd'hui et laissez entrer la lumière !",

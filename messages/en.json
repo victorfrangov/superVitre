@@ -1,10 +1,10 @@
 {
   "meta": {
-    "title": "Window Cleaning Saint-Lambert & South Shore | SuperVitre",
-    "description": "Interior and exterior window cleaning in Saint-Lambert and on Montreal's South Shore. From $5 per window, frames included, no deposit. Pay cash or Interac.",
+    "title": "Window Cleaning on Montreal's South Shore | SuperVitre",
+    "description": "Window cleaning across the South Shore: Longueuil, Brossard, Saint-Lambert, Boucherville and more. From $5 per window, frames included, no deposit.",
     "aboutTitle": "About SuperVitre | Window Cleaning on the South Shore",
-    "aboutDescription": "Meet the SuperVitre team, a window cleaning company serving Saint-Lambert and Montreal's South Shore: careful work, clear prices, no deposit.",
-    "ogImageAlt": "SuperVitre, window cleaning in Saint-Lambert and on Montreal's South Shore"
+    "aboutDescription": "Meet the SuperVitre team, a window cleaning company serving all of Montreal's South Shore: careful work, clear prices, no deposit.",
+    "ogImageAlt": "SuperVitre, window cleaning across Montreal's South Shore"
   },
   "navigation": {
     "reservations": "Booking",
@@ -21,8 +21,8 @@
     "haveAQuestion": "Have a question?"
   },
   "hero": {
-    "title": "Window Cleaning in Saint-Lambert and on the South Shore",
-    "description": "Interior and exterior window cleaning in Saint-Lambert and across the South Shore, for a bright and clean home. Book now!",
+    "title": "Window Cleaning Across the South Shore",
+    "description": "Interior and exterior window cleaning across Montreal's South Shore, from Longueuil to Brossard, for a bright and clean home. Book now!",
     "imageAlt": "SuperVitre technician cleaning the windows of a house with a telescopic pole",
     "benefits": {
       "noCreditCard": "No Deposit Needed",
@@ -174,7 +174,7 @@
     "questions": [
       {
         "question": "Which areas do you serve?",
-        "answer": "We primarily serve Saint-Lambert and its surroundings on Montreal's South Shore. Call or text us to confirm that we cover your area."
+        "answer": "We serve all of Montreal's South Shore, including Longueuil (Saint-Hubert and Greenfield Park too), Brossard, Saint-Lambert, Boucherville, Saint-Bruno-de-Montarville, La Prairie, Candiac, Chambly, Sainte-Julie and Varennes. Don't see your town? Call or text us."
       },
       {
         "question": "What happens in case of bad weather on the day of my appointment?",
@@ -204,7 +204,7 @@
     "businessHours": "Business hours",
     "hours": "Monday to Friday: 9:00 - 17:00. Saturday and Sunday: Closed",
     "serviceArea": "Service area",
-    "serviceAreaValue": "Saint-Lambert and surroundings, Montreal's South Shore"
+    "serviceAreaValue": "All of Montreal's South Shore"
   },
   "footer": {
     "about": "SuperVitre offers professional window cleaning services for residences and businesses. Get a free quote today and let the light in!",

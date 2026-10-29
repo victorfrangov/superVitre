@@ -5,8 +5,20 @@ export const BUSINESS_NAME = "SuperVitre"
 
 export const PHONE = { display: "+1 (438) 503-8171", tel: "+14385038171" }
 
-// Towns named in areaServed. Add a town only where we really work (it should also appear in the FAQ and contact copy).
-export const SERVICE_AREA = ["Saint-Lambert"]
+// We serve the whole Rive-Sud. These are the towns named in areaServed; keep them in sync with
+// the first FAQ answer in messages/*.json, which lists the same towns.
+export const SERVICE_AREA = [
+  "Longueuil",
+  "Brossard",
+  "Saint-Lambert",
+  "Boucherville",
+  "Saint-Bruno-de-Montarville",
+  "La Prairie",
+  "Candiac",
+  "Chambly",
+  "Sainte-Julie",
+  "Varennes",
+]
 
 // Same hours as contact.hours in messages/*.json
 export const OPENING_HOURS = {
@@ -20,6 +32,6 @@ export const PRICE_RANGE = "180–350 CAD"
 
 // Day each page's copy last changed, for the sitemap's lastmod
 export const PAGES = [
-  { path: "", updated: "2026-10-28", priority: 1 },
-  { path: "/about", updated: "2026-10-28", priority: 0.5 },
+  { path: "", updated: "2026-10-29", priority: 1 },
+  { path: "/about", updated: "2026-10-29", priority: 0.5 },
 ]
