@@ -1,9 +1,9 @@
 {
   "meta": {
     "title": "Lavage de vitres sur la Rive-Sud de Montréal | SuperVitre",
-    "description": "Lavage de vitres partout sur la Rive-Sud : Longueuil, Brossard, Saint-Lambert, Boucherville et plus. Dès 5 $ par fenêtre, cadres inclus, sans dépôt.",
+    "description": "Lavage de vitres partout sur la Rive-Sud : Longueuil, Brossard, Saint-Lambert, Boucherville… 3 ans d'expérience, plus de 100 maisons, dès 5 $ la fenêtre.",
     "aboutTitle": "À propos de SuperVitre | Lavage de vitres sur la Rive-Sud",
-    "aboutDescription": "Rencontrez l'équipe de SuperVitre, entreprise de lavage de vitres qui dessert toute la Rive-Sud de Montréal : travail soigné, prix clairs, aucun dépôt.",
+    "aboutDescription": "SuperVitre, c'est Elliot et son équipe d'étudiants : 3 ans d'expérience et plus de 100 maisons lavées sur la Rive-Sud de Montréal. Prix clairs, sans dépôt.",
     "ogImageAlt": "SuperVitre, lavage de vitres partout sur la Rive-Sud de Montréal"
   },
   "navigation": {
@@ -13,22 +13,30 @@
     "feedback": "Donnez votre avis",
     "faq": "FAQ",
     "about": "À propos",
-    "home": "Accueil"
+    "home": "Accueil",
+    "results": "Réalisations"
   },
   "cta": {
     "getStarted": "Réserver",
     "reserve": "Réserver",
-    "haveAQuestion": "Vous avez une question?"
+    "haveAQuestion": "Vous avez une question?",
+    "call": "Appeler"
   },
   "hero": {
     "title": "Lavage de vitres sur toute la Rive-Sud",
-    "description": "Lavage de vitres intérieur et extérieur partout sur la Rive-Sud de Montréal, de Longueuil à Brossard, pour une maison lumineuse et propre. Réservez dès maintenant!",
+    "description": "Vitres intérieures et extérieures, cadres inclus, de Longueuil à Brossard. Une équipe étudiante locale, des prix affichés et aucun dépôt.",
     "imageAlt": "Technicien de SuperVitre qui lave les vitres d'une maison avec une perche télescopique",
     "benefits": {
       "noCreditCard": "Pas besoin de dépôt",
       "trial": "Paiement en espèces",
       "cancelAnytime": "Annulez à tout moment"
-    }
+    },
+    "eyebrow": "Lavage de vitres · Rive-Sud de Montréal",
+    "titleHighlight": "Rive-Sud",
+    "callLabel": "Appeler",
+    "badgeTitle": "Plus de 100 maisons",
+    "badgeText": "lavées sur la Rive-Sud",
+    "teamChip": "Équipe étudiante locale"
   },
   "beforeAfter": {
     "title": "Avant et Après",
@@ -56,7 +64,8 @@
       "Rampe de balcon en verre propre après le lavage",
       "Panneaux de verre de balcon nettoyés",
       "Façade de brique avec une fenêtre triple propre après le lavage"
-    ]
+    ],
+    "eyebrow": "Nos réalisations"
   },
   "features": {
     "badge": "Nos Services",
@@ -95,7 +104,7 @@
     "description": "Découvrez comment nous rendons vos vitres impeccables, rapidement et efficacement.",
     "steps": {
       "step1": {
-        "title": "Réservez Votre Service",
+        "title": "Choisissez votre date",
         "description": "Appelez-nous ou envoyez-nous un SMS pour choisir une date et une heure qui vous conviennent."
       },
       "step2": {
@@ -107,19 +116,6 @@
         "description": "Nos experts nettoient vos vitres avec soin et professionnalisme, vous laissant profiter d'une vue claire et d'une maison plus lumineuse."
       }
     }
-  },
-  "testimonials": {
-    "badge": "Témoignages",
-    "title": "Ce Que Disent Nos Clients",
-    "description": "Ne vous fiez pas seulement à notre parole. Voyez ce que nos clients ont à dire sur leur expérience.",
-    "defaultAuthorName": "Utilisateur Anonyme",
-    "customerRole": "Client Estimé",
-    "residential": "Résidentiel",
-    "commercial": "Commercial",
-    "customer": "Client",
-    "noFeedback": "Aucun témoignage à afficher pour le moment.",
-    "leaveReview": "Vous avez eu une bonne expérience avec nous ?",
-    "shareFeedback": "Partagez votre avis"
   },
   "pricing": {
     "title": "Tarification Simple et Transparente",
@@ -164,8 +160,15 @@
     "footer": {
       "averageCost": "Coût moyen pour une maison de taille moyenne : ",
       "averageRange": "180 $ – 350 $",
-      "note": "*Tous les prix sont estimés et peuvent varier en fonction de la taille et de l'état des fenêtres. Contactez-nous pour un devis personnalisé."
-    }
+      "note": "*Tous les prix sont estimés et peuvent varier en fonction de la taille et de l'état des fenêtres. Contactez-nous pour un devis personnalisé.",
+      "cta": "Obtenir mon prix"
+    },
+    "units": {
+      "window": "fenêtre",
+      "screen": "moustiquaire"
+    },
+    "catalogName": "Tarifs du lavage de vitres",
+    "eyebrow": "Tarifs"
   },
   "faq": {
     "badge": "FAQ",
@@ -192,12 +195,14 @@
         "question": "Que faire si je ne suis pas satisfait du nettoyage ?",
         "answer": "Votre satisfaction est notre garantie. Si vous n'êtes pas entièrement satisfait du résultat, veuillez nous contacter dans les 24 heures et nous reviendrons corriger la situation sans frais."
       }
-    ]
+    ],
+    "moreTitle": "Vous ne trouvez pas votre réponse?",
+    "moreText": "Appelez-nous ou envoyez un SMS : on répond en semaine, de 9 h à 17 h."
   },
   "contact": {
     "badge": "Contactez-Nous",
-    "title": "Réservez Votre Service",
-    "subtitle": "Réservation simple et rapide. Satisfaction garantie.",
+    "title": "Réservez votre lavage de vitres",
+    "subtitle": "Un appel ou un SMS suffit. On vous donne le prix et on choisit une date ensemble.",
     "callUs": "Appelez-nous",
     "callNow": "Appelez",
     "sendSms": "Envoyez un SMS",
@@ -207,7 +212,7 @@
     "serviceAreaValue": "Toute la Rive-Sud de Montréal"
   },
   "footer": {
-    "about": "SuperVitre offre des services de lavage de vitres professionnels pour les résidences et les commerces. Obtenez une soumission gratuite dès aujourd'hui et laissez entrer la lumière !",
+    "about": "Lavage de vitres résidentiel sur toute la Rive-Sud de Montréal, par Elliot et son équipe d'étudiants depuis 3 ans.",
     "linksTitle": "Liens rapides",
     "rights": "Tous droits réservés.",
     "madeBy": "Fait par"
@@ -219,13 +224,20 @@
     "changeLanguage": "Changer de langue"
   },
   "about": {
-    "title": "À Propos de SuperVitre",
-    "description": "Chez SuperVitre, nous croyons que des fenêtres propres transforment votre espace de vie. Notre équipe passionnée s'engage à fournir un service de lavage de vitres exceptionnel, alliant professionnalisme et souci du détail. Que ce soit pour votre maison ou votre entreprise, nous sommes là pour vous offrir une vue claire et éclatante.",
-    "ourValuesTitle": "Nous aspirons à être le leader du lavage de vitres sur la Rive-Sud, reconnu pour notre qualité et notre service client.",
+    "title": "À propos de SuperVitre",
+    "lead": "SuperVitre, c'est Elliot et son équipe d'étudiants. Depuis trois ans, nous lavons les vitres des maisons de la Rive-Sud de Montréal : plus de 100 maisons à ce jour, de Longueuil à Brossard.",
+    "storyTitle": "Notre histoire",
+    "story": [
+      "SuperVitre a été lancée par Elliot il y a trois ans. L'entreprise a grandi depuis et compte aujourd'hui une équipe d'employés, tous étudiants, qui lavent les vitres des maisons partout sur la Rive-Sud.",
+      "Plus de 100 maisons plus tard, notre façon de travailler n'a pas changé. On lave l'intérieur et l'extérieur, les cadres sont inclus, on vous donne le prix avant de commencer, et on revient si le résultat ne vous convient pas."
+    ],
+    "storyImageAlt": "Employé de SuperVitre qui lave une fenêtre triple sur une maison en brique",
+    "teamTitle": "L'équipe",
+    "teamDescription": "Elliot dirige SuperVitre et une équipe d'employés étudiants qui travaillent sur le terrain partout sur la Rive-Sud.",
     "team": {
       "member1": {
         "name": "Elliot Fauchon-Roy",
-        "role": "Fondateur"
+        "role": "Fondateur et président"
       },
       "member2": {
         "name": "Victor Frangov",
@@ -234,8 +246,70 @@
       "member3": {
         "name": "Antoine Laberge",
         "role": "Co-Fondateur"
+      },
+      "crew": {
+        "name": "Nos employés étudiants",
+        "role": "Sur le terrain, partout sur la Rive-Sud"
       }
     },
-    "cta": "Une question ou une soumission? Appelez-nous ou réservez en quelques minutes."
+    "crewImageAlt": "Employé de SuperVitre en chandail SuperVitre qui lave des vitres avec une perche",
+    "promisesTitle": "Ce que vous pouvez attendre de nous",
+    "promises": [
+      {
+        "title": "Des prix clairs",
+        "text": "Nos tarifs sont affichés sur le site, et on vous donne le prix exact avant de commencer."
+      },
+      {
+        "title": "Aucun dépôt",
+        "text": "Vous payez une fois le travail terminé, en argent comptant ou par virement Interac."
+      },
+      {
+        "title": "Cadres inclus",
+        "text": "Les cadres sont lavés avec les vitres, sans frais supplémentaires."
+      },
+      {
+        "title": "Satisfaction garantie",
+        "text": "Si quelque chose ne vous convient pas, appelez-nous dans les 24 heures et on revient sans frais."
+      }
+    ],
+    "areaTitle": "Où nous travaillons",
+    "areaText": "Nous desservons toute la Rive-Sud de Montréal, notamment :",
+    "areaMore": "Votre ville n'est pas dans la liste? Appelez-nous, on se déplace probablement chez vous.",
+    "ctaTitle": "Prêt pour des vitres propres?",
+    "cta": "Une question ou une soumission? Appelez-nous ou envoyez un SMS, on vous répond en semaine."
+  },
+  "stats": {
+    "years": {
+      "value": "3 ans",
+      "label": "d'expérience"
+    },
+    "houses": {
+      "value": "100+",
+      "label": "maisons lavées"
+    },
+    "price": {
+      "value": "Dès 5 $",
+      "label": "par fenêtre"
+    },
+    "team": {
+      "value": "Étudiants",
+      "label": "une équipe locale"
+    },
+    "area": {
+      "value": "10 villes",
+      "label": "sur la Rive-Sud"
+    }
+  },
+  "team": {
+    "badge": "Qui sommes-nous",
+    "title": "Une équipe étudiante de la Rive-Sud",
+    "description": "Lancée par Elliot il y a trois ans, SuperVitre compte aujourd'hui une équipe d'employés étudiants qui a lavé les vitres de plus de 100 maisons, de Longueuil à Brossard.",
+    "points": [
+      "Une équipe d'étudiants d'ici, menée par Elliot",
+      "Des prix affichés, et le prix exact avant de commencer",
+      "On revient sans frais si le résultat ne vous convient pas"
+    ],
+    "link": "Rencontrer l'équipe",
+    "imageAlt": "Employé de SuperVitre qui lave le haut des fenêtres d'une maison avec une perche télescopique"
   }
 }

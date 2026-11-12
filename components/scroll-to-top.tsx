@@ -1,31 +1,31 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { motion } from "framer-motion"
 import { ArrowUp } from "lucide-react"
 
-// Floating button that appears once the page is scrolled
+// Floating button that appears once the page is scrolled past the first screen
 export function ScrollToTop({ label }: { label: string }) {
   const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 10)
-    window.addEventListener("scroll", handleScroll)
+    const handleScroll = () => setIsScrolled(window.scrollY > 600)
+    handleScroll()
+    window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  if (!isScrolled) return null
-
   return (
-    <motion.button
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.8 }}
-      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      className="fixed bottom-6 right-6 size-12 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center z-50 hover:bg-primary/90 transition-colors"
+    <button
+      type="button"
+      onClick={() => window.scrollTo({ top: 0 })}
+      className={`fixed bottom-6 right-6 z-50 flex size-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-all duration-200 hover:bg-primary/90 ${
+        isScrolled ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"
+      }`}
       aria-label={label}
+      aria-hidden={!isScrolled}
+      tabIndex={isScrolled ? 0 : -1}
     >
       <ArrowUp className="size-5" />
-    </motion.button>
+    </button>
   )
 }

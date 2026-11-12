@@ -2,50 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Colors from the logo: navy #0b345d and sky blue #a7d2f1 */
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+    --foreground: 212 64% 13%;
     --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --card-foreground: 212 64% 13%;
     --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 221 83% 53%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
+    --popover-foreground: 212 64% 13%;
+    --primary: 205 78% 34%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 205 70% 95%;
+    --secondary-foreground: 210 79% 20%;
+    --muted: 205 45% 97%;
+    --muted-foreground: 212 18% 38%;
+    --accent: 205 70% 94%;
+    --accent-foreground: 210 79% 20%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 221 83% 53%;
+    --border: 207 35% 89%;
+    --input: 207 35% 85%;
+    --ring: 205 78% 40%;
     --radius: 1rem;
+    /* Brand surfaces: the contact band and the stat tiles */
+    --navy: 210 79% 20%;
+    --navy-foreground: 0 0% 100%;
+    --sky: 205 72% 80%;
   }
 
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 217 91% 60%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
+    --background: 212 55% 7%;
+    --foreground: 205 40% 96%;
+    --card: 212 45% 10%;
+    --card-foreground: 205 40% 96%;
+    --popover: 212 45% 10%;
+    --popover-foreground: 205 40% 96%;
+    --primary: 205 80% 72%;
+    --primary-foreground: 212 70% 12%;
+    --secondary: 212 40% 15%;
+    --secondary-foreground: 205 40% 96%;
+    --muted: 212 42% 10%;
+    --muted-foreground: 210 18% 70%;
+    --accent: 212 40% 16%;
+    --accent-foreground: 205 40% 96%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 217 91% 60%;
+    --border: 212 30% 19%;
+    --input: 212 30% 24%;
+    --ring: 205 80% 72%;
+    --navy: 211 62% 14%;
+    --navy-foreground: 205 40% 96%;
+    --sky: 205 72% 80%;
   }
 }
 
@@ -57,23 +65,84 @@
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+    text-wrap: balance;
+  }
+  /* Anchored sections clear the sticky header */
+  [id] {
+    scroll-margin-top: 5rem;
+  }
 }
 
-.animate-in {
-  animation: animate-in 0.5s ease-out;
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Fade-in on scroll, in CSS only: the content is always in the HTML and visible without JavaScript,
+     and browsers without scroll-driven animations just show it */
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+  }
+
+  /* Before/after strips; with reduced motion they become plain horizontal scrollers */
+  .marquee-left {
+    animation: marquee-left 70s linear infinite;
+  }
+  .marquee-right {
+    animation: marquee-right 70s linear infinite;
+  }
+  .marquee-left:hover,
+  .marquee-right:hover,
+  .marquee-left:focus-within,
+  .marquee-right:focus-within {
+    animation-play-state: paused;
+  }
 }
 
-@keyframes animate-in {
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    overflow-x: auto;
+  }
+}
+
+@keyframes reveal {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    translate: 0 24px;
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    translate: 0 0;
   }
 }
 
-.grecaptcha-badge { 
-    visibility: hidden !important;
+@keyframes marquee-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Soft fade at both ends of the before/after strips */
+.marquee-mask {
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
 }

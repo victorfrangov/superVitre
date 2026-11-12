@@ -30,8 +30,22 @@ export const OPENING_HOURS = {
 // Average job for a mid-sized house, from pricing.footer in messages/*.json
 export const PRICE_RANGE = "180–350 CAD"
 
+// Prices per unit in CAD, for the structured data. Same numbers as the pricing section (pricing.* in messages/*.json).
+export const PRICES = {
+  smallExterior: [5, 8],
+  smallInteriorExterior: [8, 12],
+  largeExterior: [8, 12],
+  largeInteriorExterior: [16, 20],
+  screens: [3, 5],
+  seal: [1, 3],
+} as const
+
+// Shown in the stats on the home and about pages (stats.* in messages/*.json). Update them as the business grows.
+export const FOUNDING_YEAR = "2023" // 3 years of experience as of 2026
+export const FOUNDER = "Elliot Fauchon-Roy"
+
 // Day each page's copy last changed, for the sitemap's lastmod
 export const PAGES = [
-  { path: "", updated: "2026-10-29", priority: 1 },
-  { path: "/about", updated: "2026-10-29", priority: 0.5 },
+  { path: "", updated: "2026-11-12", priority: 1 },
+  { path: "/about", updated: "2026-11-12", priority: 0.5 },
 ]

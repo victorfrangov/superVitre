@@ -1,9 +1,9 @@
 {
   "meta": {
     "title": "Window Cleaning on Montreal's South Shore | SuperVitre",
-    "description": "Window cleaning across the South Shore: Longueuil, Brossard, Saint-Lambert, Boucherville and more. From $5 per window, frames included, no deposit.",
+    "description": "Window cleaning across the South Shore: Longueuil, Brossard, Saint-Lambert, Boucherville and more. 3 years, 100+ homes cleaned, from $5 per window.",
     "aboutTitle": "About SuperVitre | Window Cleaning on the South Shore",
-    "aboutDescription": "Meet the SuperVitre team, a window cleaning company serving all of Montreal's South Shore: careful work, clear prices, no deposit.",
+    "aboutDescription": "SuperVitre is Elliot and a team of students: 3 years of experience and over 100 homes cleaned on Montreal's South Shore. Clear prices, no deposit.",
     "ogImageAlt": "SuperVitre, window cleaning across Montreal's South Shore"
   },
   "navigation": {
@@ -13,22 +13,30 @@
     "feedback": "Feedback",
     "faq": "FAQ",
     "about": "About Us",
-    "home": "Home"
+    "home": "Home",
+    "results": "Our work"
   },
   "cta": {
     "getStarted": "Book Now",
     "reserve": "Book Now",
-    "haveAQuestion": "Have a question?"
+    "haveAQuestion": "Have a question?",
+    "call": "Call"
   },
   "hero": {
     "title": "Window Cleaning Across the South Shore",
-    "description": "Interior and exterior window cleaning across Montreal's South Shore, from Longueuil to Brossard, for a bright and clean home. Book now!",
+    "description": "Interior and exterior windows, frames included, from Longueuil to Brossard. A local team of students, posted prices and no deposit.",
     "imageAlt": "SuperVitre technician cleaning the windows of a house with a telescopic pole",
     "benefits": {
       "noCreditCard": "No Deposit Needed",
       "trial": "Cash Payment",
       "cancelAnytime": "Cancel Anytime"
-    }
+    },
+    "eyebrow": "Window cleaning · Montreal's South Shore",
+    "titleHighlight": "South Shore",
+    "callLabel": "Call",
+    "badgeTitle": "Over 100 homes",
+    "badgeText": "cleaned on the South Shore",
+    "teamChip": "Local student team"
   },
   "beforeAfter": {
     "title": "Before and After",
@@ -56,7 +64,8 @@
       "Glass balcony railing after cleaning",
       "Cleaned glass balcony panels",
       "Brick house front with a clean triple window after cleaning"
-    ]
+    ],
+    "eyebrow": "Our work"
   },
   "features": {
     "badge": "Our Services",
@@ -95,7 +104,7 @@
     "description": "Discover how we make your windows spotless, quickly and efficiently.",
     "steps": {
       "step1": {
-        "title": "Book Your Service",
+        "title": "Pick a date",
         "description": "Call or text us to pick a date and time that suits you."
       },
       "step2": {
@@ -107,19 +116,6 @@
         "description": "Our experts clean your windows with care and professionalism, leaving you to enjoy a clear view and a brighter home."
       }
     }
-  },
-  "testimonials": {
-    "badge": "Testimonials",
-    "title": "What Our Customers Say",
-    "description": "Don't just take our word for it. See what our customers have to say about their experience.",
-    "defaultAuthorName": "Anonymous User",
-    "customerRole": "Valued Customer",
-    "residential": "Residential",
-    "commercial": "Commercial",
-    "customer": "Customer",
-    "noFeedback": "No testimonials to display at the moment.",
-    "leaveReview": "Had a good experience with us?",
-    "shareFeedback": "Share your feedback"
   },
   "pricing": {
     "title": "Simple and Transparent Pricing",
@@ -164,8 +160,15 @@
     "footer": {
       "averageCost": "Average cost per home: ",
       "averageRange": "$180 – $350",
-      "note": "Final price may vary depending on number of windows, size, accessibility, and number of floors. Contact us for a personalized quote."
-    }
+      "note": "Final price may vary depending on number of windows, size, accessibility, and number of floors. Contact us for a personalized quote.",
+      "cta": "Get my price"
+    },
+    "units": {
+      "window": "window",
+      "screen": "screen"
+    },
+    "catalogName": "Window cleaning prices",
+    "eyebrow": "Pricing"
   },
   "faq": {
     "badge": "FAQ",
@@ -192,12 +195,14 @@
         "question": "What if I'm not satisfied with the cleaning?",
         "answer": "Your satisfaction is our guarantee. If you are not completely satisfied with the result, please contact us within 24 hours, and we will return to correct the situation at no charge."
       }
-    ]
+    ],
+    "moreTitle": "Can't find your answer?",
+    "moreText": "Call or text us: we answer on weekdays, 9 a.m. to 5 p.m."
   },
   "contact": {
     "badge": "Contact Us",
-    "title": "Book Your Service",
-    "subtitle": "Simple and quick booking. Satisfaction guaranteed.",
+    "title": "Book your window cleaning",
+    "subtitle": "One call or text is all it takes. We give you the price and pick a date together.",
     "callUs": "Call us",
     "callNow": "Call",
     "sendSms": "Send a text",
@@ -207,7 +212,7 @@
     "serviceAreaValue": "All of Montreal's South Shore"
   },
   "footer": {
-    "about": "SuperVitre offers professional window cleaning services for residences and businesses. Get a free quote today and let the light in!",
+    "about": "Residential window cleaning across Montreal's South Shore, by Elliot and a team of students for 3 years.",
     "linksTitle": "Quick links",
     "rights": "All rights reserved.",
     "madeBy": "Made by"
@@ -220,12 +225,19 @@
   },
   "about": {
     "title": "About SuperVitre",
-    "description": "At SuperVitre, we believe that clean windows transform your living space. Our passionate team is committed to providing exceptional window cleaning service, combining professionalism and attention to detail. Whether for your home or business, we are here to offer you a clear and sparkling view.",
-    "ourValuesTitle": "We aspire to be the leader in window cleaning on the South Shore, recognized for our quality and customer service.",
+    "lead": "SuperVitre is Elliot and a team of students. For three years we have been cleaning the windows of homes on Montreal's South Shore: more than 100 homes so far, from Longueuil to Brossard.",
+    "storyTitle": "Our story",
+    "story": [
+      "Elliot started SuperVitre three years ago. The company has grown since: Elliot now leads a team of employees, all of them students, who clean windows at homes across the South Shore.",
+      "More than 100 homes later, the way we work hasn't changed. We clean inside and out, frames are included, we give you the price before we start, and we come back if you're not happy with the result."
+    ],
+    "storyImageAlt": "SuperVitre employee cleaning a triple window on a brick house",
+    "teamTitle": "The team",
+    "teamDescription": "Elliot runs SuperVitre and leads a team of student employees who work on site across the South Shore.",
     "team": {
       "member1": {
         "name": "Elliot Fauchon-Roy",
-        "role": "Founder"
+        "role": "Founder & CEO"
       },
       "member2": {
         "name": "Victor Frangov",
@@ -234,8 +246,70 @@
       "member3": {
         "name": "Antoine Laberge",
         "role": "Co-Founder"
+      },
+      "crew": {
+        "name": "Our student employees",
+        "role": "On site, all over the South Shore"
       }
     },
-    "cta": "A question or a quote? Call us or book in a few minutes."
+    "crewImageAlt": "SuperVitre employee in a SuperVitre shirt cleaning windows with a pole",
+    "promisesTitle": "What you can expect from us",
+    "promises": [
+      {
+        "title": "Clear prices",
+        "text": "Our rates are posted on the site, and we give you the exact price before we start."
+      },
+      {
+        "title": "No deposit",
+        "text": "You pay once the job is done, in cash or by Interac e-Transfer."
+      },
+      {
+        "title": "Frames included",
+        "text": "Frames are cleaned along with the glass, at no extra cost."
+      },
+      {
+        "title": "Satisfaction guaranteed",
+        "text": "If something isn't right, call us within 24 hours and we come back for free."
+      }
+    ],
+    "areaTitle": "Where we work",
+    "areaText": "We serve all of Montreal's South Shore, including:",
+    "areaMore": "Your town isn't listed? Call us, we most likely come to you.",
+    "ctaTitle": "Ready for clean windows?",
+    "cta": "A question or a quote? Call or text us, we answer on weekdays."
+  },
+  "stats": {
+    "years": {
+      "value": "3 years",
+      "label": "of experience"
+    },
+    "houses": {
+      "value": "100+",
+      "label": "homes cleaned"
+    },
+    "price": {
+      "value": "From $5",
+      "label": "per window"
+    },
+    "team": {
+      "value": "Students",
+      "label": "a local team"
+    },
+    "area": {
+      "value": "10 towns",
+      "label": "on the South Shore"
+    }
+  },
+  "team": {
+    "badge": "Who we are",
+    "title": "A team of students from the South Shore",
+    "description": "Elliot started SuperVitre three years ago and now leads a team of student employees who have cleaned the windows of more than 100 homes, from Longueuil to Brossard.",
+    "points": [
+      "A local team of students, led by Elliot",
+      "Posted prices, and the exact price before we start",
+      "We come back for free if you're not happy with the result"
+    ],
+    "link": "Meet the team",
+    "imageAlt": "SuperVitre employee cleaning the upper windows of a house with a telescopic pole"
   }
 }

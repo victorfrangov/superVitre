@@ -1,22 +1,36 @@
-import { BUSINESS_NAME, OPENING_HOURS, PHONE, PRICE_RANGE, SERVICE_AREA, SITE_URL } from "@/lib/business"
+import {
+  BUSINESS_NAME,
+  FOUNDER,
+  FOUNDING_YEAR,
+  OPENING_HOURS,
+  PHONE,
+  PRICE_RANGE,
+  PRICES,
+  SERVICE_AREA,
+  SITE_URL,
+} from "@/lib/business"
 
 // schema.org helpers. Google reads each page's structured data on its own, so every page carries the business node.
 export const BUSINESS_ID = `${SITE_URL}/#business`
 export const WEBSITE_ID = `${SITE_URL}/#website`
+export const FOUNDER_ID = `${SITE_URL}/#founder`
 
-export function localBusiness(locale: string, description: string) {
+export function localBusiness(locale: string, description: string, founderTitle: string) {
   return {
-    "@type": "LocalBusiness",
+    // A LocalBusiness subtype; schema.org has no window-cleaning type
+    "@type": "HomeAndConstructionBusiness",
     "@id": BUSINESS_ID,
     name: BUSINESS_NAME,
     description,
     url: SITE_URL,
     logo: `${SITE_URL}/logo.webp`,
-    image: [`${SITE_URL}/og-${locale}.jpg`, `${SITE_URL}/hero-2.webp`],
+    image: [`${SITE_URL}/og-${locale}.jpg`, `${SITE_URL}/hero-2.webp`, `${SITE_URL}/hero-1.webp`],
     telephone: PHONE.tel,
     priceRange: PRICE_RANGE,
     currenciesAccepted: "CAD",
     paymentAccepted: "Cash, Interac e-Transfer",
+    foundingDate: FOUNDING_YEAR,
+    founder: { "@type": "Person", "@id": FOUNDER_ID, name: FOUNDER, jobTitle: founderTitle },
     // Service-area business: no public street address
     address: { "@type": "PostalAddress", addressRegion: "QC", addressCountry: "CA" },
     areaServed: [
@@ -30,6 +44,33 @@ export function localBusiness(locale: string, description: string) {
       closes: OPENING_HOURS.closes,
     },
     knowsLanguage: ["fr", "en"],
+  }
+}
+
+// The pricing section as an offer catalog. names holds the localized label of each PRICES entry, plus the unit names.
+export function offerCatalog(
+  name: string,
+  names: Record<keyof typeof PRICES, string>,
+  units: { window: string; screen: string },
+) {
+  return {
+    "@type": "OfferCatalog",
+    "@id": `${SITE_URL}/#prices`,
+    name,
+    itemListElement: (Object.keys(PRICES) as (keyof typeof PRICES)[]).map((key) => {
+      const [min, max] = PRICES[key]
+      return {
+        "@type": "Offer",
+        itemOffered: { "@type": "Service", name: names[key], provider: { "@id": BUSINESS_ID } },
+        priceSpecification: {
+          "@type": "UnitPriceSpecification",
+          minPrice: min,
+          maxPrice: max,
+          priceCurrency: "CAD",
+          unitText: key === "screens" ? units.screen : units.window,
+        },
+      }
+    }),
   }
 }
 
@@ -66,4 +107,11 @@ export function breadcrumbList(items: { name: string; url: string }[]) {
 
 export function graph(...nodes: unknown[]) {
   return { "@context": "https://schema.org", "@graph": nodes }
+}
+
+// The <script> tag carrying a page's JSON-LD; "<" is escaped so the data can't close the tag
+export function JsonLd({ data }: { data: unknown }) {
+  return (
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }} />
+  )
 }
